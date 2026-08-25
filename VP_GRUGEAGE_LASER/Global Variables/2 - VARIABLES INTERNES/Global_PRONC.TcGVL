@@ -70,9 +70,8 @@ VAR_GLOBAL
 	
 //pas possible de les desactiver dans driver, icone masquee
 	Pnc_outil2_U1,Pnc_outil2_U2,Pnc_outil2_U3		:ARRAY [1..50] OF LREAL; (*Paramètres pour le nouveau Pupitre/ Joystick*)
-
-//Test
-test2	:BOOL;
+//Push test
+PushTest3	:INT;
 
 END_VAR
 ]]></Declaration>
