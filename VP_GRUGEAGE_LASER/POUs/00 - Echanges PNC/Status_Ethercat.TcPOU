@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Status_Ethercat" Id="{83bd81d5-b01c-4315-8550-6bc62452581e}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Status_ethercat	//Tu es là
+VAR
+	TON_Start_System				:TON;
+	TON_Scan_Reseaux_Ethercat		:TON;
+	NetId 								:T_AmsNetId := '21.63.21.63.2.1';	(*Netid correspondant à celui du réseaux éthercat*)
+	Execute_Recuperation_Info_Ethercat		:BOOL :=TRUE;					(*Permet l'éxecution de la fb_ecgetconfslaves, initaliser à true pour l'éxecuter lors du démarrage*)
+	FB_EcGetConfSlaves					:FB_EcGetConfSlaves;				(*Bloc fonction qui à l'aide d'un pointeur va venir écrire toute les informations d'un ou plusieurs éléments éthercat du réseau*)
+		FE_FB_EcGetConfSlaves				:F_TRIG;						(*Permet d'indiquer que la FB a bien effectué tout son cycle *)
+	Execute_Recuperation_Etat_Esclaves_Ethercat	:BOOL;                   
+	FB_GetAllSlaveStates   						:FB_EcGetAllSlaveStates; 
+		FE_FB_GetAllSlaveStates						:F_TRIG;				(* Permet d'indiquer que la fb a bien effectué tout son cycle *)
+	Execute_Recuperation_Etat_Maitre_Ethercat	:BOOL;
+	FB_GetMasterState        					:FB_EcGetMasterState;
+		FE_FB_GetMasterState					:F_TRIG;
+		State_Maitre_Ethercat						:WORD;
+	Index				:INT;
+	TC_Restart1:TC_Restart;
+	tt: INT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[TON_Scan_Reseaux_Ethercat(In:= NOT TON_Scan_Reseaux_Ethercat.Q, pt:=T#3S);
+
+IF NOT Defaut_Bus_de_Terrain AND TON_Scan_Reseaux_Ethercat.Q THEN
+	Execute_Recuperation_Info_Ethercat := TRUE;
+END_IF
+
+FB_EcGetConfSlaves (sNetId:= NetId,
+					pArrEcConfSlaveInfo := ADR(Tableau_Esclaves),
+					cbBufLen := SIZEOF(Tableau_Esclaves),
+					bExecute:= Execute_Recuperation_Info_Ethercat);
+
+FE_FB_EcGetConfSlaves(clk:=FB_EcGetConfSlaves.bBusy);
+
+IF Execute_Recuperation_Info_Ethercat AND FE_FB_EcGetConfSlaves.Q THEN
+	Execute_Recuperation_Info_Ethercat := FALSE;
+	Execute_Recuperation_Etat_Esclaves_Ethercat := TRUE;
+END_IF
+
+FB_GetAllSlaveStates(sNetId:= NetId,
+					pStateBuf := ADR(Tableau_Etat_Ethercat),
+					cbBufLen:=SIZEOF(Tableau_Etat_Ethercat),
+					bExecute:=Execute_Recuperation_Etat_Esclaves_Ethercat);
+
+FE_FB_GetAllSlaveStates(clk:=FB_GetAllSlaveStates.bBusy);
+
+IF Execute_Recuperation_Etat_Esclaves_Ethercat AND FE_FB_GetAllSlaveStates.Q THEN
+	Execute_Recuperation_Etat_Esclaves_Ethercat := FALSE;
+	Execute_Recuperation_Etat_Maitre_Ethercat := TRUE;
+END_IF
+
+FB_GetMasterState(sNetId:= NetId,
+				    bExecute:=Execute_Recuperation_Etat_Maitre_Ethercat);
+
+State_Maitre_Ethercat:=FB_GetMasterState.State;
+
+FE_FB_GetMasterState(clk:=FB_GetMasterState.bBusy);
+
+IF Execute_Recuperation_Etat_Maitre_Ethercat AND FE_FB_GetMasterState.Q THEN
+	Execute_Recuperation_Etat_Maitre_Ethercat := FALSE;
+END_IF
+
+(*Defaut Bus de Terrain*)
+TON_Start_System(in:=TRUE,pt:=t#10s);
+
+IF TON_Start_System.Q THEN
+
+	FOR Index :=0 TO (FB_EcGetConfSlaves.nSlaves-1) DO
+		IF NOT Defaut_Bus_de_Terrain AND FE_FB_GetAllSlaveStates.Q THEN
+			Defaut_Bus_de_Terrain := (Tableau_Etat_Ethercat[index].deviceState <>8 OR Tableau_Etat_Ethercat[index].linkState <>0 OR State_Maitre_Ethercat <>8);
+		ELSIF Bp_Annul_Defauts THEN
+			Defaut_Bus_de_Terrain:= FALSE;
+		END_IF
+	END_FOR
+
+END_IF
+
+(*IHM*)
+State_Maitre_Ethercat_Visu := WORD_TO_INT (State_Maitre_Ethercat);
+
+IF Tab_affichage[1] <> n+1 THEN
+	FOR index :=0 TO 29 DO
+		Tab_affichage[index] :=n+index;
+	END_FOR
+END_IF
+
+TC_Restart1();	(*Cette fonction sert à redemmarrer Twincat, equivaut au "System" "Restart" du menu systeme*)
+TC_Restart1.NETID:='';
+TC_Restart1.RESTART:=	RE_Bp_Annul_Defauts.Q
+						AND State_Maitre_Ethercat <>8
+						(*AND Alimentations_24V_OK_V1_ES
+						AND Alimentations_24V_OK_V2_ES
+						AND (Alimentations_24V_OK_V3_PC OR NOT Presence_Alim_24V_V2_ES)
+						AND (Alimentations_24V_OK_V4_VS OR NOT Presence_Alim_24V_V4_VS)
+						AND (Alimentation_24V_Scie_OK OR NOT Presence_Scie)*) ;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

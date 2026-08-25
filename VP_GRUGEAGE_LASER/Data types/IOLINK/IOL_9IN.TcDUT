@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="IOL_9IN" Id="{33a86add-608b-4ee5-a1cf-8b9a76a555df}">
+    <Declaration><![CDATA[TYPE IOL_9IN :
+STRUCT
+	BYTE0	AT %I* 	: USINT;
+    BYTE1	AT %I* 	: USINT;
+    BYTE2	AT %I* 	: USINT;
+    BYTE3	AT %I* 	: USINT;
+    BYTE4	AT %I* 	: USINT;
+    BYTE5	AT %I* 	: USINT;
+    BYTE6	AT %I* 	: USINT;
+    BYTE7	AT %I* 	: USINT;
+    BYTE8	AT %I* 	: USINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

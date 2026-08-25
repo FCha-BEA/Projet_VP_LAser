@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_MURR_MVP12" Id="{78b9e66d-f696-49e3-b453-7decc8ed6f6b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_MURR_MVP12
+VAR_INPUT
+	Valid			: BOOL;
+	Byte0 					:USINT;
+	Byte1 					:USINT;
+	Byte2 					:USINT;
+END_VAR
+VAR_OUTPUT
+	Out						: BOOL;
+
+	X0_Pin4					: BOOL;
+	X0_Pin2					: BOOL;
+
+	X1_Pin4					: BOOL;
+	X1_Pin2					: BOOL;
+
+	X2_Pin4					: BOOL;
+	X2_Pin2					: BOOL;
+
+	X3_Pin4					: BOOL;
+	X3_Pin2					: BOOL;
+
+	X4_Pin4					: BOOL;
+	X4_Pin2					: BOOL;
+
+	X5_Pin4					: BOOL;
+	X5_Pin2					: BOOL;
+
+	X6_Pin4					: BOOL;
+	X6_Pin2					: BOOL;
+
+	X7_Pin4					: BOOL;
+	X7_Pin2					: BOOL;
+
+	Defaut_CC_US_X0_X7		: BOOL;
+
+END_VAR
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	X0_Pin4					:= Byte0.0;
+	X0_Pin2					:= Byte0.1;
+
+	X1_Pin4					:= Byte0.2;
+	X1_Pin2					:= Byte0.3;
+
+	X2_Pin4					:= Byte0.4;
+	X2_Pin2					:= Byte0.5;
+
+	X3_Pin4					:= Byte0.6;
+	X3_Pin2					:= Byte0.7;
+
+	X4_Pin4					:= Byte1.0;
+	X4_Pin2					:= Byte1.1;
+
+	X5_Pin4					:= Byte1.2;
+	X5_Pin2					:= Byte1.3;
+
+	X6_Pin4					:= Byte1.4;
+	X6_Pin2					:= Byte1.5;
+
+	X7_Pin4					:= Byte1.6;
+	X7_Pin2					:= Byte1.7;
+
+
+	Defaut_CC_US_X0_X7		:= Byte2.0;
+
+
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_MURR_MVP12">
+      <LineId Id="39" Count="30" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_axe_ZLaser" Id="{ccebce18-4a05-41f4-b46b-7712f5aa4b29}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_axe_ZLaser
+VAR_INPUT
+	pos_ref_tole	:LREAL;
+	En_Service: BOOL;
+	Arus: BOOL;
+	Override: LREAL;
+	Butee_soft_Plus: LREAL;
+	Butee_soft_Moins: LREAL;
+	Zone_PV_devant_limites:LREAL;
+	Vitesse_Man: LREAL;
+	Dem_Gv: BOOL;
+	Dem_Pv: BOOL;
+	Palpage: BOOL;
+	PTP_Pos_cible: LREAL;
+	PTP_Vitesse: LREAL;
+	PTP_Accel_Deccel: LREAL;
+	JOG_Plus: BOOL;
+	JOG_Moins: BOOL;
+	selection_5D : BOOL;
+	Tool_Offset : lREAL;
+	asserv: BOOL := FALSE;
+	auto_kerf : BOOL := FALSE;
+	Distance_Buse: INT;
+	ISO :BOOL;
+END_VAR
+VAR_IN_OUT
+	Reset: BOOL;
+	PTP_Start: BOOL;
+	Axe_Z_Laser: AXIS_REF;
+	Forcage_Flag_Ref	:BOOL;
+END_VAR
+VAR_OUTPUT
+	Validation_Variateur: BOOL;
+	Axe_Enable: BOOL;
+	Defaut_axe: BOOL;
+	Numero_defaut: UDINT;
+	Memo_Numero_defaut: UDINT;
+	Defaut_Var_Ax5000: BOOL;
+	Diag_Number_AX5000: UDINT;
+	Diag_Mess_AX5000: STRING;
+	PTP_Axe_en_Pos: BOOL;
+	Limite_atteinte: BOOL;
+	Pos_axe_Z_Laser : LREAL;
+	distance_buse_piece : LREAL;
+	Axe_no_Move: BOOL;
+	Axe_no_Job: BOOL;
+	Vitesse_Axe: LREAL;
+	Ref_ok : BOOL;
+	Axe_en_mode_esclave: BOOL;
+END_VAR
+VAR
+	echantillon : ARRAY [1..100] OF LREAL;
+	Bit_de_cde_axe: UDINT;
+	MC_MoveAbsolute_1: MC_MoveAbsolute;
+	MC_MoveAbsolute_2: MC_MoveAbsolute;
+	MC_MoveAbsolute_10: MC_MoveAbsolute;
+	MC_MoveAbsolute_20: MC_MoveAbsolute;
+	MC_Stop_1: MC_Stop;
+	MC_reset_1: MC_Reset;
+	MC_Jog_1: MC_Jog;
+	RE_En_service: R_TRIG;
+	FE_En_service: F_TRIG;
+	TON_En_pos: TON;
+	Bit_Petite_Vitesse: BOOL;
+	TON_Valid_ok: TON;
+	RE_Arus:R_TRIG;
+	Top_Chgt_Vitesse_PTP: BOOL;
+	Memo_PTP_Vitesse: LREAL;
+	FB_Reset_AX5000: FB_SoEReset;
+	FB_Read_Diag_AX5000: FB_SoEReadDiagMessage;
+	FB_Read_Diag_Number_AX5000: FB_SoEReadDiagNumber;
+	Read_status_Ax5000: BOOL;
+	Diag_message_AX5000: ST_SoE_String;
+	Re_Defaut_Axe: R_TRIG;
+	Re_Axe_Enable: R_TRIG;
+	RE_Reset: R_TRIG;
+	FE_Reset: F_TRIG;
+	TOF_Axe_Enable: TOF;
+	Stop_Axe: BOOL;
+	RE_asserv: R_TRIG;
+	FE_asserv: F_TRIG;
+	MC_Home_forcage: mc_home;
+	Phase_asservissement: INT;
+	memo_asserv_on: BOOL;
+	i: INT;
+	erreur_cumul: LREAL;
+	nbr_erreur_cumul: INT;
+	erreur_moy: LREAL;
+	Memo_defaut_valid:BOOL;
+	TON_Top_et_V_nulle:ton;
+	Defaut_Top_et_V_nulle:BOOL;
+	Raw_correction_mm : LREAL;
+	erreur1: LREAL;
+	erreur2: LREAL;
+	erreur3: LREAL;
+	RE_PTP_Start: R_trig;
+	REAL_U_arc_reelle: REAL;
+	REAL_memo_Dist: REAL;
+	TOF_auto_kerf: Tof;
+	limite_asserv: BOOL := false;
+	MC_ExtSetPointGenEnable_3D, MC_ExtSetPointGenEnable_5D: MC_ExtSetPointGenEnable;
+	Enable_SetPoint_Generator_5D, Enable_SetPoint_Generator_3D: BOOL := FALSE;
+	MC_ExtSetPointGenDisable_5D, MC_ExtSetPointGenDisable_3D: MC_ExtSetPointGenDisable;
+	Disable_SetPoint_Generator_5D, Disable_SetPoint_Generator_3D: BOOL := FALSE;
+	PID_Input_Volt: LREAL;
+	PID_Input_mm: LREAL;
+	FB_BasicPID_0: FB_BasicPID;
+	Reset_PID: BOOL := FALSE;
+	Integral_Time: LREAL := 0.08;
+	Derivate_Time: LREAL := 0.1;
+	Derivate_Damping_Time: LREAL := 0;
+	consigne_Point_Gen: LREAL;
+	Memo_consigne_Point_Gen: LREAL;
+	RE_TOF_auto_kerf, RE_Execute_PTP_1, RE_Execute_PTP_2, RE_Ref_ok: R_trig;
+	FE_TOF_auto_kerf: F_trig;
+	TP_Top_Axe: Tp;
+	Max_Uarc, Min_Uarc, erreur_mediane: LREAL:=0;
+	echantillon_Filtre : ARRAY[1..100] OF LREAL;
+
+	Accel_asserv: LREAL := 500;
+	velo_asserv: LREAL := 20;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Détection des fronts*)
+RE_En_service(clk:=En_service);
+FE_En_service(clk:=En_service);
+RE_Ref_ok(clk:=Ref_ok);
+RE_Defaut_Axe(clk:=Defaut_Axe);
+RE_Axe_Enable(clk:=Axe_Enable);
+RE_Reset(clk:=Reset);
+FE_Reset(clk:=Reset);
+RE_Arus(clk:=Arus);
+
+//////////////////////////////////////////////////
+//					VAR AX500					//
+//////////////////////////////////////////////////
+	(*Reset variateur AX5000*)
+	FB_Reset_AX5000(
+		NetId:='',
+		Execute:= Reset OR RE_En_service.Q,
+		Timeout:=T#10s,
+		Axis:=Axe_Z_Laser);
+	(*Lecture status variateur AX5000*)
+	IF RE_Defaut_Axe.Q OR RE_Reset.Q
+	OR RE_En_service.Q OR FE_Reset.Q
+	OR FE_En_service.Q OR Re_Axe_Enable.Q THEN
+		Read_status_AX5000:=TRUE;
+	END_IF
+	(*Lecture code status variateur *)
+	FB_Read_Diag_Number_AX5000(
+		NetId:=,
+		Execute:=Read_status_AX5000,
+		Timeout:=DEFAULT_ADS_TIMEOUT,
+		Axis:=Axe_Z_Laser);
+	Diag_Number_AX5000:=FB_Read_Diag_Number_AX5000.DiagNumber;
+
+	Defaut_Var_AX5000:=
+		Axe_enable
+		AND Diag_Number_AX5000<>16#D012	(*D012= Control and power section ready*)
+		AND Diag_Number_AX5000<>16#D013	(*D013= Axis in operation (The axis has been started)*)
+		AND Diag_Number_AX5000<>16#D014;	(*D014= Axis halt*)
+	(*Lecture message  status variateur *)
+	FB_Read_Diag_AX5000(
+		NetId:='',
+		Execute:=Read_status_AX5000,
+		Timeout:=DEFAULT_ADS_TIMEOUT,
+		Axis:=Axe_Z_Laser);
+	Diag_message_AX5000:=FB_Read_Diag_AX5000.DiagMessage;
+	Diag_Mess_AX5000:=Diag_message_AX5000.strData;
+
+	IF NOT FB_Read_Diag_AX5000.Busy AND NOT FB_Read_Diag_Number_AX5000.Busy THEN
+		Read_status_AX5000:=FALSE;
+	END_IF
+
+//////////////////////////////////////////////////
+//					Valid Axe					//
+//////////////////////////////////////////////////
+	(*Validation axe*)
+	Axe_Enable:=GETBIT32(Axe_Z_Laser.NcToPlc.StateDWord,0);
+	Validation_variateur:=En_service;
+	
+	TON_Valid_ok(in:=En_service,pt:=T#5000MS);
+	TOF_Axe_enable(in:=Axe_enable,pt:=T#50MS);	(*TOF ajoutée pour AX5000 pour éviter défaut sur AU car valid physiques coupées par KA11. Pour info, pb pas constaté sur la 1e Mag en AX5000: Batimetal Ouest*)
+
+	IF ((En_service OR Reset ) AND Numero_defaut =0)  AND En_service THEN
+		Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,0);
+	END_IF
+
+	(*Dévalidation axe*)
+	IF Numero_defaut<>0 OR FE_En_service.Q THEN
+		Bit_de_cde_axe:=CLEARBIT32(bit_de_Cde_axe,0);
+	END_IF
+		
+	(*Fc Plus*)
+	Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,1);
+	(*Fc Moins*)
+	Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,2);
+	(*Came d'origine*)
+	Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,5);
+
+	
+	(*Assignation du bit de commande de l'axe*)
+	Axe_Z_Laser.PlcToNc.ControlDWord:=Bit_de_cde_axe;
+
+//////////////////////////////////////////////////
+//					Défauts / Limites			//
+//////////////////////////////////////////////////
+	(*Limites*)	
+	IF (PTP_Start AND (PTP_Pos_cible<=Butee_soft_moins OR PTP_Pos_cible>=Butee_soft_plus))
+	OR (ISO AND (Pos_axe_Z_Laser<=Butee_soft_moins OR Pos_axe_Z_Laser>=Butee_soft_plus))
+	OR (Ref_ok AND Jog_moins AND Pos_axe_Z_Laser<=Butee_soft_moins)
+	OR (Ref_ok AND Jog_plus AND Pos_axe_Z_Laser>=Butee_soft_plus) THEN
+		Limite_atteinte:=TRUE;
+		PTP_Start:=FALSE;
+	END_IF
+
+	IF Reset
+	OR
+	(Pos_axe_Z_Laser>Butee_soft_moins
+	AND Pos_axe_Z_Laser<Butee_soft_plus) THEN
+		Limite_atteinte:=FALSE;
+	END_IF
+
+	(*Défauts*)
+	IF TON_Valid_ok.Q AND NOT TOF_Axe_enable.Q THEN
+		Memo_defaut_valid:=TRUE;
+	END_IF
+
+	TON_Top_et_V_nulle(in:=PTP_Start AND PTP_Vitesse=0,pt:=T#10S);
+	IF TON_Top_et_V_nulle.Q THEN
+		Defaut_Top_et_V_nulle:=TRUE;
+	END_IF
+	
+	IF Memo_defaut_valid
+	OR Numero_defaut<>0
+	OR (PTP_Start OR ISO) AND Limite_atteinte
+	OR (PTP_Start AND NOT Ref_ok)
+	 THEN
+		Memo_Numero_defaut:=Numero_defaut;
+		Defaut_axe:=TRUE;
+	END_IF
+	
+	IF Reset THEN
+		Defaut_axe:=FALSE;
+		Defaut_Top_et_V_nulle:=FALSE;
+		Memo_Numero_defaut:=0;
+		Memo_defaut_valid:=FALSE;
+		Phase_asservissement := 0;
+	END_IF	
+	
+	(*Arus*)
+	IF RE_Arus.Q THEN
+		PTP_Start:=FALSE;
+	END_IF
+
+//////////////////////////////////////////////////
+//					Status Axe					//
+//////////////////////////////////////////////////
+	Numero_defaut:=Axe_Z_Laser.NcToPlc.ErrorCode;
+	Ref_ok:=GETBIT32(Axe_Z_Laser.NcToPlc.StateDWord,1);
+	Vitesse_axe:=Axe_Z_Laser.NcToPlc.ActVelo;
+	Pos_axe_Z_Laser:=Axe_Z_Laser.NcToPlc.ActPos;
+	distance_buse_piece := pos_ref_tole-Pos_axe_Z_Laser;
+
+	Axe_no_move:=GETBIT32(Axe_Z_Laser.NcToPlc.StateDWord,2) AND NOT MC_Stop_1.Busy ;
+	Axe_no_Job:=NOT AxisHasJob( Axe_Z_Laser.NcToPlc.StateDWord) AND NOT MC_Stop_1.Busy ;
+	PTP_Axe_en_pos:=GETBIT32(Axe_Z_Laser.NcToPlc.StateDWord,4) AND Axe_no_move;
+
+	
+	(*Reset signal PTP_Start*)
+	TON_En_pos(in:=PTP_Start,pt:=T#10MS); // empeche la ptp start de retomber avant le début du mouvement
+	IF PTP_Axe_en_pos AND TON_En_pos.Q
+		OR MC_Stop_1.Execute THEN
+		PTP_Start:=FALSE;
+	END_IF
+	
+	(*Recupération status couplage des axes*)
+	Axe_en_mode_esclave:=
+		Axe_Z_Laser.NcToPlc.CoupleState=3		(*=3: l'axe est uniquement esclave d'un autre*)
+		OR Axe_Z_Laser.NcToPlc.CoupleState=2;	(*=2: l'axe est esclave d'un autre ET maitre d'encore un autre, nécessaire pour Mag 3 chariots*)
+
+//////////////////////////////////////////////////
+//					Reset ; Stop				//
+//////////////////////////////////////////////////
+	(*Reset de l'axe*)
+	MC_reset_1.Execute:=Reset AND NOT Axe_en_mode_esclave;
+	MC_reset_1(Axis:=Axe_Z_Laser);
+
+	IF (mc_reset_1.Done OR NOT Mc_reset_1.Busy)  THEN
+			reset:= FALSE;
+	END_IF
+	
+	(*Stop  de l'axe*)
+	Stop_Axe:=NOT PTP_Start
+				OR defaut_axe
+				OR reset;
+	
+	TP_Top_Axe(in:=Stop_Axe, pt:=T#10MS) ;
+	MC_Stop_1.Execute:=	TP_Top_Axe.Q; 			// a remplacer par TP_Top_axe si l'axe ne s'arrete pas
+	MC_Stop_1(Axis:=Axe_Z_Laser);
+
+
+//////////////////////////////////////////////////
+//					J.O.G						//
+//////////////////////////////////////////////////
+	MC_Jog_1.Mode:=MC_JOGMODE_CONTINOUS;
+	MC_Jog_1.JogForward:= (Pos_axe_Z_Laser<Butee_soft_plus OR NOT Ref_ok) AND Jog_plus;
+	MC_Jog_1.JogBackwards:=(Pos_axe_Z_Laser>Butee_soft_moins OR NOT Ref_ok) AND JOG_Moins;
+	MC_Jog_1.Velocity:=Vitesse_man;
+	MC_Jog_1.Acceleration:=MC_Jog_1.Deceleration:=PTP_Accel_deccel;
+	IF Vitesse_man<>0 THEN
+		MC_Jog_1.Jerk:=(PTP_Accel_Deccel*PTP_Accel_Deccel)/Vitesse_man;
+	END_IF
+	MC_Jog_1(Axis:=Axe_Z_Laser);
+	
+//////////////////////////////////////////////////
+//					Override					//
+//////////////////////////////////////////////////
+	Bit_petite_vitesse :=
+			(Ref_ok
+				AND ((Pos_axe_Z_Laser<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
+					OR ((Pos_axe_Z_Laser>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))
+		OR
+			Dem_Pv
+		OR
+			NOT Dem_gv AND Manu	AND (Jog_plus OR Jog_moins);
+
+	IF NOT Reset AND Override<>0 THEN
+		IF Palpage THEN
+			Axe_Z_Laser.PlcToNc.Override:=50000;(*5%*)
+		ELSIF Bit_petite_vitesse THEN
+			Axe_Z_Laser.PlcToNc.Override:=300000;(*30%*)
+		ELSIF Manu AND Dem_gv THEN
+			Axe_Z_Laser.PlcToNc.Override:=1000000;(*100%*)
+		ELSE
+			Axe_Z_Laser.PlcToNc.Override:=LREAL_TO_DWORD(Override)*10000;
+		END_IF
+	ELSE
+		Axe_Z_Laser.PlcToNc.Override:=0;(*Vitesse Nulle*)
+	END_IF
+	
+//////////////////////////////////////////////////
+//					P.T.P						//
+//////////////////////////////////////////////////
+	RE_Execute_PTP_1(clk :=
+			NOT Stop_axe 
+			AND Ref_ok 
+			AND PTP_Start 
+			AND 
+			NOT AxisHasJob(Axe_Z_Laser.NcToPlc.StateDWord)
+			AND (PTP_Pos_cible>=Butee_soft_moins) 
+			AND (PTP_Pos_cible<=Butee_soft_plus)
+			AND (NOT MC_MoveAbsolute_1.busy)
+			AND (NOT MC_MoveAbsolute_10.busy)
+		OR 
+			Top_Chgt_Vitesse_PTP);
+
+	RE_Execute_PTP_2(clk :=
+			MC_MoveAbsolute_1.busy 			
+			AND NOT MC_MoveAbsolute_2.busy
+			AND NOT MC_MoveAbsolute_20.busy
+			AND	Top_Chgt_Vitesse_PTP);
+			
+	Top_Chgt_Vitesse_PTP := (MC_MoveAbsolute_1.Busy OR MC_MoveAbsolute_2.Busy OR MC_MoveAbsolute_10.Busy OR MC_MoveAbsolute_20.Busy) 
+							AND PTP_Vitesse<>Memo_PTP_Vitesse;
+	IF Top_Chgt_Vitesse_PTP THEN
+		Memo_PTP_Vitesse:=PTP_Vitesse;
+	END_IF
+	
+	MC_MoveAbsolute_1.Execute:= RE_Execute_PTP_1.Q; (*Start*)
+	MC_MoveAbsolute_1.Position:=PTP_Pos_cible;(*Position cible*)
+	MC_MoveAbsolute_1.Acceleration:=MC_MoveAbsolute_1.Deceleration:=PTP_Accel_Deccel;(*Acceleration*)
+	MC_MoveAbsolute_1.Velocity:=PTP_Vitesse;(*Vitesse*)
+	IF PTP_Vitesse<>0 THEN
+		MC_MoveAbsolute_1.Jerk:=(PTP_Accel_Deccel*PTP_Accel_Deccel)/PTP_Vitesse;
+	END_IF
+	MC_MoveAbsolute_1(Axis:=Axe_Z_Laser);
+	
+	MC_MoveAbsolute_2.Execute:= RE_Execute_PTP_2.Q; (*Start*)
+	MC_MoveAbsolute_2.Position:=PTP_Pos_cible;(*Position cible*)
+	MC_MoveAbsolute_2.Acceleration:=MC_MoveAbsolute_1.Deceleration:=PTP_Accel_Deccel;(*Acceleration*)
+	MC_MoveAbsolute_2.Velocity:=PTP_Vitesse;(*Vitesse*)
+	IF PTP_Vitesse<>0 THEN
+		MC_MoveAbsolute_2.Jerk:=(PTP_Accel_Deccel*PTP_Accel_Deccel)/PTP_Vitesse;
+	END_IF
+	MC_MoveAbsolute_2(Axis:=Axe_Z_Laser);
+
+	
+//////////////////////////////////////////////////
+//					Flags ref + Pom				//
+//////////////////////////////////////////////////
+
+	(*----------Forcage Origine Axes----------*)
+	MC_Home_forcage(
+		Execute:= Forcage_Flag_Ref,
+		HomingMode:= MC_ForceCalibration,
+		Axis:= Axe_Z_Laser);
+	IF Forcage_flag_ref AND Ref_ok THEN
+		Forcage_flag_ref:=FALSE;
+	END_IF
+	
+(********************************************************* FB_Asservissement *********************************************************************
+l'asservissement fonctionne tant que la transforme cinematique n'est pas active. si la transfo est acive le couplage ne se fait pas.
+	-> apres avoir sorti le pave de la FB, le couplage se fait bien, mais l'axe Z_MCS est immobile : pourquoi ?????
+	-> si on couple manuellement l'axe Z_MCS a l'axe codeur (directement dans Motion) tout marche impeccalement
+**************************************************************************************************************************************************************************************************************************************************************)
+(*init et reset variables*)
+RE_asserv ( clk := asserv);
+FE_asserv (clk := asserv);
+
+IF RE_asserv.Q THEN
+	Phase_asservissement := 1;
+	memo_asserv_on:=TRUE;
+	consigne_Point_Gen:=0;
+	Memo_consigne_Point_Gen := 0;
+END_IF
+
+IF FE_asserv.Q THEN
+	Phase_asservissement := 10;
+END_IF
+
+(******************couplage séquencé************************)
+RE_PTP_Start(clk := PTP_Start);
+TOF_auto_kerf (in := auto_kerf, pt := T#0.5S);
+//reset du memo de la tension a chaque consigne de l'axe (chaque phase d'amorce)
+IF RE_PTP_Start.Q THEN
+	REAL_memo_Dist := 0;	
+END_IF
+
+IF Phase_asservissement<>0 THEN
+	CASE Phase_asservissement OF
+		
+		1:	(*init de la consigne*)	
+			Reset_PID := TRUE;
+			PID_Input_Volt := 0;
+			IF NOT TOF_auto_kerf.Q THEN 
+				Phase_asservissement :=2;
+			END_IF
+
+		2:	(*memo de la tension + activation du SetPointGenerator*)
+			Reset_PID := FALSE;
+			IF REAL_memo_Dist=0 THEN			
+				REAL_memo_Dist := Distance_Buse;
+			end_if
+			
+			Enable_SetPoint_Generator_3D := TRUE;						
+			
+			IF MC_ExtSetPointGenEnable_3D.Enabled
+			THEN
+				Phase_asservissement := 3;
+			END_IF
+		3:	(**)
+			Enable_SetPoint_Generator_3D := FALSE;
+			Phase_asservissement := 4;
+
+		4:	(*asservissement en cours*)
+			// Blocage torche	
+				IF RE_TOF_auto_kerf.Q THEN
+					Disable_SetPoint_Generator_3D := TRUE;
+				END_IF
+			// Deblocage torche
+				IF FE_TOF_auto_kerf.Q THEN
+					Enable_SetPoint_Generator_3D := TRUE;
+				END_IF
+				
+		10: IF NOT Enable_SetPoint_Generator_3D THEN
+				Phase_asservissement:=100;
+			END_IF
+			
+		100:(*Desactivation du setPointGenerator*)
+			Disable_SetPoint_Generator_3D := TRUE;
+			Reset_PID := TRUE;
+			IF NOT MC_ExtSetPointGenEnable_3D.Enabled THEN
+				Phase_asservissement:=11;
+			end_if
+			
+		11:	(**)
+			Disable_SetPoint_Generator_3D := FALSE;
+			consigne_Point_Gen:=0;
+			Memo_consigne_Point_Gen := 0;
+			Reset_PID := FALSE;
+			Phase_asservissement:=0;
+	END_CASE
+END_IF
+
+//////////////////////////////////////////////////////
+//		Asserv Basic PID							//
+//////////////////////////////////////////////////////	
+	PID_Input_mm := REAL_memo_Dist - Distance_Buse;
+
+	FB_BasicPID_0(
+		fSetpointValue := 0,
+		fActualValue := PID_Input_mm,
+		bReset := Reset_PID,
+		fCtrlCycleTime := 0.002,
+		fKp := position_gain,	//A adapter 
+		fTn := Integral_Time,	//A adapter 
+		fTv := Derivate_Time,	//A adapter 
+		fTd := Derivate_Damping_Time);	//A adapter 
+
+	RE_TOF_auto_kerf(clk := auto_kerf);
+	FE_TOF_auto_kerf(clk := auto_kerf);
+	//RE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+	//FE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+	
+	IF RE_TOF_auto_kerf.Q THEN
+		Reset_PID := TRUE;
+	END_IF
+	IF FE_TOF_auto_kerf.Q THEN
+		Reset_PID := FALSE;
+	END_IF
+//////////////////////////////////////////////////////
+//		MC_ExtSetPoint Generator					//
+//////////////////////////////////////////////////////		
+	// maintient de la consigne constante si blocage torche
+	//	IF TOF_auto_kerf.Q THEN
+		IF auto_kerf OR Reset_PID THEN
+			consigne_Point_Gen := consigne_Point_Gen;
+		ELSE
+			consigne_Point_Gen := FB_BasicPID_0.fCtrlOutput;
+			limite_asserv := FALSE;
+		END_IF
+	
+	// Reset des bit après exécution des fonctions
+		IF NOT MC_ExtSetPointGenEnable_3D.Enabled  THEN
+			Disable_SetPoint_Generator_3D := FALSE;
+		END_IF
+		IF MC_ExtSetPointGenEnable_3D.Enabled  THEN
+			Enable_SetPoint_Generator_3D := FALSE;
+		END_IF
+		
+	// génération de la trajectoire corrigée
+		MC_ExtSetPointGenFeed(
+			Position := consigne_Point_Gen,
+			Velocity := 20,//PTP_Vitesse,
+			Acceleration := PTP_Accel_Deccel,
+			Direction := 1,
+			Axis := Axe_Z_Laser);
+	// Activation de l'altération de la traj
+		MC_ExtSetPointGenEnable_3D(
+			Axis := Axe_Z_Laser,
+			Execute := Enable_SetPoint_Generator_3D,
+			Position := Pos_axe_Z_Laser,
+			PositionType := POSITIONTYPE_RELATIVE);
+
+	// Désactivation de l'altération de la traj	
+		MC_ExtSetPointGenDisable_3D(
+			Axis := Axe_Z_Laser,
+			Execute := Disable_SetPoint_Generator_3D);]]></ST>
+    </Implementation>
+    <LineIds Name="FB_axe_ZLaser">
+      <LineId Id="14994" Count="138" />
+      <LineId Id="15134" Count="1" />
+      <LineId Id="15137" Count="2" />
+      <LineId Id="15144" Count="5" />
+      <LineId Id="15151" Count="13" />
+      <LineId Id="15168" Count="1" />
+      <LineId Id="15171" Count="8" />
+      <LineId Id="15181" Count="1" />
+      <LineId Id="15186" Count="49" />
+      <LineId Id="15238" Count="8" />
+      <LineId Id="15248" Count="9" />
+      <LineId Id="15259" Count="16" />
+      <LineId Id="15296" Count="46" />
+      <LineId Id="15515" Count="1" />
+      <LineId Id="15343" Count="0" />
+      <LineId Id="15346" Count="8" />
+      <LineId Id="15358" Count="0" />
+      <LineId Id="15360" Count="1" />
+      <LineId Id="15364" Count="4" />
+      <LineId Id="15370" Count="4" />
+      <LineId Id="15378" Count="0" />
+      <LineId Id="15380" Count="2" />
+      <LineId Id="15386" Count="0" />
+      <LineId Id="15388" Count="2" />
+      <LineId Id="15392" Count="3" />
+      <LineId Id="15399" Count="0" />
+      <LineId Id="15401" Count="6" />
+      <LineId Id="15409" Count="39" />
+      <LineId Id="15458" Count="1" />
+      <LineId Id="15461" Count="3" />
+      <LineId Id="15471" Count="7" />
+      <LineId Id="15487" Count="5" />
+      <LineId Id="15494" Count="5" />
+      <LineId Id="15507" Count="4" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

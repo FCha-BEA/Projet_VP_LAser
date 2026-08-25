@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Presseurs_LASER" Id="{ee1d841a-10c3-4c4c-b28b-77796cfc1eea}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Presseurs_LASER
+//Voir la visu "Presseurs"
+VAR_INPUT
+	IN						: BOOL;
+	Auto						: BOOL;
+	Dem_Serrage					: BOOL;
+	Dem_Desserrage				: BOOL;
+	Pos_Reelle_Presseur_D	: LREAL;
+	Pos_Reelle_Presseur_G	: LREAL;
+	Pos_Presseur_Desserre	: LREAL;
+	Pos_X_Presseur			: LREAL;
+	Dist_Annul_X_Presseur		: LREAL;
+END_VAR
+
+VAR_OUTPUT
+	OUT					:BOOL;
+	Stop_Chariot		:BOOL;
+	Ok_pour_operation	:BOOL; //Profil maintenu, pas juste serrage ok
+	Presseur_Desserre	:BOOL;
+	
+	Cde_SerrDesser	:BOOL;	//Serrage ou desserrage	
+	Cde_Maintien	:BOOL; 	//Maintien seulement
+	Cde_SerrMaint	:BOOL;	//Serrage ou maintien
+	Cde_Desserrage	:BOOL;	//Desserrage seulement 
+
+END_VAR
+
+VAR
+	Chariot_Sous_Presseur: BOOL;
+	Serrage				:BOOL;
+	Desserrage			:BOOL;
+	Maintien			:BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF IN THEN
+
+	Chariot_Sous_Presseur	:=	(Pos_Reel_X > Pos_X_Presseur - Dist_Annul_X_Presseur);
+
+	Stop_Chariot 			:= (Pos_Reelle_Presseur_D < Pos_Presseur_Desserre) OR  (Pos_Reelle_Presseur_G < Pos_Presseur_Desserre);
+	Presseur_Desserre		:=	NOT Stop_Chariot;
+
+	Ok_pour_operation 		:= Dem_Serrage AND ((Pos_Reelle_Presseur_D <EP_Aile + 7) AND (Pos_Reelle_Presseur_G <EP_Aile + 7) OR Chariot_Sous_Presseur); //+7 par essais
+                            	
+	Serrage 				:= Dem_Serrage AND NOT Chariot_Sous_Presseur; 
+	Maintien              	:= Ok_pour_operation AND NOT Chariot_Sous_Presseur;           												
+	Desserrage				:= Dem_Desserrage OR (Chariot_Sous_Presseur AND Stop_Chariot);
+	
+	Cde_SerrDesser := (Serrage AND NOT Maintien) OR Desserrage ;
+	Cde_Maintien := Maintien;
+	Cde_SerrMaint := Serrage OR Maintien;
+	Cde_Desserrage := Desserrage;
+	
+END_IF;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

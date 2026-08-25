@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="IO_PUPITRE" Id="{746a20b4-e2e3-4552-9cda-8f9681445e89}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+(*****Entrées*****)
+ (*Bp/Joystick Pupitre*)
+	Bp_En_Service				:BOOL;
+	Bp_Annul_Defauts				:BOOL;
+	Bp_Arret_Usinage			:BOOL;
+	Bp_Depart_Cycle				:BOOL;
+	Bp_Cde_Operation			:BOOL;
+
+	Joystick_Cmd_Droite			:BOOL;		
+	Joystick_Cmd_Gauche			:BOOL;		
+	Joystick_Cmd_Haut			:BOOL;		
+	Joystick_Cmd_Bas			:BOOL;		
+
+	Joystick_Bt_Gauche			:BOOL;
+	Joystick_Bt_Droite			:BOOL;
+	Joystick_Bt_Valid			:BOOL;
+
+
+(*****Sorties*****)
+ (*Voyants Pupitre*)
+	Vy_Bp_En_Service			:BOOL;
+	Vy_Bp_Ann_Defaut			:BOOL;
+	Vy_Bp_Arus					:BOOL;
+	Vy_Bp_Dcy					:BOOL;
+	Vy_Bp_Cde_Operation			:BOOL;
+
+ (*Verrine/Bandeaux*)
+	Verr_Lum_Machine_Vert			AT%Q*:BOOL;
+	Verr_Lum_Machine_Jaune			AT%Q*:BOOL;
+	Verr_Lum_Machine_Rouge			AT%Q*:BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

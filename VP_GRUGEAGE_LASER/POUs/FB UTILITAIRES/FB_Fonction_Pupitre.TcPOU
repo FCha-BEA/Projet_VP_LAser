@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Fonction_Pupitre" Id="{df83d92f-b8c8-4b38-bc0e-04f0454df1b5}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Fonction_Pupitre
+VAR_INPUT
+	Enable: BOOL;
+	Validation_Fct:BOOL;
+	Inc_Index:BOOL;
+	Dec_Index:BOOL;
+	Index_Presel_Driver:INT;
+	Time_Out_Fonction_Valide:TIME;
+	Key_Delay:TIME;
+	Key_Repeat:TIME;
+	Cdes_actives:BOOL;
+	Selection_by_Jog : BOOL;
+	Inc_Index_Jog:BOOL;
+	Dec_Index_Jog:BOOL;
+	Secu_Selction_Jog : BOOL;
+	Focus_Opanel : BOOL;
+END_VAR
+VAR_OUTPUT
+	Erreur:BOOL;
+	Index_Presel_PLC:INT;
+	Index_Valide_PLC:INT;
+	Num_Fct_Valide_PLC:LREAL;
+END_VAR
+VAR_IN_OUT
+	Relecture_Table_Fonction:BOOL;
+	Validation_Presel_driver:BOOL;
+END_VAR
+VAR
+	RE_Valid_Fct: R_TRIG;
+	RE_Inc_Indext: R_TRIG;
+	RE_Dec_Indext: R_TRIG;
+	RE_Table_Fct_Recue: R_TRIG;
+	Table_Fct_Recue: BOOL;
+	Cherche_index_Max: BOOL;
+	Index_Max: INT;
+	TON_Fonction_Valide: TON;
+	Memo_Index_Presel_Driver: INT;
+	FE_Valid_Fct: F_TRIG;
+	TON_Key_Delay_Inc_Index: TON;
+	TON_Key_Delay_Dec_Index: TON;
+	TON_Key_Repeat_Inc_Index: TON;
+	RE_Key_Repeat_Inc_Index: R_TRIG;
+	TON_Key_Repeat_Dec_Index: TON;
+	RE_Key_Repeat_Dec_Index: R_TRIG;
+	i : INT:=1;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*detection des fronts*)
+RE_Valid_Fct(clk:=Validation_Fct);
+FE_Valid_Fct(clk:=Validation_Fct);
+
+RE_Inc_Indext(clk:=(Inc_Index OR (Secu_Selction_Jog AND Inc_Index_Jog AND Selection_by_Jog)) AND NOT Cdes_actives);
+RE_Dec_Indext(clk:=(Dec_Index OR (Secu_Selction_Jog AND Dec_Index_Jog AND Selection_by_Jog)) AND NOT Cdes_actives);
+
+RE_Table_Fct_Recue(clk:=Table_Fct_Recue);
+
+(*Initialisations*)
+Table_Fct_Recue:= Pnc_Fct_Pupitre[1]<>0;
+
+(*recherche index max table fonction*)
+IF RE_Table_Fct_Recue.Q OR Relecture_Table_Fonction THEN
+	Relecture_Table_Fonction:=FALSE;
+	Cherche_index_Max:=TRUE;
+	Index_Max:=0;
+	Index_Presel_PLC:=1;
+	Memo_Index_Presel_Driver:=0;
+END_IF
+
+IF Cherche_index_Max THEN
+	FOR i:=1 TO 50 DO
+		IF Pnc_Fct_Pupitre[i]=0 THEN
+			Index_Max:=i-1;
+			Cherche_index_Max:=FALSE;
+			EXIT;
+		END_IF
+	END_FOR
+END_IF
+
+(*positionement index table fonctions pupitre*)
+IF RE_Inc_Indext.Q AND Index_Max<>0 AND Focus_Opanel THEN
+	IF Index_Presel_PLC<>Index_Max THEN
+		Index_Presel_PLC:=Index_Presel_PLC+1;
+	ELSE
+		Index_Presel_PLC:=1;
+	END_IF
+END_IF
+
+IF RE_Dec_Indext.Q AND Index_Max<>0 AND Focus_Opanel THEN
+	IF Index_Presel_PLC<>1 THEN
+		Index_Presel_PLC:=Index_Presel_PLC-1;
+	ELSE
+		Index_Presel_PLC:=Index_Max;
+	END_IF
+END_IF;
+
+TON_Key_Delay_Inc_Index(in:=Inc_Index OR (Secu_Selction_Jog AND Inc_Index_Jog AND Selection_by_Jog),pt:=Key_Delay);
+IF TON_Key_Delay_Inc_Index.Q THEN
+	TON_Key_Repeat_Inc_Index(In := NOT TON_Key_Repeat_Inc_Index.Q ,pt := Key_Repeat);
+	RE_Key_Repeat_Inc_Index(CLK := TON_Key_Repeat_Inc_Index.Q);
+	IF Index_Presel_PLC<>Index_Max AND RE_Key_Repeat_Inc_Index.Q THEN Index_Presel_PLC:=Index_Presel_PLC+1; END_IF;
+END_IF;
+
+TON_Key_Delay_Dec_Index(in:=Dec_Index OR (Secu_Selction_Jog AND Dec_Index_Jog AND Selection_by_Jog),pt := Key_Delay);
+IF TON_Key_Delay_Dec_Index.Q THEN
+	TON_Key_Repeat_Dec_Index(in:=NOT TON_Key_Repeat_Dec_Index.Q ,pt := Key_Repeat);
+	RE_Key_Repeat_Dec_Index(CLK := TON_Key_Repeat_Dec_Index.Q);
+	IF Index_Presel_PLC<>1 AND RE_Key_Repeat_Dec_Index.Q THEN Index_Presel_PLC:=Index_Presel_PLC-1; END_IF;
+END_IF;
+
+
+(*positionement index via driver*)
+IF Index_Presel_Driver<>Memo_Index_Presel_Driver AND Index_Presel_Driver<=Index_Max OR Validation_Presel_driver THEN
+	Validation_Presel_driver:=FALSE;
+	Index_Presel_PLC:=Index_Presel_Driver;
+	Memo_Index_Presel_Driver:=Index_Presel_Driver;
+END_IF
+
+(*Validation Numero de Fonction pupitre*)
+TON_Fonction_Valide(in:=NOT Validation_Fct AND NOT Cdes_actives,pt:=Time_Out_Fonction_Valide);
+IF RE_Valid_Fct.Q AND Focus_Opanel THEN
+	Index_Valide_PLC:=Index_Presel_PLC;
+END_IF
+IF TON_Fonction_Valide.Q AND NOT Validation_Fct THEN
+	(*Index_Valide_PLC:=0;*)
+	Num_Fct_Valide_PLC:=0;
+ELSIF Index_Valide_PLC<>0 THEN
+	(*Affectation Fonction Pupitre*)
+	Num_Fct_Valide_PLC:=Pnc_Fct_Pupitre[Index_Valide_PLC];
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

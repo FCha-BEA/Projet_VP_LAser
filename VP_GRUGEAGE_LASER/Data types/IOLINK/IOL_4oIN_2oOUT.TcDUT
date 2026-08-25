@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="IOL_4oIN_2oOUT" Id="{19425623-2e4f-44df-896e-caeb8bd8029b}">
+    <Declaration><![CDATA[TYPE IOL_4oIN_2oOUT :
+STRUCT
+	IN_Byte1, IN_Byte2,
+	IN_Byte3, IN_Byte4	AT%I*:BYTE;
+	
+	OUT_Byte1,
+	OUT_Byte2	AT%Q*:BYTE;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

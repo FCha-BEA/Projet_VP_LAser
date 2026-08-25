@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_PUPITRE" Id="{eb959c99-1e7b-4b93-b4d9-c7c144bbb746}">
+    <Declaration><![CDATA[
+VAR_GLOBAL
+	Pnc_Index_Fct_Pup_Presel		:INT; (*Preselection preselectionnée  par le driver*)
+	Pnc_Enable_Fct_Pup_Presel	:BOOL; (*Valide la preselection envoyée par le driver*)
+	Pnc_Index_Fct_PLC_Presel		:INT; (*Preselection preselectionnée par le driver*)
+	Pnc_Index_Fct_PLC_Valide		:INT; (*Preselection validée par le driver*)
+	Selection_Unite_Pup		:LREAL; (*remplace la selection "hardware"*)
+	
+	Pnc_Reset_table_Fct_Pupitre	:BOOL; (*=1 quand driver met à jour table de fonctions*)
+	Pnc_Time_Key_Delay			:TIME;
+	Pnc_Time_Key_Repeat		:TIME;
+	Pnc_Time_Unselect 			:TIME;
+	Pnc_Selection_by_Jog 		:BOOL;
+	Pnc_Modulation_Vitesse		:LREAL; (*0..100*)
+	Pnc_Focus_sur_Opanel 		:BOOL; (*a 0 quand Opanel est a l'ecran*)
+
+	Select_Pup_Conv_Cpx_Scie	:BOOL;		(* Scie*)
+(*Le Opanel fait change l`etat du Pnc_Sync_Pupitre[4] toute les 200ms si on ferme le Opanel on Inhib les Cde du Pupitre*)
+	Arret_Opanel_to_PLC			:BOOL;
+	Re_NP_Bp_Cde_Operation		:R_TRIG;
+	Status_New_Pupitre			:DWORD;
+END_VAR
+
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

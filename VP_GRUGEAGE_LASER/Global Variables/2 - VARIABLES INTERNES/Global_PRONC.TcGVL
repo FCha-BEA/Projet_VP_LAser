@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_PRONC" Id="{b3f08f98-48d1-46b4-ae5a-cdf629b93e1d}">
+    <Declaration><![CDATA[(*----------------------------------------------------Variables echangées avec PRONC32, et son Driver--------------------------------------------------------------*)
+
+VAR_GLOBAL
+(*Echanges pièces / cycles*)
+	Sequence 					:ARRAY [1..10000] OF SEQUENCE_PROGRAMME;(*Programme Piece*)
+	Sequence_Status 			:ARRAY [1..10000] OF SEQUENCE_PROGRAMME_STATUS;(*recuperation status machine*)
+	Pnc_Status					:ARRAY [1..300] OF LREAL;
+	Pnc_Start					:ARRAY [1..50] OF LREAL;
+	Pnc_Start2					:ARRAY [1..50] OF LREAL;
+	Pnc_Cycle					:ARRAY [1..50] OF LREAL;
+	Pnc_Cycle2					:ARRAY [1..50] OF LREAL;
+	Pnc_Cycle3					:ARRAY [1..50] OF LREAL;
+	Pnc_Piece					:ARRAY [1..50] OF LREAL;
+	Pnc_Sync					:ARRAY [1..50] OF LREAL;
+	Pnc_Ges_Prod				:ARRAY [1..50] OF LREAL;
+	Pnc_Config_Soft				:ARRAY [1..50] OF LREAL;
+	Pnc_Long_Barre_Auto			:ARRAY [1..50] OF LREAL;
+	Pnc_Larg_Barre_Auto			:ARRAY [1..50] OF LREAL;
+	Pnc_Larg_Ame				:ARRAY [1..50] OF LREAL;
+	Pnc_Larg_Aile				:ARRAY [1..50] OF LREAL;
+	Pnc_Ep_Ame					:ARRAY [1..50] OF LREAL;
+	Pnc_Ep_Aile					:ARRAY [1..50] OF LREAL;
+	Pnc_Custom_Bool				:ARRAY [1..50] OF LREAL;
+	Pnc_Custom_Real				:ARRAY [1..50] OF LREAL;
+
+(*Parametres Axes*)
+	Pnc_axe_Chariot				:Parametre_Axe;	(*Chariot N°1*)
+	Pnc_axe_Z_Chariot			:Parametre_Axe;	(*Chariot N°1*)
+
+	Pnc_axe_X_Robot			:Parametre_Axe;	(*X unité Robot/laser*)
+	Pnc_axe_Y_Robot			:Parametre_Axe;	(*Y unité Robot/laser*)
+	Pnc_axe_Z_Robot			:Parametre_Axe;	(*Z unité Robot/laser*)
+	Pnc_axe_A_Robot			:Parametre_Axe;	(*Rotateur unité Robot/laser*)
+
+(*Parametres Machine*)
+	Pnc_Chariot					:ARRAY [1..50] OF LREAL;
+	Pnc_Operateur		:ARRAY [1..50] OF LREAL;
+	Pnc_Palpage			:ARRAY [1..50] OF LREAL;
+	Pnc_Presseur				:ARRAY [1..50] OF LREAL;
+	Pnc_Presseur2				:ARRAY [1..50] OF LREAL;
+	Pnc_VP2X					:ARRAY [1..50] OF LREAL;(*VP2x*)
+	Pnc_VP						:ARRAY [1..50] OF LREAL;
+	Pnc_Vernet   		:ARRAY [1..50] OF LREAL;
+	Pnc_Vernet2			:ARRAY [1..50] OF LREAL;
+	Pnc_Vernet3			:ARRAY [1..50] OF LREAL;
+	Pnc_Vernet4			:ARRAY [1..50] OF LREAL;
+	Pnc_Vernet5			:ARRAY [1..50] OF LREAL;
+	pnc_cfg_machine		:ARRAY [1..50] OF LREAL;
+	Pnc_decoupe			:ARRAY [1..50] OF LREAL;
+	Pnc_Laser			:ARRAY [1..50] OF LREAL;
+	
+(*Parametres Char/ Dechar Auto*)
+	Pnc_Data_Next_Barre	:ARRAY [1..50] OF LREAL;
+
+(*Variables Free...*)
+	Pnc_tempos			:ARRAY [1..50] OF LREAL;
+	Pnc_Free_BOOL		:ARRAY [1..50] OF BOOL;
+	Pnc_Free_DINT		:ARRAY [1..50] OF DINT;
+	Pnc_Free_REAL		:ARRAY [1..50] OF LREAL;
+	Pnc_Free_STRING		:ARRAY [1..50] OF STRING;
+	
+(*Pupitre*)
+	Pnc_Pupitre					:ARRAY [1..50] OF LREAL; (*Paramètres pour le nouveau Pupitre/ Joystick*)
+	Pnc_Fct_Pupitre				:ARRAY [1..50] OF LREAL; (*Table des fonctions pupitres choisies*)
+	Pnc_Sync_Pupitre				:ARRAY [1..50] OF LREAL; (*Pour echanges temps reel driver<>PLC*)
+	
+	
+//pas possible de les desactiver dans driver, icone masquee
+	Pnc_outil2_U1,Pnc_outil2_U2,Pnc_outil2_U3		:ARRAY [1..50] OF LREAL; (*Paramètres pour le nouveau Pupitre/ Joystick*)
+
+//Test
+test2	:BOOL;
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

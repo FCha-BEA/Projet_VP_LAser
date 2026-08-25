@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Defauts_Alarmes" Id="{865d790b-ea4f-4be0-b10a-de0a3125a9e3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Defauts_Alarmes
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Défaut 1
+ (*000*) Mot_Defauts_1.0:=Defaut_Pressostat_Air;
+ (*001*) Mot_Defauts_1.1:=(NOT Detect_Pince_embrayee OR NOT Ev_Embrayage_Pince)AND Machine_en_service;
+ (*002*) Mot_Defauts_1.2:=Defaut_Parametres:=NOT Pnc_free_Bool[50];
+ (*003*) Mot_Defauts_1.3:= NOT Controle_Acces_Machine AND Machine_en_service;
+ (*004*) Mot_Defauts_1.4:=Defaut_X OR Defaut_Var_X OR Defaut_Poursuite_X;
+ (*016*) Mot_Defauts_1.16:=Defaut_Bus_de_Terrain;
+ (*025*) Mot_Defauts_1.25:=NOT Alimentations_24V_V1_OK;
+ (*026*) Mot_Defauts_1.26:=NOT Disjct_Alimentation_24V_V1;
+ (*030*) Mot_Defauts_1.30:= Machine_en_Service AND NOT Disjct_Centrale	;
+ 
+ 
+//Défaut 4
+ (*110*)Mot_Defauts_4.14:=Defaut_Lancement_POM;
+ (*126*)Mot_Defauts_4.30:=Machine_en_Service AND NOT Disjct_Ventilateur_Centrale;
+ 
+//Défaut 8
+ (*224*)Mot_Defauts_8.0:= NOT Disjct_Alimentation_24V_V2;
+ (*225*)Mot_Defauts_8.1:=NOT Disjct_Alimentation_24V_PC;
+ (*228*)Mot_Defauts_8.4:=NOT Disjct_Alimentation_24V_V4 ;
+ (*239*)Mot_Defauts_8.15:=Defaut_Z_Chariot ;
+ (*241*)Mot_Defauts_8.17:=Defaut_Var_Z_Chariot;
+ 
+//Défaut 9 
+ (*256*)Mot_Defauts_9.0:= Machine_en_Service AND Presence_Chariot AND NOT Disjct_Coffret_ChariotBE;
+ (*266*)Mot_Defauts_9.10:=Defaut_X_Laser;
+ (*267*)Mot_Defauts_9.11:=Defaut_Y_Laser;
+ (*268*)Mot_Defauts_9.12:=Defaut_Z_Laser;
+ (*269*)Mot_Defauts_9.13:=Defaut_A_Laser;
+ (*270*)Mot_Defauts_9.14:=Def_Calib_Presseurs;
+ (*271*)Mot_Defauts_9.15:=Machine_en_Service AND NOT Disjct_Coffret_Laser;
+ (*272*)Mot_Defauts_9.16:=Machine_en_Service AND NOT Disjct_Var_Conv_Laser;
+ //(*273*)Mot_Defauts_9.17:=Machine_en_Service AND NOT Disjct_Var_BS1; //FC en prévision du BS - enlever comm quand inmplantation définitive
+
+ //Defaut_General:= Mot_Defauts_1<> 0 OR Mot_Defauts_2<> 0 OR Mot_Defauts_3<> 0 OR
+//					Mot_Defauts_4<> 0 OR Mot_Defauts_5<> 0 OR Mot_Defauts_6<> 0 OR
+//					Mot_Defauts_7<> 0 OR Mot_Defauts_8<> 0 OR Mot_Defauts_9<> 0;
+					 
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

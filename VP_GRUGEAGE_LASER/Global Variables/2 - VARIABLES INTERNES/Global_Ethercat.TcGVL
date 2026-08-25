@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_Ethercat" Id="{34d1d07c-c5a3-4009-87a4-459fbdf2e2fe}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+	Defaut_Bus_de_Terrain:BOOL:=FALSE;
+
+	State_Maitre_Ethercat_Visu		:INT;
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Rep_Ethercat_MURR" Id="{ee47c2b8-27ee-4344-8ff7-0459e63cbee1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Rep_Ethercat_MURR
+VAR_INPUT
+	Valid : BOOL;
+
+	LINK_REP_TSM_MAP_DI : UINT;
+
+	Port_0_Pin_4_Sortie : BOOL;
+	Port_0_Pin_2_Sortie : BOOL;
+	Port_1_Pin_4_Sortie : BOOL;
+	Port_1_Pin_2_Sortie : BOOL;
+	Port_2_Pin_4_Sortie : BOOL;
+	Port_2_Pin_2_Sortie : BOOL;
+	Port_3_Pin_4_Sortie : BOOL;
+	Port_3_Pin_2_Sortie : BOOL;
+	Port_4_Pin_4_Sortie : BOOL;
+	Port_4_Pin_2_Sortie : BOOL;
+	Port_5_Pin_4_Sortie : BOOL;
+	Port_5_Pin_2_Sortie : BOOL;
+	Port_6_Pin_4_Sortie : BOOL;
+	Port_6_Pin_2_Sortie : BOOL;
+	Port_7_Pin_4_Sortie : BOOL;
+	Port_7_Pin_2_Sortie : BOOL;
+
+	Forcage_A_Zero	: DWORD;
+	Forcage_A_Un	 : DWORD;
+END_VAR
+
+VAR_OUTPUT
+	Out : BOOL;
+
+	LINK_REP_TSM_MAP_DO : UINT;
+
+	Port_0_Pin_4_Entree : BOOL;
+	Port_0_Pin_2_Entree : BOOL;
+	Port_1_Pin_4_Entree : BOOL;
+	Port_1_Pin_2_Entree : BOOL;
+	Port_2_Pin_4_Entree : BOOL;
+	Port_2_Pin_2_Entree : BOOL;
+	Port_3_Pin_4_Entree : BOOL;
+	Port_3_Pin_2_Entree : BOOL;
+	Port_4_Pin_4_Entree : BOOL;
+	Port_4_Pin_2_Entree : BOOL;
+	Port_5_Pin_4_Entree : BOOL;
+	Port_5_Pin_2_Entree : BOOL;
+	Port_6_Pin_4_Entree : BOOL;
+	Port_6_Pin_2_Entree : BOOL;
+	Port_7_Pin_4_Entree : BOOL;
+	Port_7_Pin_2_Entree : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	(* Lecture des Entrées *)
+	Port_0_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.0 OR Forcage_A_Un.0) AND NOT Forcage_A_Zero.0;
+	Port_0_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.0 OR Forcage_A_Un.0) AND NOT Forcage_A_Zero.0;
+	Port_0_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.1 OR Forcage_A_Un.1) AND NOT Forcage_A_Zero.1;
+	Port_1_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.2 OR Forcage_A_Un.2) AND NOT Forcage_A_Zero.2;
+	Port_1_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.3 OR Forcage_A_Un.3) AND NOT Forcage_A_Zero.3;
+	Port_2_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.4 OR Forcage_A_Un.4) AND NOT Forcage_A_Zero.4;
+	Port_2_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.5 OR Forcage_A_Un.5) AND NOT Forcage_A_Zero.5;
+	Port_3_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.6 OR Forcage_A_Un.6) AND NOT Forcage_A_Zero.6;
+	Port_3_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.7 OR Forcage_A_Un.7) AND NOT Forcage_A_Zero.7;
+	Port_4_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.8 OR Forcage_A_Un.8) AND NOT Forcage_A_Zero.8;
+	Port_4_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.9 OR Forcage_A_Un.9) AND NOT Forcage_A_Zero.9;
+	Port_5_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.10 OR Forcage_A_Un.10) AND NOT Forcage_A_Zero.10;
+	Port_5_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.11 OR Forcage_A_Un.11) AND NOT Forcage_A_Zero.11;
+	Port_6_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.12 OR Forcage_A_Un.12) AND NOT Forcage_A_Zero.12;
+	Port_6_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.13 OR Forcage_A_Un.13) AND NOT Forcage_A_Zero.13;
+	Port_7_Pin_4_Entree := (LINK_REP_TSM_MAP_DI.14 OR Forcage_A_Un.14) AND NOT Forcage_A_Zero.14;
+	Port_7_Pin_2_Entree := (LINK_REP_TSM_MAP_DI.15 OR Forcage_A_Un.15) AND NOT Forcage_A_Zero.15;
+
+	(* Ecriture des sorties *)
+	LINK_REP_TSM_MAP_DO.0 := (Port_0_Pin_4_Sortie OR Forcage_A_Un.16) AND NOT Forcage_A_Zero.16;
+	LINK_REP_TSM_MAP_DO.1 := (Port_0_Pin_2_Sortie OR Forcage_A_Un.17) AND NOT Forcage_A_Zero.17;
+	LINK_REP_TSM_MAP_DO.2 := (Port_1_Pin_4_Sortie OR Forcage_A_Un.18) AND NOT Forcage_A_Zero.18;
+	LINK_REP_TSM_MAP_DO.3 := (Port_1_Pin_2_Sortie OR Forcage_A_Un.19) AND NOT Forcage_A_Zero.19;
+	LINK_REP_TSM_MAP_DO.4 := (Port_2_Pin_4_Sortie OR Forcage_A_Un.20) AND NOT Forcage_A_Zero.20;
+	LINK_REP_TSM_MAP_DO.5 := (Port_2_Pin_2_Sortie OR Forcage_A_Un.21) AND NOT Forcage_A_Zero.21;
+	LINK_REP_TSM_MAP_DO.6 := (Port_3_Pin_4_Sortie OR Forcage_A_Un.22) AND NOT Forcage_A_Zero.22;
+	LINK_REP_TSM_MAP_DO.7 := (Port_3_Pin_2_Sortie OR Forcage_A_Un.23) AND NOT Forcage_A_Zero.23;
+	LINK_REP_TSM_MAP_DO.8 := (Port_4_Pin_4_Sortie OR Forcage_A_Un.24) AND NOT Forcage_A_Zero.24;
+	LINK_REP_TSM_MAP_DO.9 := (Port_4_Pin_2_Sortie OR Forcage_A_Un.25) AND NOT Forcage_A_Zero.25;
+	LINK_REP_TSM_MAP_DO.10 := (Port_5_Pin_4_Sortie OR Forcage_A_Un.26) AND NOT Forcage_A_Zero.26;
+	LINK_REP_TSM_MAP_DO.11 := (Port_5_Pin_2_Sortie OR Forcage_A_Un.27) AND NOT Forcage_A_Zero.27;
+	LINK_REP_TSM_MAP_DO.12 := (Port_6_Pin_4_Sortie OR Forcage_A_Un.28) AND NOT Forcage_A_Zero.28;
+	LINK_REP_TSM_MAP_DO.13 := (Port_6_Pin_2_Sortie OR Forcage_A_Un.29) AND NOT Forcage_A_Zero.29;
+	LINK_REP_TSM_MAP_DO.14 := (Port_7_Pin_4_Sortie OR Forcage_A_Un.30) AND NOT Forcage_A_Zero.30;
+	LINK_REP_TSM_MAP_DO.15 := (Port_7_Pin_2_Sortie OR Forcage_A_Un.31) AND NOT Forcage_A_Zero.31;
+
+ELSE
+
+	(* Ecriture des sorties *)
+	LINK_REP_TSM_MAP_DO.0 := LINK_REP_TSM_MAP_DO.1 := LINK_REP_TSM_MAP_DO.2 := LINK_REP_TSM_MAP_DO.3 :=
+	LINK_REP_TSM_MAP_DO.4 := LINK_REP_TSM_MAP_DO.5 := LINK_REP_TSM_MAP_DO.6 := LINK_REP_TSM_MAP_DO.7 :=
+	LINK_REP_TSM_MAP_DO.8 := LINK_REP_TSM_MAP_DO.9 := LINK_REP_TSM_MAP_DO.10 := LINK_REP_TSM_MAP_DO.11 :=
+	LINK_REP_TSM_MAP_DO.12 := LINK_REP_TSM_MAP_DO.13 := LINK_REP_TSM_MAP_DO.14 := LINK_REP_TSM_MAP_DO.15 := FALSE;
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Rep_Ethercat_MURR">
+      <LineId Id="50" Count="47" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

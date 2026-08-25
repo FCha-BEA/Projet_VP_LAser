@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_WriteGrpMinVeloTrans" Id="{231abfcf-6b6e-4fc4-aa12-0b120fd94a0b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_WriteGrpMinVeloTrans		// Ecriture de la vitesse minimum de transition entre les segments
+VAR_INPUT
+	bWrite								: BOOL;	// commande : active sur front
+	GrpID								: UINT;		// Id du groupe d'interpolation
+	lminSpeed_cutting					: LREAL;	// valeur de vitesse minimum de transition en mm/s
+	lminSpeed_milling_scribing			: LREAL;	// valeur de vitesse minimum de transition en mm/s
+	code_M_50							: BOOL;
+END_VAR
+VAR_OUTPUT
+	OUT									: BOOL;
+	bDone								: BOOL;	// résultat de la commande d'écriture
+	bError								: BOOL;	// erreur de la commande d'écriture
+END_VAR
+VAR
+	R_TRIG0							: R_TRIG;
+	step									: UINT;
+	ADSWRITE0						: ADSWRITE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[R_TRIG0(CLK := bWrite);
+CASE step OF
+	0:	// attente commande
+		IF R_TRIG0.Q THEN
+			bDone := FALSE;
+			bError := FALSE;
+			IF GrpId <> 0 THEN
+				step := step + 1;
+			ELSE	// erreur : l'ID du groupe ne peut être égal à 0
+				bError := TRUE;
+				step := 0;
+			END_IF	
+		END_IF
+		
+	1:	// Ecriture
+		IF code_M_50 THEN
+			ADSWRITE0(
+				NETID:= '', 
+				PORT:= 501,	// NC Task 
+				IDXGRP:= 16#3000 + GrpID, 
+				IDXOFFS:= 16#505,			// vitesse minimum 
+				LEN:= SIZEOF(lminSpeed_cutting), 
+				SRCADDR:= ADR(lminSpeed_cutting), 
+				WRITE:= TRUE, 
+				TMOUT:= T#200MS);
+		ELSE
+			ADSWRITE0(
+				NETID:= '', 
+				PORT:= 501,	// NC Task 
+				IDXGRP:= 16#3000 + GrpID, 
+				IDXOFFS:= 16#505,			// vitesse minimum 
+				LEN:= SIZEOF(lminSpeed_milling_scribing), 
+				SRCADDR:= ADR(lminSpeed_milling_scribing), 
+				WRITE:= TRUE, 
+				TMOUT:= T#200MS);
+		END_IF
+		IF NOT ADSWRITE0.BUSY THEN
+			IF NOT ADSWRITE0.ERR THEN
+				ADSWRITE0(WRITE := FALSE);
+				bDone := TRUE;
+				step := 0;
+			ELSE
+				ADSWRITE0(WRITE := FALSE);
+				bError := TRUE;
+				step := 0;
+			END_IF
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_WriteGrpMinVeloTrans">
+      <LineId Id="28" Count="46" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

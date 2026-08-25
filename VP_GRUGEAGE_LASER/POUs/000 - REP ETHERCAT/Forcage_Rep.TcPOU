@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Forcage_Rep" Id="{a4102918-e58c-4fe6-a103-6b69135e62e2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Forcage_Rep
+VAR
+	ArboImgRep	:STRING(255);
+	
+		Forcage_a_0					:ARRAY [1..40] OF DWORD;
+		Forcage_a_0_Temp				:DWORD;			(*Sauvegarde des valeurs forcées sur un répartiteur*)
+	Forcage_a_1					:ARRAY [1..40] OF DWORD;
+		Forcage_a_1_Temp				:DWORD;			(*Sauvegarde des valeurs forcées sur un répartiteur*)
+
+	Bit_Rep_Selectionne_pr_Forcage	:BOOL;		(*Indique qu'un répartiteur à été selectionné*)
+		RE_Bit_Rep_Selectionne_pr_Forcage:r_trig;
+	Num_Rep_Selectionne_pr_Forcage	:INT;		(*Numéro du répartiteur ds le tableau de forcage*)
+
+	Val_Live_Rep_Selectionne_IN 		:UINT;		(*Valeur "réel" d'entrée du répartiteur*)
+	Val_Live_Rep_Selectionne_OUT	:UINT;		(*Valeur "réel" de sortie du répartiteur*)
+
+	(*Visu*)
+	Bp_Valid_Forcage_Rep_Visu 		:BOOL;
+		RE_Bp_Valid_Forcage_Rep_Visu:r_trig;
+	Bp_Exit_Forcage_Rep_Visu 		:BOOL;
+
+	Nom_Rep_Selectionne_Visu		: STRING;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE Forcage_Rep.Num_Rep_Selectionne_pr_Forcage OF 
+	1 :
+		ArboImgRep :='Rep420_ChaBe';
+	2 :
+		ArboImgRep :='Rep820_Las1';
+	3 :
+		ArboImgRep :='Rep821_Las2';
+	4 :
+		ArboImgRep :='Rep822_Las3';
+	5 :
+		ArboImgRep :='Rep961_Pup';
+	6 :
+		ArboImgRep :='Rep1520_Be';
+	7 :
+		ArboImgRep :='Rep1572_Bs';		
+END_CASE
+
+
+(*****************Récupération de l'état des forcage du répartiteur lors de la sélection de la page**************)
+Bit_Rep_Selectionne_pr_Forcage := Num_Rep_Selectionne_pr_Forcage<>0;
+
+RE_Bit_Rep_Selectionne_pr_Forcage(clk:=Bit_Rep_Selectionne_pr_Forcage);
+
+IF RE_Bit_Rep_Selectionne_pr_Forcage.Q THEN
+	Forcage_a_0_Temp := Forcage_a_0[Num_Rep_Selectionne_pr_Forcage];
+	Forcage_a_1_Temp := Forcage_a_1[Num_Rep_Selectionne_pr_Forcage];
+END_IF
+
+(*****************************Forcage des états du répartiteur lors de la validation*****************************)
+RE_Bp_Valid_Forcage_Rep_Visu(clk:=Bp_Valid_Forcage_Rep_Visu);
+
+IF RE_Bp_Valid_Forcage_Rep_Visu.Q THEN
+	Forcage_a_0[Num_Rep_Selectionne_pr_Forcage] := Forcage_a_0_Temp;
+	Forcage_a_1[Num_Rep_Selectionne_pr_Forcage] := Forcage_a_1_temp;
+END_IF
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="_0_LASER_ST" Id="{91b66463-cd76-4a43-9a21-35f5c7e7036d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM _0_LASER_ST
+VAR
+	//Choix face
+	 Fb_decode_real_Fct_M_			: Fb_decode_real;
+	 Num_Unite_Cycle_Auto			: INT;
+	 Num_operation_Cycle 				: INT;
+	//Asservissement pression
+	 Asserv_Pression				:FB_BasicPID;
+	  P,I,D,Td						:LREAL;	//Pour essais lors du test asservissement   
+	  Test_asserv					:BOOL;
+	
+	  
+	 t_floppy1	:BOOL;	//sert de test, à suppr dans ver finale
+	 
+	 LaserTYpe	:UINT;
+	 PasswordDisplay	:UINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// CHOIX DE LA FACE EN CYCLE AUTO   
+ IF Auto AND G7_Palpage_Sommet_L.Init.x AND Sequence[Pt_Sequence].M<>0 THEN
+ 	(*Decodage des fonctions dans la sequence en cours*)
+ 	Fb_decode_real_Fct_M_(Valid:=TRUE,Real_Value:=Sequence[Pt_Sequence].M);
+ 	Num_Unite_Cycle_Auto:=Fb_decode_real_Fct_M_.Cent_Milliers;
+ 
+ 	Num_operation_Cycle:=LREAL_TO_INT(Sequence[Pt_Sequence].P10);
+ 	Decoupe := Num_operation_Cycle = 13;
+ 	Ecretage := Num_operation_Cycle = 15;
+ 
+ 	CASE Num_Unite_Cycle_Auto OF
+ 		1 : 	IF Decoupe THEN Face_Cible_Cycle := 1; END_IF;
+ 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;	(* Normalement NON *)
+ 		2 : 	IF Decoupe THEN Face_Cible_Cycle := 2; END_IF;
+ 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;
+ 	ELSE
+ 		Face_Cible_Cycle := 0;
+ 	END_CASE;
+ 
+ 	IF Face_Cible_Cycle <> 0 THEN
+ 		Face_Cible 		:= Face_Cible_Cycle;
+ 		Face_En_Pos 	:= FALSE;
+ 		Top_Face 		:= TRUE;
+ 	END_IF;
+ END_IF;
+
+// Quelle face en cours ? 
+ IF		Pos_reel_A_Laser = - 45 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ 			Face_En_Cours := 1;
+ ELSIF 	Pos_reel_A_Laser = + 45 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ 			Face_En_Cours := 2;
+ ELSIF 	Pos_reel_A_Laser = + 90 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ 			Face_En_Cours := 3;
+ ELSE
+ 			Face_En_Cours := 0;
+ END_IF;
+ 
+ 
+ Face_En_Pos := Face_Cible <> 0 AND Face_En_Cours <> 0 AND Face_Cible = Face_En_Cours;
+ IF Top_Face AND Face_En_Pos THEN
+ 	Top_Face := FALSE;
+ END_IF;
+
+//Palpage sommet
+ (* Aile Ref *)
+ 	Palp_R[1].R11.X := 551.16;
+ 	Palp_R[1].R11.Y := 267.23;
+ 	Palp_R[1].R11.Z := 293.45;
+ 
+ 	Palp_R[1].R21.X := 1138.34;
+ 	Palp_R[1].R21.Y := 318.60;
+ 	Palp_R[1].R21.Z := 397.38;
+ 
+ 	Palp_R[1].R19.X := 535.25;
+ 	Palp_R[1].R19.Y := 466.41;
+ 	Palp_R[1].R19.Z := 284.86;
+ 
+ 	Palp_R[1].R00.X := 346.26;
+ 	Palp_R[1].R00.Y := 349.59;
+ 	Palp_R[1].R00.Z := 254.30;
+ 
+ 
+ (* Aile Ame *)
+ 	Palp_R[2].R11b.X := 542.80;
+ 	Palp_R[2].R11b.Y := 371.90;
+ 	Palp_R[2].R11b.Z := 288.93;
+ 
+ 	Palp_R[2].R21b.X := 1129.98;
+ 	Palp_R[2].R21b.Y := 423.27;
+ 	Palp_R[2].R21b.Z := 392.87;
+ 
+ 	Palp_R[2].R13.X := 522.80;
+ 	Palp_R[2].R13.Y := 375.11;
+ 	Palp_R[2].R13.Z := 400.34;
+ 
+ 	Palp_R[2].R00.X := 301.70;
+ 	Palp_R[2].R00.Y := 361.75;
+ 	Palp_R[2].R00.Z := 500.04;
+ 
+ 
+ (* Aile Opp Ref *)
+ 	Palp_R[3].R11.X := 462.84;
+ 	Palp_R[3].R11.Y := 281.40;
+ 	Palp_R[3].R11.Z := 785.38;
+ 
+ 	Palp_R[3].R21.X := 1050.03;
+ 	Palp_R[3].R21.Y := 332.77;
+ 	Palp_R[3].R21.Z := 889.32;
+ 
+ 	Palp_R[3].R19.X := 446.94;
+ 	Palp_R[3].R19.Y := 480.58;
+ 	Palp_R[3].R19.Z := 776.79;
+ 
+ 	Palp_R[3].R00.X := 257.95;
+ 	Palp_R[3].R00.Y := 363.76;
+ 	Palp_R[3].R00.Z := 746.23;
+
+//Asservissement pression gaz dans tete laser
+ IF Start_Gaz OR Test_Asserv THEN
+  Asserv_Pression.fKp:=P;
+  Asserv_Pression.fTn:=I;
+  Asserv_Pression.fTv:=D;
+  Asserv_Pression.fTd:=Td;
+  Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
+  Asserv_Pression.fActualValue:=Data14_Cutting_Gas_Pressure;
+  Asserv_Pression.fCtrlCycleTime:=0.01; //Tmps de cycle tâche plc, à augmenter si besoin - en multiple de tmps de cycle uniqement, d'après la doc
+ 
+  Consigne_ServoVanne:=LREAL_TO_UINT(Asserv_Pression.fCtrlOutput);
+ END_IF
+
+//Autorisation ouverture gâche sécurisée
+ //Evacuation air cabine
+  Tps_Aspiration:=REAL_TO_TIME(Volume_Cabine/Debit_Aspiration*1000);
+  TON_Air_Cabine(in:= NOT Tir_Laser AND K_service_Aspiration,pt:=Tps_Aspiration); //tps en ms
+  IF Tir_laser THEN
+	  Evac_Air_Cabine_ok:=FALSE;
+  ELSIF TON_Air_Cabine.Q THEN
+	  Evac_Air_Cabine_ok:=TRUE;
+  END_IF
+  
+  
+  
+  Re_DmdVerrDeverr_Porte(clk:=Dmd_VerrDeverr_Porte);
+  
+ Autor_Ouverture_Porte:= Evac_Air_Cabine_ok;
+ IF Re_DmdVerrDeverr_Porte.Q AND NOT Mem_Arus THEN Attente_Arret_Propre :=NOT Attente_Arret_Propre; END_IF //Demande d'ouverture porte : on attend de finir le cycle en cours
+ IF Autor_Ouverture_Porte OR t_floppy1 THEN
+ 	IF Re_DmdVerrDeverr_Porte.Q AND Mem_Arus THEN 
+		K_VerrDeverr_PorteLaser:=TRUE; 
+		Attente_Arret_Propre:=FALSE;
+	END_IF			//Machine à l'arrêt, on déverrouille l'interlock -FC : quel pilotage ? true := déverrouillé false = verrouillé OU sur front permutation entre l'un et l'autre 
+ 	IF Bp_Raz_Pnoz_Laser AND Mem_Arus THEN 
+		K_VerrDeverr_PorteLaser:=FALSE; 
+	END_IF	//Machine à l'arrêt, on verrouille l'interlock 
+ END_IF
+ 
+ //Raz pnoz porte et module laser
+ RAZ_Pnoz_PorteLaser := Bp_Raz_Pnoz_Laser ;
+ RAZ_Pnoz_Laser:=  Porte_Laser_Fermee;
+ 
+ 
+LaserTYpe:=UDINT_TO_UINT(Source_MaxPhotonics.PROGRAM_NUMBER_IN);
+PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

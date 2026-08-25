@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_Axes_Laser" Id="{ad60cf16-7070-45f7-aba4-b64adca49cbc}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+(*Axe A Rotation Angulaire*)
+	 Offset_A_Laser									: LREAL;
+	 Pos_cible_A_Laser								: LREAL:=0;
+	 Pos_Reel_A_Laser								: LREAL:=0;
+	 Num_Defaut_A_Laser								: UDINT:=0;
+     
+	 En_pos_A_Laser									: BOOL:=FALSE;
+	 	RE_En_pos_A_Laser							:R_TRIG;
+	 Top_A_Laser									: BOOL:=FALSE;
+	 Dem_pom_A_Laser								: BOOL:=FALSE;
+	 Ref_Ok_A_Laser									: BOOL:=FALSE;
+	 Defaut_A_Laser									: BOOL:=FALSE;
+	 Jog_Plus_A_Laser								: BOOL:=FALSE;
+	 Jog_Moins_A_Laser								: BOOL:=FALSE;
+	 Defaut_Var_A_Laser								: BOOL:=FALSE;
+	 Defaut_Poursuite_A_Laser						: BOOL:=FALSE;
+	 No_Move_A_Laser								: BOOL:=FALSE;
+                                                    
+	 limite_atteinte_A_Laser						: BOOL:=FALSE;
+	 Top_Forcage_Position_A_Laser					: BOOL:=FALSE;
+	 Top_Forcage_Ref_OK_A_Laser						: BOOL:=FALSE;
+	 Vitesse_Reelle_A_Laser							: LREAL;
+	 
+(* Axe X *)
+	 Offset_X_Laser									: LREAL;
+	 Pos_cible_X_Laser								: LREAL:=0;
+	 Pos_Reel_X_Laser								: LREAL:=0;
+	 Num_Defaut_X_Laser								: UDINT:=0;
+     
+	 En_pos_X_Laser									: BOOL:=FALSE;
+	 	RE_En_pos_X_Laser							:R_TRIG;
+	 Top_X_Laser									: BOOL:=FALSE;
+	 Dem_pom_X_Laser								: BOOL:=FALSE;
+	 Ref_Ok_X_Laser									: BOOL:=FALSE;
+	 Defaut_X_Laser									: BOOL:=FALSE;
+	 Jog_Plus_X_Laser								: BOOL:=FALSE;
+	 Jog_Moins_X_Laser								: BOOL:=FALSE;
+	 Defaut_Var_X_Laser								: BOOL:=FALSE;
+	 Defaut_Poursuite_X_Laser						: BOOL:=FALSE;
+	 No_Move_X_Laser								: BOOL:=FALSE;
+	 limite_atteinte_X_Laser						: BOOL:=FALSE;
+	 Top_Forcage_Position_X_Laser					: BOOL:=FALSE;
+	 Top_Forcage_Ref_OK_X_Laser						: BOOL:=FALSE;
+	 Vitesse_Reelle_X_Laser							: LREAL;
+(* Axe Y *)
+	 Offset_Y_Laser_REF								: LREAL := -242.7;
+	 Offset_Y_Laser_OPP_REF							: LREAL := -709.3;
+	 Offset_Y_Laser_ECRETAGE						: LREAL := -806.0;
+	 Pos_cible_Y_Laser								: LREAL:=0;
+	 Pos_Reel_Y_Laser								: LREAL:=0;
+	 Num_Defaut_Y_Laser								: UDINT:=0;
+	 En_pos_Y_Laser									: BOOL:=FALSE;
+	 	RE_En_pos_Y_Laser							:R_TRIG;
+	 Top_Y_Laser									: BOOL:=FALSE;
+	 Dem_pom_Y_Laser								: BOOL:=FALSE;
+	 Ref_Ok_Y_Laser									: BOOL:=FALSE;
+	 Defaut_Y_Laser									: BOOL:=FALSE;
+	 Jog_Plus_Y_Laser								: BOOL:=FALSE;
+	 Jog_Moins_Y_Laser								: BOOL:=FALSE;
+	 Defaut_Var_Y_Laser								: BOOL:=FALSE;
+	 Defaut_Poursuite_Y_Laser						: BOOL:=FALSE;
+	 No_Move_Y_Laser								: BOOL:=FALSE;
+	 limite_atteinte_Y_Laser						: BOOL:=FALSE;
+	 Top_Forcage_Position_Y_Laser					: BOOL:=FALSE;
+	 Top_Forcage_Ref_OK_Y_Laser						: BOOL:=FALSE;
+	 Vitesse_Reelle_Y_Laser							: LREAL;
+	 
+(* Axe Z *)
+	 Offset_Z_Laser_REF								: LREAL := 200;	//a regler
+	 Offset_Z_Laser_OPP_REF							: LREAL := 200; //a regler
+	 Offset_Z_Laser_ECRETAGE						: LREAL := 200; //a regler
+	 Pos_cible_Z_Laser								: LREAL:=0;
+	 Pos_Reel_Z_Laser								: LREAL:=0;
+	 Num_Defaut_Z_Laser								: UDINT:=0;     
+	 En_pos_Z_Laser									: BOOL:=FALSE;
+	 	RE_En_pos_Z_Laser							:R_TRIG;
+	 Top_Z_Laser									: BOOL:=FALSE;
+	 Dem_pom_Z_Laser								: BOOL:=FALSE;
+	 Ref_Ok_Z_Laser									: BOOL:=FALSE;
+	 Defaut_Z_Laser									: BOOL:=FALSE;
+	 Jog_Plus_Z_Laser								: BOOL:=FALSE;
+	 Jog_Moins_Z_Laser								: BOOL:=FALSE;
+	 Defaut_Var_Z_Laser								: BOOL:=FALSE;
+	 Defaut_Poursuite_Z_Laser						: BOOL:=FALSE;
+	 No_Move_Z_Laser								: BOOL:=FALSE;    
+	 limite_atteinte_Z_Laser						: BOOL:=FALSE;
+	 Top_Forcage_Position_Z_Laser					: BOOL:=FALSE;
+	 Top_Forcage_Ref_OK_Z_Laser						: BOOL:=FALSE;
+	 Vitesse_Reelle_Z_Laser							: LREAL;
+	 Vitesse_Z_Laser_PTP							: LREAL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

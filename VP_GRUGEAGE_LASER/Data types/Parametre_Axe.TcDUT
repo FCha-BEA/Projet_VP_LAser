@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="Parametre_Axe" Id="{b5d78f4f-20bc-4493-9ace-bcd0783b363b}">
+    <Declaration><![CDATA[TYPE Parametre_Axe :(*50 variables17+33*)
+STRUCT
+	Numero_Axe			:LREAL;
+	Vitesse_POM			:LREAL;
+	Vitesse_MAN			:LREAL;
+	Vitesse_PTP			:LREAL;
+	Vitesse_Zone_pv	:LREAL;
+	Accel_Deccel		:LREAL;
+	Override				:LREAL;
+	Limite_Plus			:LREAL;
+	Limite_Moins			:LREAL;
+	Zone_Acc_Decel		:LREAL;
+	Zone_en_Pos		:LREAL;
+	Tempo_en_Pos		:LREAL;
+	Zone_Pv_Pos		:LREAL;
+	Pos_POM			:LREAL;
+	Pos_Degag_1		:LREAL;
+	Pos_Degag_2		:LREAL;
+	Pos_Degag_3		:LREAL;
+	Libre				:ARRAY  [1..33]OF LREAL;
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

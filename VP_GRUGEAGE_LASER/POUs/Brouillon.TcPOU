@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Brouillon" Id="{7b64cf9e-5d10-4cbb-81fd-348e1a12c5f2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Brouillon
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

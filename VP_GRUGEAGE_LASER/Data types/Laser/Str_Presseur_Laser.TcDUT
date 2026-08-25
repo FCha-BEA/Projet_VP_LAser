@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Str_Presseur_Laser" Id="{e3c51da0-1fb5-4658-a798-bc2a448a40ff}">
+    <Declaration><![CDATA[TYPE Str_Presseur_Laser :
+STRUCT
+	Position_X				:LREAL;	//Distance entre : fd pince quand X chariot =0 - axe presseur
+	Val_Mesure_Ref			:LREAL;	//Distance mesurée par cellule en temps réel	
+	Val_Mesure_Opp_Ref		:LREAL; //Distance mesurée par cellule en temps réel
+	Pos_Reelle_Ref			:LREAL; //Position presseur par rapport à la réf
+	Pos_Reelle_Opp_Ref		:LREAL; //Position presseur par rapport à la réf
+	Val_Ref_SerreVide		:LREAL; //Distance mesurée par cellule quand presseur serré complétement, à vide.   
+	Val_Opp_Ref_SerreVide	:LREAL; //Distance mesurée par cellule quand presseur serré complétement, à vide.   
+	Dem_Serrage				:BOOL;
+	Dem_Desserrage			:BOOL;		
+	Stop_Chariot			:BOOL;	//Empêche le X chariot d'avancer 
+	Presseur_EnPlace		:BOOL;	//Serrage ok sur matière
+	Presseur_Haut			:BOOL;	//Presseur assez remonte
+	
+	EV_SerrDesser	AT%Q*:BOOL;	//Serrage ou desserrage	
+	EV_Maintien		AT%Q*:BOOL; 	//Maintien seulement
+	EV_SerrMaint	AT%Q*:BOOL;	//Serrage ou maintien
+	EV_Desserrage	AT%Q*:BOOL;	//Desserrage seulemen
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

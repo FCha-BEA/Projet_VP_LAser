@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_TURCK_CL50" Id="{c15bd45a-4e8b-4a49-9d41-c54dd59320eb}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_TURCK_CL50
+VAR_INPUT
+	Valid 		: BOOL;
+	Led_Verte	: BOOL;
+	Led_Rouge	: BOOL;
+	Led_Orange	: BOOL;
+END_VAR
+
+VAR_OUTPUT
+	Out 			: BOOL;
+	Byte0 		: USINT;
+	Byte1 		: USINT;
+	Byte2 		: USINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Byte1 = mode d'allumage = 0 Eteinte / 1 Allume fixe
+   Byte2 = Choix couleurs*)
+
+IF Valid THEN
+
+	(* Couleur Rouge *)
+	IF Led_Rouge THEN
+		Byte1 := 2#00000001;
+		Byte2 := 2#00010001;
+	(* Couleur Orange *)
+	ELSIF Led_Orange THEN
+		Byte1 := 2#00000001;
+		Byte2 := 2#00100010;
+	(* Couleur Verte *)
+	ELSIF Led_Verte THEN
+		Byte1 := 2#00000001;
+		Byte2 := 2#00000000;
+	(*Eteinte*)
+	ELSE
+		Byte1 := 2#00000000;
+		Byte2 := 2#00000000;
+	END_IF
+
+ELSE
+
+	Byte2 :=  2#00000000;
+	Byte1 :=  2#00000000;
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_TURCK_CL50">
+      <LineId Id="15" Count="28" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

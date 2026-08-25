@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_Atos" Id="{e173dc73-b19f-4a08-8915-90b484f25133}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+
+(*Var FB_Centrale_Hydro*)
+ Pression_Consigne_Temp								: LREAL;
+ Dem_pompe_En_Cours									: BOOL;
+ PID_Out_RPM										: LREAL;
+ PID_Actif											: BOOL;
+ Limiteur_plus										: BOOL;
+ Limiteur_moins										: BOOL;
+ Pression_Ok										: BOOL;
+ Pression_Reglage_OK								: BOOL;
+ Mode_Reglage										: BOOL;
+ ACK_DEF											: BOOL;
+ File_Delete										: BOOL;
+ ACK_File_Def										: BOOL;
+
+(*Défauts Centrale Hydro*)
+ Defaut_Pression_Huile_Consigne						: BOOL;
+ Defaut_Pression_Huile_Feedback						: BOOL;
+ Defaut_Temperature_Huile_Basse						: BOOL;
+ Defaut_Temperature_Huile_Haute						: BOOL;
+ Defaut_Niveau_Huile_Bas							: BOOL;
+ Defaut_Filtre_Pompe								: BOOL;
+ Defaut_Centrale_Hydro								: BOOL;
+ Defaut_Variateur_Pompe								: BOOL;
+ Defaut_Consigne_Vitesse_Pompe						: BOOL;
+
+(*Status_Centrale_Hydro*)
+ Statut_STO_Pompe									: BOOL;
+ Statut_Sous_Couple_Pompe							: BOOL;
+
+(*Alarme Centrale Hydro*)
+ Alarme_Temperature_Huile_Basse						: BOOL;
+ Alarme_Temperature_Huile_Haute						: BOOL;
+
+(*Colmatage filltre /// Electrovanne*)
+ Filtre_Pompe_OK									: BOOL;
+
+
+(*Capteur de pression*)
+ Mesure_Pression									: LREAL;	(*Bars*)
+
+
+(*Tableau Température avant défauts*)
+ Nbre_Elements_TAB_Logs_Temperature					: INT :=60;
+ Var_TAB_Logs_Temperature							: INT;
+ NB_Min_En_Service									: INT;
+ NB_Heures_En_Service								: INT;
+ TAB_Log_Before_Temperature_Fault					: ARRAY [0..60] OF INT;
+
+(*Variateur LENZE Motec pompe*)
+
+ Pompe_Centrale_BM	:Var_I550M;
+
+ Lenze_Status_Word_Motec_Pompe						AT%I*:UINT;
+ Lenze_Active_Operation_Mode_Motec_Pompe			AT%I*:SINT;
+ Lenze_Actual_Speed_Motec_Pompe						AT%I*:INT;
+ Lenze_Motor_Current_Motec_Pompe					AT%I*:INT;
+ Lenze_Error_Code_Motec_Pompe						AT%I*:UINT;
+ Lenze_Motor_Voltage_Var_Pompe						AT%I*:INT;
+ Lenze_Effective_Power_Var_Pompe					AT%I*:DINT;
+ Lenze_Apparent_Power_Var_Pompe						AT%I*:DINT;
+ 
+ Lenze_Net_Wordin1_Motec_Pompe						AT%Q*:UINT;
+ Lenze_CIA_Ctrl_Word_Motec_Pompe					AT%Q*:UINT;
+ Lenze_Operation_Mode_Motec_Pompe					AT%Q*:SINT;
+ Lenze_Target_Speed_Motec_Pompe						AT%Q*:INT;
+ Lenze_Target_Torque_Motec_Pompe					AT%Q*:INT;
+ Lenze_Accel_Time_1_Motec_Pompe						AT%Q*:UINT;
+ Lenze_Decel_Time_1_Motec_Pompe						AT%Q*:UINT;
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

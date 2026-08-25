@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="SEQUENCE_PROGRAMME_STATUS" Id="{737a3da1-ea57-4a97-9ca8-7519c46da795}">
+    <Declaration><![CDATA[TYPE SEQUENCE_PROGRAMME_STATUS :
+STRUCT
+	OK:LREAL;				(*EXECUTE 0-100*)
+	TEMPS:LREAL;		(*Tps execution sequence*)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

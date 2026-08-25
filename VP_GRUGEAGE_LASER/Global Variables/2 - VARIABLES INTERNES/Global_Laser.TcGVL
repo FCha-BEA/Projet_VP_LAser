@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="Global_Laser" Id="{0fe38036-6898-4647-a792-4a015553fb31}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+
+//Bits Géneraux laser
+ Start_Gaz					:BOOL;			//On envoi le gaz dans la tête laser
+ Defaut_pression_gaz		:BOOL;			//La pression de gaz de coupe dans la tête s'écare trop de la consigne.
+ 	TON_Ecart_Pression_Gaz	:TON;			//Le temps pendant lequel on permet un écartement de la pression	
+	Ecart_Pression_Gaz		:INT;			//Ecart de pression permit pendant un temps donné	- A ajuster
+	Tmps_Ecart_Pression		:TIME;			//Temps au delà duquel on passe en défaut si la pression de gaz de la tête s'écarte trop - A ajuster
+ Pos_XLaser_PomSecu,
+ Pos_YLaser_PomSecu			:LREAL;
+ 
+
+//Palpage pour calcul position sommet
+	Face_Cible_Cycle							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
+	Face_Cible_Palpage							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
+	Face_Cible									: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
+	Face_En_Cours								: INT := 0; (* 0 = ???; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
+	Top_Face									: BOOL;
+	Face_En_Pos									: BOOL;
+
+	Top_Palpage_Face_1							: BOOL;
+	Top_Palpage_Face_2							: BOOL;                                                
+	Palpage_OK_Face_1							: BOOL;
+	Palpage_OK_Face_2							: BOOL;
+	Top_Palpage_Sommet							: BOOL;
+		FE_Top_Palpage_Sommet					:F_TRIG;
+	
+	Memo_Face_1_Y_1								: LREAL;
+	Memo_Face_1_Y_2								: LREAL;
+	Memo_Face_1_Z_1								: LREAL;
+	Memo_Face_1_Z_2								: LREAL;
+	Memo_Face_2_Y_1								: LREAL;
+	Memo_Face_2_Y_2								: LREAL;
+	Memo_Face_2_Z_1								: LREAL;
+	Memo_Face_2_Z_2								: LREAL;
+	
+//Palpage sommet - Pnc_Presseurs2 - L'une OU l'autre, pas les 2                  	
+	Opt_Palp_Sommet_Tjs					:BOOL:=FALSE; //Option pour palpage sommet : à chaque usinage
+	Opt_Palp_Sommet_1Clamp				:BOOL:=FALSE; //Option pour palpage sommet : début et fin barre uniquement
+
+//Palpage Etalonnage capacitance
+	Fct_palpage_Etal							:BOOL;
+	RE_Fct_palpage_Etal							:R_TRIG;
+ 	FE_Fct_palpage_Etal							:F_TRIG;
+	Ep_secu										:LREAL:=20;
+	Couple_de_Palpage 							:LREAL 	:= 100;	//A affiner
+	Memo_X_Laser_Decal							:LREAL;
+	
+//Cycles et divers - Voir bits inutiles à suppr
+ Laser_Start				:BOOL;
+ Allumage_tete_laser			:BOOL:=FALSE;
+ B_Allumage_torche_laser		:BOOL:=FALSE;
+ Defaut_collision_laser			:BOOL:=FALSE;
+ Defaut_torche_debrayee			:BOOL:=FALSE;
+ Memo_amorcage_laser_ok			:BOOL:=FALSE;
+ Defaut_arret_source_laser		:BOOL:=FALSE;
+ Laser_ok_pour_decoupe 			:BOOL:=FALSE;
+ PLC_Percage_laser_Ok			:BOOL:=FALSE;
+ defaut_palpage					:BOOL:=FALSE;
+ Top_perc_laser						:BOOL:=FALSE;
+ 	RE_Top_Laser					:R_TRIG;
+ FE_Dec_Manu						:F_TRIG;	
+ Offset_Origine_Y_Laser			:LREAL;		//Distance entre référence sommet cornière / laser quand Y laser =0	
+ 
+ ProcessID_Driver,Old_ProcessID	:LREAL;	//Process ID de la découpe laser reçu du Driver, selon recette
+ Nv_ProcessID		:BOOL;	//Si ProcessID_Driver <> ProcessID_Source, Autorise le palpage en auto 
+	
+//Pour ISO
+ Repertoire_NC_Laser			:STRING:='';
+ Param_R_CNC					:ARRAY[0..5] OF LREAL;	(*Paramètres R pour CNC : 0->Vitesse découpe  1->dans les angles  5->Inversion Sens Y (Réf=1 OppRéf=-1) *)
+ Reprise_decoupe				:BOOL:=FALSE;			(*Avec ProSH, c'est la reprise au point de rupture*)
+ Num_axe_X_CNC					:INT;			(*Axe X du groupe d'interpo*)
+ Num_axe_Y_CNC					:INT;			(*Axe Y du groupe d'interpo*)
+ Num_axe_Z_CNC					:INT;			(*Axe Z du groupe d'interpo*)
+ Var_temp_rep_NC				:STRING;
+ Fichier_ISO					:STRING;		(*Fichier ISO ds Repertoire *)
+ Start_ISO3D					:BOOL:=FALSE;	(*Execution fichier ISO*)
+ Prepa_ISO3D					:BOOL:=FALSE;	(*Preparation fichier ISO*)
+ Etat_CN						:WORD;
+ Num_defaut_CN					:WORD;
+ Memo_num_defaut_CN				:WORD;
+ Defaut_CN						:BOOL;
+ Memo_defaut_CN					:BOOL;
+ ISO_en_cours					:BOOL;
+ ISO3D_en_cours					:BOOL:=FALSE;
+ ISO3D_traj_en_cours			:BOOL:=FALSE;		//on execute la trajectoire, tout l'init est fait
+ Status_Fb_exec_ISO_3D_init		:BOOL:=FALSE;
+ F_M10							:BOOL;
+ F_M11							:BOOL;
+ F_M12							:BOOL;	//Tir laser depuis ISO
+ F_M13							:BOOL;
+ F_M14							:BOOL;	//STOP Tir laser depuis ISO
+ F_M30							:BOOL;
+ CodeM_50						:BOOL;
+ Override_decoupe				:LREAL;
+ Reprise_depuis_le_debut		:BOOL:=FALSE;
+ Write_param_R_CNC				:BOOL;
+ Write_param_VeloTrans_CNC		:BOOL;
+ VeloTrans_CNC_done				:BOOL;
+ Memo_Pos_X_Laser_Arus			:LREAL;
+ Memo_pos_Y_Laser_Arus			:LREAL;
+ Num_ligne_nc_en_cours			:INT;	(*Pour envoi de la ligne en cours au Driver*)
+ Num_ligne_nc_en_cours_laser 	:INT;	(*Pour envoi de la ligne en cours au Driver*)
+ Num_ligne_nc_en_cours_fraisage	:INT;	(*Pour envoi de la ligne en cours au Driver*)
+ Zone_pince_X_torche			:LREAL;	(*Côte depuis l'axe de la pince, donc une fois à droite et une fois à gauche*) //FC Utile ?
+ Zone_pince_Y_torche			:LREAL;	(*Côte depuis le bord de tôle*) //FC Utile ?
+ Vitesse_reelle_axes			:LREAL;
+ Defaut_vitesse_nulle_decoupe_manu:BOOL:=FALSE;
+ Seq_decoupe_interne			:BOOL;	(*Le numéro de fichier nc n'est pas un multiple de 1000*)
+ Seq_decoupe_externe			:BOOL;	(*Le numéro de fichier nc est un multiple de 1000*)
+ 
+ blocage_asserv_gde_variation	:BOOL;
+ blocage_torche_grande_vitesse	: BOOL;
+
+//Dégagement
+ Top_deg_Laser_full			:BOOL:=FALSE;
+ Top_deg_Laser_partiel		:BOOL:=FALSE;
+ Deg_Laser_partiel_ok		:BOOL:=FALSE;
+ Deg_Laser_full_ok			:BOOL:=FALSE;
+ Lifter_VB_ok_pour_decoupe	:BOOL:=FALSE;	//Tete laser à hauteur de découpe après les phases de perçages
+
+//Paramètres laser 
+ Tab_Datas_Laser				:ARRAY [0..5] OF Str_Param_Laser ;	//Données à envoyer au laser, 0-> découpe, 1 à 5-> phases de perçages --EXPERIMENTAL EN ATTENTE DE LA VER DEF DU DRIVER
+ Type_gaz						:UINT;	// Comment et à qui envoyer le type de gaz ? Pas dans la tête ni la source, d'après les échanges TC , Gestion en local ? 
+ Consigne_Pression_Gaz			:LREAL;
+ Nbr_phase_perc					:INT;	//Nombre de phase de percage, venant du driver
+ Phase_perc_encours				:INT;	//Phase de perçage en cours, s'il y a plusieurs phases de perçage
+ Tir_Laser, Tir_Ok				:BOOL;
+ 
+//Servovanne régulation gaz tête laser
+ Defaut_Servovanne,
+ Alarme_Servovanne				:BOOL;
+ 
+//General sécurité laser
+ //Ouverture porte
+  Dmd_VerrDeverr_Porte			:BOOL; 	// Sur IHM, arrête la machine(passage en ARUS par ex ?) à la fin du cycle, attente des conditions pour autoriser l'ouverture
+  	Re_DmdVerrDeverr_Porte		:r_trig;
+  Attente_Arret_Propre			:BOOL;	// Si demande ouverture porte, on attends d'immobiliser
+  Bp_Raz_Pnoz_Laser				:BOOL;		
+   //TP_VerrDeverr_Porte			:TP;	// Commande ouverture sur un petit temps , var dispo si besoin
+  //Aspiration air cabine
+   Volume_Cabine				:REAL:=20;	// Environ 10m3, on prend le double d'après le constructeur du laser
+   Debit_Aspiration				:REAL:=0.9;	// 0.9m3 /s
+   	Tps_Aspiration				:TIME;
+   TON_Air_Cabine				:TON;
+   Evac_Air_Cabine_ok			:BOOL:=TRUE;		//Une des conditions pour ouvrir la porte : après coupure laser, on a évacué env 2* le volume d'air de la cabine
+  Autor_Ouverture_Porte			:BOOL;	//Autorisation pour ouvrir la porte, certaines conditions doivent etre remplies.
+ //Tir en manu hors matière
+  Autor_Tir_Matiere				:BOOL;		//En manu, on s'assure d'être dans la matière (ou légèrement hors) pour permettre le tir laser
+  	Tolerance_HorsMatiere		:INT:=10;	// Permet une certaine tolérance, pour prévoir la déformation de la cornière. Utile ? 
+
+// Variateur Convoyeur Aval Laser
+Var_ConvLaser		:Var_I550M;
+X_Deb_ConvLaser		:INT;	//Distance fd de pince -X=0- <> 1e galet motorise
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

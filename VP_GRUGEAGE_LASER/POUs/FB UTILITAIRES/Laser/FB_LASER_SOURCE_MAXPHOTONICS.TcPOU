@@ -1,0 +1,753 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LASER_SOURCE_MAXPHOTONICS" Id="{7f2c1afa-ad86-4c1b-a6ad-7feae2151262}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LASER_SOURCE_MAXPHOTONICS
+
+VAR_INPUT
+	IN																: BOOL;
+
+	STATUS_0														: UDINT;						(* OK *)
+	STATUS_1														: UDINT;						(* OK *)
+	STATUS_2														: UDINT;						(* OK *)
+	STATUS_3														: UDINT;						(* OK *)
+	STATUS_4														: UDINT;						(* OK *)
+	STATUS_5														: UDINT;						(* OK *)
+
+	POWER_IN														: UDINT;						(* OK *)
+	OPTICAL_CHANNEL_IN											: UDINT;						(* OK *)
+	PROGRAM_NUMBER_IN											: UDINT;						(* OK *)
+	LASER_NUMBER_IN												: UDINT;						(* OK *)
+
+	(***********************************************************************************************************************)
+	Prog_Power_Watt_Max											: UDINT; (* Watt *) (* 0... 6000*)	(* OK *)
+	Prog_Power_Watt_Target											: UDINT; (* Watt *) (* 0... 6000*)	(* OK *)
+	(***********************************************************************************************************************)
+	Prog_Per_Cent_Of_Duty_Cycle_Max									: UDINT;	(* 0...100% *)			(* OK *)
+	Prog_Per_Cent_Of_Duty_Cycle_Target								: UDINT;	(* 0...100% *)			(* OK *)
+	(***********************************************************************************************************************)
+	Prog_Frequency_0_20000Hz_Max									: UDINT; (* Hz *) (* 0... 20 000 *)	(* OK *)
+	Prog_Frequency_0_20000Hz_Target									: UDINT; (* Hz *) (* 0... 20 000Hz *)	(* OK *)
+	(***********************************************************************************************************************)
+
+	Prog_Cutting_Mode												: BOOL;
+	Prog_Marking_Mode												: BOOL;
+
+	Prog_Secu_OK													: BOOL;						(* OK *)
+	Prog_Valid														: BOOL;						(* OK *)
+
+	Prog_Annul_Defaut												: BOOL;						(* OK *)
+
+
+END_VAR
+
+VAR_OUTPUT
+	OUT															: BOOL;						(* OK *)
+
+	CONTROL_0														: UDINT;
+	CONTROL_1														: UDINT;
+	CONTROL_2														: UDINT;
+	CONTROL_3														: UDINT;
+	CONTROL_4														: UDINT;
+	POWER_OUT													: UDINT; (* 0...100% *)
+	OPTICAL_CHANNEL_OUT											: UDINT;
+	PROGRAM_NUMBER_OUT										: UDINT;
+	RAMPING_TIME_OUT												: UDINT;
+	LASER_NUMBER_OUT											: UDINT;
+
+	Source_Prete_Pour_Decoupe										: BOOL;
+
+	Defaut_power_Watt_Target											: BOOL;						(* OK *)
+	Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack					: BOOL;						(* OK *)
+	Defaut_Per_Cent_Of_Duty_Cycle_Target								: BOOL;						(* OK *)
+	Defaut_Laser_Frequency_Of_PWM_Wave_Target						: BOOL;						(* OK *)
+
+	Defaut_Status_2													: BOOL;						(* OK *)
+	Defaut_Status_3													: BOOL;						(* OK *)
+	Defaut_Status_4													: BOOL;						(* OK *)
+
+	Defaut															: BOOL;						(* OK *)
+
+	Status_Percentage_Of_Laser_Output_Power							: USINT;
+	Status_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				: USINT;
+	Status_Percentage_Of_Laser_Frequency_Of_PWM_Wave				: UINT;
+
+END_VAR
+
+VAR
+
+	(****************************************************************************************************************)
+	Status_Ethercat_Communication_PassWord							: UDINT;
+
+	Status_Free_Status_1_0											: BOOL;
+	Status_Free_Status_1_1											: BOOL;
+	Status_Free_Status_1_2											: BOOL;
+	Status_Free_Status_1_3											: BOOL;
+	Status_Free_Status_1_4											: BOOL;
+	Status_Free_Status_1_5											: BOOL;
+	Status_Free_Status_1_6											: BOOL;
+	Status_Free_Status_1_7											: BOOL;
+	Status_Free_Status_1_8											: BOOL;
+	Status_Free_Status_1_9											: BOOL;
+	Status_Free_Status_1_10											: BOOL;
+	Status_Free_Status_1_11											: BOOL;
+	Status_Free_Status_1_12											: BOOL;
+	Status_Free_Status_1_13											: BOOL;
+	Status_Free_Status_1_14											: BOOL;
+	Status_Free_Status_1_15											: BOOL;
+	Status_Free_Status_1_16											: BOOL;
+	Status_Free_Status_1_17											: BOOL;
+	Status_Free_Status_1_18											: BOOL;
+	Status_Free_Status_1_19											: BOOL;
+	Status_Free_Status_1_20											: BOOL;
+	Status_Free_Status_1_21											: BOOL;
+	Status_Free_Status_1_22											: BOOL;
+	Status_Free_Status_1_23											: BOOL;
+	Status_Free_Status_1_24											: BOOL;
+	Status_Free_Status_1_25											: BOOL;
+	Status_Free_Status_1_26											: BOOL;
+	Status_Free_Status_1_27											: BOOL;
+	Status_Free_Status_1_28											: BOOL;
+	Status_Free_Status_1_29											: BOOL;
+	Status_Free_Status_1_30											: BOOL;
+	Status_Free_Status_1_31											: BOOL;
+
+	Status_Extrernal_Ctrl												: BOOL;
+	Status_Laser_Output_Light_ON										: BOOL;
+	Status_Main_Power_Start_ON										: BOOL;
+	Status_Start_Switch_ON											: BOOL;
+	Status_Alarm														: BOOL;
+	Status_Dewing_Alarm												: BOOL;
+	Status_Encryption_Started											: BOOL;
+	Status_Encrypted													: BOOL;
+	Status_Device_Forward_Light_Locked								: BOOL;
+	Status_External_CTRL_EN_Connected								: BOOL;
+	Status_External_CTRL_PWM_Connected								: BOOL;
+	Status_External_CTRL_0_10V_Connected								: BOOL;
+	Status_External_CTRL_Connected									: BOOL;
+	Status_QBH_Temperature_Locked									: BOOL;	(* Quartz Block Head *)
+	Status_Reflection_Locked											: BOOL;
+	Status_Factory_Locked											: BOOL;
+	Status_Air_Conditioning_Connected									: BOOL;
+	Status_SD_Card_Installed											: BOOL;
+	Status_Water_Cooling_Connected									: BOOL;
+	Status_RTC_Incorrect_Encrypted_Data								: BOOL;
+	Status_Interlock_1_Connected										: BOOL;
+	Status_Interlock_2_Connected										: BOOL;
+	Status_Free_Status_2_22											: BOOL;
+	Status_Free_Status_2_23											: BOOL;
+	Status_Free_Status_2_24											: BOOL;
+	Status_Free_Status_2_25											: BOOL;
+	Status_Free_Status_2_26											: BOOL;
+	Status_Free_Status_2_27											: BOOL;
+	Status_Free_Status_2_28											: BOOL;
+	Status_Free_Status_2_29											: BOOL;
+	Status_Free_Status_2_30											: BOOL;
+	Status_Free_Status_2_31											: BOOL;
+
+	Status_OverVoltage_Alarm											: BOOL;
+	Status_UnderVoltage_Alarm										: BOOL;
+	Status_Water_Flow_Alarm											: BOOL;
+	Status_Emergency_Stop_Alarm										: BOOL;
+	Status_QBH_Installation_Alarm										: BOOL;	(* Quartz Block Head *)
+	Status_QBH_Temperature_Alarm									: BOOL;	(* Quartz Block Head *)
+	Status_Electric_Water_Cooling_Plate_Temperature_Alarm				: BOOL;
+	Status_Abnormal_Light_Output_Alarm								: BOOL;
+	Status_Pump_Source_OverCurrent_Alarm								: BOOL;
+	Status_Pump_Source_Temperature_Alarm							: BOOL;
+	Status_PD_SD1_Forward_Light_Detection_Of_Seed_Source_1_Alarm		: BOOL;
+	Status_PD_SD2_Forward_Light_Detection_Of_Seed_Source_2_Alarm		: BOOL;
+	Status_Optical_Module_Temperature_Alarm							: BOOL;
+	Status_Optical_Module_Humidity_Alarm								: BOOL;
+	Status_Red_Beam_Current_Alarm									: BOOL;
+	Status_Stripper_1_Temperature_Alarm								: BOOL;
+	Status_Stripper_2_Temperature_Alarm								: BOOL;
+	Status_Optical_Water_Cooling_Plate_1_Temperature_Alarm				: BOOL;
+	Status_Optical_Water_Cooling_Plate_2_Temperature_Alarm				: BOOL;
+	Status_Electrical_Module_Temperature_Alarm							: BOOL;
+	Status_Electrical_Module_Humidity_Alarm							: BOOL;
+	Status_Power_AC_Alarm											: BOOL;
+	Status_Power_DC_Alarm											: BOOL;
+	Status_PD2_Secondary_Amplification_Forward_Light_Alarm				: BOOL;
+	Status_PD4_Super_Strong_Back_Reflection_Alarm						: BOOL;
+	Status_PD5_Normal_Back_Reflection_Alarm							: BOOL;
+	Status_PD6_Back_Reflection_Alarm									: BOOL;
+	Status_Combiner_Temperature_Alarm								: BOOL;
+	Status_FPGA_Loading_Failure_Alarm								: BOOL;
+	Status_FPGA_Handshake_Failure_Alarm								: BOOL;
+	Status_System_Clock_Failure_Alarm									: BOOL;
+	Status_Water_Cooling_Plate_Low_Temperature_Alarm					: BOOL;
+
+	Status_Fiber_Burning_Risk_Alarm									: BOOL;
+	Status_PD_SD1_Light_On_Alarm									: BOOL;
+	Status_PD_SD1_Light_Off_Alarm									: BOOL;
+	Status_PD1_Light_On_Alarm										: BOOL;
+	Status_PD1_Light_Off_Alarm										: BOOL;
+	Status_PD2_Light_On_Alarm										: BOOL;
+	Status_PD2_Light_Off_Alarm										: BOOL;
+	Status_Abnormal_Power_Supply_Of_Pump							: BOOL;
+	Status_Abnormal_Current_Of_First_Level_MOS_Tube					: BOOL;
+	Status_Abnormal_Current_Of_Second_Level_MOS_Tube				: BOOL;
+	Status_Power_Attenuation_Alarm									: BOOL;
+	Status_Abnormal_Power_Supply_Alarm								: BOOL;
+	Status_Abnormal_Control_Signal									: BOOL;
+	Status_Optical_Module_Alarm										: BOOL;
+	Status_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm			: BOOL;
+	Status_Optical_Module_Condensation_Alarm							: BOOL;
+	Status_Electrical_Module_Condensation_Alarm						: BOOL;
+	Status_Free_Status_4_17											: BOOL;
+	Status_Free_Status_4_18											: BOOL;
+	Status_Free_Status_4_19											: BOOL;
+	Status_Free_Status_4_20											: BOOL;
+	Status_Free_Status_4_21											: BOOL;
+	Status_Free_Status_4_22											: BOOL;
+	Status_Free_Status_4_23											: BOOL;
+	Status_Free_Status_4_24											: BOOL;
+	Status_Free_Status_4_25											: BOOL;
+	Status_Free_Status_4_26											: BOOL;
+	Status_Free_Status_4_27											: BOOL;
+	Status_Free_Status_4_28											: BOOL;
+	Status_Free_Status_4_29											: BOOL;
+	Status_Free_Status_4_30											: BOOL;
+	Status_Free_Status_4_31											: BOOL;
+
+	Status_Display_Cutting_Mode										: BOOL;
+	Status_Display_Marking_Mode										: BOOL;
+	Status_Free_Status_5_2											: BOOL;
+	Status_Free_Status_5_3											: BOOL;
+	Status_Free_Status_5_4											: BOOL;
+	Status_Free_Status_5_5											: BOOL;
+	Status_Free_Status_5_6											: BOOL;
+	Status_Free_Status_5_7											: BOOL;
+	Status_Free_Status_5_8											: BOOL;
+	Status_Free_Status_5_9											: BOOL;
+	Status_Free_Status_5_10											: BOOL;
+	Status_Free_Status_5_11											: BOOL;
+	Status_Free_Status_5_12											: BOOL;
+	Status_Free_Status_5_13											: BOOL;
+	Status_Free_Status_5_14											: BOOL;
+	Status_Free_Status_5_15											: BOOL;
+	Status_Hardware_Version_Number									: SINT; (* Bit 16 ... Bit 23*)
+	Status_Software_Version_Number									: SINT; (* Bit 24 ... Bit 31*)
+
+	Status_Free_Status_6												: UDINT;
+
+	Status_Free_Status_7												: UDINT;
+
+	Status_Free_Status_8												: UDINT;
+	Status_Machine_Type												: UINT;
+	Status_Display_Machine_Type										: STRING;
+	Status_PassWord													: UINT;
+	Status_Dispaly_PassWord											: STRING;
+
+	Status_Free_Status_9												: UDINT;
+
+	(****************************************************************************************************************)
+
+	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 101140;
+
+	Ctrl_Free_Ctrl_1_0													: BOOL;
+	Ctrl_Turn_Laser_On												: BOOL;
+	Ctrl_Free_Ctrl_1_2													: BOOL;
+	Ctrl_Turn_Pilot_Laser_On											: BOOL;
+	Ctrl_Software_Reset												: BOOL;
+	Ctrl_Free_Ctrl_1_5													: BOOL;
+	Ctrl_Free_Ctrl_1_6													: BOOL;
+	Ctrl_Laser_Enable													: BOOL;
+		Ctrl_Dispaly_Cuting_Mode											: BOOL := TRUE;
+		Ctrl_Dispaly_Marking_Mode										: BOOL := FALSE;
+	Ctrl_Free_Ctrl_1_9													: BOOL;
+	Ctrl_Free_Ctrl_1_10												: BOOL;
+	Ctrl_Free_Ctrl_1_11												: BOOL;
+	Ctrl_Free_Ctrl_1_12												: BOOL;
+	Ctrl_Free_Ctrl_1_13												: BOOL;
+	Ctrl_Free_Ctrl_1_14												: BOOL;
+	Ctrl_Free_Ctrl_1_15												: BOOL;
+	Ctrl_Free_Ctrl_1_16												: BOOL;
+	Ctrl_Free_Ctrl_1_17												: BOOL;
+	Ctrl_Free_Ctrl_1_18												: BOOL;
+	Ctrl_Free_Ctrl_1_19												: BOOL;
+	Ctrl_Free_Ctrl_1_20												: BOOL;
+	Ctrl_Free_Ctrl_1_21												: BOOL;
+	Ctrl_Free_Ctrl_1_22												: BOOL;
+	Ctrl_Free_Ctrl_1_23												: BOOL;
+	Ctrl_Free_Ctrl_1_24												: BOOL;
+	Ctrl_Free_Ctrl_1_25												: BOOL;
+	Ctrl_Free_Ctrl_1_26												: BOOL;
+	Ctrl_Free_Ctrl_1_27												: BOOL;
+	Ctrl_Free_Ctrl_1_28												: BOOL;
+	Ctrl_Free_Ctrl_1_29												: BOOL;
+	Ctrl_Free_Ctrl_1_30												: BOOL;
+	Ctrl_Free_Ctrl_1_31												: BOOL;
+
+	Ctrl_Internal_Control_Enable										: BOOL	:= FALSE; (* EXTERNAL CONTROL ENABLE *)
+	Ctrl_Free_Ctrl_2_1													: BOOL;
+	Ctrl_Free_Ctrl_2_2													: BOOL;
+	Ctrl_Free_Ctrl_2_3													: BOOL;
+	Ctrl_Free_Ctrl_2_4													: BOOL;
+	Ctrl_Free_Ctrl_2_5													: BOOL;
+	Ctrl_Free_Ctrl_2_6													: BOOL;
+	Ctrl_Free_Ctrl_2_7													: BOOL;
+	Ctrl_Free_Ctrl_2_8													: BOOL;
+	Ctrl_Free_Ctrl_2_9													: BOOL;
+	Ctrl_Free_Ctrl_2_10												: BOOL;
+	Ctrl_Free_Ctrl_2_11												: BOOL;
+	Ctrl_Free_Ctrl_2_12												: BOOL;
+	Ctrl_Free_Ctrl_2_13												: BOOL;
+	Ctrl_Free_Ctrl_2_14												: BOOL;
+	Ctrl_Free_Ctrl_2_15												: BOOL;
+	Ctrl_Free_Ctrl_2_16												: BOOL;
+	Ctrl_Free_Ctrl_2_17												: BOOL;
+	Ctrl_Free_Ctrl_2_18												: BOOL;
+	Ctrl_Free_Ctrl_2_19												: BOOL;
+	Ctrl_Free_Ctrl_2_20												: BOOL;
+	Ctrl_Free_Ctrl_2_21												: BOOL;
+	Ctrl_Free_Ctrl_2_22												: BOOL;
+	Ctrl_Free_Ctrl_2_23												: BOOL;
+	Ctrl_Free_Ctrl_2_24												: BOOL;
+	Ctrl_Free_Ctrl_2_25												: BOOL;
+	Ctrl_Free_Ctrl_2_26												: BOOL;
+	Ctrl_Free_Ctrl_2_27												: BOOL;
+	Ctrl_Free_Ctrl_2_28												: BOOL;
+	Ctrl_Free_Ctrl_2_29												: BOOL;
+	Ctrl_Free_Ctrl_2_30												: BOOL;
+	Ctrl_Free_Ctrl_2_31												: BOOL;
+
+	Ctrl_Percentage_Of_Laser_Output_Power								: UINT;	(* 0...100% *) (* 0... 4095 *)
+
+	Ctrl_Free_Ctrl_4													: UDINT;
+
+	Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave					: USINT;	(* 0...100% *)			(* PWM = pulse With Modulation *)
+		Temp_Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave		: UDINT;
+	Ctrl_Laser_Frequency_Of_PWM_Wave								: UINT;	(* 0...20000 *)			(* PWM = pulse With Modulation *)
+		Temp_Ctrl_Laser_Frequency_Of_PWM_Wave						: UDINT;
+
+	Ctrl_Free_Ctrl_6													: UDINT;
+	Ctrl_Free_Ctrl_7													: UDINT;
+
+	Ctrl_Machine_Type												: UINT := 16#0040; (* 0x0040=> MFSC_6000W_Global  *)
+		Temp_Ctrl_Machine_Type										: UDINT;
+	Ctrl_PassWord													: UINT; (* 0X018F=> "Save" *)
+		Temp_Ctrl_PassWord											: UDINT;
+
+	Ctrl_Free_Ctrl_9													: UDINT;
+
+	TON_Secu_OK													: TON;
+
+	Prog_Power_Watt_Target_LREAL									: LREAL;
+	Prog_Power_Watt_Max_LREAL										: LREAL;
+
+	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack			: TON;
+
+
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF IN THEN
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(************************************************ DEB MISE A JOUR DES STATUS *******************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+
+	Status_Ethercat_Communication_PassWord							:= STATUS_0;
+
+	Status_Free_Status_1_0											:= STATUS_1.0;
+	Status_Free_Status_1_1											:= STATUS_1.1;
+	Status_Free_Status_1_2											:= STATUS_1.2;
+	Status_Free_Status_1_3											:= STATUS_1.3;
+	Status_Free_Status_1_4											:= STATUS_1.4;
+	Status_Free_Status_1_5											:= STATUS_1.5;
+	Status_Free_Status_1_6											:= STATUS_1.6;
+	Status_Free_Status_1_7											:= STATUS_1.7;
+	Status_Free_Status_1_8											:= STATUS_1.8;
+	Status_Free_Status_1_9											:= STATUS_1.9;
+	Status_Free_Status_1_10											:= STATUS_1.10;
+	Status_Free_Status_1_11											:= STATUS_1.11;
+	Status_Free_Status_1_12											:= STATUS_1.12;
+	Status_Free_Status_1_13											:= STATUS_1.13;
+	Status_Free_Status_1_14											:= STATUS_1.14;
+	Status_Free_Status_1_15											:= STATUS_1.15;
+	Status_Free_Status_1_16											:= STATUS_1.16;
+	Status_Free_Status_1_17											:= STATUS_1.17;
+	Status_Free_Status_1_18											:= STATUS_1.18;
+	Status_Free_Status_1_19											:= STATUS_1.19;
+	Status_Free_Status_1_20											:= STATUS_1.20;
+	Status_Free_Status_1_21											:= STATUS_1.21;
+	Status_Free_Status_1_22											:= STATUS_1.22;
+	Status_Free_Status_1_23											:= STATUS_1.23;
+	Status_Free_Status_1_24											:= STATUS_1.24;
+	Status_Free_Status_1_25											:= STATUS_1.25;
+	Status_Free_Status_1_26											:= STATUS_1.26;
+	Status_Free_Status_1_27											:= STATUS_1.27;
+	Status_Free_Status_1_28											:= STATUS_1.28;
+	Status_Free_Status_1_29											:= STATUS_1.29;
+	Status_Free_Status_1_30											:= STATUS_1.30;
+	Status_Free_Status_1_31											:= STATUS_1.31;
+
+
+	Status_Extrernal_Ctrl												:= STATUS_2.0;
+	Status_Laser_Output_Light_ON										:= STATUS_2.1;
+	Status_Main_Power_Start_ON										:= STATUS_2.2;
+	Status_Start_Switch_ON											:= STATUS_2.3;
+	Status_Alarm														:= STATUS_2.4;
+	Status_Dewing_Alarm												:= STATUS_2.5;
+	Status_Encryption_Started											:= STATUS_2.6;
+	Status_Encrypted													:= STATUS_2.7;
+	Status_Device_Forward_Light_Locked								:= STATUS_2.8;
+	Status_External_CTRL_EN_Connected								:= STATUS_2.9;
+	Status_External_CTRL_PWM_Connected								:= STATUS_2.10;
+	Status_External_CTRL_0_10V_Connected								:= STATUS_2.11;
+	Status_External_CTRL_Connected									:= STATUS_2.12;
+	Status_QBH_Temperature_Locked									:= STATUS_2.13;
+	Status_Reflection_Locked											:= STATUS_2.14;
+	Status_Factory_Locked											:= STATUS_2.15;
+	Status_Air_Conditioning_Connected									:= STATUS_2.16;
+	Status_SD_Card_Installed											:= STATUS_2.17;
+	Status_Water_Cooling_Connected									:= STATUS_2.18;
+	Status_RTC_Incorrect_Encrypted_Data								:= STATUS_2.19;
+	Status_Interlock_1_Connected										:= STATUS_2.20;
+	Status_Interlock_2_Connected										:= STATUS_2.21;
+	Status_Free_Status_2_22											:= STATUS_2.22;
+	Status_Free_Status_2_23											:= STATUS_2.23;
+	Status_Free_Status_2_24											:= STATUS_2.24;
+	Status_Free_Status_2_25											:= STATUS_2.25;
+	Status_Free_Status_2_26											:= STATUS_2.26;
+	Status_Free_Status_2_27											:= STATUS_2.27;
+	Status_Free_Status_2_28											:= STATUS_2.28;
+	Status_Free_Status_2_29											:= STATUS_2.29;
+	Status_Free_Status_2_30											:= STATUS_2.30;
+	Status_Free_Status_2_31											:= STATUS_2.31;
+
+	Status_OverVoltage_Alarm											:= STATUS_3.0;
+	Status_UnderVoltage_Alarm										:= STATUS_3.1;
+	Status_Water_Flow_Alarm											:= STATUS_3.2;
+	Status_Emergency_Stop_Alarm										:= STATUS_3.3;
+	Status_QBH_Installation_Alarm										:= STATUS_3.4;
+	Status_QBH_Temperature_Alarm									:= STATUS_3.5;
+	Status_Electric_Water_Cooling_Plate_Temperature_Alarm				:= STATUS_3.6;
+	Status_Abnormal_Light_Output_Alarm								:= STATUS_3.7;
+	Status_Pump_Source_OverCurrent_Alarm								:= STATUS_3.8;
+	Status_Pump_Source_Temperature_Alarm							:= STATUS_3.9;
+	Status_PD_SD1_Forward_Light_Detection_Of_Seed_Source_1_Alarm		:= STATUS_3.10;
+	Status_PD_SD2_Forward_Light_Detection_Of_Seed_Source_2_Alarm		:= STATUS_3.11;
+	Status_Optical_Module_Temperature_Alarm							:= STATUS_3.12;
+	Status_Optical_Module_Humidity_Alarm								:= STATUS_3.13;
+	Status_Red_Beam_Current_Alarm									:= STATUS_3.14;
+	Status_Stripper_1_Temperature_Alarm								:= STATUS_3.15;
+	Status_Stripper_2_Temperature_Alarm								:= STATUS_3.16;
+	Status_Optical_Water_Cooling_Plate_1_Temperature_Alarm				:= STATUS_3.17;
+	Status_Optical_Water_Cooling_Plate_2_Temperature_Alarm				:= STATUS_3.18;
+	Status_Electrical_Module_Temperature_Alarm							:= STATUS_3.19;
+	Status_Electrical_Module_Humidity_Alarm							:= STATUS_3.20;
+	Status_Power_AC_Alarm											:= STATUS_3.21;
+	Status_Power_DC_Alarm											:= STATUS_3.22;
+	Status_PD2_Secondary_Amplification_Forward_Light_Alarm				:= STATUS_3.23;
+	Status_PD4_Super_Strong_Back_Reflection_Alarm						:= STATUS_3.24;
+	Status_PD5_Normal_Back_Reflection_Alarm							:= STATUS_3.25;
+	Status_PD6_Back_Reflection_Alarm									:= STATUS_3.26;
+	Status_Combiner_Temperature_Alarm								:= STATUS_3.27;
+	Status_FPGA_Loading_Failure_Alarm								:= STATUS_3.28;
+	Status_FPGA_Handshake_Failure_Alarm								:= STATUS_3.29;
+	Status_System_Clock_Failure_Alarm									:= STATUS_3.30;
+	Status_Water_Cooling_Plate_Low_Temperature_Alarm					:= STATUS_3.31;
+
+	Status_Fiber_Burning_Risk_Alarm									:= STATUS_4.0;
+	Status_PD_SD1_Light_On_Alarm									:= STATUS_4.1;
+	Status_PD_SD1_Light_Off_Alarm									:= STATUS_4.2;
+	Status_PD1_Light_On_Alarm										:= STATUS_4.3;
+	Status_PD1_Light_Off_Alarm										:= STATUS_4.4;
+	Status_PD2_Light_On_Alarm										:= STATUS_4.5;
+	Status_PD2_Light_Off_Alarm										:= STATUS_4.6;
+	Status_Abnormal_Power_Supply_Of_Pump							:= STATUS_4.7;
+	Status_Abnormal_Current_Of_First_Level_MOS_Tube					:= STATUS_4.8;
+	Status_Abnormal_Current_Of_Second_Level_MOS_Tube				:= STATUS_4.9;
+	Status_Power_Attenuation_Alarm									:= STATUS_4.10;
+	Status_Abnormal_Power_Supply_Alarm								:= STATUS_4.11;
+	Status_Abnormal_Control_Signal									:= STATUS_4.12;
+	Status_Optical_Module_Alarm										:= STATUS_4.13;
+	Status_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm			:= STATUS_4.14;
+	Status_Optical_Module_Condensation_Alarm							:= STATUS_4.15;
+	Status_Electrical_Module_Condensation_Alarm						:= STATUS_4.16;
+	Status_Free_Status_4_17											:= STATUS_4.17;
+	Status_Free_Status_4_18											:= STATUS_4.18;
+	Status_Free_Status_4_19											:= STATUS_4.19;
+	Status_Free_Status_4_20											:= STATUS_4.20;
+	Status_Free_Status_4_21											:= STATUS_4.21;
+	Status_Free_Status_4_22											:= STATUS_4.22;
+	Status_Free_Status_4_23											:= STATUS_4.23;
+	Status_Free_Status_4_24											:= STATUS_4.24;
+	Status_Free_Status_4_25											:= STATUS_4.25;
+	Status_Free_Status_4_26											:= STATUS_4.26;
+	Status_Free_Status_4_27											:= STATUS_4.27;
+	Status_Free_Status_4_28											:= STATUS_4.28;
+	Status_Free_Status_4_29											:= STATUS_4.29;
+	Status_Free_Status_4_30											:= STATUS_4.30;
+	Status_Free_Status_4_31											:= STATUS_4.31;
+
+	Status_Display_Cutting_Mode										:= STATUS_5.0;
+	Status_Display_Marking_Mode										:= STATUS_5.1;
+	Status_Free_Status_5_2											:= STATUS_5.2;
+	Status_Free_Status_5_3											:= STATUS_5.3;
+	Status_Free_Status_5_4											:= STATUS_5.4;
+	Status_Free_Status_5_5											:= STATUS_5.5;
+	Status_Free_Status_5_6											:= STATUS_5.6;
+	Status_Free_Status_5_7											:= STATUS_5.7;
+	Status_Free_Status_5_8											:= STATUS_5.8;
+	Status_Free_Status_5_9											:= STATUS_5.9;
+	Status_Free_Status_5_10											:= STATUS_5.10;
+	Status_Free_Status_5_11											:= STATUS_5.11;
+	Status_Free_Status_5_12											:= STATUS_5.12;
+	Status_Free_Status_5_13											:= STATUS_5.13;
+	Status_Free_Status_5_14											:= STATUS_5.14;
+	Status_Free_Status_5_15											:= STATUS_5.15;
+	Status_Hardware_Version_Number									:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(STATUS_5),16) AND 2#00000000000000000000000011111111) ;
+	Status_Software_Version_Number									:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(STATUS_5),24) AND 2#00000000000000000000000011111111) ;
+
+	Status_Free_Status_6												:= POWER_IN;
+	Status_Percentage_Of_Laser_Output_Power							:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),0) AND 2#00000000000000000000000011111111) ;
+	Status_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),8) AND 2#00000000000000000000000011111111) ;
+	Status_Percentage_Of_Laser_Frequency_Of_PWM_Wave				:= DWORD_TO_UINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),16) AND 2#00000000000000001111111111111111) ;
+
+	Status_Free_Status_7												:= OPTICAL_CHANNEL_IN;
+
+	Status_Free_Status_8												:= PROGRAM_NUMBER_IN;
+	Status_Machine_Type												:= DWORD_TO_UINT(SHR(UDINT_TO_DWORD(Status_Free_Status_8),0) AND 2#00000000000000001111111111111111) ;
+	CASE	Status_Machine_Type OF
+		16 		: Status_Display_Machine_Type := 'MFSC_2000W_Global';
+		32 		: Status_Display_Machine_Type := 'MFSC_3000W_Global';
+		48 		: Status_Display_Machine_Type := 'MFSC_4000W_Global';
+		64 		: Status_Display_Machine_Type := 'MFSC_5000W_Global';
+		80 		: Status_Display_Machine_Type := 'MFSC_6000W_Global';
+		96 		: Status_Display_Machine_Type := 'MFSC_12000W_Global';
+		112 		: Status_Display_Machine_Type := 'MFSC_1500W_Global';
+		128 		: Status_Display_Machine_Type := 'MFSC_2000W_Global';
+		144 		: Status_Display_Machine_Type := 'MFSC_3000W_Global';
+		160 		: Status_Display_Machine_Type := 'MFSC_4000W_Global';
+	END_CASE;
+	Status_PassWord													:= DWORD_TO_UINT(SHR(UDINT_TO_DWORD(Status_Free_Status_8),16) AND 2#00000000000000001111111111111111) ;
+	CASE	Status_PassWord OF
+		553		: Status_Dispaly_PassWord := 'Save OK';
+	END_CASE;
+
+	Status_Free_Status_9												:= LASER_NUMBER_OUT;
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(************************************************ FIN MISE A JOUR DES STATUS ********************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+
+
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(**************************************************** DEB PROGRAMMATION *************************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	IF 	NOT Status_Main_Power_Start_ON OR
+		NOT Status_Start_Switch_ON OR
+		Status_Alarm OR
+		Status_Dewing_Alarm OR
+		Status_Device_Forward_Light_Locked OR
+		Status_QBH_Temperature_Locked OR
+		Status_Reflection_Locked OR
+		Status_Factory_Locked OR
+		NOT Status_Air_Conditioning_Connected OR
+		NOT Status_Water_Cooling_Connected OR
+		Status_RTC_Incorrect_Encrypted_Data OR
+		NOT Status_Interlock_1_Connected OR
+		NOT Status_Interlock_2_Connected THEN
+			Defaut_Status_2 := TRUE;
+	END_IF;
+
+	IF STATUS_3 <> 0 THEN
+		Defaut_Status_3 := TRUE;
+	END_IF;
+
+	IF STATUS_4 <> 0 THEN
+		Defaut_Status_4 := TRUE;
+	END_IF;
+
+	IF (Prog_Power_Watt_Target < 0) OR (Prog_Power_Watt_Target > Prog_Power_Watt_Max) OR (Prog_Power_Watt_Max = 0)THEN
+		Defaut_power_Watt_Target := TRUE;
+	END_IF;
+	(* FeedBackde la puissance à La Source Laser *)
+	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack(in := ABS(Ctrl_Percentage_Of_Laser_Output_Power - Status_Percentage_Of_Laser_Output_Power) > 2, pt := t#1s);
+	IF  TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack.Q THEN
+		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack := TRUE;
+	END_IF;
+
+	IF (Prog_Per_Cent_Of_Duty_Cycle_Target < 0) OR (Prog_Per_Cent_Of_Duty_Cycle_Target > Prog_Per_Cent_Of_Duty_Cycle_Max) THEN
+		Defaut_Per_Cent_Of_Duty_Cycle_Target	 := TRUE;
+	END_IF;
+
+	IF (Prog_Frequency_0_20000Hz_Target < 0) OR (Prog_Frequency_0_20000Hz_Target > Prog_Frequency_0_20000Hz_Max) THEN
+		Defaut_Laser_Frequency_Of_PWM_Wave_Target	 := TRUE;
+	END_IF;
+
+	Defaut 															:= 	Defaut_power_Watt_Target OR
+																		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack OR
+																		Defaut_Per_Cent_Of_Duty_Cycle_Target	 OR
+																		Defaut_Laser_Frequency_Of_PWM_Wave_Target OR
+																		Defaut_Status_2 OR
+																		Defaut_Status_3 OR
+																		Defaut_Status_4;
+
+	IF Prog_Annul_Defaut THEN
+		Defaut_power_Watt_Target										:= FALSE;
+		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack				:= FALSE;
+		Defaut_Per_Cent_Of_Duty_Cycle_Target							:= FALSE;
+		Defaut_Laser_Frequency_Of_PWM_Wave_Target					:= FALSE;
+		Defaut_Status_2												:= FALSE;
+		Defaut_Status_3												:= FALSE;
+		Defaut_Status_4												:= FALSE;
+	END_IF;
+
+	Ctrl_Software_Reset												:= Prog_Annul_Defaut;
+
+	Ctrl_Dispaly_Cuting_Mode											:= Prog_Cutting_Mode;
+	Ctrl_Dispaly_Marking_Mode										:= Prog_Marking_Mode;
+
+	TON_Secu_OK(in := Prog_Secu_OK AND Status_Interlock_1_Connected AND Status_Interlock_2_Connected, pt := t#1s);
+
+	Source_Prete_Pour_Decoupe :=		NOT Defaut AND
+									TON_Secu_OK.Q;
+
+	IF Source_Prete_Pour_Decoupe THEN
+		(* Envoi de la puissance à La Source Laser *)
+		Prog_Power_Watt_Max_LREAL := UDINT_TO_LREAL(Prog_Power_Watt_Max);
+		Prog_Power_Watt_Target_LREAL := UDINT_TO_LREAL(Prog_Power_Watt_Target);
+		Ctrl_Percentage_Of_Laser_Output_Power := LREAL_TO_UINT(Prog_Power_Watt_Target_LREAL*100/Prog_Power_Watt_Max_LREAL);
+
+		(* Envoi du Pourcentage Of Duty Cycler *)
+		Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave := UDINT_TO_USINT(Prog_Per_Cent_Of_Duty_Cycle_Target);
+
+		(* Envoi de la Frequence *)
+		Ctrl_Laser_Frequency_Of_PWM_Wave := UDINT_TO_UINT(Prog_Frequency_0_20000Hz_Target);
+
+		Ctrl_Turn_Laser_On 		:= TRUE;
+		Ctrl_Turn_Pilot_Laser_On	:= TRUE;
+		Ctrl_Laser_Enable			:= Prog_Valid;
+
+	ELSE
+		Ctrl_Percentage_Of_Laser_Output_Power							:= 0;
+;		Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				:= 0;
+		Ctrl_Laser_Frequency_Of_PWM_Wave							:= 0;
+
+		Ctrl_Turn_Laser_On 		:= FALSE;
+		Ctrl_Turn_Pilot_Laser_On	:= FALSE;
+		Ctrl_Laser_Enable			:= FALSE;
+	END_IF;
+
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(**************************************************** FIN PROGRAMMATION ***************************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+
+
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(******************************************** DEB ECRITURE DES COMMANDES *******************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+
+	CONTROL_0														:= Ctrl_EtherCAT_Communication_PassWord;
+
+	CONTROL_1.0													:= Ctrl_Free_Ctrl_1_0;
+	CONTROL_1.1													:= Ctrl_Turn_Laser_On;
+	CONTROL_1.2													:= Ctrl_Free_Ctrl_1_2;
+	CONTROL_1.3													:= Ctrl_Turn_Pilot_Laser_On;
+	CONTROL_1.4													:= Ctrl_Software_Reset;
+	CONTROL_1.5													:= Ctrl_Free_Ctrl_1_5;
+	CONTROL_1.6													:= Ctrl_Free_Ctrl_1_6;
+	CONTROL_1.7													:= Ctrl_Laser_Enable;
+	CONTROL_1.8													:= Ctrl_Dispaly_Cuting_Mode AND NOT Ctrl_Dispaly_Marking_Mode ;
+	CONTROL_1.9													:= Ctrl_Free_Ctrl_1_9;
+	CONTROL_1.10													:= Ctrl_Free_Ctrl_1_10;
+	CONTROL_1.11													:= Ctrl_Free_Ctrl_1_11;
+	CONTROL_1.12													:= Ctrl_Free_Ctrl_1_12;
+	CONTROL_1.13													:= Ctrl_Free_Ctrl_1_13;
+	CONTROL_1.14													:= Ctrl_Free_Ctrl_1_14;
+	CONTROL_1.15													:= Ctrl_Free_Ctrl_1_15;
+	CONTROL_1.16													:= Ctrl_Free_Ctrl_1_16;
+	CONTROL_1.17													:= Ctrl_Free_Ctrl_1_17;
+	CONTROL_1.18													:= Ctrl_Free_Ctrl_1_18;
+	CONTROL_1.19													:= Ctrl_Free_Ctrl_1_19;
+	CONTROL_1.20													:= Ctrl_Free_Ctrl_1_20;
+	CONTROL_1.21													:= Ctrl_Free_Ctrl_1_21;
+	CONTROL_1.22													:= Ctrl_Free_Ctrl_1_22;
+	CONTROL_1.23													:= Ctrl_Free_Ctrl_1_23;
+	CONTROL_1.24													:= Ctrl_Free_Ctrl_1_24;
+	CONTROL_1.25													:= Ctrl_Free_Ctrl_1_25;
+	CONTROL_1.26													:= Ctrl_Free_Ctrl_1_26;
+	CONTROL_1.27													:= Ctrl_Free_Ctrl_1_27;
+	CONTROL_1.28													:= Ctrl_Free_Ctrl_1_28;
+	CONTROL_1.29													:= Ctrl_Free_Ctrl_1_29;
+	CONTROL_1.30													:= Ctrl_Free_Ctrl_1_30;
+	CONTROL_1.31													:= Ctrl_Free_Ctrl_1_31;
+
+	CONTROL_2.0													:= Ctrl_Internal_Control_Enable;
+	CONTROL_2.1													:= Ctrl_Free_Ctrl_2_1;
+	CONTROL_2.2													:= Ctrl_Free_Ctrl_2_2;
+	CONTROL_2.3													:= Ctrl_Free_Ctrl_2_3;
+	CONTROL_2.4													:= Ctrl_Free_Ctrl_2_4;
+	CONTROL_2.5													:= Ctrl_Free_Ctrl_2_5;
+	CONTROL_2.6													:= Ctrl_Free_Ctrl_2_6;
+	CONTROL_2.7													:= Ctrl_Free_Ctrl_2_7;
+	CONTROL_2.8													:= Ctrl_Free_Ctrl_2_8;
+	CONTROL_2.9													:= Ctrl_Free_Ctrl_2_9;
+	CONTROL_2.10													:= Ctrl_Free_Ctrl_2_10;
+	CONTROL_2.11													:= Ctrl_Free_Ctrl_2_11;
+	CONTROL_2.12													:= Ctrl_Free_Ctrl_2_12;
+	CONTROL_2.13													:= Ctrl_Free_Ctrl_2_13;
+	CONTROL_2.14													:= Ctrl_Free_Ctrl_2_14;
+	CONTROL_2.15													:= Ctrl_Free_Ctrl_2_15;
+	CONTROL_2.16													:= Ctrl_Free_Ctrl_2_16;
+	CONTROL_2.17													:= Ctrl_Free_Ctrl_2_17;
+	CONTROL_2.18													:= Ctrl_Free_Ctrl_2_18;
+	CONTROL_2.19													:= Ctrl_Free_Ctrl_2_19;
+	CONTROL_2.20													:= Ctrl_Free_Ctrl_2_20;
+	CONTROL_2.21													:= Ctrl_Free_Ctrl_2_21;
+	CONTROL_2.22													:= Ctrl_Free_Ctrl_2_22;
+	CONTROL_2.23													:= Ctrl_Free_Ctrl_2_23;
+	CONTROL_2.24													:= Ctrl_Free_Ctrl_2_24;
+	CONTROL_2.25													:= Ctrl_Free_Ctrl_2_25;
+	CONTROL_2.26													:= Ctrl_Free_Ctrl_2_26;
+	CONTROL_2.27													:= Ctrl_Free_Ctrl_2_27;
+	CONTROL_2.28													:= Ctrl_Free_Ctrl_2_28;
+	CONTROL_2.29													:= Ctrl_Free_Ctrl_2_29;
+	CONTROL_2.30													:= Ctrl_Free_Ctrl_2_30;
+	CONTROL_2.31													:= Ctrl_Free_Ctrl_2_31;
+
+	CONTROL_3														:= LREAL_TO_UDINT(UINT_TO_LREAL(Ctrl_Percentage_Of_Laser_Output_Power) * 4095 / 100);
+
+	CONTROL_4														:= Ctrl_Free_Ctrl_4;
+
+	Temp_Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave			:= SHR(USINT_TO_UDINT(Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave),8); 							(* PWM = pulse With Modulation *)
+	Temp_Ctrl_Laser_Frequency_Of_PWM_Wave							:= SHR(UINT_TO_UDINT(Ctrl_Laser_Frequency_Of_PWM_Wave),16);											(* PWM = pulse With Modulation *)
+	POWER_OUT													:= Temp_Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave + Temp_Ctrl_Laser_Frequency_Of_PWM_Wave;
+
+	OPTICAL_CHANNEL_OUT											:= Ctrl_Free_Ctrl_6;
+
+	PROGRAM_NUMBER_OUT										:= Ctrl_Free_Ctrl_7;
+
+	Temp_Ctrl_Machine_Type											:= SHR(UINT_TO_UDINT(Ctrl_Machine_Type),0);
+	Temp_Ctrl_PassWord												:= SHR(UINT_TO_UDINT(Ctrl_PassWord),16);
+	RAMPING_TIME_OUT												:= Temp_Ctrl_Machine_Type + Temp_Ctrl_PassWord;
+
+	LASER_NUMBER_OUT											:= Ctrl_Free_Ctrl_9;
+
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+	(******************************************** FIN ECRITURE DES COMMANDES *********************************************)
+	(*************************************************************************************************************************************)
+	(*************************************************************************************************************************************)
+
+END_IF;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="IO_Rep_Ethc" Id="{b88528e7-b27c-4b45-9dec-ae2126168b93}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+
+RESERVE_IOLINK								: BOOL;
+
+// REPARTITEURS BANC ENTREE
+	B1520_Rep_Be								:Link_REP_Ethercat;(* ADDR a faire *)
+
+// REPARTITEURS CHARIOTS  
+	 B420_Rep_ChaBe								:Link_REP_Ethercat;(* ADDR a faire *)
+                                                
+// REPARTITEURS GRUGEOIRE LASER                 
+	 B820_Rep1_Laser							:Link_REP_Ethercat;	(* ADDR a faire *)
+     B821_Rep2_Laser							:Link_REP_Ethercat;	(* ADDR a faire *)
+	 B822_Rep3_Laser							:Link_REP_Ethercat;	 (* ADDR a faire *)
+	                                            
+	(*Cellule ESLTI*)                           
+	 Detect_Niv_Temp_Huile						:IOL_9IN;
+	(*IFM PV7000*)                              
+	  Detect_Pression_Huile						:IOL_2IN;
+	(*Lasers presseur aval LEUZE ODT3CL1 *)     
+	  Detect_Dist_Press_Aval_Ref				:IOL_4IN;
+      Detect_Dist_Press_Aval_OppRef				:IOL_4IN;
+	(*Lasers presseur amont LEUZE ODT3CL1 *)    
+	  Detect_Dist_Press_Amont_Ref				:IOL_4IN;
+	  Detect_Dist_Press_Amont_OppRef			:IOL_4IN;
+	ServoVanne_Tete_Laser						:IOL_4oIN_2oOUT;
+
+
+// REPARTITEURS BANC SORTIE
+	B1572_Rep_Bs								:Link_REP_Ethercat;(* ADDR a faire *)
+	
+	
+// REPARTITEUR PUPITRE  
+	B961_Rep_Console							:Link_REP_Ethercat;	(* ADDR a faire *)
+	Joystick_Console							:IOL_4IN;
+	Verrine_Console								:IOL_3OUT;
+	
+
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

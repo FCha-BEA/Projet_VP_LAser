@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_LED_LC25C" Id="{8800412d-7287-4c53-89bd-2691e49a8b93}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LED_LC25C
+VAR_INPUT
+	Valid 		: BOOL;
+	Led_Verte	: BOOL;
+	Led_Rouge	: BOOL;
+	Led_Orange	: BOOL;
+	France		: BOOL;
+END_VAR
+VAR_OUTPUT
+	Error 					: BOOL;
+	Byte0 					: USINT;
+	Byte1 					: USINT;
+	Byte2 					: USINT;
+
+END_VAR
+VAR
+	cycle	: INT;
+	TON_Cycle: TON;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Verine Turck Banner
+Byte0 = ???
+Byte1 = mode d'allumage = 0 eteinte / 1 allume fixe
+Byte2 = Choix couleurs*)
+
+IF Valid THEN
+	IF NOT France THEN
+
+		Cycle := 1;
+
+		(* Couleur Rouge *)
+		IF Led_Rouge THEN
+			Byte0 := 2#00000001;
+			Byte1 := 2#00000001;
+		(* Couleur Orange *)
+		ELSIF Led_Orange THEN
+			Byte0 := 2#00000001;
+			Byte1 := 2#00000011;
+		(* Couleur Verte *)
+		ELSIF Led_Verte THEN
+			Byte0 := 2#00000001;
+			Byte1 := 2#00000000;
+		(*Eteinte*)
+		ELSE
+			Byte0 := 2#00000000;
+			Byte1 := 2#00000000;
+		END_IF
+
+		Byte2 := 2#00000000;
+
+	ELSE
+		TON_Cycle(In := NOT TON_Cycle.Q, PT := t#1s);
+		IF TON_Cycle.Q THEN
+			IF Cycle < 4 THEN
+				Cycle := Cycle + 1;
+			ELSE
+				Cycle := 1;
+			END_IF;
+		END_IF;
+
+		CASE Cycle OF
+			1 : 	(* Couleur Bleu *)
+				Byte0 := 2#00000001;
+				Byte1 := 2#00001001;
+			2 :	(* Couleur Blanc *)
+				Byte0 := 2#00000001;
+				Byte1 := 2#00010011;
+			3 :	(* Couleur Rouge *)
+				Byte0 := 2#00000001;
+				Byte1 := 2#00000001;
+			4 :	(* Couleur Rouge *)
+				Byte0 := 2#00001011;
+				Byte1 := 2#00000001;
+		END_CASE;
+
+	END_IF;
+ELSE
+
+	Byte2 :=  2#00000000;
+	Byte1 :=  2#00000000;
+	Byte0 :=  2#00000000;
+
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_LED_LC25C">
+      <LineId Id="19" Count="62" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

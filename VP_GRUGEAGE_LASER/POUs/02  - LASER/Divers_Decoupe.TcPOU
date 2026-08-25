@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Divers_Decoupe" Id="{06b7cd77-1635-4118-b8ba-da5919c5d02c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Divers_Decoupe
+VAR	RE_Mem_arus,	RE_G7_General_step1000:R_TRIG;
+	RE_Top_memo_pos_X_Y_arus,	RE_Bp_cde_manu:R_TRIG;
+	FE_Mem_arus,	FE_Ev_principale_spray_plasma:F_TRIG;
+	ADSRead_Nc_Line_1:ADSREAD;
+	Top_lecture_ligne_nc_en_cours:TON;
+	TON_Defaut_Fc_haut_rouleau_plasma_amont,	TON_Defaut_Fc_haut_rouleau_plasma_aval:TON;
+	Ligne_nc_en_cours_1,Ligne_nc_en_cours_2,Ligne_nc_en_cours_3:STRING;	Pos_espace,Pos_G40:INT;
+	Memo_Vmin_decoupe:LREAL;	Top_Memo_Vmin_decoupe,	Cligno_pour_reglage_rouleaux_plasma,	Test_rouleaux_plasma:BOOL;
+	X_ok_pour_descente_rouleau_plasma_amont,	X_ok_pour_descente_rouleau_plasma_aval:BOOL;
+	TON_Descente_complete_rouleau_plasma_amont,	TON_Descente_complete_rouleau_plasma_aval:TON;
+	TP_Montee_partielle_rouleau_plasma_amont,	TP_Montee_partielle_rouleau_plasma_aval,	TP_Spray_plasma,	TP_Top_Laser:TP;
+	TON_Descente_partielle_rouleau_plasma_amont,TON_Descente_partielle_rouleau_plasma_aval:TON;
+	Phase_rouleau_plasma_amont,	Phase_rouleau_plasma_aval:INT;
+	toto: BOOL;
+	Memo_OldLgTole	:LREAL;
+	RE_ChgtLgTole	:R_TRIG;
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Fronts et autres tempos
+ RE_Mem_arus(clk:=Mem_arus);
+ RE_Bp_cde_manu(clk:=Bp_Cde_Operation);
+ FE_Mem_arus(clk:=Mem_arus);
+ TP_Top_Laser(in:=Top_perc_laser,pt:=T#100MS);
+
+
+IF NOT Top_perc_laser THEN
+	Lifter_VB_ok_pour_decoupe:=FALSE;
+END_IF
+
+(****************************** Si passage en ARUS ******************************)
+ IF RE_Mem_arus.Q THEN
+ 	Allumage_tete_laser:=FALSE;
+ 	Top_perc_laser:=FALSE;
+ 	Start_iso3D:=FALSE;
+ 	Prepa_ISO3D:=FALSE;
+ 	Stop_axes:=FALSE;
+ END_IF
+
+(****************************** Découpe interne ou externe? ******************************)
+ (*Découpe interne: une découpe externe est toujours un multiple de 1000:
+ -découpe externe pièce 2 =		 2000,
+ -découpe externe pièce 24 =	24000,
+ -découpe interne n°1 pièce 2=	 2001,
+ -découpe interne n°4 pièce 2=	 2004	*)
+ Seq_decoupe_interne:=
+ 	Sequence[Pt_sequence].M=50
+ 	AND Sequence[Pt_sequence].P7-(TRUNC((Sequence[Pt_sequence].P7)/1000)*1000)<>0;
+ Seq_decoupe_externe:=
+ 	Sequence[Pt_sequence].M=50
+ 	AND NOT Seq_decoupe_interne;
+
+(*------------- Mémo Posi XY pendant découpe si arrêt -------------------*)
+ IF ISO_en_cours THEN
+ 	IF RE_Mem_arus.Q THEN
+ 		Memo_Pos_X_Laser_Arus:=Pos_Reel_X_Laser;
+ 		Memo_pos_Y_Laser_Arus:=Pos_Reel_Y_Laser;
+ 	END_IF
+ END_IF 			
+ 
+(****************************** Pour envoi de la ligne en cours au Driver ******************************)
+ (*Récupération de la ligne en cours (ligne complète)*)
+ IF ISO_en_cours THEN
+ 	Top_lecture_ligne_nc_en_cours
+ 		(in:=(XYL_NciChannelToplc.ItpState=Nci_Interpreter_Running OR XYL_NciChannelToplc.ItpState=12)
+ 			AND NOT Top_lecture_ligne_nc_en_cours.Q,
+ 		pt :=t#200ms);
+ 
+ 	ADSRead_Nc_Line_1
+ 		(NetID:= '',
+ 		Port:=500,
+ 		IdxGrp:=16#2300+2,		(*2= ID du canal d'interpolation dans System Manager*)
+ 		IdxOffs:=16#20000001,
+ 		LEN:=40,
+ 		DestAddr:=ADR(Ligne_nc_en_cours_1),
+ 		Read:=Top_lecture_ligne_nc_en_cours.Q);
+ ELSE
+ 	Ligne_nc_en_cours_1:='';
+ END_IF
+ 
+ //Pour reprise de découpe: extraction du numéro de ligne  
+ IF ISO_en_cours THEN
+ 	Ligne_nc_en_cours_2:=DELETE(Ligne_nc_en_cours_1,1,1);			(*On supprime 1 caractère à partir du 1er: c'est le N*)
+ 	Pos_espace:=FIND(Ligne_nc_en_cours_2,' ');						(*On recherche de la position du 1er espace: c'est celui qui est juste après le numéro de ligne*)
+ 	Ligne_nc_en_cours_3:=LEFT(Ligne_nc_en_cours_2,Pos_espace-1);	(*On prend les caractères qui se trouvent à gauche de cet espace: c'est le numéro de ligne*)
+ 	Num_ligne_nc_en_cours:=STRING_TO_INT(Ligne_nc_en_cours_3);		(*On transforme ça en INTEGER. On est donc limité a 32767 soit 3276 ligne dans le fichier nc*)
+ 	
+ 	IF Sequence[Pt_sequence].M=50 THEN
+ 		Num_ligne_nc_en_cours_laser:=Num_ligne_nc_en_cours;
+ 	END_IF
+ END_IF 
+
+(****************************** Codages divers ******************************)
+CodeM_50:=Sequence[Pt_sequence].M=50;
+
+(****************************** Calcul de la vitesse réelle de découpe ******************************)
+ IF Sequence[Pt_sequence].P1=0 THEN		(*Laser*)
+ 	Override_decoupe := 100;
+ END_IF
+ 
+ Vitesse_reelle_axes:=
+ 	SQRT(Axe_3.NcToPlc.ActVelo*Axe_3.NcToPlc.ActVelo
+ 		+Axe_4.NcToPlc.ActVelo*Axe_4.NcToPlc.ActVelo);
+ 
+ IF ISO_en_cours THEN
+ 	IF Top_Memo_Vmin_decoupe AND Vitesse_reelle_axes<Memo_Vmin_decoupe THEN
+ 		Memo_Vmin_decoupe:=Vitesse_reelle_axes;
+ 	END_IF
+ END_IF
+ 
+//Sécurité 
+	//Tir en dehors de matière en manu
+ 	 Autor_Tir_Matiere := (Face_En_Cours =1 AND (Pos_Reel_Y_Laser <= Hauteur_Aile-Ep_ame+Tolerance_HorsMatiere) AND (Pos_Reel_Y_Laser >= -Ep_ame-Tolerance_HorsMatiere))
+ 					OR (Face_En_Cours=2 AND (Pos_Reel_Y_Laser <= Largeur_Ame-Ep_Aile+Tolerance_HorsMatiere) AND (Pos_Reel_Y_Laser >= -Ep_Aile-Tolerance_HorsMatiere))
+					OR (Face_En_Cours=3 AND (Pos_Reel_Y_Laser <= Hauteur_Aile-Ep_ame+Tolerance_HorsMatiere) AND (Pos_Reel_Y_Laser >= -Ep_ame-Tolerance_HorsMatiere));]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Axe_Ethercat_V2" Id="{d39edc44-6303-4003-b957-9e1640c74413}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Axe_Ethercat_V2
+VAR_INPUT	IN:BOOL;		Id_axe:UINT;
+	En_service,	Reset,	Arus,	Jog_plus,	Jog_moins,	Fc_plus,	Fc_moins,	Fc_origine,	Dem_gv,		Dem_pv,		Dem_V_nulle,	Palpage, bit_POM_ok:BOOL;
+	Pos_origine, Offset_axe,	Butee_soft_plus,	Butee_soft_moins,	Zone_PV_devant_limites,	Vitesse_man,	PTP_Pos_cible,	PTP_Vitesse,	PTP_Accel_decel:LREAL;
+	Override:REAL;	Esclave:BOOL;	Id_axe_maitre:UINT;	Pos_externe_forcage:LREAL;	ISO:BOOL;	END_VAR
+VAR_IN_OUT	PTP_Start,	Demande_ref:BOOL;	Axis,Axis_Maitre:AXIS_REF;
+	Forcage_flag_ref:BOOL;	Forcage_pos:BOOL;	END_VAR
+VAR_OUTPUT	Validation_variateur,	Axe_enable,	Defaut_axe:BOOL;
+	Numero_defaut:UDINT;	Defaut_Top_et_V_nulle,	Defaut_var_18000,		Defaut_poursuite_17744:BOOL;
+	Pos_axe:LREAL;	Ref_ok:BOOL;	PTP_Axe_en_pos,	Axe_no_move,	Axe_no_job,	Limite_atteinte,	Axe_en_mode_esclave:BOOL;	Vitesse_axe:LREAL;
+	Defaut_var_AX5000:BOOL;	Diag_number_AX5000:UDINT;	Diag_Mess_AX5000:STRING;	END_VAR
+VAR	Bit_de_cde_axe:UDINT;	MC_GearIn_1:MC_GearIn; MC_GearInMultiMaster_1:MC_GearInMultiMaster;	MC_GearOut_1:MC_GearOut;	MC_Home_1,	MC_Home_forcage: MC_Home;	MC_SetPosition_1: MC_SetPosition;
+	MC_MoveAbsolute_1,MC_MoveAbsolute_2:MC_MoveAbsolute;	MC_Stop_1:MC_Stop;	MC_reset_1:MC_Reset;	MC_Jog_1:MC_Jog;
+	RE_En_service,	RE_Demande_ref,		RE_Defaut_Axe,	RE_Axe_Enable,	RE_Reset,	RE_Arus: R_TRIG;		FE_En_service,	FE_Reset: F_TRIG;
+	TON_En_pos,	TON_Valid_ok,	TON_Top_et_V_nulle:TON;		TOF_Axe_enable:TOF;
+	Bit_petite_vitesse,		Memo_Demande_ref,	Top_Chgt_Vitesse_PTP,	Read_status_Ax5000:BOOL;
+	Memo_PTP_Vitesse:LREAL;
+	RE_Ref_ok:R_TRIG;
+	FB_Reset_VarAX5000:FB_SoEReset;	
+	FB_Read_Diag_VarAX5000:FB_SoEReadDiagMessage;	
+	FB_Read_Diag_Number_VarAX5000:FB_SoEReadDiagNumber;	
+	Diag_message_VarAX5000:ST_SoE_String;
+	Stop_Axe: BOOL;
+	dummy2: AXIS_REF;
+	dummy3: AXIS_REF;
+	dummy4: AXIS_REF;
+	Memo_Numero_defaut:UDINT;	Memo_defaut_valid:BOOL;		TON_POM_ok:TON;
+	RE_Execute_PTP_1: r_trig;
+	RE_Execute_PTP_2: R_trig;
+	TP_Stop_Axe: Tp;
+	MemoVitesse_Man	:REAL;
+	
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Détection des fronts*)
+RE_En_service(clk:=En_service);
+FE_En_service(clk:=En_service);
+RE_Ref_ok(clk:=Ref_ok);
+RE_Defaut_Axe(clk:=Defaut_Axe);
+RE_Axe_Enable(clk:=Axe_Enable);
+RE_Reset(clk:=Reset);
+FE_Reset(clk:=Reset);
+RE_Arus(clk:=Arus);
+
+//////////////////////////////////////////////////
+//					VAR AX500					//
+//////////////////////////////////////////////////
+	(*Reset variateur AX5000*)
+
+
+	FB_Reset_VarAX5000(
+		Axis:=Axis,
+		NetId:='',
+		Execute:= Reset OR RE_En_service.Q,
+		Timeout:=T#10s,
+		Axis:=Axis);
+	(*Lecture status variateur AX5000*)
+	IF RE_Defaut_Axe.Q OR RE_Reset.Q
+	OR RE_En_service.Q OR FE_Reset.Q
+	OR FE_En_service.Q OR Re_Axe_Enable.Q THEN
+		Read_status_AX5000:=TRUE;
+	END_IF
+	(*Lecture code status variateur *)
+	FB_Read_Diag_Number_VarAX5000(
+		NetId:=,
+		Execute:=Read_status_AX5000,
+		Timeout:=DEFAULT_ADS_TIMEOUT,
+		Axis:=Axis);
+	Diag_Number_AX5000:=FB_Read_Diag_Number_VarAX5000.DiagNumber;
+	
+	Defaut_Var_AX5000:=
+		Axe_enable
+		AND Diag_Number_AX5000<>16#D012	(*D012= Control and power section ready*)
+		AND Diag_Number_AX5000<>16#D013	(*D013= Axis in operation (The axis has been started)*)
+		AND Diag_Number_AX5000<>16#D014;	(*D014= Axis halt*)
+	(*Lecture message  status variateur *)
+	FB_Read_Diag_VarAX5000(
+		NetId:='',
+		Execute:=Read_status_AX5000,
+		Timeout:=DEFAULT_ADS_TIMEOUT,
+		Axis:=Axis);
+	Diag_message_VarAX5000:=FB_Read_Diag_VarAX5000.DiagMessage;
+	Diag_Mess_AX5000:=Diag_message_VarAX5000.strData;
+	
+	IF NOT FB_Read_Diag_VarAX5000.Busy AND NOT FB_Read_Diag_Number_VarAX5000.Busy THEN
+		Read_status_AX5000:=FALSE;
+	END_IF
+
+//////////////////////////////////////////////////
+//					Valid Axe					//
+//////////////////////////////////////////////////
+	(*Validation axe*)
+	Axe_Enable:=GETBIT32(Axis.NcToPlc.StateDWord,0);
+	Validation_variateur:=En_service;
+	
+	TON_Valid_ok(in:=En_service,pt:=T#5S);
+	TOF_Axe_enable(in:=Axe_enable,pt:=T#50MS);	(*TOF ajoutée pour AX5000 pour éviter défaut sur AU car valid physiques coupées par KA11. Pour info, pb pas constaté sur la 1e Mag en AX5000: Batimetal Ouest*)
+
+	IF ((En_service OR Reset ) AND Numero_defaut =0)  AND En_service THEN
+		Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,0);
+	END_IF
+
+	(*Dévalidation axe*)
+	IF Numero_defaut<>0 OR FE_En_service.Q THEN
+		Bit_de_cde_axe:=CLEARBIT32(bit_de_Cde_axe,0);
+	END_IF
+	(*Fc Plus*)
+	IF Fc_Plus THEN
+		Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,1);
+	ELSE
+		Bit_de_cde_axe:=CLEARBIT32(bit_de_Cde_axe,1);
+	END_IF
+	(*Fc Moins*)
+	IF Fc_Moins THEN
+		Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,2);
+	ELSE
+		Bit_de_cde_axe:=CLEARBIT32(bit_de_Cde_axe,2);
+	END_IF
+	(*Came d'origine*)
+	IF Fc_origine THEN
+		Bit_de_cde_axe:=SETBIT32(bit_de_Cde_axe,5);
+	ELSE
+		Bit_de_cde_axe:=CLEARBIT32(bit_de_Cde_axe,5);
+	END_IF
+	
+	(*Assignation du bit de commande de l'axe*)
+	Axis.PlcToNc.ControlDWord:=Bit_de_cde_axe;
+	
+//////////////////////////////////////////////////
+//					Défauts / Limites			//
+//////////////////////////////////////////////////
+	(*Limites*)	
+	IF (PTP_Start AND (PTP_Pos_cible<=Butee_soft_moins OR PTP_Pos_cible>=Butee_soft_plus))
+	OR (ISO AND (Pos_axe<=Butee_soft_moins OR Pos_axe>=Butee_soft_plus))
+	OR (Ref_ok AND Jog_moins AND (Pos_axe<=Butee_soft_moins OR NOT Fc_moins))
+	OR (Ref_ok AND Jog_plus AND (Pos_axe>=Butee_soft_plus OR NOT Fc_plus)) THEN
+		Limite_atteinte:=TRUE;
+		PTP_Start:=FALSE;
+	END_IF
+
+	IF Reset
+	OR
+	((Pos_axe>Butee_soft_moins AND Fc_moins)
+	AND (Pos_axe<Butee_soft_plus AND Fc_plus)) THEN
+		Limite_atteinte:=FALSE;
+	END_IF
+
+	(*Defauts*)
+	IF TON_Valid_ok.Q AND NOT TOF_Axe_enable.Q THEN
+		Memo_defaut_valid:=TRUE;
+	END_IF
+
+	TON_Top_et_V_nulle(in:=PTP_Start AND Vitesse_axe=0,pt:=T#10S);
+	IF TON_Top_et_V_nulle.Q THEN
+		Defaut_Top_et_V_nulle:=TRUE;
+	END_IF
+	
+	IF Memo_defaut_valid
+	OR Numero_defaut<>0
+	OR (PTP_Start OR ISO) AND Limite_atteinte
+	OR (PTP_Start AND NOT Ref_ok)
+	 THEN
+		Memo_Numero_defaut:=Numero_defaut;
+		Defaut_axe:=TRUE;
+	END_IF
+	
+	IF Reset THEN
+		Defaut_axe:=FALSE;
+		Defaut_Top_et_V_nulle:=FALSE;
+		Memo_Numero_defaut:=0;
+		Memo_defaut_valid:=FALSE;
+	END_IF	
+	
+	(*Arus*)
+	IF RE_Arus.Q THEN
+		Demande_ref:=FALSE;
+		PTP_Start:=FALSE;
+	END_IF
+	
+//////////////////////////////////////////////////
+//					Status Axe					//
+//////////////////////////////////////////////////
+	Numero_defaut:=Axis.NcToPlc.ErrorCode;
+		Defaut_var_18000:=Numero_defaut=18000;
+		Defaut_poursuite_17744:=Numero_defaut=17744;
+	Ref_ok:=GETBIT32(Axis.NcToPlc.StateDWord,1);
+	IF RE_Ref_ok.Q THEN
+		Demande_ref:=FALSE;
+	END_IF
+	Axe_no_move:=GETBIT32(Axis.NcToPlc.StateDWord,2);
+	Axe_no_Job:=NOT AxisHasJob( Axis.NcToPlc.StateDWord);
+	PTP_Axe_en_pos:=GETBIT32(Axis.NcToPlc.StateDWord,4) AND Axe_no_move;
+	Vitesse_axe:=Axis.NcToPlc.ActVelo;
+	
+	IF Ref_ok THEN
+		Pos_axe:=Axis.NcToPlc.ActPos;
+	ELSE
+		Pos_axe:=0;
+	END_IF
+
+	(*Reset signal PTP_Start*)
+	TON_En_pos(in:=PTP_Start,pt:=T#20MS); // empeche la ptp start de retomber avant le début du mouvement
+	IF PTP_Axe_en_pos AND TON_En_pos.Q
+		OR MC_Stop_1.Execute THEN
+		PTP_Start:=FALSE;
+	END_IF
+
+//////////////////////////////////////////////////
+//					Reset ; Stop				//
+//////////////////////////////////////////////////
+	(*Reset de l'axe*)
+	MC_reset_1.Execute:=Reset AND NOT Axe_en_mode_esclave;
+	MC_reset_1(Axis:=Axis);
+	
+	(*Stop  de l'axe*)
+	Stop_Axe:=(NOT PTP_Start AND NOT Memo_Demande_Ref)
+						OR NOT Fc_Plus
+						OR NOT Fc_moins
+						OR defaut_axe
+						OR reset
+						OR (Memo_Demande_Ref AND NOT Demande_Ref);
+	
+	TP_Stop_Axe(in:=Stop_Axe, pt:=T#10MS) ;
+	MC_Stop_1(Axis:=Axis);
+	MC_Stop_1.Execute:=	TP_Stop_Axe.Q;
+	
+//////////////////////////////////////////////////
+//					P.O.M						//
+//////////////////////////////////////////////////
+	MC_Home_1.Execute:=Demande_ref;
+	MC_Home_1.Position:=Pos_origine;
+	MC_Home_1.bCalibrationCam:=Fc_origine;
+	MC_Home_1(Axis:=Axis);
+	
+	RE_Demande_ref(clk:=Demande_ref);
+	IF RE_Demande_ref.Q THEN
+		Memo_Demande_ref:=TRUE;
+	END_IF
+	IF Memo_Demande_ref AND NOT Demande_ref AND Axe_no_move THEN
+		Memo_demande_ref:=FALSE;
+	END_IF
+
+//////////////////////////////////////////////////
+//					J.O.G						//
+//////////////////////////////////////////////////
+	MC_Jog_1.Mode:=MC_JOGMODE_CONTINOUS;
+	MC_Jog_1.JogForward:=Jog_plus AND Fc_plus AND (Pos_axe<Butee_soft_plus OR NOT Ref_ok);
+	MC_Jog_1.JogBackwards:=Jog_moins AND Fc_moins AND (Pos_axe>Butee_soft_moins OR NOT Ref_ok);
+	MC_Jog_1.Velocity:=Vitesse_man; 
+	MC_Jog_1.Acceleration:=MC_Jog_1.Deceleration:=PTP_Accel_decel;
+	IF Vitesse_man<>0 THEN
+		MC_Jog_1.Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/Vitesse_man;
+	END_IF
+	MC_Jog_1(Axis:=Axis);
+	
+//////////////////////////////////////////////////
+//					Override					//
+//////////////////////////////////////////////////
+	Bit_petite_vitesse :=
+	 		(NOT Demande_ref AND NOT Ref_ok)
+		OR
+			(Ref_ok
+				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
+					OR ((Pos_axe>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))
+		OR
+			Dem_Pv
+		OR NOT Dem_gv AND Manu	AND (Jog_plus OR Jog_moins);
+
+	IF NOT Reset AND NOT Dem_V_nulle AND Override<>0 THEN
+		IF Palpage THEN
+			Axis.PlcToNc.Override:=50000;(*5%*)
+		ELSIF Bit_petite_vitesse  THEN
+				IF ABS(Vitesse_axe) >=40 AND ((Ref_ok
+				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
+					OR ((Pos_axe>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))) THEN
+						Axis.PlcToNc.Override:= 50000000 /REAL_TO_DWORD(Vitesse_Man); (*on limite la vitesse à 50mms *)
+				ELSE
+						Axis.PlcToNc.Override:=300000;(*30%*)
+
+				END_IF
+		ELSIF Manu AND Dem_gv THEN
+			Axis.PlcToNc.Override:=1000000;(*100%*)
+		ELSE
+			Axis.PlcToNc.Override:=REAL_TO_DWORD(Override)*10000;
+		END_IF
+	ELSE
+		Axis.PlcToNc.Override:=0;(*Vitesse Nulle*)
+	END_IF
+	
+//////////////////////////////////////////////////
+//					P.T.P						//
+//////////////////////////////////////////////////
+	RE_Execute_PTP_1(clk :=
+			NOT Stop_axe 
+			AND Ref_ok 
+			AND PTP_Start 
+			AND NOT AxisHasJob(Axis.NcToPlc.StateDWord) 
+			AND (PTP_Pos_cible>Butee_soft_moins) 
+			AND (PTP_Pos_cible<Butee_soft_plus)
+			AND NOT MC_MoveAbsolute_1.busy
+		OR 
+			Top_Chgt_Vitesse_PTP);
+	
+	RE_Execute_PTP_2(clk :=
+			MC_MoveAbsolute_1.busy
+			AND NOT MC_MoveAbsolute_2.busy
+			AND	Top_Chgt_Vitesse_PTP);
+			
+	Top_Chgt_Vitesse_PTP := (MC_MoveAbsolute_1.Busy OR MC_MoveAbsolute_2.Busy) AND PTP_Vitesse<>Memo_PTP_Vitesse;
+	IF Top_Chgt_Vitesse_PTP THEN
+		Memo_PTP_Vitesse:=PTP_Vitesse;
+	END_IF
+		
+	MC_MoveAbsolute_1.Execute:= RE_Execute_PTP_1.Q; (*Start*)
+	MC_MoveAbsolute_1.Position:=PTP_Pos_cible-Offset_axe;(*Position cible*)
+	MC_MoveAbsolute_1.Acceleration:=MC_MoveAbsolute_1.Deceleration:=PTP_Accel_Decel;(*Acceleration*)
+	MC_MoveAbsolute_1.Velocity:=PTP_Vitesse;(*Vitesse*)
+	IF PTP_Vitesse<>0 THEN
+		MC_MoveAbsolute_1.Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/PTP_Vitesse;
+	END_IF
+	MC_MoveAbsolute_1(Axis:=Axis);
+	
+	MC_MoveAbsolute_2.Execute:= RE_Execute_PTP_2.Q; (*Start*)
+	MC_MoveAbsolute_2.Position:=PTP_Pos_cible-Offset_axe;(*Position cible*)
+	MC_MoveAbsolute_2.Acceleration:=MC_MoveAbsolute_1.Deceleration:=PTP_Accel_Decel;(*Acceleration*)
+	MC_MoveAbsolute_2.Velocity:=PTP_Vitesse;(*Vitesse*)
+	IF PTP_Vitesse<>0 THEN
+		MC_MoveAbsolute_2.Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/PTP_Vitesse;
+	END_IF
+	MC_MoveAbsolute_2(Axis:=Axis);
+	
+//////////////////////////////////////////////////
+//					Maitre Esclave				//
+//////////////////////////////////////////////////
+	
+	(*----------Couplage Axes----------*)
+	TON_POM_ok(in:=bit_POM_ok,pt:=T#1S);
+	IF (Axis.NcToPlc.AxisState=0 OR Axis.NcToPlc.AxisState=12)	(*0: comme en TC2		12: en TC3 quand accouplé*)
+	AND Ref_ok AND Axe_no_move THEN
+		IF NOT TON_POM_ok.Q THEN
+			MC_GearIn_1.RatioDenominator:=1;
+			MC_GearIn_1.RatioNumerator:=1;
+			MC_GearIn_1.Execute:=Esclave;
+			MC_GearIn_1(master:=Axis_Maitre,slave:=axis);
+	
+			MC_GearOut_1.Execute:=NOT Esclave;
+			MC_GearOut_1(slave:=axis);
+		ELSE
+			MC_GearInMultiMaster_1		// lié à un bug TC3 si on relance la Pom une deuxième fois dans la journée
+				(GearRatio1 := 1,
+				Master1:=Axis_Maitre,
+				Master2:=dummy2,
+				Master3:=dummy3,
+				Master4:=dummy4,
+				Slave:=axis,
+				Enable := esclave);
+				
+			MC_GearOut_1.Execute:=NOT Esclave;
+			MC_GearOut_1(slave:=axis);
+		END_IF	
+	END_IF
+	
+	(*Recupération status couplage des axes*)
+	Axe_en_mode_esclave:=
+		Axis.NcToPlc.CoupleState=3		(*=3: l'axe est uniquement esclave d'un autre*)
+		OR Axis.NcToPlc.CoupleState=2;	(*=2: l'axe est esclave d'un autre ET maitre d'encore un autre, nécessaire pour Mag 3 chariots*)
+
+	MC_GearIn_1.Error;
+	MC_GearIn_1.ErrorID;
+	
+	MC_GearInMultiMaster_1.Error;
+	MC_GearInMultiMaster_1.ErrorID;
+	
+//////////////////////////////////////////////////
+//					Flags ref + Pom				//
+//////////////////////////////////////////////////
+	(*----------Forcage position axe----------*)
+	MC_SetPosition_1(
+		Execute:= Forcage_Pos,
+		Position:= Pos_Externe_Forcage,
+		Axis:= Axis);
+	IF Forcage_pos AND ABS(Pos_externe_forcage-Pos_axe)<0.1 THEN
+		Forcage_pos:=FALSE;
+	END_IF
+	
+	(*----------Forcage Origine Axes----------*)
+	MC_Home_forcage(
+		Execute:= Forcage_Flag_Ref,
+		HomingMode:= MC_ForceCalibration,
+		Axis:= Axis);
+	IF Forcage_flag_ref AND Ref_ok THEN
+		Forcage_flag_ref:=FALSE;
+	END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Axe_Ethercat_V2">
+      <LineId Id="2888" Count="13" />
+      <LineId Id="3246" Count="0" />
+      <LineId Id="3258" Count="0" />
+      <LineId Id="2902" Count="0" />
+      <LineId Id="3248" Count="0" />
+      <LineId Id="2903" Count="339" />
+      <LineId Id="418" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

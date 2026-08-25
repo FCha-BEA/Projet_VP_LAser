@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GVL Name="IO_ARMOIRE" Id="{f5f488b8-f9c5-4c27-b80f-58edb0859932}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+
+(*****Entrées*****)
+(*Sécurité/Réarmement*)
+	Machine_en_Service					AT%I*:BOOL;
+
+	Controle_Acces_Machine_Inst			AT%I*:BOOL;
+	Controle_Acces_Machine_2s			AT%I*:BOOL;
+	Controle_Acces_Machine_5s			AT%I*:BOOL;
+	
+	Controle_Acces_BE_Inst				AT%I*:BOOL;
+	Controle_Acces_BS_Inst				AT%I*:BOOL;
+	
+	Porte_Laser_Fermee					AT%I*:BOOL; //fc faire
+	Pom_Codeur_Secu_ok					AT%I*:BOOL;	//Pom des codeurs de sécu ok, pour surveillance via fenêtre de position -SI PAS ENTREE PHYSIQUE, UTILISER TON-
+
+
+(*Climatiseurs*)
+	Climatiseur_1_OK				AT%I*:BOOL;
+	Climatiseur_2_OK				AT%I*:BOOL;
+	Climatiseur_3_Ok				AT%I*:BOOL;
+
+(*Alimentations 24V*)
+	Disjct_Alimentation_24V_V1		AT%I*:BOOL;
+	Disjct_Alimentation_24V_V2		AT%I*:BOOL;
+	Disjct_Alimentation_24V_V3		AT%I*:BOOL;
+	Disjct_Alimentation_24V_V4				AT%I*:BOOL;
+	Disjct_Alimentation_24V_PC				AT%I*:BOOL;
+
+	Alimentations_24V_V1_OK			AT%I*:BOOL;
+	Alimentation_24V_V2_OK			AT%I*:BOOL;
+	Alimentation_24V_V3_OK			AT%I*:BOOL;
+	Alimentation_24V_Secu_OK		AT%I*:BOOL;
+	Alimentation_24V_PC_OK			AT%I*:BOOL;
+	
+(*Modules de répartitions 24v MICO*)
+	Repart24v_B65Q1_NOK				AT%I*:BOOL;
+	Repart24v_B66Q1_NOK				AT%I*:BOOL;
+	Repart24v_B68Q1_NOK				AT%I*:BOOL;
+
+
+(*Disjoncteurs départ armoire distribution*)
+	
+	Pressostat_Air						:BOOL;
+	Disjct_Centrale						AT%I*:BOOL;
+	Disjct_Ventilateur_Centrale			AT%I*:BOOL;
+		Thermostat_Centrale				AT%I*:BOOL;
+	Disjct_Coffret_ChariotBE			AT%I*:BOOL;	// FC Faire déf - def plc ok - insérer dan db déf
+	Disjct_Coffret_Laser				AT%I*:BOOL; // fc faire déf - def plc ok - insérer dan db déf
+	Disjct_Var_Conv_Laser				AT%I*:BOOL;	// Conv en sortie du module de grugeage laser //fc faire déf - def plc ok - insérer dan db déf
+	Disjct_Var_BS1						AT%I*:BOOL; // fc faire déf - déf en comm, en attente de l'intégration finale
+
+(*ASPIRATION TAMA*)
+	Aspi_en_Service					AT%I*:BOOL;
+	Aspi_Ok							AT%I*:BOOL;
+	
+(*****Sorties*****)
+(*Sécurité/Réarmement*)
+	K_Service_Machine				AT%Q*:BOOL;
+	K_Arret_Machine_1				AT%Q*:BOOL;
+	K_Arret_Machine_2				AT%Q*:BOOL;
+	K_Rearmement_Securite			AT%Q*:BOOL;
+		Raz_Pnoz_BE					AT%Q*:BOOL; //fc faire
+		Raz_Pnoz_BS					AT%Q*:BOOL; //fc faire
+		RAZ_Pnoz_Laser				AT%Q*:BOOL; //fc faire
+		RAZ_Pnoz_PorteLaser			AT%Q*:BOOL;	//fc faire - A suppr à la fin
+	K_VerrDeverr_PorteLaser			AT%Q*:BOOL; //Suite à la demande, si les conditions=ok, on verrouille / déverrouille la porte //fc faire
+	
+	Start_Pom_Codeur_Secu			AT%Q*:BOOL;	//A la pom, on envoi les axes laser à des positions définies : on raz les positions des codeurs de sécu incrémentaux
+	
+(*Mise en service*)
+	K_Service_Centrale				AT%Q*:BOOL;		
+	K_Service_Ventilateur_Centrale	AT%Q*:BOOL; //fc faire
+	K_service_Chariot_BE			AT%Q*:BOOL;
+	K_service_Laser					AT%Q*:BOOL;	
+	K_Service_BrasRot				AT%Q*:BOOL; //fc faire be
+	K_Service_Conv_Laser			AT%Q*:BOOL; //fc faire
+	K_Service_Conv_BS1				AT%Q*:BOOL; //fc faire
+	K_service_Aspiration			AT%Q*:BOOL; // fc faire	
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="IO_CHARIOT" Id="{29978403-3a31-431a-884d-5b7bf3929b22}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+(*Entrées*)
+
+	Detect_Pince_embrayee					:BOOL;
+	Detecteur_Fond_De_Pince 				:BOOL;
+
+	//codeurs absolus ? 
+	(*Fc_Origine_X_Chariot					:BOOL;
+	Fc_Origine_Z_Chariot 					:BOOL;*)
+	
+
+	FDC_Pince_Haute							:BOOL;
+	FDC_Pince_Basse							:BOOL;
+
+(*Sorties*)
+	Ev_Serrage_Pince						:BOOL;
+	Ev_Desserrage_Pince						:BOOL;
+	Ev_Embrayage_Pince						:BOOL;
+	
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

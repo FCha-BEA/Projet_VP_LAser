@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="IOL_3OUT" Id="{5eaeaedf-9622-46a3-b58b-fa4e9ae5ed30}">
+    <Declaration><![CDATA[TYPE IOL_3OUT :
+STRUCT
+	BYTE0	AT %Q* 	: USINT;
+    BYTE1	AT %Q* 	: USINT;
+    BYTE2	AT %Q* 	: USINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

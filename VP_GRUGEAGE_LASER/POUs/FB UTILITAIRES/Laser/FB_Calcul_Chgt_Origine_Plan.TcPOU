@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Calcul_Chgt_Origine_Plan" Id="{c7fa2f48-d557-4418-8531-5fd4f9ea5f2f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Calcul_Chgt_Origine_Plan
+VAR_INPUT
+	IN	: BOOL;
+	A, B, C, D 	: Coordonnees;					
+END_VAR
+
+VAR_OUTPUT
+	OUT				: BOOL;
+	Div_Zero		: BOOL;
+	M 				: Coordonnees;
+	Angles			: Coordonnees;					
+END_VAR
+
+VAR
+	AB, AC, AD, AM 				: Coordonnees;					
+	X_New, Y_New, Z_New			: Coordonnees;					
+	Norme_X_New, Norme_Z_New	: LREAL;
+	t : LREAL;					
+	Matrice_Rotation			: ARRAY[1..3, 1..3] OF LREAL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*********************************************)
+(* Calcul des coordonnées du Point M *)
+(*********************************************)
+
+(* Vecteurs *)					
+
+AB.X 	:= B.X - A.X;				
+                     
+AB.Y 	:= B.Y - A.Y;				
+                     
+AB.Z 	:= B.Z - A.Z;					
+                     
+                     
+AC.X 	:= C.X - A.X;				
+                     
+AC.Y 	:= C.Y - A.Y;				
+                     
+AC.Z 	:= C.Z - A.Z;					
+                     
+                     
+AD.X 	:= D.X - A.X;				
+                     
+AD.Y 	:= D.Y - A.Y;				
+                     
+AD.Z 	:= D.Z - A.Z;					
+
+(*
+
+(M sur (AB))	==>	(OM = OA + t(AB)) 
+
+Vecteur OM		Xm = Xa + t(Xb - Xa) 		
+				Ym = Ya + t(Yb - Ya)
+ 				Zm = Za + t(Zb - Za)
+
+(DM perpendiculaire à AB)	==>	DM . AB = 0 	(en Vecteur)	
+
+Vecteur DM = OM - OD =	Xm - Xd
+						Ym - Yd
+						Zm - Zd
+
+Donc :
+(OA + t(AB) - OD)) . (AB) = 0	(en Vecteur)
+==> OA . AB + t(AB).(AB) - OD.AB = 0
+==> t(AB).(AB) = OD.AB - OA.AB
+==> t(AB).(AB) = AB.(OD - OA)
+==> t = AB.(OD - OA) / ((AB) . (AB)) 
+==> t = (AB.AD) / (AB.AB) 
+==> t = ( (Xb-Xa)(Xd - Xa) + (Yb-Ya)(Yd-Ya) + (Zb-Za)(Zd-Za) ) / ( (Xb-Xa)² + (Yb-Ya)² + (Zb-Za)² )
+
+*)
+
+
+IF ( EXPT((B.X - A.X),2) + EXPT((B.Y - A.Y),2) + EXPT((B.Z - A.Z),2) ) <> 0 THEN
+	t 			:= ( ((B.X - A.X) * (D.X - A.X)) + ((B.Y - A.Y) * (D.Y - A.Y)) + ((B.Z - A.Z) * (D.Z - A.Z)) ) / ( EXPT((B.X - A.X),2) + EXPT((B.Y - A.Y),2) + EXPT((B.Z - A.Z),2) );
+ELSE
+	Div_Zero := TRUE;
+END_IF;
+
+
+(*
+
+==> On a donc les Coordonnées du point M (Xm, Ym, Zm). 
+
+*)
+M.X			:=  A.X + (t * (B.X - A.X));
+M.Y			:=  A.Y + (t * (B.Y - A.Y));
+M.Z			:=  A.Z + (t * (B.Z - A.Z));
+
+
+(*********************************************)
+(* Calcul des Angles de Rotations         *)
+(*********************************************)
+
+(* Nouvel Axe X = (AM) *)
+X_New.X		:=	AM.X	:= (M.X - A.X);
+X_New.Y		:=	AM.Y	:= (M.Y - A.Y);
+X_New.Z		:=	AM.Z	:= (M.Z - A.Z);
+
+Norme_X_New	:=	SQRT( EXPT(X_New.X,2) + EXPT(X_New.Y,2) + EXPT(X_New.Z,2) );
+
+IF Norme_X_New <> 0 THEN
+	X_New.X	:=	X_New.X / Norme_X_New;
+	X_New.Y	:=	X_New.Y / Norme_X_New;
+	X_New.Z	:=	X_New.Z / Norme_X_New;
+ELSE
+	Div_Zero := TRUE;
+END_IF;
+
+(* Nouvel Axe Z (Perpendiculaire à (AB) et (AC) ) = AB . AC *)
+Z_New.X		:=	((B.Y - A.Y) * (C.Z - A.Z)) - ((C.Y - A.Y) * (B.Z - A.Z));
+Z_New.Y		:=	((B.Z - A.Z) * (C.X - A.X)) - ((C.Z - A.Z) * (B.X - A.X));
+Z_New.Z		:=	((B.X - A.X) * (C.Y - A.Y)) - ((C.X - A.X) * (B.Y - A.Y));
+
+Norme_Z_New	:=	SQRT( EXPT(Z_New.X,2) + EXPT(Z_New.Y,2) + EXPT(Z_New.Z,2) );
+
+IF Norme_Z_New <> 0 THEN
+	Z_New.X	:=	Z_New.X / Norme_Z_New;
+	Z_New.Y	:=	Z_New.Y / Norme_Z_New;
+	Z_New.Z	:=	Z_New.Z / Norme_Z_New;
+ELSE
+	Div_Zero := TRUE;
+END_IF;
+
+
+
+(* Nouvel Axe Y (Perpendiculaire à (Nouvel X) et (Nouvel Z) ) = Nouvel X . Nouvel Z  *)
+Y_New.X		:=	(( X_New.Y) * ( Z_New.Z)) - (( X_New.Z) * ( Z_New.Y));
+Y_New.Y		:=	(( X_New.Z) * ( Z_New.X)) - (( X_New.X) * ( Z_New.Z));
+Y_New.Z		:=	(( X_New.X) * ( Z_New.Y)) - (( X_New.Y) * ( Z_New.X));
+
+
+
+(* Matrice de Rotation *)
+Matrice_Rotation[1,1] := X_New.X;		Matrice_Rotation[1,2] := Y_New.X;		Matrice_Rotation[1,3] := Z_New.X;
+Matrice_Rotation[2,1] := X_New.Y;		Matrice_Rotation[2,2] := Y_New.Y;		Matrice_Rotation[2,3] := Z_New.Y;
+Matrice_Rotation[3,1] := X_New.Z;		Matrice_Rotation[3,2] := Y_New.Z;		Matrice_Rotation[3,3] := Z_New.Z;
+
+IF Matrice_Rotation[3,3] <> 0 AND Matrice_Rotation[1,1] <> 0 THEN
+	Angles.X	:= ATAN(Matrice_Rotation[3,2] / Matrice_Rotation[3,3]) / pi * 180;
+	Angles.Y	:= -ASIN(Matrice_Rotation[3,1]) / pi * 180;
+	Angles.Z	:= ATAN(Matrice_Rotation[2,1] / Matrice_Rotation[1,1]) / pi * 180;
+ELSE
+	Div_Zero := TRUE;
+END_IF;
+
+
+IF ( EXPT((B.X - A.X),2) + EXPT((B.Y - A.Y),2) + EXPT((B.Z - A.Z),2) ) <> 0 AND Norme_X_New <> 0 AND Norme_Z_New <> 0 AND Matrice_Rotation[3,3] <> 0 AND Matrice_Rotation[1,1] <> 0 THEN
+	Div_Zero := FALSE;
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Calcul_Chgt_Origine_Plan">
+      <LineId Id="20" Count="128" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

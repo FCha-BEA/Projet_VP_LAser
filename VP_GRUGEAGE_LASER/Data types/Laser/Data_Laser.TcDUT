@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Data_Laser" Id="{332c9c7d-0e0d-46bd-aad9-9607750a3d7f}">
+    <Declaration><![CDATA[TYPE Data_Laser :
+STRUCT
+	STATUS_0											AT %I*	: UDINT;
+	STATUS_1												AT %I*	: UDINT;
+	STATUS_2												AT %I*	: UDINT;
+	STATUS_3												AT %I*	: UDINT;
+	STATUS_4												AT %I*	: UDINT;
+	STATUS_5												AT %I*	: UDINT;                                                    	
+	POWER_IN												AT %I*	: UDINT;
+	OPTICAL_CHANNEL_IN										AT %I*	: UDINT;
+	PROGRAM_NUMBER_IN										AT %I*	: UDINT;
+	LASER_NUMBER_IN											AT %I*	: UDINT;                                                     	
+                                                        	
+	CONTROL_0												AT %Q*	: UDINT;
+	CONTROL_1												AT %Q*	: UDINT;
+	CONTROL_2												AT %Q*	: UDINT;
+	CONTROL_3												AT %Q*	: UDINT;
+	CONTROL_4												AT %Q*	: UDINT;                                                        	
+	POWER_OUT												AT %Q*	: UDINT;
+	OPTICAL_CHANNEL_OUT										AT %Q*	: UDINT;
+	PROGRAM_NUMBER_OUT										AT %Q*	: UDINT;
+	RAMPING_TIME_OUT										AT %Q*	: UDINT;
+	LASER_NUMBER_OUT										AT %Q*	: UDINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

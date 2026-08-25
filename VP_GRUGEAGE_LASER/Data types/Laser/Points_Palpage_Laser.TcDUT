@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Points_Palpage_Laser" Id="{c63be058-978c-4345-83f9-754c677f3499}">
+    <Declaration><![CDATA[TYPE Points_Palpage_Laser :
+STRUCT
+
+	R00						: Coordonnees;		(* Origine X de la Face *)
+
+	(* Rxy : x = Mesure n°x ; y = Nunéro du Point de Mesure *)
+
+	R11						: Coordonnees;
+	R11b					: Coordonnees;
+	R12						: Coordonnees;
+	R13						: Coordonnees;
+	R14						: Coordonnees;
+	R15						: Coordonnees;
+	R16						: Coordonnees;
+	R17						: Coordonnees;
+	R18						: Coordonnees;
+	R19						: Coordonnees;
+
+	R21						: Coordonnees;
+	R21b					: Coordonnees;
+	R22						: Coordonnees;
+	R23						: Coordonnees;
+	R24						: Coordonnees;
+	R25						: Coordonnees;
+	R26						: Coordonnees;
+	R27						: Coordonnees;
+	R28						: Coordonnees;
+	R29						: Coordonnees;
+
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

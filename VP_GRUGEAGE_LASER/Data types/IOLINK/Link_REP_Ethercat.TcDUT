@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Link_REP_Ethercat" Id="{471e2f11-ab6f-44ea-a28d-97d425488914}">
+    <Declaration><![CDATA[TYPE Link_REP_Ethercat :
+STRUCT
+	Link_IN	AT%I*:UINT;
+	Link_OUT AT%Q*:UINT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="Global_Lifter_VB" Id="{f67ed069-41be-4deb-b2ca-51f807fa9432}">
+    <Declaration><![CDATA[VAR_GLOBAL
+	
+// In/Out FB_Torche_Plasma
+		full_retract_torche : BOOL ;
+		Ep_retract_partiel_torche : LREAL ;
+	// init axe
+		// in
+			reset_Z_plasma: BOOL;
+		// out	
+			Axe_Z_Plasma_enable: BOOL;
+	// settings	
+		// in
+			pos_ref_torche: LREAL;
+			Pos_ref_torche_Fe: LREAL;
+			Pos_ref_torche_Re: LREAL;
+			Top_forcage_pom_Z_plasma : BOOL;
+			limite_plus_Z_plasma : LREAL;
+			limite_moins_Z_plasma : LREAL;
+	// commandes PTP
+		// in
+			Gv_Z_plasma: BOOL;
+			Pv_Z_Laser: BOOL;
+		// out
+			limite_atteinte_Z_Plasma : BOOL;
+	// JOG
+		// in
+			Descendre_Torche: BOOL;
+			Monter_Torche: BOOL;
+	// asserv
+		// in
+			Asserv_Torche_On: BOOL;
+	// defauts
+		//out
+			Z_Plasma_en_defaut: BOOL;
+			id_defaut_Z_Plasma: UDINT;
+			defaut_var_Z_Plasma: BOOL;
+			memo_id_defaut_Z_Plasma: UDINT;
+			id_defaut_var_Z_Plasma: UDINT;
+			Mess_var_Z_Plasma: STRING;
+			Test_capacitance_defectueux				:BOOL;			(*Vérifier l'état de la buse*)
+			Defaut_contact_torche_tole				:BOOL;			(*la torche entre en contacte avec la tole en cours de decoupe*)
+	// axis state
+		// out
+			distance_buse_piece : LREAL;
+			velo_torche: LREAL;
+			Z_Laser_en_mode_esclave : BOOL;
+
+// G7_cycle_plasma
+	Decoupe_recente			:BOOL;
+	Retract_speed			:LREAL;
+	Vitesse_approche_rapide	:LREAL;
+	position_gain			:LREAL := 0.75;
+	voltage_gain			:LREAL := 250;
+	Voltage_scale			:LREAL := 32767;
+	Arc_Voltage_Sample		:INT := 25;
+	
+	(*Palpage*)
+	Vitesse_de_palpage		:LREAL;
+	Palpage_Torche			:BOOL;
+	
+// Gestion plasma
+	Plasma_verrou_torche		:BOOL;	
+	Nozzle_contact_active		:BOOL := TRUE;
+	Auto_kerf_active			:BOOL := TRUE;
+	Inhib_Auto_kerf_active		:bool := false;
+	Auto_kerf_sensitivity		:LREAL := 5;
+	Auto_kerf_treshhold			:LREAL := 45;
+	Compensation_mecanique_tool_offset		:LREAL:=0;
+	MEMO_Compensation_mecanique_tool_offset	:LREAL;
+	Palpage_unique_pour_chanfrein_multiple	:BOOL:=TRUE;
+	Accel_Delay					:TIME:=T#1S;
+	
+	list_axe_MCS : ARRAY[1..5] OF axis_ref;
+		
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_SMC_Regul_Press_ITV" Id="{ba9b01d9-ea59-4349-b3ed-eb0e2ab8740e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_SMC_Regul_Press_ITV
+VAR_INPUT
+
+	Valid					: BOOL;
+	Byte0_E					: USINT;
+	Byte1_E					: USINT;
+	Byte2_E					: USINT;
+	Byte3_E					: USINT;
+
+	Pression_Consigne		: LREAL;
+END_VAR
+VAR_OUTPUT
+
+	Err						: BOOL;
+
+	Byte0_S					: USINT;
+	Byte1_S					: USINT;
+
+	Device_OK 				: BOOL;
+
+	Pression_Feed_Back		: LREAL;
+
+END_VAR
+VAR
+
+	Byte0_E_Word			: WORD;
+	Byte1_E_Word			: WORD;
+	Byte2_E_Word			: WORD;
+	Byte3_E_Word			: WORD;
+
+	Byte01_E_Word			: WORD;
+	Byte23_E_Word			: WORD;
+
+	Pression_Consigne_Word	: WORD;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	(**********************************************************************************)
+
+	Byte0_E_Word			:= USINT_TO_WORD(Byte0_E);
+	Byte1_E_Word			:= USINT_TO_WORD(Byte1_E);
+	Byte2_E_Word			:= USINT_TO_WORD(Byte2_E);
+	Byte3_E_Word			:= USINT_TO_WORD(Byte3_E);
+
+	Byte0_E_Word 			:= SHL(Byte0_E_Word,8);
+	Byte01_E_Word			:= Byte0_E_Word + Byte1_E_Word;
+
+	Pression_Feed_Back		:= WORD_TO_LREAL(Byte01_E_Word);
+
+	Byte2_E_Word 			:= SHL(Byte2_E_Word,8);
+	Byte23_E_Word			:= Byte2_E_Word + Byte3_E_Word;
+
+	Device_OK				:= NOT Byte23_E_Word.15;
+
+	(**********************************************************************************)
+
+	Pression_Consigne_Word	:= LREAL_TO_WORD(Pression_Consigne);
+
+	Byte0_S					:= WORD_TO_USINT(SHR(Pression_Consigne_Word AND 16#FF00,8));
+	Byte1_S					:= WORD_TO_USINT(Pression_Consigne_Word AND 16#00FF);
+
+	(**********************************************************************************)
+
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SMC_Regul_Press_ITV">
+      <LineId Id="35" Count="28" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

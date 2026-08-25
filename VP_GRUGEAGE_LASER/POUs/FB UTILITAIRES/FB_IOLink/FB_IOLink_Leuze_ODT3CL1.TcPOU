@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_Leuze_ODT3CL1" Id="{99e2c6db-2488-4615-819f-4eb91655bcb8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_Leuze_ODT3CL1
+VAR_INPUT
+	Valid :BOOL;
+	Byte0 AT%I*:USINT;
+	Byte1 AT%I*:USINT;
+	Byte2 AT%I*:USINT;
+	Byte3 AT%I*:USINT;
+END_VAR
+VAR_OUTPUT
+	Err :BOOL;
+	Mesure :LREAL;
+	Echelle :INT;
+	Sortie_1:BOOL;
+	Sortie_2:BOOL;
+	Mesure_Active :BOOL;
+	Reception_Signal :BOOL;
+	Warning :BOOL;
+	Qualite_Signal :INT;
+END_VAR
+VAR
+	Byte0_Word: WORD;
+	Byte1_Word: WORD;
+	Byte01_Word: WORD;
+	Mesure_Temp :INT;
+	Byte2_SINT:SINT;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	(*Echelle reste a 10e-3 peut importe distance*)
+	Byte2_SINT := USINT_TO_SINT(Byte2);
+	Echelle:=SINT_TO_INT(Byte2_SINT);
+
+	Byte0_Word := USINT_TO_WORD(Byte0);
+	Byte1_Word := USINT_TO_WORD(Byte1);
+	Byte0_Word := SHL(Byte0_Word,8);
+	Byte01_Word := Byte0_Word + Byte1_Word;
+	Mesure_Temp :=   WORD_TO_INT(Byte01_Word);
+	(*Mesure temp deja en mm, avec echelle valeur en m*)
+
+	IF Mesure_temp =32760 OR Mesure_Temp = -32760 OR Mesure_Temp = 0 OR Mesure_Temp = 32764 THEN
+		Mesure := 0;
+	ELSE
+		Mesure := Mesure_Temp ;(* * EXPT(10, Echelle);*)
+	END_IF
+
+	(*Hors plage*)
+	Err := Mesure_Temp =32760 OR Mesure_Temp = -32760
+		OR Mesure_Temp = 0 OR Mesure_Temp = 32764;
+
+	Sortie_1 := Byte3.0;
+	Sortie_2 := Byte3.1;
+	Mesure_Active := Byte3.3;
+	Reception_Signal := Byte3.4;
+	Warning := Byte3.5;
+	Qualite_Signal.0 := Byte3.6;
+	Qualite_Signal.1 := Byte3.7;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_Leuze_ODT3CL1">
+      <LineId Id="26" Count="30" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="Global_Divers" Id="{99dc3ec3-30fe-43cc-899a-9ca02daa60b8}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+(*-------------------------------------------------Variables Internes Generales--------------------------------------------------------------------------------------------------*)
+VAR_GLOBAL
+	
+//Divers et sécu
+	Message_AutoPowerOff		:BOOL:=FALSE;
+	Controle_Acces_Machine						:BOOL:=FALSE;
+	Pressostat_Air_OK							:BOOL:=FALSE;
+	Pnc_Blocage_PLC								:BOOL;
+	Inhib_Pnc_blocage_PLC						:BOOL:=FALSE;	(*Pour inhiber la fonction blocage, à forcer dans l'automate*)
+	Inhibition_commande							:BOOL:=FALSE;	(*Pour inhiber les commandes jog durant le POM/Mesure barre...etc *)
+	Securite_Axes								:BOOL:=FALSE; 	(*si zero, les  axes ne bougent pas, secu sortie des magasins*)
+
+
+//Bits clignotant
+	 Clignotant_Affichage_Pop_up				:BOOL:=FALSE;
+	 Clignotant_tttt_lent						:BOOL:=FALSE;
+	 Clignotant_ttt_lent						:BOOL:=FALSE;
+	 Clignotant_tt_lent							:BOOL:=FALSE;
+	 Clignotant_t_lent							:BOOL:=FALSE;
+	 Clignotant_lent							:BOOL:=FALSE;
+	 Clignotant_rapide							:BOOL:=FALSE;
+	 Clignotant_t_rapide						:BOOL:=FALSE;
+	 Clignotant_tt_rapide						:BOOL:=FALSE;
+	 Clignotant_ttt_rapide						:BOOL:=FALSE;
+	 
+	 
+(*Cycle*)
+	 Pt_Sequence								:WORD:=1; (*General*)
+	 Manu										:BOOL:=TRUE;
+	 Auto										:BOOL:=FALSE;
+	 Demande_Arret_Cycle						:BOOL:=FALSE;
+	 	TON_Auto								:TON;
+	 Mem_Arus									:BOOL:=TRUE;
+	 	RE_Mem_Arus								:R_TRIG;
+	 	FE_Mem_arus								:F_TRIG;
+	 Mem_Arus_BP								:BOOL:=FALSE;	(* Pour distinguer un arus volontaire *)
+	 RE_Bp_Annul_Defauts						:R_TRIG;
+	 Start_ready								:BOOL:=FALSE;(*Pret pour start programme*)
+	 
+	 Pom_OK										:BOOL:=FALSE;
+                                                 
+	 Pnc_Selec_Recul_X							:BOOL;
+     
+	 X_vers_Parking								:BOOL:=FALSE;
+	 X_Suivant_Idem								:BOOL:=FALSE;
+	 M_Suivant_Idem								:BOOL:=FALSE;
+	 X_Precedent_Idem							:BOOL:=FALSE;
+	 X_Deja_En_pos								:BOOL:=FALSE;
+	 Mise_En_service_Vars						:BOOL:=FALSE;(*Alimentation en Puissance*)
+	 Ok_pour_Validation_Axes					:BOOL:=FALSE;
+	 
+	 Cycle_Depose_Piece_Laser					:BOOL;
+     
+	 B_Attente_operateur						:BOOL:=FALSE;
+	 Pince_dans_Machine							: BOOL:=TRUE;(*23.09.2021*)
+	 Stop_JOG_Plus_X_Pince_pas_en_Bas			: BOOL:=FALSE;
+	 Pnc_Verrou_Dcy								:BOOL:=FALSE;
+	 Stop_axes					:BOOL:=FALSE;
+	 FE_DCY										:F_TRIG;
+	 Simul_decoupe								:BOOL:=FALSE;
+	 Bit_Demo									:BOOL:=FALSE;
+	 
+	 //Types d'usinages laser
+	 Decoupe									:BOOL;
+	 Ecretage									:BOOL;
+
+(*Pour Status Machine*)
+	Mot_Defauts_1				:DWORD:=0;
+	Mot_Defauts_2				:DWORD:=0;
+	Mot_Defauts_3				:DWORD:=0;
+	Mot_Defauts_4				:DWORD:=0;
+	Mot_Defauts_5				:DWORD:=0;
+	Mot_Defauts_6				:DWORD:=0;
+	Mot_Defauts_7				:DWORD:=0;
+	Mot_Defauts_8				:DWORD:=0;
+	Mot_Defauts_9				:DWORD:=0;
+
+	Memo_Defauts_1				:DWORD:=0;
+	Memo_Defauts_2				:DWORD:=0;
+	Memo_Defauts_3				:DWORD:=0;
+	Memo_Defauts_4				:DWORD:=0;
+	Memo_Defauts_5				:DWORD:=0;
+	Memo_Defauts_6				:DWORD:=0;
+	Memo_Defauts_7				:DWORD:=0;
+	Memo_Defauts_8				:DWORD:=0;
+	Mot_Status_1				:DWORD:=0;
+	Mot_Status_2				:DWORD:=0;
+	Mot_Status_3				:DWORD:=0;
+	Mot_Status_39				:DWORD:=0;
+	Mot_Alarme_1				:DWORD:=0;
+	Mot_Alarme_2				:DWORD:=0;
+	Mot_alarme_3				:DWORD:=0;
+	Mot_Status_106				:DWORD;
+
+(*Controle du Grafcet*)
+	 SFCInit						:BOOL;(*Pour reset du Grafcet*)
+	 SFCPause					:BOOL;(*Pour Figer le Grafcet*)
+	 G7_1_step					:STRING:='';
+	 G7_2_step					:STRING:='';
+	 G7_3_step					:STRING:='';
+	 G7_4_step					:STRING:='';
+	 G7_5_step					:STRING:='';
+	 G7_6_step					:STRING:='';
+	 G7_7_step					:STRING:='';
+	 G7_8_step					:STRING:='';
+	 G7_9_step					:STRING:='';
+	 G7_10_step					:STRING:='';
+	 G7_11_step					:STRING:='';
+	 G7_12_step					:STRING:='';
+	 G7_13_step					:STRING:='';
+	 G7_14_step					:STRING:='';
+	 G7_15_step					:STRING:='';
+	 G7_16_step					:STRING:='';
+	 G7_17_step					:STRING:='';
+	 G7_18_step					:STRING:='';
+	 G7_19_step					:STRING:='';
+	 G7_20_step					:STRING:='';
+	 Top_PLC_log					:BOOL:=FALSE;
+	 
+(*Parametre Piece et Barre*)
+	 Acier_E24								:BOOL:=TRUE;
+	 Acier_E36								:BOOL:=FALSE;
+	 Ep_Ame									:LREAL;
+	 Poids_barre								:LREAL;
+	 Ep_Aile									:LREAL;
+	 Hauteur_Aile							:LREAL;
+	 Largeur_Ame								:LREAL;
+	 Plus_grande_largeur						:LREAL;
+	 Plus_grande_epaisseur					:LREAL;
+	 Position_Ame							:LREAL;
+	 Profil_Plat								:BOOL:=FALSE;
+	 Profil_U								:BOOL:=FALSE;
+	 Profil_H								:BOOL:=FALSE;
+	 Profil_L								:BOOL:=FALSE;
+	 Profil_T								:BOOL:=FALSE;
+	 Profil_Tube								:BOOL:=FALSE;
+	 Profil_Tube_sur_Aile					:BOOL:=FALSE;
+	 Profil_H_sur_Aile						:BOOL:=FALSE;
+	 Profil_U_sur_AileRef					:BOOL:=FALSE;
+	 Profil_U_sur_AileOpRef					:BOOL:=FALSE;
+	 Profil_U_Renverse						:BOOL:=FALSE;
+	 
+(*Defauts*)
+	 Defaut_General							:BOOL:=FALSE;
+	 Defaut_Pressostat_Air					:BOOL:=FALSE;
+	 Defaut_Lancement_POM					:BOOL:=FALSE;
+	 Alarme_Generale							:BOOL:=FALSE;
+	 Defaut_Axes								:BOOL:=FALSE;     
+	 Defaut_Parametres						:BOOL:=FALSE;    
+	 Defaut_STO_Vars_Broches					:BOOL:=FALSE;
+	 Defaut_STO_Vars_Axes					:BOOL:=FALSE;
+
+
+(*Commandes manu*)
+	Selection_X						:BOOL:=FALSE;
+	Selection_ZChariot				:BOOL:=FALSE;
+	Selection_XYLaser				:BOOL:=FALSE;	//XY unité laser
+	Selection_ZLaser				:BOOL:=FALSE;	//Z unité laser
+	Selection_A						:BOOL:=FALSE;	//Rotation angulaire unité laser
+	Selection_DecManu_Laser			:BOOL:=FALSE;	//Selection XY Laser pour découpe manuelle
+	Selection_Presseurs_Laser		:BOOL:=FALSE;	
+	
+	Selection_maintenance				:BOOL:=FALSE;
+	Machine_On							:BOOL:=FALSE;
+	Time_stop_arret_urgence				:TIME:=T#2S;
+	M_temp1								:INT;
+	P6_temp								:DWORD;
+	
+
+END_VAR
+
+VAR_GLOBAL PERSISTENT
+	Longueur_Barre							:LREAL;
+	Longueur_Barre_en_Pince					:LREAL;
+	Longueur_Piece							:LREAL;
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

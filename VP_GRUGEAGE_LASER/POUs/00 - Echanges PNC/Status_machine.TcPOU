@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Status_machine" Id="{92181ffd-b65d-4a3b-887f-ba615af34ec2}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Status_machine
+VAR
+	TOF_Machine_Active: TOF;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*------------------------------------------------------------------------CYCLES/ORIGINES---------------------------------------------------------------*)
+(*Manu/Auto*)
+Pnc_Status[1]:=DWORD_TO_REAL(Mot_Status_1);
+		Mot_Status_1.0:=Manu;
+		Mot_Status_1.1:=Auto;
+		Mot_Status_1.2:=Mem_Arus;
+		Mot_Status_1.3:=Defaut_General;
+		Mot_Status_1.4:=Alarme_Generale;
+		Mot_Status_1.5:=Origines_Axes_ok AND NOT Start_Origines;
+
+
+
+		Mot_Status_1.7:=FALSE;
+		Mot_Status_1.8:=FALSE;
+		Mot_Status_1.9:=FALSE;
+		Mot_Status_1.10:=FALSE;
+		Mot_Status_1.11:=Ref_Ok_X AND Ref_Ok_Z_Chariot  ;
+		Mot_Status_1.12:=FALSE;
+		Mot_Status_1.13:=false;
+		Mot_Status_1.14:=false;
+		Mot_Status_1.15:=FALSE;
+		Mot_Status_1.16:=FALSE;
+		Mot_Status_1.17:=FALSE;
+		Mot_Status_1.18:=FALSE;
+		Mot_Status_1.19:=false;
+		Mot_Status_1.20:=false;
+		Mot_Status_1.21:=false;
+		Mot_Status_1.22:=false;
+		Mot_Status_1.23:=false;
+		Mot_Status_1.24:=false;
+		Mot_Status_1.25:=false;
+		Mot_Status_1.26:=false;
+		Mot_Status_1.27:=false;
+		Mot_Status_1.28:=false;;
+		Mot_Status_1.29:=false;;
+		Mot_Status_1.30:=false;;
+		Mot_Status_1.31:=FALSE;
+
+(*------------------------------------------------------------------------CYCLES----------------------------------------------------------------------------*)
+(*Pnc_Status[2]:=DWORD_TO_REAL(Mot_Status_2);
+		Mot_Status_2.0:=FALSE;
+		Mot_Status_2.1:=FALSE;
+		Mot_Status_2.2:=FALSE;
+		Mot_Status_2.3:=FALSE;
+		Mot_Status_2.4:=FALSE;
+		Mot_Status_2.5:=FALSE;
+		Mot_Status_2.6:=FALSE;
+		Mot_Status_2.7:=FALSE;
+		Mot_Status_2.8:=FALSE;
+		Mot_Status_2.9:=FALSE;
+		Mot_Status_2.10:=FALSE;
+		Mot_Status_2.11:=FALSE;
+		Mot_Status_2.12:=FALSE;
+		Mot_Status_2.13:=FALSE;
+		Mot_Status_2.14:=FALSE;
+		Mot_Status_2.15:=NOT  G7_Chargement.Init.x; (*etape Init Chargement Auto*)
+		Mot_Status_2.16:=G7_Chargement.Step2.x; (*etape Av chaines vers Butées*)
+		Mot_Status_2.17:=G7_Chargement.Step3.x; (*etape Attente ordre Chargement sur BE*)
+		Mot_Status_2.18:=G7_Chargement.Step4.x; (*etape Chargement sur BE*)
+		Mot_Status_2.25:=Rodage_Ruban_En_Cours;
+		Mot_Status_2.27:=Fin_Sciage_Auto_En_Cours;*)
+(*
+Pnc_Status[3]:=DWORD_TO_REAL(Mot_Status_3);
+		Mot_Status_3.0:=Ref_Ok_Y7;
+		Mot_Status_3.1:=Ref_Ok_Y8;
+		Mot_Status_3.2:=Ref_Ok_Z7;
+		Mot_Status_3.3:=Ref_Ok_Z8;
+		Mot_Status_3.8:=FALSE;
+		Mot_Status_3.13:=FALSE;
+		Mot_Status_3.14:=FALSE;
+		Mot_Status_3.18:=Ref_Ok_Z_Chariot_BE;
+		Mot_Status_3.19:=Ref_Ok_Z_Chariot_BE;
+		Mot_Status_3.25:=Ref_Ok_X_U7; (*VP2x*)
+		Mot_Status_3.26:=Ref_Ok_X_U8; (*VP2x*)
+		Mot_Status_3.31:=Ref_Ok_X_Presseur; (*VP2x*)*)
+
+(*----------------------Affichage du message operateur pour sequence attente apres cisaillage ou fraisage----------------------------------*)
+	Pnc_Status[79]:=0;
+
+
+IF Message_AutoPowerOff THEN
+	Pnc_Status[79]:= 50;
+END_IF
+
+
+
+Mot_Status_3.30:=	Pnc_Status[79] <> 0; 							(*Affichage fenêtre message operateur*)
+
+Mot_Status_3.28:= FALSE;	(*Affichage fenêtre decharger piece BS*)
+
+(*---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*)
+
+Pnc_Status[32]:=0;
+Pnc_Status[33]:=0;
+Pnc_Status[34]:=0;
+Pnc_Status[35]:=0;
+
+Pnc_Status[39]:=DWORD_TO_REAL(Mot_Status_39);
+	Mot_Status_39.1:= FALSE;
+	Mot_Status_39.4:=FALSE;
+	Mot_Status_39.21 :=Ref_ok_X_Laser;
+	Mot_Status_39.22 :=Ref_ok_Y_Laser; 
+	Mot_Status_39.23 :=Ref_ok_Z_Laser;
+	Mot_Status_39.24 :=Ref_ok_A_Laser;
+	Mot_Status_39.25 :=Divers_cycles.Calib_Presseurs_OK;
+	Mot_Status_39.26 :=DI05_Homing_finished;	//Pom Lentille interne laser
+	
+
+Pnc_Status[40]:=0;
+
+Pnc_Status[50]:=Pos_Reel_X;
+Pnc_Status[51]:=Pos_Cible_X;
+Pnc_Status[52]:=Vitesse_Reelle_X;
+(*
+Pnc_Status[53]:=Pos_Reel_Y1_Ref;
+Pnc_Status[54]:=Pos_cible_Y1_Ref;
+Pnc_Status[55]:=Vitesse_Reelle_Y1_Ref;
+
+Pnc_Status[56]:=Pos_Reel_Y2_Ref;
+Pnc_Status[57]:=Pos_cible_Y2_Ref;
+Pnc_Status[58]:=Vitesse_Reelle_Y2_Ref;
+
+Pnc_Status[59]:=Pos_Reel_Y3_Ref;
+Pnc_Status[60]:=Pos_cible_Y3_Ref;
+Pnc_Status[61]:=Vitesse_Reelle_Y3_Ref;
+
+Pnc_Status[71]:=Pos_Reel_Disque;
+Pnc_Status[72]:=Pos_Cible_Disque;
+Pnc_Status[73]:=Vitesse_Reelle_Disque;
+
+Pnc_Status[75]:=Pos_Reel_Barillet;	(*position reel 1-8*)
+Pnc_Status[76]:=Pos_Cible_Barillet;	(*position cible1-8*)*)
+
+Pnc_Status[80]:=0;
+(*
+IF Coefficient_Vitesse_Ruban>0 THEN
+	Pnc_Status[82]:=INT_TO_REAL(V_Ana_Var_Ruban_Scie)/Coefficient_Vitesse_Ruban;    (*attention a pas diviser par 0*)
+ELSE
+	Pnc_Status[82]:=0;
+END_IF*)
+
+(*Envoi n° de Sequence en cours*)
+Pnc_Status[83]:=0;
+Pnc_Status[84]:=0;
+Pnc_Status[85]:=0;
+(*
+Pnc_Status[86]:=Pos_Reel_Y1_Ref;
+Pnc_Status[87]:=Pos_Cible_Y1_Ref;
+
+Pnc_Status[88]:=Pos_Reel_Y2_Ref;
+Pnc_Status[89]:=Pos_Cible_Y2_Ref;
+
+Pnc_Status[90]:=Pos_Reel_Y3_Ref;
+Pnc_Status[91]:=Pos_Cible_Y3_Ref;
+
+Pnc_Status[92]:=Pos_Reel_Y1_Opp_Ref;
+Pnc_Status[93]:=Pos_Cible_Y1_Opp_Ref;
+
+Pnc_Status[94]:=Pos_Reel_Y2_Opp_Ref;
+Pnc_Status[95]:=Pos_Cible_Y2_Opp_Ref;
+
+Pnc_Status[96]:=Pos_Reel_Y3_Opp_Ref;
+Pnc_Status[97]:=Pos_Cible_Y3_Opp_Ref;
+
+Pnc_Status[98]:=Cpt_Nombre_Sciages;*)
+(*--------------Pointeur sequence---------------*)
+Pnc_Status[100]:=Pt_Sequence;
+
+
+
+(*-------------------------------Compteur pour envoie vers drivers F6---------------*)
+Pnc_Status[106]:=	DWORD_TO_REAL(Mot_Status_106);
+				Mot_Status_106.0:=TRUE;
+				Mot_Status_106.1:=Machine_en_Service;
+				Mot_Status_106.2:=Auto;
+				Mot_Status_106.4:= TOF_Machine_Active.Q;
+
+TOF_Machine_Active(in:=  NOT X_No_Move	OR NOT Z_No_Move_Chariot			(*No Move AX5000*)
+OR NOT No_Move_A_Laser
+OR NOT No_Move_X_Laser
+OR NOT No_Move_Y_Laser
+OR NOT No_Move_Z_Laser   , pt:=T#800MS);
+
+(*------------------------------------Status bus de terrain-----------------------------------*)
+(*Pnc_Status[110]:=UINT_TO_REAL(Memo_State_Chariot);
+Pnc_Status[111]:=UINT_TO_REAL(Memo_State_Y1_Ref);
+Pnc_Status[112]:=UINT_TO_REAL(Memo_State_Y2_Ref);
+Pnc_Status[113]:=UINT_TO_REAL(Memo_State_Y3_Ref);
+Pnc_Status[114]:=UINT_TO_REAL(Memo_State_Y1_Opp_Ref);
+Pnc_Status[115]:=UINT_TO_REAL(Memo_State_Y2_Opp_Ref);
+Pnc_Status[116]:=UINT_TO_REAL(Memo_State_Y3_Opp_Ref);
+Pnc_Status[117]:=UINT_TO_REAL(Memo_State_Armoire);
+Pnc_Status[118]:=UINT_TO_REAL(Memo_CouplerState_Armoire);*)
+
+(*
+Pnc_Status[131]:=Pos_Reel_Y7;
+Pnc_Status[132]:=Pos_Reel_Z7;
+
+Pnc_Status[133]:=Pos_Reel_Y8;
+Pnc_Status[134]:=Pos_Reel_Z8;
+
+Pnc_Status[139]:=0;
+Pnc_Status[140]:=0;
+
+Pnc_Status[150]:=Pos_ana_Barillet; (*en degré 0-360 *)
+
+Pnc_Status[182]:=Pos_Reel_X_U7;		(*VP2x*)
+Pnc_Status[183]:=Pos_Reel_X_U8;		(*VP2x*)
+Pnc_Status[184]:=Pos_Reel_X_Presseur;	(*VP2x*)*)
+
+(*--------------------------Status New Pupitre-----------------------*)
+Status_New_Pupitre.0:=Joystick_Bt_Valid;
+Status_New_Pupitre.1:=Joystick_Bt_Droite;
+Status_New_Pupitre.2:=Joystick_Bt_Gauche;
+Status_New_Pupitre.3:=Joystick_cmd_Droite;
+Status_New_Pupitre.4:=Joystick_cmd_Gauche;
+Status_New_Pupitre.5:=Joystick_cmd_Haut;
+Status_New_Pupitre.6:=Joystick_cmd_Bas;
+
+Pnc_Status[204]:=DWORD_TO_REAL(Status_New_Pupitre);
+Pnc_Status[205]:=0;
+Pnc_Status[206]:=0;
+Pnc_Status[207]:=0;
+Pnc_Status[208]:=0;
+
+Pnc_Status[246]:=Num_ligne_nc_en_cours_laser;
+Pnc_Status[247]:=Memo_Pos_X_Laser_Arus;
+Pnc_Status[248]:=Memo_Pos_Y_Laser_Arus;
+]]></ST>
+    </Implementation>
+    <LineIds Name="Status_machine">
+      <LineId Id="8" Count="9" />
+      <LineId Id="30" Count="67" />
+      <LineId Id="133" Count="4" />
+      <LineId Id="141" Count="16" />
+      <LineId Id="283" Count="3" />
+      <LineId Id="295" Count="1" />
+      <LineId Id="294" Count="0" />
+      <LineId Id="158" Count="60" />
+      <LineId Id="221" Count="9" />
+      <LineId Id="235" Count="0" />
+      <LineId Id="287" Count="2" />
+      <LineId Id="238" Count="40" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="302" Count="0" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="305" Count="1" />
+      <LineId Id="304" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

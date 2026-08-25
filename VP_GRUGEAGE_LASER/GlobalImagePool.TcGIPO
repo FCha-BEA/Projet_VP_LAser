@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <GlobalImagePool Name="GlobalImagePool" Id="{fc78c95f-a5ae-4a77-aecd-c933e8f27592}">
+    <XmlArchive>
+      <Data>
+        <o xml:space="preserve" t="GlobalImagePoolObject">
+          <v n="UniqueIdGenerator">"63"</v>
+          <l n="BitmapPool" t="ArrayList" cet="ImagePoolItem">
+            <o>
+              <v n="BitmapID">"Rep820_Las1"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep820.png"</v>
+              <v n="ItemID">36</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep821_Las2"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep821.png"</v>
+              <v n="ItemID">37</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep420_ChaBe"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep420.png"</v>
+              <v n="ItemID">40</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep822_Las3"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep822.png"</v>
+              <v n="ItemID">45</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep961_Pup"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep961.png"</v>
+              <v n="ItemID">47</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep1520_Be"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep1520.png"</v>
+              <v n="ItemID">49</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Rep1572_Bs"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Rep1572.png"</v>
+              <v n="ItemID">51</v>
+            </o>
+            <o>
+              <v n="BitmapID">"Presseurs"</v>
+              <v n="FileID">"5ce3da45-db07-42e7-a21c-a00fff4ed8f6|C:\PLC\Images\Fonctionnement presseur.png"</v>
+              <v n="ItemID">53</v>
+            </o>
+            <o>
+              <v n="BitmapID">""</v>
+              <v n="FileID">""</v>
+              <v n="ItemID">61</v>
+            </o>
+          </l>
+          <v n="GuidInit">{07059f9f-55da-46af-910b-ed9354b5c134}</v>
+          <v n="GuidReInit">{d5ba5c37-536a-46f6-9f7b-155f81b737b3}</v>
+          <v n="GuidExitX">{21d78f23-d9ba-48ff-bac0-bf8cb0521c2b}</v>
+          <v n="ValidIds">true</v>
+        </o>
+      </Data>
+      <TypeList>
+        <Type n="ArrayList">System.Collections.ArrayList</Type>
+        <Type n="Boolean">System.Boolean</Type>
+        <Type n="GlobalImagePoolObject">{795b536d-9cec-4fc3-a972-50e1e08d20e8}</Type>
+        <Type n="Guid">System.Guid</Type>
+        <Type n="ImagePoolItem">{215b2719-0347-4e4d-ba85-8bcd66946f66}</Type>
+        <Type n="Int32">System.Int32</Type>
+        <Type n="String">System.String</Type>
+      </TypeList>
+    </XmlArchive>
+  </GlobalImagePool>
+</TcPlcObject>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Gestion_Pince" Id="{3f09525e-3e4a-4260-96db-91c3e1010bd1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Gestion_Pince
+VAR
+	RE_Bit_Abaissement_pince: R_TRIG;
+	RE_Bit_Relevage_pince: R_TRIG;
+	Dem_Relevage_auto_auto	:BOOL;
+	Pos_Z_Pince_en_Bas:BOOL;
+	
+	Re_Cde_Serrage_Desserrage	:R_TRIG;
+	Desserrage_Pince_Ok		:TON;
+	
+
+END_VAR
+VAR_INPUT
+	Memo_Bit_Relevage_pince: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*Gestion axe Z*)
+ //fronts
+  RE_Bit_Abaissement_pince(clk:= Bit_Abaissement_pince );
+  RE_Bit_Relevage_pince(clk:=Bit_Relevage_pince OR Dem_Relevage_auto); 
+  Re_Cde_Serrage_Desserrage(clk:=Cde_Serrage_Desserrage);
+  Desserrage_Pince_Ok(IN:=Ev_Desserrage_Pince,pt:=T#4S);
+ 
+ (*Secu Pince*)
+  Pince_dans_Machine:=NOT ref_ok_X OR (Ref_Ok_X AND Pos_Reel_X > X_Cell_Mesure_Barre);
+  Pos_Z_Pince_en_Bas:= Ref_Ok_Z_Chariot AND ( Pos_Reel_Z_Chariot< Pnc_Axe_Z_Chariot.Pos_Degag_1+ 5 );
+  Stop_JOG_Plus_X_Pince_pas_en_Bas:=Pince_dans_Machine AND NOT Pos_Z_Pince_en_Bas;
+ 
+ (*Posi Axe Z*)
+  IF RE_Bit_Abaissement_pince.Q THEN
+  	Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Pos_Degag_1;
+  END_IF
+  IF RE_Bit_Relevage_pince.Q THEN
+  	Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Pos_Degag_2;
+  END_IF
+ 
+  IF NOT Mem_Arus AND Ref_Ok_Z_Chariot
+  	AND (RE_Bit_Abaissement_pince.Q OR RE_Bit_Relevage_pince.Q  )  THEN
+  	Top_Z_Chariot:=TRUE;
+  	Memo_Bit_Relevage_pince:=FALSE;
+  END_IF
+  
+  IF Mem_Arus THEN Top_Z_Chariot:=FALSE; END_IF
+  
+  fdc_pince_haute := Ref_Ok_Z_Chariot AND (Pos_Reel_Z_Chariot > Pnc_Axe_Z_Chariot.Pos_Degag_2 - 5); 
+  fdc_pince_Basse := Ref_Ok_Z_Chariot AND (Pos_Reel_Z_Chariot < Pnc_Axe_Z_Chariot.Pos_Degag_1 + 5);
+
+(*Gestion pince*)
+//Embrayage
+  Ev_Embrayage_Pince := (Manu AND Bp_Annul_Defauts) OR Detect_Pince_embrayee;
+  
+//Serrage desserage pince 
+  IF Machine_en_Service THEN
+  	IF ((Re_Cde_Serrage_Desserrage.Q AND NOT Ev_Serrage_Pince AND NOT auto) OR Dem_Serrage)  AND NOT Bit_Relevage_pince
+  	THEN
+  		Ev_Serrage_Pince:=TRUE;
+  	END_IF
+  	IF (Re_Cde_Serrage_Desserrage.Q AND NOT Ev_Desserrage_Pince AND NOT auto) or Dem_Desserrage
+  	THEN
+  		Ev_Serrage_Pince:=FALSE;
+  	END_IF
+  ELSE
+  	Ev_Desserrage_Pince:=FALSE;
+  END_IF
+  Ev_Desserrage_Pince:=NOT Ev_Serrage_Pince AND Machine_en_Service;
+  
+  Fin_Desserage_Pince := Ev_Desserrage_Pince AND Desserrage_Pince_Ok.Q;
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="Gestion_Pince">
+      <LineId Id="82" Count="0" />
+      <LineId Id="64" Count="1" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="22" Count="3" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="33" Count="2" />
+      <LineId Id="38" Count="2" />
+      <LineId Id="42" Count="5" />
+      <LineId Id="69" Count="1" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="85" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="88" Count="1" />
+      <LineId Id="100" Count="9" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="116" Count="1" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="94" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

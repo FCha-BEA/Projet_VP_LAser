@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_MPA_251THTP0_SICK_IOLink" Id="{7433376d-7c10-4d58-ba73-03c4d7c7c470}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MPA_251THTP0_SICK_IOLink
+VAR_INPUT
+	Valid 		: BOOL;
+
+	Invert_Counting					: BOOL;
+
+	Offset_Counter_mm_INT			: LREAL;
+
+	Byte0 		: USINT;
+	Byte1 		: USINT;
+END_VAR
+
+VAR_OUTPUT
+	Error 					: BOOL;
+	Mesure_1_10_mm			: LREAL;
+END_VAR
+
+VAR
+	Byte0_Word				: WORD;
+	Byte1_Word				: WORD;
+
+	Byte01_Word				: WORD;
+
+	Byte1_Word_Apres_Virgule	: WORD;
+
+	Mesure_Apres_Virgule		: REAL;
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	Byte0_Word := USINT_TO_WORD(Byte0);
+
+	Byte1_Word := USINT_TO_WORD(Byte1);
+	Byte1_Word := SHR(Byte1_Word,6);
+
+	Byte1_Word_Apres_Virgule := SHR(Byte1_Word,4);
+	Byte1_Word_Apres_Virgule := Byte1_Word_Apres_Virgule AND 2#0011;
+
+	Byte01_Word :=(Byte0_Word * 4) + (Byte1_Word);
+
+	IF NOT Invert_Counting THEN
+		Mesure_1_10_mm := WORD_TO_LREAL(Byte01_Word);
+	ELSE
+		Mesure_1_10_mm := 250 - WORD_TO_LREAL(Byte01_Word);
+	END_IF;
+
+	Mesure_Apres_Virgule := WORD_TO_REAL(Byte1_Word_Apres_Virgule)*0.25;
+
+	Mesure_1_10_mm := Mesure_1_10_mm + Offset_Counter_mm_INT + Mesure_Apres_Virgule;
+
+	Error := FALSE;
+
+ELSE
+	Error 					:= FALSE;
+	Mesure_1_10_mm			:= 0;
+END_IF;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_MPA_251THTP0_SICK_IOLink">
+      <LineId Id="28" Count="27" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

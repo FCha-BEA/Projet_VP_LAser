@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="Global_Configuration_Machine_en_Dur" Id="{9854543f-ccfb-4460-bd78-355b30ec237b}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+(* -------------------------------------------------------------Options NON Gerées dans les Offsets---------------------------------------------------*)
+
+(*Général Armoire/Machine*)
+	Presence_STO									:BOOL:=TRUE;
+	Presence_Sectionneur_Sur_Pilz					:BOOL:=TRUE;
+	Presence_Pnoz_BE								:BOOL:=FALSE;			(*Si presence 2 cellules de secu pour couper ripeurs sans couper la machine*)
+	Presence_Pnoz_BS								:BOOL:=FALSE;			(*Si presence 2 cellules de secu pour couper ripeurs sans couper la machine*)
+
+	Presence_Pressostat_Air							:BOOL:=TRUE;
+
+(*Banc d'entrée*)
+	Presence_Rep_Ethercat_BE						:BOOL:=TRUE;
+	BE_BS_Auto										:BOOL:=FALSE;
+	
+(*Chariot*)
+	Presence_chariot								:BOOL:=TRUE;
+	Fonction_Embrayage_Pince						:BOOL:=TRUE;
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="IO_TETE_LASER_RAYTOOLS" Id="{23b8efd8-e063-4db9-aaca-58e59faac592}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+
+(*Echange avec tête*)
+	Servo_Error														AT%I* : UINT;
+	Focus_Position_Actual_Value										AT%I* : DINT;
+	
+	//Entrées TOR
+	 DI01_Collision													AT%I* : BOOL;
+	 DI02_Up_Limit													AT%I* : BOOL;
+	 DI03_Down_Limit												AT%I* : BOOL;
+	 DI04_Bottom_1_Cover_Glass_Ready								AT%I* : BOOL;
+	 DI05_Homing_finished											AT%I* : BOOL;
+	 DI06_Reserved													AT%I* : BOOL;
+	 DI07_Reserved													AT%I* : BOOL;
+	 DI08_Reserved													AT%I* : BOOL;
+	 
+	//Datas input
+	 Data01_Capacitance_Actual_Value								AT%I* : UDINT;
+	 Data02_Capacitance_HeartBeat_Accumulated_Value					AT%I* : UDINT;
+	 Data03_Focus_Lens_Ambient_Temperature							AT%I* : INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	 Data04_Focus_Lens_Temperature									AT%I* : INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	 Data05_Reserved												AT%I* : INT;												(* 0.01 °C *)
+	 Data06_Reserved												AT%I* : INT;												(* 0.01 °C *)
+	 Data07_Top_1_Cover_Glass_Ambient_Temp							AT%I* : INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	 Data08_Top_1_Cover_Glass_Temp									AT%I* : INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	 Data09_Bottom_1_Cover_Glass_Ambient_Temp						AT%I* : INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	 Data10_Bottom_1_Cover_Glasst_Temp								AT%I* : INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	 Data11_Cavity_Temp												AT%I* : INT;												(* 0.01 °C *)
+	 Data12_Cavity_Pressure											AT%I* : INT;												(* 0.1 Bar *)
+	 Data13_Cutting_Gas_Temp										AT%I* : INT;												(* 0.01 °C *)
+	 Data14_Cutting_Gas_Pressure									AT%I* : INT;												(* 0.01 Bar *)
+	 Data15_Per_10000_Humidity										AT%I* : INT;
+	 Data16_Dew_Point_Temp											AT%I* : INT;		(* Température du point de rosée *)			(* 0.01 °C *)
+	 Data17_TTA_Preamplifier_Temp									AT%I* : INT;												(* 0.01 °C *)
+	 Data18_Process_Monitor											AT%I* : UINT;												(* 0 - 12288 *)
+	 Data19_Visible_Light_Pierce_Detect								AT%I* : UINT;												(* 0 - 12288 *)
+	 Data20_Process_Monitor											AT%I* : UINT;												(* 0 - 12288 *)
+	 Data21_Visible_Light_Pierce_Detect								AT%I* : UINT;												(* 0 - 12288 *)
+	 Data22_Process_Monitor											AT%I* : UINT;												(* 0 - 12288 *)
+	 Data23_Visible_Light_Pierce_Detect								AT%I* : UINT;												(* 0 - 12288 *)
+	 Data24_Process_Monitor											AT%I* : UINT;												(* 0 - 12288 *)
+	 Data25_Visible_Light_Pierce_Detect								AT%I* : UINT;												(* 0 - 12288 *)
+	 Data26_Stray_Beam_Reserved										AT%I* : UINT;												(* 0 - 4096 *)
+	 Data27_Stray_Beam_Top_1_Cover_Glass							AT%I* : UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	 Data28_Stray_Beam_Focus_Lens									AT%I* : UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	 Data29_Stray_Beam_Bottom_1_Cover_Glass							AT%I* : UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	 Data30_Reserved												AT%I* : UINT;
+	 
+	Prog_Offset_Focal												: LREAL;		(* mm *)
+	Prog_Distance_Focal_Demandee									: LREAL;		(* mm *)
+	Prog_Distance_Buse_Piece_mm										: LREAL;		(* mm *) (* Pour Etalonnage Capacitance *)
+	Prog_Annul_Defaut												: BOOL;
+	Prog_Demande_POM_Focal											: BOOL;
+	Prog_Start_Capacitance_Calibration								: BOOL;
+	Focus_Position_Target_Value										AT%Q* : DINT;
+	
+	//Sorties TOR
+	 DO01_TTA_Capacitance_Preamplifier_Select						AT%Q* : BOOL;
+	 DO02_Home_Start												AT%Q* : BOOL;
+	 DO03_Status_Output												AT%Q* : BOOL;
+	 DO04_Status_Output												AT%Q* : BOOL;
+	 DO05_Status_Output												AT%Q* : BOOL;
+	 DO06_Status_LED												AT%Q* : BOOL;
+	 DO07_Status_LED												AT%Q* : BOOL;
+	 DO08_Status_LED												AT%Q* : BOOL;
+	 
+	Prog_Distance_Focal_Reelle										: LREAL;		(* mm *)
+	Focal_en_Pos													: BOOL;
+	Prog_Capacitance_Actual_Value_mm								: LREAL;
+	Prog_Capacitance_Calibration_OK									: BOOL;
+	Prog_Tete_Prete_Pour_Decoupe									: BOOL;
+	Prog_Defaut_Collision											: BOOL;
+	Prog_Defaut_Limite_Atteinte										: BOOL;
+	Prog_Defaut_Temperature_Lens									: BOOL;
+	Prog_Defaut_Temperature_Lamelle_Verre_Superieure				: BOOL;
+	Prog_Defaut_Temperature_Lamelle_Verre_Inferieure				: BOOL;
+	Prog_Defaut_Temperature_Point_de_Rosee							: BOOL;
+	Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure			: BOOL;
+	Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens				: BOOL;
+	Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure			: BOOL;
+	Prog_Defaut_Tete												: BOOL;
+	TAB_Capacitance_Calibration										: ARRAY[0..1000] OF UDINT;
+	TAB_Capacitance_Segment_a										: ARRAY[0..1000] OF LREAL;
+	TAB_Capacitance_Segment_b										: ARRAY[0..1000] OF LREAL;
+	Prog_Tete_Laser_WcState											AT%I* : BOOL;
+	Prog_Tete_Laser_State											AT%I* : UINT;
+
+(*Asservissement gaz*)
+ Consigne_ServoVanne			AT%Q*:UINT;
+ 
+ 
+
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

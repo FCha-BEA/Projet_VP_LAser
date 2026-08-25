@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Parametres_PNC" Id="{8b850c65-f101-444a-8ce9-e04d1337bea8}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Parametres_PNC
+VAR
+	Valeur_pour_R2:LREAL:=750;	(*ép25 en 160A: 750mm/min pour 1150 en R0*)
+	Memo_Write_param_VeloTrans_CNC_a_0	:BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*---PNC_CHARIOT---------------------------*)
+ Chariot_a_Gauche:=pnc_vernet[1]=1;
+ Time_Serr_Dess_Pince:=REAL_TO_TIME(pnc_chariot[2]);
+ X_Cell_Mesure_Barre:=pnc_chariot[3];
+ 
+ (*Pour modulation vitesse du Chariot*)
+  Vitesse_Chariot_Auto:=pnc_chariot[1];
+  Override_ES_Machine:=pnc_chariot[4];
+  Override_Mesure_Barre:=pnc_chariot[6];
+  Override_POM_Non_Faite:=pnc_chariot[7];
+  Vitesse_ES_Machine_auto:=pnc_chariot[19];
+
+(*---- Pnc_Cycle/2/3 --------*)
+ Longueur_Barre:=Pnc_Cycle[1];
+ 
+ 
+ (****************************** Pnc_decoupe ******************************)
+
+	IF Sequence[Pt_sequence].M=50 AND Sequence[Pt_sequence].P1=0 THEN
+		Parametre_Outil.fParam[4]:=Pnc_decoupe[3]/2;	(*1/2 Epaisseur du trait de découpe. Nlle valeur prise en compte si "Start_Iso", voir ss-prog "Exec_ISO" -  A vérifier *)
+		Parametre_Outil.nToolNumber:=1;					(*Numéro d'outil pour éxécution G41 G42*)
+		Parametre_Outil.nToolType:=20;					(*Outil de type "Fraise"*)
+	END_IF
+	(*vitesse découpe*)Pnc_decoupe[4]:=Pnc_decoupe[4];			(*voir ci-dessous*)
+	(*réduction vitesse angles*)Pnc_decoupe[5]:=Pnc_decoupe[5];	(*voir ci-dessous*)	
+
+(*------Pnc_Decoupe-----------*)
+ IF Face_En_Cours = 1 THEN		//Face réf, pas d'inversion 
+  Param_R_CNC[5] := 1;
+ ELSIF Face_En_Cours = 2 THEN	//Face opp réf, inversion
+  Param_R_CNC[5] := -1;
+ END_IF
+ 
+ IF Sequence[Pt_Sequence].P1=0 THEN
+ 	IF LREAL_TO_INT(Param_R_CNC[0])<>LREAL_TO_INT(Pnc_decoupe[4])	//[4] vitesse de découpe
+ 	OR LREAL_TO_INT(Param_R_CNC[1])<>LREAL_TO_INT(Pnc_decoupe[4]*(100-Pnc_decoupe[5])/100)	//[5] % reduction vitesse dans angle
+	OR (Exec_iso.R5_FromNciToPlc<>1 AND Face_En_Cours=1)	
+	OR (Exec_iso.R5_FromNciToPlc<>(-1) AND Face_En_Cours=2)
+ 	THEN
+ 		Write_param_R_CNC:=TRUE;
+ 	ELSE
+ 		Write_param_R_CNC:=FALSE;
+ 	END_IF
+ 	Param_R_CNC[0]:=Pnc_decoupe[4];								(*Découpe*)
+ 	Param_R_CNC[1]:=Pnc_decoupe[4]*(100-Pnc_decoupe[5])/100;	(*Découpe dans les angles*)
+ END_IF
+ 
+ 		
+ IF Write_param_R_CNC
+ OR (NOT CodeM_50 AND NOT Memo_Write_param_VeloTrans_CNC_a_0) THEN		(*Pour éviter un défaut CN: une découpe (donc affectation VeloTrans<>0) suivie d'un fraisage ou d'un rayage: au fraisage et au rayage, on resterait avec une VeloTrans<>0 qui peut aboutir à un défaut CN si l'ISO du fraisage ou du rayage demande une vitesse inférieure à la VeloTrans*)
+ 	Write_param_VeloTrans_CNC:=TRUE;
+ 	Memo_Write_param_VeloTrans_CNC_a_0:=TRUE;
+ ELSE
+ 	Write_param_VeloTrans_CNC:=FALSE;
+ END_IF
+ IF CodeM_50 THEN
+ 	Memo_Write_param_VeloTrans_CNC_a_0:=FALSE;
+ END_IF
+ 
+ (*--------Pnc_Free_String------------*)
+ Repertoire_NC_Laser:=CONCAT(Pnc_free_string[1],'\');		(*découpe*)
+
+ 
+ 
+(*------ Pnc_Laser ------------------*) //Paramètres du driver concernant la tôle, les recettes etc.
+(*	:=Pnc_Laser[0];
+	:=Pnc_Laser[1];
+	:=Pnc_Laser[2];
+	:=Pnc_Laser[3];
+	:=Pnc_Laser[4];
+	:=Pnc_Laser[5];
+	:=Pnc_Laser[6];
+	Pnc_Laser[7];
+	Pnc_Laser[8];
+	Pnc_Laser[9];
+	Pnc_Laser[10];
+	Pnc_Laser[11];
+	Pnc_Laser[12];
+	Pnc_Laser[13];
+	Pnc_Laser[14];
+	Pnc_Laser[15];
+	Pnc_Laser[16];
+	Pnc_Laser[17];
+	Pnc_Laser[18];
+	Pnc_Laser[19];
+	Pnc_Laser[20];
+	Pnc_Laser[21];
+	Pnc_Laser[22];
+	Pnc_Laser[23];
+	Pnc_Laser[24];
+	Pnc_Laser[25];
+	Pnc_Laser[26];
+	Pnc_Laser[27];
+	Pnc_Laser[28];
+	Pnc_Laser[29];
+	Pnc_Laser[30];
+	Pnc_Laser[31];*)
+
+
+
+ 
+(*-- Pnc_Free_Bool -----------------------*)
+ Maintenance:=Pnc_Free_Bool[48]=1;
+
+(*---PNC_OPERATEUR-------------------------*)
+ Option_Detection_Pince:=Pnc_Operateur[2]<>0;
+ Fonction_arret_Centrale_automatique:=Pnc_Operateur[ 40]=1;
+ 
+ (*--PNC_PALPAGE----------------------------*)
+ Opt_Palp_Sommet_Tjs	:=Pnc_Palpage[40]=1;	
+ Opt_Palp_Sommet_1Clamp	:=Pnc_Palpage[40]=2;
+ 
+ 
+(*--PNC_PIECE----------------------------*)
+ Acier_E24	:=	Pnc_Piece[1]=1;
+ Acier_E36	:=	Pnc_Piece[2]=1;
+ Ep_Ame		:=	Pnc_Piece[3];
+ Poids_barre	:=	Pnc_Piece[4];
+ Global_Divers.EP_Aile		:=	Pnc_Piece[5];
+ Hauteur_Aile	:=	Pnc_Piece[6];
+ Largeur_Ame	:=	Pnc_Piece[7];
+ Position_Ame	:=	Pnc_Piece[8];
+ Profil_L		:=	Pnc_Piece[9]=4;
+ 
+ (*--PNC_PRESSEURS-------------------------*)
+ Presseur_Amont_K11.Position_X := Pnc_Presseur[46];
+ Presseur_Aval_L12.Position_X := Pnc_Presseur[47];
+ 
+ IF auto AND Ev_Serrage_Pince THEN 
+  Distance_Annulation_Presseur_Laser:=Pnc_Presseur[48];	//Annulation auto
+ ELSE
+  Distance_Annulation_Presseur_Laser:=Pnc_Presseur[49];	//Annulation mmanu
+ END_IF
+ 
+
+ 
+(*---PNC_START-----------------------------*)
+ Pnc_Verrou_Dcy:=Pnc_Start[4]=1;
+ Pnc_Blocage_PLC:=Pnc_Start[19]=1;
+   
+(*-- Pnc_Vernet --------------------------*)
+ (*1=MAP 2=VP 3=VF 4=PS*)
+ Type_Machine_VP:=Pnc_Vernet[11]=2;
+ 
+(****************************** Sequence_status ******************************)
+
+	(*Séquence pas faite:=							Sequence_status_PLC[Pt_sequence].Ok=0*)
+	(*Séquence en cours:=							Sequence_status_PLC[Pt_sequence].Ok=1*)
+	(*Séquence inhibée par le Driver:=				Sequence_status_PLC[Pt_sequence].Ok=50	par l'opérateur dans le mode enchainé*)
+	(*Séquence inhibée par PLC:=					Sequence_status_PLC[Pt_sequence].Ok=51*)
+	(*Reprise de découpe (machines à 1 torche):=	Sequence_status_PLC[Pt_sequence].Ok=52*)
+ 	Reprise_decoupe:=				Sequence_status[Pt_sequence].Ok=52	;
+
+	Simul_decoupe:=					Sequence_status[Pt_sequence].Ok=53;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

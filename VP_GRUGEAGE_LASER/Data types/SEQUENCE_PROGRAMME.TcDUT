@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="SEQUENCE_PROGRAMME" Id="{223c6b74-8b20-48f6-83c0-90aaa31e6e89}">
+    <Declaration><![CDATA[TYPE SEQUENCE_PROGRAMME :
+STRUCT
+	X:LREAL;				(*Position Axe Principal*)
+	Y:LREAL;				(*Position Axe Auxiliaire*)
+	M:LREAL;				(*Code "M" : Fonction machine*)
+	P1:LREAL;			(*//Vitesse Avance 1 // Position Scie // Position Disque // Position Barillet  *)
+	P2:LREAL;			(*//Vitesse Broche  1//        *)
+	P3:LREAL;			(*//Profondeur Percage1//*)
+	P4:LREAL;			(*//Vitesse Avance 2//*)
+	P5:LREAL;			(*//Vitesse Broche  2*//*)
+	P6:LREAL;			(*//Profondeur Percage2//*)
+	P7:LREAL;			(*//Parametre Decoupe (N° de Prog a Executer//*)
+	P8:LREAL;			(*//Parametre petite Longueur Outil Etagé//*)
+	P9:LREAL;			(*//Parametre Debouchage//*)
+	P10:LREAL;			(*//Type d'usinage N° operation *)
+	P11:LREAL;			(*codage brise copeaux par outil*)
+	P12:LREAL;
+	P13:LREAL;			(*Largeur du profil à la position X de percage*)
+	P14:LREAL;
+	P15:LREAL;
+	P16:LREAL;			(*Position X unité (VP2x)*)
+	P17:LREAL;
+	P18:LREAL;			(*Codage dechargement*)
+	P19:LREAL;
+	P20:LREAL;
+	P21:LREAL;
+	P22:LREAL;
+	P23:LREAL;
+	P24:LREAL;
+	P25:LREAL;
+	P26:LREAL;
+	P27:LREAL;
+	P28:LREAL;
+	P29:LREAL;
+	P30:LREAL;
+	END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

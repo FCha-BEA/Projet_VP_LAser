@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Var_LENZE_I550_Motec_Centrale_Atos" Id="{92ea6622-8645-499d-ae60-6b6280299c65}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Var_LENZE_I550_Motec_Centrale_Atos
+
+VAR_INPUT
+
+	Enable							: BOOL;
+
+	En_Service						: BOOL;
+	Ack_Defauts						: BOOL;
+
+	Lenze_Status_Word				: UINT;
+	Lenze_Active_Operation_Mode		: SINT;
+	Lenze_Actual_Speed				: INT;
+	Lenze_Apparent_Current			: INT;
+	Lenze_Error_Code				: UINT;
+
+	Inversion_Rotation					: BOOL;
+
+	Torque_Mode					: BOOL;
+	Velocity_Mode					: BOOL;
+
+	Consigne_Vitesse_INT_RPM 		: INT;
+	Consigne_Couple_INT				: INT;
+
+	Sel_Jeu1						: BOOL;
+
+	Accel							: UINT;
+	Decel							: UINT;
+
+	Vitesse_Max_Tr_Min_3000			: INT;
+	Vitesse_Min_Tr_Min_0				: INT;
+
+END_VAR
+
+VAR_OUTPUT
+
+	OUT 							: BOOL;
+
+	Lenze_Net_WordIn1				: UINT;
+
+	Lenze_Operation_Mode			: SINT;
+	Lenze_Target_Speed				: INT;
+	Lenze_Target_Torque				: INT;
+	Lenze_Accel_Time_1				: UINT;
+	Lenze_Decel_Time_1				: UINT;
+
+	Status_STO						: BOOL;
+	Status_Moteur_Sous_Couple		: BOOL;
+
+	Defaut_Variateur					: BOOL;
+	Defaut_Consigne_Vitesse			: BOOL;
+
+END_VAR
+
+VAR
+
+	TON_Defaut_Operation_Mode: TON;
+	Defaut_Operation_Mode			: BOOL;
+	Bit_Ready_to_switch_on			: BOOL;
+	Bit_Switched_on					: BOOL;
+	Bit_Activate_quick_stop			: BOOL;
+	Bit_Run_forward					: BOOL;
+	Bit_operation_enabled				: BOOL;
+	Bit_Fault							: BOOL;
+	Bit_Voltage_enabled				: BOOL;
+	Bit_Quick_stop_disabled			: BOOL;
+	Bit_Switch_on_disabled			: BOOL;
+	Bit_Warning						: BOOL;
+	Bit_CiA_control_enabled			: BOOL;
+	Bit_Setpoint_reached				: BOOL;
+	Bit_Internal_limit_active				: BOOL;
+	Bit_Operation_mode_specific		: BOOL;
+	Bit_Holding_brake_released		: BOOL;
+	Bit_STO_not_active				: BOOL;
+	Bit_Activate_preset_bit0			: BOOL;
+	Bit_Activate_preset_bit1			: BOOL;
+	Bit_Reset_error					: BOOL;
+	Bit_Activate_DC_braking			: BOOL;
+	Bit_Reverse_rotational_direction		: BOOL;
+
+	TON_Arret: TON;
+	TOF_En_Service: TOF;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Enable THEN
+
+	(***** Status Variateur *****)
+	Bit_Ready_to_switch_on		:= Lenze_Status_Word.0;
+	Bit_Switched_on				:= Lenze_Status_Word.1;
+	Bit_operation_enabled                	:= Lenze_Status_Word.2;
+	Bit_Fault                                              	:= Lenze_Status_Word.3;
+	Bit_Voltage_enabled                      	:= Lenze_Status_Word.4;
+	Bit_Quick_stop_disabled             	:= Lenze_Status_Word.5;
+	Bit_Switch_on_disabled                	:= Lenze_Status_Word.6;
+	Bit_Warning                                         := Lenze_Status_Word.7;
+	Bit_CiA_control_enabled               	:= Lenze_Status_Word.9;
+	Bit_Setpoint_reached                      	:= Lenze_Status_Word.10;
+	Bit_Internal_limit_active                   	:= Lenze_Status_Word.11;
+	Bit_Operation_mode_specific       := Lenze_Status_Word.12;
+	Bit_Holding_brake_released        := Lenze_Status_Word.14;
+	Bit_STO_not_active                          := Lenze_Status_Word.15;
+
+	Status_STO:= Bit_STO_not_active;
+	Status_Moteur_Sous_Couple:= Bit_operation_enabled;
+
+
+	(***** Arret rapide*****)
+	TOF_En_Service(in := En_service, pt := t#2s);
+	Bit_Activate_Quick_Stop := NOT En_service AND TOF_En_Service.Q;
+
+
+	(***** Choix du Mode de Travail *****)
+	IF Torque_Mode THEN
+		Lenze_Operation_Mode := -1;
+	ELSIF Velocity_Mode THEN
+		Lenze_Operation_Mode := -2;
+	ELSE
+		Lenze_Operation_Mode := 0;
+	END_IF
+
+	TON_Defaut_Operation_Mode(in := Lenze_Operation_Mode<>Lenze_Active_Operation_Mode, pt := t#250ms);
+
+	IF TON_Defaut_Operation_Mode.Q THEN
+		Defaut_Operation_Mode := TRUE;
+	END_IF
+
+	(***** Changement de Jeu de Parametres *****)
+	Lenze_Net_WordIn1.0:=Sel_Jeu1;
+
+
+	(***** Activation *****)
+	TON_Arret(in := NOT ( En_service AND Bit_Ready_to_switch_on AND Consigne_Vitesse_INT_RPM <> 0),pt := UINT_TO_TIME(Accel)*10);
+	Bit_Run_forward :=  NOT TON_Arret.Q ;
+
+
+	(***** Consigne Vitesse *****)
+	IF Consigne_Vitesse_INT_RPM < Vitesse_Max_Tr_Min_3000*-1 THEN		(*Sécu*)
+		IF NOT Inversion_Rotation THEN
+			Lenze_Target_Speed := Vitesse_Max_Tr_Min_3000 *-1;
+		ELSE
+			Lenze_Target_Speed := Vitesse_Max_Tr_Min_3000;
+		END_IF
+		Defaut_Consigne_Vitesse := TRUE;
+	ELSIF Consigne_Vitesse_INT_RPM > Vitesse_Max_Tr_Min_3000 THEN	(*Sécu*)
+		IF NOT Inversion_Rotation THEN
+			Lenze_Target_Speed := Vitesse_Max_Tr_Min_3000 ;
+		ELSE
+			Lenze_Target_Speed := Vitesse_Max_Tr_Min_3000*-1;
+		END_IF
+		Defaut_Consigne_Vitesse := TRUE;
+	ELSE
+		IF NOT Inversion_Rotation THEN
+			Lenze_Target_Speed := Consigne_Vitesse_INT_RPM;
+		ELSE
+			Lenze_Target_Speed := Consigne_Vitesse_INT_RPM *-1;
+		END_IF
+	END_IF
+
+
+	(***** Accel decell*****)
+	Lenze_Accel_Time_1 	:= Accel;
+	Lenze_Decel_Time_1 	:= Decel;
+
+	(***** Défauts, Annulation défauts *****)
+	Bit_Reset_Error := Ack_Defauts;
+
+	IF Ack_Defauts THEN
+		Defaut_Operation_Mode := FALSE;
+		Defaut_Consigne_Vitesse := FALSE;
+	END_IF
+
+	Defaut_Variateur := Defaut_Operation_Mode OR Defaut_Consigne_Vitesse OR Bit_Fault
+						OR (Lenze_Error_Code <> 0 AND Lenze_Error_Code <> 12834 AND Lenze_Error_Code <> 65285);
+
+	(***** Commande Variateur *****)
+
+	Lenze_Net_WordIn1.2 := Bit_Activate_quick_stop;
+	Lenze_Net_WordIn1.4 := Bit_Run_forward;
+	Lenze_Net_WordIn1.5 := Bit_Activate_preset_bit0;
+	Lenze_Net_WordIn1.6 := Bit_Activate_preset_bit1;
+	Lenze_Net_WordIn1.7 := Bit_Reset_error;
+	Lenze_Net_WordIn1.9 := Bit_Activate_DC_braking;
+	Lenze_Net_WordIn1.12 :=Bit_Reverse_rotational_direction;
+
+ELSE
+
+	Lenze_Net_WordIn1		:=0;
+	Lenze_Operation_Mode	:=0;
+
+	Lenze_Target_Speed		:=0;
+	Lenze_Target_Torque		:=0;
+	Lenze_Accel_Time_1 		:=0;
+	Lenze_Decel_Time_1 		:=0;
+
+	Defaut_Variateur			:= FALSE;
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Var_LENZE_I550_Motec_Centrale_Atos">
+      <LineId Id="82" Count="112" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

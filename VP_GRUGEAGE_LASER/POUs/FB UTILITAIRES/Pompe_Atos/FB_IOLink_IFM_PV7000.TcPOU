@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_IFM_PV7000" Id="{9effe4b4-afd7-46f8-928e-096c751e6f41}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_IFM_PV7000
+VAR_INPUT
+
+	Valid				: BOOL;
+	Byte_0				: USINT;
+	Byte_1				: USINT;
+
+END_VAR
+VAR_OUTPUT
+
+	Err					: BOOL;
+	Pression_Centrale		: LREAL;
+	No_Data				: BOOL;	(*Byte_10_Word = 32760*)
+	OL					: BOOL;	(*Byte_10_Word = 32764*)
+
+END_VAR
+VAR
+
+	Byte_0_Word			: WORD;
+	Byte_1_Word			: WORD;
+	Byte_10_Word		: WORD;	(*Byte_0_Word + Byte_1_Word*)
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	(*Définition Word*)
+	Byte_0_Word := USINT_TO_WORD(Byte_0);
+	Byte_1_Word := USINT_TO_WORD(Byte_1);
+	Byte_0_Word := SHL(Byte_0_Word,8);
+	Byte_10_Word := Byte_0_Word+Byte_1_Word;
+
+	(*LREAL et Mise à l'échelle*)
+	Pression_Centrale := WORD_TO_LREAL(Byte_10_Word);
+	Pression_Centrale := Pression_Centrale*0.1;
+
+	(*OL et No Data*)
+	OL := Byte_10_Word = 32760;
+	No_Data := Byte_10_Word = 32764;
+
+	(*Mise à zéro*)
+	ELSE
+		Pression_Centrale := 0;
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_IFM_PV7000">
+      <LineId Id="23" Count="20" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

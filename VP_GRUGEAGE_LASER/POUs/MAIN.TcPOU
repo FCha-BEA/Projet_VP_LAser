@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="MAIN" Id="{b11d1c43-f64e-4f70-be59-2ceadac43aa4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Voyants();
+
+_0_LASER_ST();
+_1_LASER();
+Defauts_Alarmes();
+Parametres_PNC();
+Status_machine();
+Status_Ethercat();
+ OK_Rep_Chariot_BE();
+ OK_Rep_Pupitre();
+ OK_Repartiteurs_Laser();
+ Rep_BE();
+ Rep_Bs();
+Regulation_Centrale_Hydro();
+En_service();
+Divers_cycles();
+G7_General();
+Ech_Com_Pupitre();
+Pupitre();
+_0_LASER_ST();
+_1_LASER();
+_Divers_lifter_VB();
+Divers_Decoupe();
+G7_Cycle_Percages_Laser();
+G7_Sel_Face();
+Presseurs_Laser();
+Gestion_Pince();
+Axe_01_X();
+Axe_02_ZChariot();
+Axe_03_X_Laser();
+Axe_04_Y_Laser();
+Axe_05_Z_Laser();
+Axe_06_A();
+Divers_axe();
+Exec_ISO();
+
+Forcage_Rep();
+Gestion_ConvLaser();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

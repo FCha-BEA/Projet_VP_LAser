@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_MURR_HUB" Id="{6f704866-922a-41c6-a2f6-6cd819b13601}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_MURR_HUB
+
+VAR_INPUT
+
+	Valid    : 	BOOL;
+
+	Byte_0 : 	USINT;
+	Byte_1 :	USINT;
+
+END_VAR
+
+VAR_OUTPUT
+
+	Out : 	BOOL;
+
+	Bt_Valid : 		BOOL;
+	Bt_Droite : 		BOOL;
+	Bt_Gauche: 		BOOL;
+	Cmd_Droite :		BOOL;
+	Cmd_Gauche :	BOOL;
+	Cmd_Haut :		BOOL;
+	Cmd_Bas :		BOOL;
+
+END_VAR
+
+VAR
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+	Cmd_Bas 		:= Byte_0.0;
+	Cmd_Haut		:= Byte_0.1;
+
+	Cmd_Droite		:= Byte_0.2;
+	Cmd_Gauche		:= Byte_0.3;
+
+	Bt_Gauche 		:= Byte_0.4;
+	Bt_Droite			:= Byte_0.5;
+	Bt_Valid			:= Byte_0.6;
+ELSE
+	Cmd_Bas 		:= FALSE;
+	Cmd_Haut 		:= FALSE;
+	
+	Cmd_Droite 		:= FALSE;
+	Cmd_Gauche 	:= FALSE;
+
+	Bt_Gauche		:= FALSE;
+	Bt_Droite		 	:= FALSE;
+	Bt_Valid			:= FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_MURR_HUB">
+      <LineId Id="27" Count="20" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Exec_ISO3_libTC3_V2" Id="{f36b66a2-a002-450e-95c2-f1f26497ec15}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Exec_ISO3_libTC3_V2
+VAR_INPUT	
+	Enable:BOOL;	
+	CN_Fichier_ISO:STRING;	
+	Override:LREAL;		
+	Reset,	Reset_memo:BOOL;	
+	Id_Axe_X,	Id_Axe_Y,	Id_Axe_Z:INT;
+	Fenetre_reprise:LREAL;	
+	NCTOPLC_NCICHANNEL_REF_FB:NCTOPLC_NCICHANNEL_REF;
+	N_Id_Interp		:UDINT;	//Numero channel interpolation d'axe
+	N_Gpe_Interp	:UDINT;	//Numero groupe du channel N° N_Id_Interp d'interpolation d'axe
+
+	
+END_VAR
+VAR_IN_OUT	
+	Top_Prepa_ISO, Top_Exec_ISO:BOOL;	
+END_VAR
+VAR_OUTPUT	
+	OUT,	EXEC_en_Cours,	Def_CN,	Memo_def_CN, traj_en_cours	:BOOL;		
+	Num_def_CN,		Memo_num_def_CN,	CN_Etat:WORD;
+	Fct_M10,	Fct_M11,	Fct_M12,	Fct_M13,	Fct_M14,	Fct_M30:BOOL;	
+	PLCTONC_NCICHANNEL_REF_FB:PLCTONC_NCICHANNEL_REF;	
+END_VAR
+	
+VAR	
+	CfgRecongigGroup_2:CfgReconfigGroup;		
+	ItpReset_1,	ItpReset_2:ItpReset;		
+	ItpLoadProg_1:ItpLoadProg;		
+	ItpStartStop_1:ItpStartStop;
+	TON_fb_exec_iso_1,	TON_fb_exec_iso_2:TON;	
+	Run:BOOL;		
+	Etat_Axes_CN: ARRAY[1..3] OF UDINT;
+	Prepa_iso_ok,	RAZ_groupe,	Regroupage,	RAZ_Groupe_2,	Reset_Fin_Exec:BOOL;
+	RE_Prepa_ISO,	RE_Reset,	RE_Def_CN,	RE_Reset_memo:R_TRIG;		FE_Exec_ISO: F_TRIG;
+	CfgBuild3DGroup_2:CfgBuild3DGroup;	
+	CfgRead3DAxisIds_2: CfgRead3DAxisIds;
+	TP_CfgBuild,		TP_RAZ,		TP_RAZ_2:TON;		
+	Phase_Init_Groupe,	Phase_ReInit_Groupe,	Phase_Exec:INT:=0;		
+	RE_Top_exec_ISO: R_trig;
+	memo_Phase_Init_Groupe: INT;
+	memo_Phase_ReInit_Groupe: INT;
+	memo_Phase_Exec: INT;
+	TON_fb_exec_iso_3: Ton;
+END_VAR
+VAR PERSISTENT	
+	Compteur_load_iso,	
+	Compteur_load_err_1,	
+	Compteur_load_err_2:INT;	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Phase_Init_Groupe<>0 THEN
+	memo_Phase_Init_Groupe := Phase_Init_Groupe;
+END_IF
+IF Phase_Init_Groupe<>0 THEN
+	memo_Phase_ReInit_Groupe := Phase_ReInit_Groupe;
+END_IF
+IF Phase_Exec<>0 THEN
+	memo_Phase_Exec := Phase_Exec;
+END_IF
+
+(*---------------------------------------------------------------------------Prepa Groupe D'axes sur front Prepa ISO      -------------------------------------------------------------*)
+RE_Prepa_ISO(clk:=Top_Prepa_ISO);
+
+(*Init variables*)
+IF NOT Top_Prepa_ISO THEN
+	TP_CfgBuild(in:=FALSE);
+	Phase_Init_Groupe:=0;
+	RAZ_groupe:=FALSE;
+	Regroupage:=FALSE;
+	Reset_Fin_Exec:=FALSE;
+END_IF
+
+IF RE_prepa_ISO.Q THEN
+	Phase_Init_Groupe:=1;
+	Prepa_iso_ok:=FALSE;
+END_IF
+
+IF Phase_Init_Groupe<>0 THEN
+	CASE Phase_Init_Groupe OF
+
+		1:	(*Degroupage des Axes*)
+			RAZ_groupe:=TRUE;
+			IF TP_RAZ.Q AND NOT CfgRecongigGroup_2.bBusy AND NOT CfgRecongigGroup_2.bErr AND Etat_Axes_CN[1]=0 THEN
+				Phase_Init_Groupe:=2;
+			END_IF
+		2:	(*Regroupage des axes*)
+			RAZ_groupe:=FALSE;
+			Regroupage:=TRUE;
+			IF TP_CfgBuild.q AND NOT CfgBuild3DGroup_2.bBusy AND NOT CfgBuild3DGroup_2.bErr
+			THEN
+				Phase_Init_Groupe:=3;
+			END_IF
+		3:	(*Recouplage des axes*)
+				Prepa_iso_ok:=TRUE;		// sert de clk pour TON debug transfert du fichier CNC
+				Phase_Init_Groupe:=4;
+		4:(*Reset canal CNC*)
+			TON_fb_exec_iso_1(IN:=Prepa_iso_ok,pt:=T#50MS );
+			ItpReset_1.bExecute:=Prepa_iso_ok AND NOT TON_fb_exec_iso_1.Q;
+			ItpReset_1.nChnId:=N_Id_Interp;(*N° Id du groupe*)
+			ItpReset_1.tTimeOut:=t#1s;
+					ItpReset_1();
+			IF NOT ItpReset_1.bBusy AND NOT ItpReset_1.bErr AND CN_Etat=1 THEN
+				Phase_Init_Groupe:=5;
+			END_IF
+		5:(*Transfert Fichier CNC*)
+			TON_fb_exec_iso_2(IN:=Prepa_iso_ok,pt:=t#50ms );
+			ItpLoadProg_1.bExecute:=Prepa_iso_ok AND NOT TON_fb_exec_iso_2.Q AND CN_Etat=1;
+			ItpLoadProg_1.nChnId:=N_Id_Interp;(*N° Id du groupe*)
+			ItpLoadProg_1.sPrg:=CN_Fichier_ISO;(*Nom du fichier ISO*)
+			ItpLoadProg_1.nLength:=LEN(CN_Fichier_ISO);(*Longeur de la chaine Nom du fichier*)
+			ItpLoadProg_1.tTimeOut:=t#1s;
+					ItpLoadProg_1();
+			IF TON_fb_exec_iso_2.Q AND NOT ItpLoadProg_1.bBusy
+			AND NOT ItpLoadProg_1.bErr THEN
+				IF CN_Etat=2  AND Top_Prepa_ISO THEN
+					Compteur_load_iso:=Compteur_load_iso+1;
+					Top_Prepa_ISO := FALSE;		(*Termine la phase de prépa de l'iso et signale au G7_cycle_plasma qu'il peut poursuivre son cycle : palpage, amorce, ...*)
+					Phase_Init_Groupe:=0;
+				ELSE
+					TON_fb_exec_iso_2(IN:=FALSE);
+					Compteur_load_err_1:=Compteur_load_err_1+1;
+					TON_fb_exec_iso_2(IN:=Prepa_iso_ok,pt:=t#50ms );
+					ItpLoadProg_1.bExecute:=Prepa_iso_ok AND NOT TON_fb_exec_iso_2.Q AND CN_Etat=1;
+					ItpLoadProg_1.nChnId:=N_Id_Interp;(*N° Id du groupe*)
+					ItpLoadProg_1.sPrg:=CN_Fichier_ISO;(*Nom du fichier ISO*)
+					ItpLoadProg_1.nLength:=LEN(CN_Fichier_ISO);(*Longeur de la chaine Nom du fichier*)
+					ItpLoadProg_1.tTimeOut:=t#1s;
+									ItpLoadProg_1();
+					IF (*TON_fb_exec_iso_2.Q AND*) NOT ItpLoadProg_1.bBusy AND NOT ItpLoadProg_1.bErr THEN
+						IF CN_Etat=2 AND Top_Prepa_ISO THEN
+							Top_Prepa_ISO := FALSE;
+							Phase_Init_Groupe:=0;
+						ELSE
+							Compteur_load_err_2:=Compteur_load_err_2+1;
+						END_IF
+					END_IF
+				END_IF
+			END_IF
+	END_CASE
+END_IF
+
+TP_RAZ(IN:=RAZ_groupe,pt:=t#10ms);
+TP_CfgBuild(IN:=Regroupage,pt:=t#10ms);
+
+CfgRead3DAxisIds_2.bExecute:=TP_RAZ.Q OR TP_CfgBuild.Q OR TP_RAZ_2.Q ;
+CfgRead3DAxisIds_2.nGroupId:=N_Gpe_Interp;
+CfgRead3DAxisIds_2.pAddr:=ADR(Etat_Axes_CN);
+CfgRead3DAxisIds_2();
+
+CfgRecongigGroup_2.bExecute:=(RAZ_Groupe) OR RAZ_Groupe_2;
+CfgRecongigGroup_2.nGroupId:=N_Gpe_Interp;(*N° Id du groupe*)
+CfgRecongigGroup_2.tTimeOut:=t#1s;
+CfgRecongigGroup_2();
+
+CfgBuild3DGroup_2.bExecute:=Regroupage;
+CfgBuild3DGroup_2.nGroupId:=N_Gpe_Interp;(*N° Id du groupe*)
+CfgBuild3DGroup_2.nXAxisId:=Id_Axe_X;(*N° Id de l'axe X*)
+CfgBuild3DGroup_2.nYAxisId:=Id_Axe_Y;(*N° Id de l'axe Y*)
+CfgBuild3DGroup_2.nZAxisId:=Id_Axe_Z;(*N° Id de l'axe Z*)
+CfgBuild3DGroup_2.tTimeOut:=t#1s;
+CfgBuild3DGroup_2();
+
+(*---------------------------------------------------------------------------Reinit groupe d'axes après EXEC ISO  -------------------------------------------------------------*)
+FE_Exec_ISO(clk:=Top_Exec_ISO);
+TP_RAZ_2(IN:=RAZ_groupe_2,pt:=t#100ms);
+RE_reset(clk := reset);
+
+IF FE_Exec_ISO.Q OR RE_Reset.Q THEN
+	Phase_exec:=0;
+	RAZ_groupe_2:=FALSE;
+	Reset_Fin_Exec:=FALSE;
+	Phase_ReInit_Groupe:=1; (*memorise stop CNC*)
+	Top_Prepa_ISO := FALSE;
+	Top_Exec_ISO := FALSE;
+END_IF
+
+IF Phase_ReInit_Groupe<>0 AND Phase_exec=0 THEN (*attente arret de l'interpreteur*)
+	CASE Phase_ReInit_Groupe OF
+		1:	(*reset de l'interpreteur, arret des axes*)
+			Reset_Fin_Exec:=TRUE;
+			IF ItpReset_2.bExecute AND NOT ItpReset_2.bBusy AND NOT ItpReset_2.bErr
+			AND  X_no_move THEN
+				Reset_Fin_Exec:=FALSE;
+				Phase_ReInit_Groupe:=2;
+			END_IF
+		2:	(*On desacouple les axes*)
+				Phase_ReInit_Groupe:=3;
+		3:	(*Degroupage des Axes*)
+			RAZ_Groupe_2:=TRUE;
+			IF TP_RAZ_2.Q AND NOT CfgRecongigGroup_2.bBusy AND NOT CfgRecongigGroup_2.bErr AND Etat_Axes_CN[1]=0 THEN
+				Phase_ReInit_Groupe:=4;
+			END_IF
+		4:	(*Recouplage des axes*)
+				Phase_ReInit_Groupe:=0;
+				RAZ_Groupe_2:=FALSE;
+	END_CASE
+END_IF
+
+
+(*----------------------------------------------------------------------------------------------------------Execution prog CNC------------------------------------------------------------*)
+(*Etat Itp CN*)
+CN_Etat:=NCTOPLC_NCICHANNEL_REF_FB.ItpState;
+(*Modulation de vitesse*)
+
+(*Modulation de vitesse*)
+IF enable THEN
+	IF Reprise_decoupe AND Auto AND NOT Stop_axes
+	AND Sequence[Pt_sequence].P1=0 AND NOT Allumage_tete_laser
+	AND Memo_Pos_X_Laser_Arus-Fenetre_reprise<Pos_reel_X
+	AND Memo_pos_Y_Laser_Arus+Fenetre_reprise>Pos_reel_X THEN
+		Stop_axes:=TRUE;
+	END_IF
+
+	IF Stop_axes THEN  PLCTONC_NCICHANNEL_REF_FB.ChnAxesOvr:=0;
+	ELSE  PLCTONC_NCICHANNEL_REF_FB.ChnAxesOvr:=REAL_TO_DWORD(Override)*10000;
+	END_IF
+END_IF
+
+ItpReset_2.bExecute:=Reset_Fin_Exec;
+ItpReset_2.nChnId:=N_Id_Interp;(*N° Id du groupe*)
+ItpReset_2.tTimeOut:=t#1s;
+ItpReset_2();
+
+RE_Top_exec_ISO(clk := Top_Exec_ISO);
+IF RE_Top_exec_ISO.Q THEN
+	Phase_exec:=1;
+END_IF
+
+IF NOT Prepa_iso_ok THEN
+	TON_fb_exec_iso_1(IN:=FALSE);	
+	TON_fb_exec_iso_2(IN:=FALSE);	
+	TON_fb_exec_iso_3(IN:=FALSE);	
+END_IF
+
+IF Top_Exec_ISO THEN
+	CASE Phase_exec OF
+
+	1: (*Execution programme CNC*)
+		TON_fb_exec_iso_3(IN:=Prepa_iso_ok,pt:=T#10MS );
+		Run:= Top_Exec_ISO 
+				AND TON_fb_exec_iso_3.Q
+				AND CN_Etat=2;
+		ItpStartSTop_1.bSTop:=NOT Top_Exec_ISO;
+		ItpStartSTop_1.nChnId:=N_Id_Interp;(*N° Id du groupe*)
+		ItpStartSTop_1.tTimeOut:=T#1S;
+		ItpStartStop_1.bStart:=Run;
+		ItpStartSTop_1();
+		IF  NCTOPLC_NCICHANNEL_REF_FB.HskMFuncNo=30 OR reset OR NOT Top_Exec_ISO OR Def_CN THEN
+			Phase_exec:=2;
+		END_IF
+
+	2: 	Phase_exec:=0;
+
+	END_CASE
+END_IF
+
+(*Fonction M (penser à configurer le fichier "m_defs.t00" *)
+Fct_M10 := NCTOPLC_NCICHANNEL_REF_FB.FastMFuncMask[1].10 ; 
+Fct_M11:=NCTOPLC_NCICHANNEL_REF_FB.FastMFuncMask[1].11;
+Fct_M12:=NCTOPLC_NCICHANNEL_REF_FB.FastMFuncMask[1].12;
+Fct_M13:=NCTOPLC_NCICHANNEL_REF_FB.FastMFuncMask[1].13;
+Fct_M14:=NCTOPLC_NCICHANNEL_REF_FB.FastMFuncMask[1].14;
+Fct_M30:=NCTOPLC_NCICHANNEL_REF_FB.HskMFuncNo=30;
+EXEC_en_Cours:=(NCTOPLC_NCICHANNEL_REF_FB.HskMFuncNo<>30 AND Top_Exec_ISO) OR (Prepa_iso_ok AND Phase_exec<>0);
+traj_en_cours:=Phase_exec=1;
+
+(*Defaut*)
+Num_Defaut_CN:=UDINT_TO_WORD(NCTOPLC_NCICHANNEL_REF_FB.ErrorCode);
+Def_CN:=Num_Defaut_CN<>0;
+RE_Def_CN(clk:=Def_CN);
+IF RE_Def_CN.Q THEN
+	Memo_Num_Def_CN:=Num_Defaut_CN;
+	Memo_Def_CN:=TRUE;
+END_IF
+
+RE_Reset_memo(CLK:=Reset_memo);
+IF RE_Reset_memo.Q THEN
+	Memo_Num_Def_CN:=0;
+	Memo_Def_CN:=FALSE;
+END_IF
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Exec_ISO3_libTC3_V2">
+      <LineId Id="369" Count="151" />
+      <LineId Id="522" Count="0" />
+      <LineId Id="651" Count="6" />
+      <LineId Id="660" Count="5" />
+      <LineId Id="536" Count="40" />
+      <LineId Id="648" Count="0" />
+      <LineId Id="578" Count="2" />
+      <LineId Id="649" Count="0" />
+      <LineId Id="581" Count="17" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Divers_axe" Id="{a6e9f152-aea4-4f9f-9475-5b980e5e3e1c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Divers_axe
+//Gestion override axes et autres
+VAR
+	XYL_Interdit	:BOOL;
+	ZChariot_Interdit	:BOOL;
+	//Relevage/abaissement pince
+	 Pos_Parking_ZChariot	:LREAL;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Fronts, TON, etc
+ RE_En_pos_X(clk:=En_pos_X);
+ RE_En_pos_Z_Chariot(clk:=En_pos_Z_Chariot);
+ RE_En_pos_A_Laser(clk:=En_pos_A_Laser);
+ RE_En_pos_X_Laser(clk:=En_pos_X_Laser);
+ RE_En_pos_Y_Laser(clk:=En_pos_Y_Laser);
+ RE_En_pos_Z_Laser(clk:=En_pos_Z_Laser);
+
+//Interdit XY Laser en Manu si pas découpe et Z trop bas pour ne pas endommager la buse ?
+ XYL_Interdit := Manu AND (Offset_Z_Laser_REF-Pos_Reel_Z_Laser < 2* Global_Divers.EP_Aile) AND NOT Selection_DecManu_Laser;	 
+//Interdit Z chariot si pince serrée ou dans machine
+ ZChariot_Interdit:= Ev_Serrage_pince OR Detecteur_Fond_De_Pince OR Pos_Reel_X>= X_Cell_Mesure_Barre;
+
+Pos_Parking_ZChariot:= Pnc_axe_Z_Chariot.Limite_Plus-20 ;
+
+Origines_Axes_ok := 
+ Ref_Ok_X
+ AND Ref_Ok_Z_Chariot
+ AND Ref_Ok_X_Laser
+ AND Ref_Ok_Y_Laser
+ AND Ref_Ok_Z_Laser
+ AND Ref_Ok_A_Laser
+ ;
+
+//Vitesse X chariot : selection Opanel + override
+ Vitesse_Chariot_Manu :=PNC_Axe_Chariot.Vitesse_MAN ;
+ IF Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot 
+	 THEN
+	 Override_Chariot:=0;
+ ELSIF Auto THEN
+	 Override_Chariot:=100 * (Pnc_Modulation_Vitesse/9);
+ ELSIF Manu AND Joystick_Bt_Valid THEN
+	 Override_Chariot:=100;
+ ELSE
+	 Override_Chariot:=80 * (Pnc_Modulation_Vitesse/9);
+ END_IF
+ 
+ 
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

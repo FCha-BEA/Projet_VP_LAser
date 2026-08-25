@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="Infos_Outil" Id="{e8ab195d-e4d3-4ac3-b3b1-6b26abda2446}">
+    <Declaration><![CDATA[TYPE Infos_Outil :
+STRUCT
+	Id_Outil_Driver			:LREAL; (*0..10000				Info codée par PLC   N°Magasin + position dans magasin*)
+	Outil_Neuf				:LREAL; (*0..100        			1= outil neuf 0= Outil usé*)
+	Diametre_Outil			:LREAL; (*0..100.00 mm			Info de PLC/Driver*)
+	Pointe_Outil				:LREAL; (*0..100.00 mm			Info de Driver: option future*)
+	Type_Outil				:LREAL;(*Carb/HSS			Info de Driver/PLC*)
+	Type_Controle_outil		:LREAL;(*0..1					Info de Driver   0 =Controle normal /  = 1 Cotntrole outil par detection : option future *)
+	Surcouple_Outil			:LREAL;(*0..100 (%)			Info de Driver Quand outil completement engagé dans matière : option future 	*)
+	Chute_Vitesse_max		:LREAL;(*0..100 (%)			Info de Driver*)
+	V_Broche				:LREAL;(*0..10000 (tr/min)		Info de  PLC*)
+	Couple_Broche_a_vide			:LREAL;(*(0..999.9)A			 Info de PLC*)
+	Couple_Broche_premier_trou		:LREAL;(*	(0..999.9)A		 Info de PLC*)
+	Couple_Broche_dernier_trou		:LREAL;(*	(0..999.9)A		 Info de PLC*)
+	Num_defaut				:LREAL;(*1=Défaut sous vitesse 	Info de PLC
+									2= Défaut Surconso		Info de PLC
+									3= Défaut  pas de conso 	Info de PLC*)
+	P14:LREAL;
+	P15:LREAL;
+	P16:LREAL;
+	P17:LREAL;
+	P18:LREAL;
+	P19:LREAL;
+	P20:LREAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

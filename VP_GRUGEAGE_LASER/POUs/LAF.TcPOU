@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="LAF" Id="{3352118b-c99a-4787-9d38-214e6c05ab1a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM LAF
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+1 : Inclure le cf après essais 
+A TESTER 2 : Inclure forçage Rép ethercat
+3 : vérifier défauts
+4 : Ecrire  BE/BS (cmde, sécu etc.) ?
+A TESTER 5 : Inclure TAMA -Pas info tama NOK ?
+A TESTER 6 : Faire sécu porte laser
+7  : voir comm fc pour faire divers
+OK - 8: mettre xml source
+OK - 9 : installer drive manager 1
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

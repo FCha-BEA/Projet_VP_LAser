@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <GVL Name="Global_Axes_Chariot" Id="{365b77cc-3d02-45c5-8b24-5a05e4da76ae}">
+    <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
+VAR_GLOBAL
+(*Communs*)
+	Origines_Axes_ok		:BOOL:=FALSE;
+	Start_Origines			:BOOL:=FALSE;
+	Defaut_Variateurs		:BOOL:=FALSE;
+	TP_Ok_Valid_Secu: TON;
+
+(*Axe X Chariot*)
+	Pos_cible_X						:LREAL:=0;
+	Memo_Pos_cible_X_Depose_Piece	:LREAL:=0;
+	Pos_Reel_X						:LREAL:=0;
+	En_pos_X						: BOOL:=FALSE;
+		RE_En_pos_X					: R_TRIG;
+	Top_X							: BOOL:=FALSE;
+	Dem_pom_X						: BOOL:=FALSE;
+	Ref_Ok_X						: BOOL:=FALSE;
+	Defaut_X						: BOOL:=FALSE;
+	Num_Defaut_X					: UDINT:=0;
+	Jog_Plus_X						: BOOL:=FALSE;
+	Jog_Moins_X						: BOOL:=FALSE;
+	
+	Defaut_Var_X					:BOOL:=FALSE;
+	Defaut_Poursuite_X				:BOOL:=FALSE;
+	X_No_Move						:BOOL:=FALSE;
+	Limite_atteinte_X				:BOOL:=FALSE;
+	Limite_Plus_X					:LREAL:=0;
+	Top_Forcage_Position_X			:BOOL:=FALSE;
+	Top_Forcage_Ref_OK_X			:BOOL:=FALSE;
+	Vitesse_Reelle_X				:LREAL;
+	
+	Override_Chariot				:LREAL;
+	Override_Mesure_Barre			:LREAL;
+	Override_POM_Non_Faite			:LREAL;
+	Override_ES_Machine				:LREAL;
+	Vitesse_Chariot					:LREAL;
+	Vitesse_Chariot_Manu			:LREAL;
+	Vitesse_Chariot_Auto			:LREAL;
+	Vitesse_ES_Machine_auto			:LREAL;
+	Bit_Chariot_en_zone_PV			:BOOL;
+	Bit_PV_en_Auto					:BOOL;
+	TON_Simulation_Fc_Origine_X_Chariot:TON;
+	TP_Simulation_Fc_Origine_X_Chariot:TP;
+	Stop_chariot_collision_perceuses  :BOOL;
+
+(*Axe Z Chariot*)
+	Pos_cible_Z_Chariot				:LREAL:=0;
+	Pos_Reel_Z_Chariot				:LREAL:=0;
+	
+	En_pos_Z_Chariot				: BOOL:=FALSE;
+		RE_En_pos_Z_Chariot			:R_TRIG;
+	Top_Z_Chariot					: BOOL:=FALSE;
+	Dem_pom_Z_Chariot				: BOOL:=FALSE;
+	Ref_Ok_Z_Chariot				: BOOL:=FALSE;
+	Defaut_Z_Chariot				: BOOL:=FALSE;
+	Num_Defaut_Z_Chariot			: UDINT:=0;
+	Jog_Plus_Z_Chariot				: BOOL:=FALSE;
+	Jog_Moins_Z_Chariot				: BOOL:=FALSE;
+	
+	Defaut_Var_Z_Chariot			:BOOL:=FALSE;
+	Defaut_Poursuite_Z_Chariot		:BOOL:=FALSE;
+	Z_No_Move_Chariot				:BOOL:=FALSE;
+	Limite_atteinte_Z_Chariot		:BOOL:=FALSE;
+	Limite_Plus_Z_Chariot			:LREAL:=0;
+	Top_Forcage_Position_Z_Chariot	:BOOL:=FALSE;
+	Top_Forcage_Ref_OK_Z_Chariot	:BOOL:=FALSE;
+	Vitesse_Reelle_Z_Chariot		:LREAL;
+	
+	Bit_Z_en_zone_PV_Chariot		:BOOL;
+
+END_VAR
+]]></Declaration>
+  </GVL>
+</TcPlcObject>

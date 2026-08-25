@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="Fb_decode_real" Id="{d2e63394-4fde-4740-8e82-dc4e561b179c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK Fb_decode_real
+
+
+VAR_INPUT
+	Valid 			: BOOL;
+	Real_Value 	: LREAL;
+END_VAR
+VAR_OUTPUT
+	ERR 			: BOOL;
+
+	Millions 		: INT;
+	Cent_Milliers 	: INT;
+	Dix_Milliers 	: INT;
+	Milliers 		: INT;
+	Centaines 	: INT;
+	Dizaines 		: INT;
+	Unites 			: INT;
+END_VAR
+
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Millions 		:= 0;
+Cent_Milliers 	:= 0;
+Dix_Milliers 	:= 0;
+Milliers 		:= 0;
+Centaines 	:= 0;
+Dizaines 		:= 0;
+Unites 		:= 0;
+
+(* Calcul des MILLIONS *)
+IF REAL_TO_INT((Real_Value/1000000)-0.5) < REAL_TO_INT(Real_Value/1000000)
+ 	THEN Millions := REAL_TO_INT(Real_Value/1000000)-1;
+	ELSE Millions := REAL_TO_INT(Real_Value/1000000);
+END_IF
+
+(* Calcul des CENTAINES DE MILLIERS *)
+IF REAL_TO_INT((Real_Value-Millions*1000000)/100000-0.5) < REAL_TO_INT((Real_Value-Millions*1000000)/100000)
+	THEN Cent_Milliers := REAL_TO_INT((Real_Value-Millions*1000000)/100000)-1;
+	ELSE Cent_Milliers := REAL_TO_INT((Real_Value-Millions*1000000)/100000);
+END_IF
+
+(* Calcul des DIZAINES DE MILLIERS *)
+IF REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000)/10000-0.5) < REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000)/10000)
+	THEN Dix_Milliers := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000)/10000)-1;
+	ELSE Dix_Milliers := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000)/10000);
+END_IF
+
+(* Calcul des MILLIERS *)
+IF REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000)/1000-0.5) < REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000)/1000)
+	THEN Milliers := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000)/1000)-1;
+	ELSE Milliers := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000)/1000);
+END_IF
+
+(* Calcul des CENTAINES *)
+IF REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000)/100-0.5) < REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000)/100)
+	THEN Centaines := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000)/100)-1;
+	ELSE Centaines := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000)/100);
+END_IF
+
+(* Calcul des DIZAINES *)
+IF REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100)/10-0.5) < REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100)/10)
+	THEN Dizaines := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100)/10)-1;
+	ELSE Dizaines := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100)/10);
+END_IF
+
+(* Calcul des UNITES *)
+IF REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100-Dizaines*10)/1-0.5) < REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100-Dizaines*10)/1)
+	THEN Unites := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100-Dizaines*10)/1)-1;
+	ELSE Unites := REAL_TO_INT((Real_Value-Millions*1000000-Cent_Milliers*100000-Dix_Milliers*10000-Milliers*1000-Centaines*100-Dizaines*10)/1);
+END_IF
+
+
+IF ((Millions*1000000+Cent_Milliers*100000+Dix_Milliers*10000+Milliers*1000+Centaines*100+Dizaines*10+Unites) <> Real_Value)
+OR (Real_Value > 9999999)
+OR (Real_Value < 0) THEN
+	ERR := TRUE;
+ELSE
+	ERR := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Fb_decode_real">
+      <LineId Id="22" Count="57" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

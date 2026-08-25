@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Divers_cycles" Id="{64112257-0ca1-42ce-b6b5-bcdcf6fbc109}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Divers_cycles
+VAR	FW_GetSystemTime1:FW_GetSystemTime;
+	RE_Machine_en_Service,	RE_Bp_en_Service,	RE_DCY, Re_Mesure_Barre_Ok,		Re_Mode_Auto	 : R_TRIG;
+	FE_ARUS,	FE_Machine_en_Service : F_TRIG;
+	Img_Mem_arus,	Memo_Defaut_Prise_en_Pince_Barre: BOOL;		Phase_MB: INT; (*pour sequence mesure barre*)	TON_Mem_Arus:TON;
+	fbSystemTime : GETSYSTEMTIME;
+	timeAsFileTime : T_FILETIME;
+  	timeAsDT : DT;
+	Recul_X_MesBarre, Avance_X_MesBarre, Memo_Recul_Mesure_Barre	:BOOL;
+	//POM + calibrage presseurs
+	 RE_Start_Origines,Re_Origines	:R_TRIG;
+	 Old_Val_mesure_Presseur_K11_Ref, Old_Val_mesure_Presseur_K11_Opp_Ref,
+	 Old_Val_mesure_Presseur_L12_Ref, Old_Val_mesure_Presseur_L12_Opp_Ref		:LREAL;	 
+	 TON_NoMvt_Val_K11_Ref,	 TON_NoMvt_Val_K11_Opp_Ref,	
+	 TON_NoMvt_Val_L12_Ref,	 TON_NoMvt_Val_L12_Opp_Ref	:TON; //La valeur de la mesure ne bouge plus pendant un certains temps : on a serré à vide jusqu'au bout.
+	 TP_Desserrage_Manu	:TP;
+	 Step_Calib_Presseurs_Laser	:INT;
+	 Calib_Presseurs_OK	:BOOL;
+	//Après Pom, envoi X et Y laser à des positions specifiques pour pom codeur de sécu incrémentaux
+	 Step_Pom_CodeurSecu	:INT;
+	 
+	 TimePC	:NT_GetTime;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbSystemTime(
+    timeLoDW=>timeAsFileTime.dwLowDateTime,
+    timeHiDW=>timeAsFileTime.dwHighDateTime);
+
+timeAsDT := FILETIME_TO_DT(timeAsFileTime);
+
+(*------------------------------------------------Detection fronts En_Service,DCY,Arus, etc.-----------------------------------------*)
+	RE_Machine_en_Service(CLK:=Machine_en_Service);
+	FE_Machine_en_Service(CLK:=Machine_en_Service);
+	RE_Bp_en_Service(CLK:=Bp_En_Service);
+	RE_Bp_Annul_Defauts(CLK:=Bp_Annul_Defauts);
+	FE_Arus(CLK:=Bp_Arret_Usinage );
+	RE_DCY(CLK:=Bp_Depart_Cycle);
+
+	TON_Auto(in:=Auto,pt:=T#100MS);
+	TP_Ok_Valid_Secu(in:=Controle_Acces_Machine,pt:= T#4S); 	(*Tempo pour degagement unite apres cellule pendant percage attente axes enable*)
+	Re_Mesure_Barre_Ok(CLK:=Mesure_Barre_Ok);
+	RE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);
+	FE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);
+	FE_Dec_Manu(clk:=Selection_DecManu_Laser AND Joystick);
+	RE_Start_Origines(CLK:=Start_Origines);
+	Re_Origines(CLK:=Origines_Axes_ok);
+	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
+	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
+	
+	
+(*-----------------------------------------------------------Bit_Machine_ON---------------------------------------------------------*)
+	IF Machine_ON AND RE_Bp_en_Service.Q THEN
+		Machine_On:=FALSE;
+	END_IF
+	IF RE_Machine_en_Service.Q THEN
+		Machine_On:=TRUE;
+	END_IF
+	
+	(*Temporisation arret axes si Arret d'urgence seulement*)
+	IF RE_Machine_en_Service.Q THEN
+		Time_stop_arret_urgence:=t#2s;
+	END_IF
+	IF FE_Machine_en_Service.Q THEN
+		Time_stop_arret_urgence:=t#0s;
+		Machine_ON:=FALSE;
+	END_IF
+
+(*-----------------------------------------------------------ARRET USINAGE---------------------------------------------------------*)
+	IF (NOT Mem_arus AND Fe_arus.Q)
+	OR RE_Machine_en_Service.Q
+	OR NOT Machine_en_Service
+	OR (Defaut_General)
+	OR (Pnc_Blocage_PLC AND NOT Inhib_Pnc_blocage_PLC) 
+	OR  Attente_Arret_Propre AND G7_General.init.x //Si demande ouverture porte Laser
+	THEN (*Set de L'Arret Usinage*)
+		Mem_arus:=TRUE;
+	END_IF
+	
+	IF NOT Mem_Arus_BP AND Fe_arus.Q THEN
+		Mem_Arus_BP:=TRUE;
+	END_IF
+	
+	(*Reset de L'Arret Usinage=Init*)
+	IF Img_Mem_arus
+	AND NOT Defaut_General
+	AND (Fe_arus.Q)
+	AND TP_Ok_Valid_Secu.Q
+	AND (NOT Pnc_Blocage_PLC OR Inhib_Pnc_blocage_PLC) THEN
+		Mem_arus:=FALSE;
+		Mem_Arus_BP:=FALSE;
+	END_IF
+	
+	Img_Mem_Arus:=Mem_Arus;
+	
+	(*Arret usinage Soft*)
+	IF Pnc_Start[3]=1 THEN
+		Mem_Arus:=TRUE;
+		Pnc_Start[3]:=0;
+	END_IF
+	
+
+//Fronts Arus 
+	RE_Mem_arus(CLK:=Mem_Arus);
+	FE_Mem_arus(CLK:=Mem_Arus);
+
+(*---------------------------------------------------START COM---------------------------------------------------------------------*)
+	(*Positionement du pointeur de sequences*)
+	IF Pnc_Start[1]=1AND manu AND Pnc_Start[2]<>0 AND NOT Mem_Arus THEN (*Si StartCom=1*)
+		Pt_Sequence:=LREAL_TO_WORD(Pnc_Start[2]);
+		 Pnc_Start[1]:=0;(*Alors StartCom=0*)
+		Start_ready:=TRUE;
+		IF Pt_Sequence=1 THEN
+			Longueur_Barre_en_Pince:=Longueur_Barre;
+		END_IF
+	END_IF
+	
+	IF mem_arus OR auto THEN
+		Start_ready:=FALSE;
+		 Pnc_Start[1]:=0;(*Alors StartCom=0*)
+	END_IF
+	
+
+(*-------------------------------------------------MODE AUTO / MODE MANUEL-----------------------------------------------*)
+	IF NOT Mem_Arus
+	AND Origines_Axes_ok
+	AND Start_ready
+	AND (Ev_Serrage_Pince OR Sequence[Pt_Sequence].M=2)
+	AND (RE_DCY.Q) THEN 
+		Auto:=TRUE;
+		Demande_Arret_Cycle:=FALSE;
+		Pnc_Sync[10]:=0;
+		Pnc_Sync[11]:=0;
+		Pnc_Sync[12]:=0;
+		Pnc_Sync[13]:=0;
+		Longueur_Piece:=0;
+	END_IF
+	
+	IF RE_Machine_en_Service.Q OR mem_arus OR Defaut_general THEN (*Reset mode Auto*)
+		Auto:=FALSE;
+	END_IF
+	Manu:=NOT Auto;
+	
+	
+	(*Si Passage en ARUS*)
+	IF RE_MEM_ARUS.Q THEN
+		Pnc_start[3]:=0;(*reset bits de cycle*)
+		Pnc_start[4]:=0;(*reset bits de cycle*)
+		Pnc_start[5]:=0;(*reset bits de cycle*)
+		Start_mesure_Barre:=FALSE;
+		Phase_MB:=0;
+		Memo_Recul_Mesure_Barre := FALSE;
+		Palpage_OK_Face_1:=Palpage_OK_Face_2:=FALSE;
+		Dem_Relevage_auto:=FALSE;
+	END_IF
+	
+	IF Manu THEN
+		x_vers_parking:=FALSE;
+
+	END_IF
+
+(*---------------------------------------------------------------MESURE BARRE ------------------------------------------------------*)
+	// Fronts 
+
+	(*Si Passage en ARUS*)
+	IF Mem_Arus THEN
+		Start_mesure_Barre:=FALSE;
+		Pnc_Sync[1]:=0;
+		Recul_X_MesBarre:=Avance_X_MesBarre:=FALSE;
+	END_IF
+		
+	IF manu AND NOT mem_arus AND Pnc_Start[5]=1 AND Ev_Serrage_Pince THEN
+		Pnc_Start[5]:=0;
+		Pnc_Sync[1]:=3;(*En cours *)
+		Phase_MB:=1;
+	ELSE
+		Pnc_Start[5]:=0;
+	END_IF
+	
+	IF Auto THEN
+		Start_mesure_Barre:=FALSE;
+	END_IF
+		
+	IF Manu THEN
+		CASE Phase_MB OF
+		1:	IF NOT Cellule_mesure_barre THEN (*Degagement de la cellule*)
+				Recul_X_MesBarre:=TRUE;
+				Memo_Recul_Mesure_Barre := TRUE;
+			ELSE
+				Recul_X_MesBarre:=FALSE;
+				IF NOT Memo_Recul_Mesure_Barre THEN
+					Phase_MB:=2;
+				ELSE
+					Phase_MB:=3;
+				END_IF;
+			END_IF
+			IF Recul_X_MesBarre AND pos_reel_x < 200 THEN
+				Memo_Recul_Mesure_Barre := FALSE;
+				Recul_X_MesBarre:=FALSE;
+				Pos_X_Mesure_Barre:=0;
+				Pnc_Sync[1]:=2; (*Indication mesure barre impossible*)
+				Phase_MB:=0;
+			END_IF
+			Longueur_Barre_en_Pince:=0;
+	
+		2:	IF Cellule_mesure_barre THEN
+				Avance_X_MesBarre:=TRUE;
+			ELSE
+				Avance_X_MesBarre:=FALSE;
+				Phase_MB:=1;
+			END_IF
+	
+		3:	Memo_Recul_Mesure_Barre := FALSE;
+			IF NOT Avance_X_MesBarre AND NOT Recul_X_MesBarre THEN
+				Start_mesure_Barre:=TRUE;
+				Pnc_Sync[1]:=0;(*Lancement de la mesure*)
+				Pos_X_Mesure_Barre:=0;
+				Mesure_Barre_Ok:=FALSE;
+			END_IF
+			IF Re_Mesure_Barre_Ok.Q THEN
+				Top_X:=FALSE;
+				Pnc_Sync[1]:=1;
+				Pos_X_Mesure_Barre:=Pos_Reel_X;
+				Pnc_Sync[2]:=Pos_X_Mesure_Barre;
+				Phase_MB:=4;
+				Longueur_Barre_en_Pince:=X_Cell_Mesure_Barre-Pos_X_Mesure_Barre;
+				Start_mesure_Barre:=FALSE;
+			END_IF
+	
+		4:	Phase_MB:=0;
+	
+		END_CASE
+	END_IF
+	
+	(*Avance du chariot pour la mesure barre*)
+	IF Start_mesure_Barre AND NOT mem_arus AND NOT Recul_X_MesBarre AND NOT Avance_X_MesBarre
+	AND((Fonction_Embrayage_Pince AND Detect_Pince_embrayee) OR NOT Fonction_Embrayage_Pince) THEN
+		Pos_Cible_X:=X_Cell_Mesure_Barre;
+		Vitesse_Chariot:=Vitesse_ES_Machine_auto/2;		(*Overide =20% avec le bit start mesure barre*)
+		Top_X:=TRUE;
+	END_IF
+
+
+(*-------------------------------------------------DIVERS------------------------------------------------------------------------------*)
+ (*Verification X suivant et X precedent*)
+ IF Pt_Sequence>1 THEN
+ 	X_Precedent_Idem:=Sequence[Pt_Sequence-1].X=Sequence[Pt_Sequence].X;
+ END_IF
+ 
+ X_Suivant_Idem:=Sequence[Pt_Sequence+1].X=Sequence[Pt_Sequence].X ;
+ 
+ X_Deja_En_pos:=ABS(Sequence[Pt_Sequence].X-Pos_Reel_X)<0.5 AND auto;
+ 
+ M_Suivant_Idem:=
+	(Sequence[Pt_Sequence].M>100000 AND Sequence[Pt_Sequence+1].M>100000);
+ //RAZ défauts
+ IF bp_annul_defauts THEN
+	Defaut_Lancement_POM:=FALSE;
+	Def_Calib_Presseurs:=FALSE;	
+	Pince_interdit_decoupe_manu:=FALSE;
+	Defaut_General:=FALSE;
+ END_IF
+ 
+(*-------------------------------------------------- Bits pour Clignotants -------------------------------------------------------- ---*)
+	FW_GetSystemTime1();
+	Clignotant_Affichage_Pop_up:=GETBIT32(FW_GetSystemTime1.dwTimeLo,30);
+	Clignotant_tttt_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,27);
+	Clignotant_ttt_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,26);
+	Clignotant_tt_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,25);
+	Clignotant_t_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,24);
+	Clignotant_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,23);
+	Clignotant_rapide:=GETBIT32(FW_GetSystemTime1.dwTimeLo,22);
+	Clignotant_t_rapide:=GETBIT32(FW_GetSystemTime1.dwTimeLo,21);
+	Clignotant_tt_rapide:=GETBIT32(FW_GetSystemTime1.dwTimeLo,20);
+	Clignotant_ttt_rapide:=GETBIT32(FW_GetSystemTime1.dwTimeLo,19);
+
+(*-------------------- POM    ---------------------------*)     
+ Origines_Axes_ok:=	Ref_Ok_X AND Ref_Ok_Z_Chariot 
+ 					AND Ref_Ok_A_Laser AND Ref_Ok_X_Laser 
+ 					and Ref_Ok_Y_Laser AND 	Ref_Ok_Z_Laser
+ 					AND Presseur_Amont_K11.Val_Ref_SerreVide <> 0 AND Presseur_Amont_K11.Val_Opp_Ref_SerreVide <> 0	//Calibrage ok 
+ 					AND Presseur_Aval_L12.Val_Ref_SerreVide <> 0 AND Presseur_Aval_L12.Val_Opp_Ref_SerreVide<>0;
+ 					
+ (*Initialisation Origines*)
+  IF Pnc_Start[10]=1 AND NOT Mem_Arus THEN
+  	Start_Origines:=TRUE;
+	Step_Calib_Presseurs_Laser:=1;
+	 Step_Pom_CodeurSecu:=1;
+	Prog_Demande_POM_Focal:=TRUE;
+  END_IF
+  
+  IF RE_Start_Origines.Q
+  	AND (NOT Cellule_Mesure_Barre) THEN
+  	Defaut_Lancement_POM:=TRUE;
+  	Start_Origines:=FALSE;
+	Step_Calib_Presseurs_Laser:=0;
+	Step_Pom_CodeurSecu:=0;
+  END_IF
+  
+  IF Mem_Arus OR Re_Origines.q THEN
+	 Start_Origines:=FALSE;
+	 Step_Calib_Presseurs_Laser:=0;
+  END_IF
+  
+  IF Mem_Arus THEN
+	  Step_Pom_CodeurSecu:=0;
+  END_IF
+  
+ //Calibrage presseur : on serre à vide et on enregistre la valeur
+  CASE Step_Calib_Presseurs_Laser OF 
+ 	 1: 
+ 	 Def_Calib_Presseurs:=
+ 	 Calib_Presseurs_OK:=FALSE;
+ 	 Presseur_Amont_K11.Dem_Serrage:=TRUE;				//On serre tous les presseurs ...
+ 	 Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
+ 	 Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
+ 	 Presseur_Aval_L12.Dem_Serrage:=TRUE;
+ 	 Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
+ 	 Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ 	 
+ 	 IF TON_NoMvt_Val_K11_Ref.Q AND TON_NoMvt_Val_K11_Opp_Ref.Q				//... et on attends d'être complétement serré, à vide, la valeur mesurée ne varie plus ...
+ 	 AND TON_NoMvt_Val_L12_Ref.Q AND TON_NoMvt_Val_L12_Opp_Ref.Q THEN
+ 		Presseur_Amont_K11.Val_Ref_SerreVide := Presseur_Amont_K11.Val_Mesure_Ref;	//... puis on l'enregistre ...
+ 		Presseur_Amont_K11.Val_Opp_Ref_SerreVide := Presseur_Amont_K11.Val_Mesure_Opp_Ref;
+ 		Presseur_Aval_L12.Val_Ref_SerreVide := Presseur_Aval_L12.Val_Mesure_Ref;
+ 		Presseur_Aval_L12.Val_Opp_Ref_SerreVide := Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ 		Presseur_Amont_K11.Dem_Serrage:=FALSE;
+ 	 	Presseur_Aval_L12.Dem_Serrage:=FALSE;
+ 		Step_Calib_Presseurs_Laser := 2;
+ 	 END_IF	 
+ 	 
+ 	 2: 
+ 	 Presseur_Amont_K11.Dem_Desserrage:=TRUE;	//... et on desserre ...
+ 	 Presseur_Aval_L12.Dem_Desserrage:=TRUE;
+ 	 Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
+ 	 Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
+ 	 Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
+ 	 Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ 	 IF TON_NoMvt_Val_K11_Ref.Q AND TON_NoMvt_Val_K11_Opp_Ref.Q			 
+ 	 AND TON_NoMvt_Val_L12_Ref.Q AND TON_NoMvt_Val_L12_Opp_Ref.Q THEN	//... On  fait monter le défaut selon l'écart constaté, voir décla défaut
+ 	 	IF ABS(Presseur_Amont_K11.Val_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Ref) < 250
+ 			OR ABS(Presseur_Amont_K11.Val_Opp_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Opp_Ref) < 250
+ 			OR ABS(Presseur_Aval_L12.Val_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Ref) < 250
+ 			OR ABS(Presseur_Aval_L12.Val_Opp_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Opp_Ref) < 250 THEN 
+ 			Def_Calib_Presseurs:=TRUE;
+ 		ELSE
+ 			Calib_Presseurs_OK:=TRUE;
+ 		END_IF
+ 		Step_Calib_Presseurs_Laser:=0;	
+ 	 END_IF 
+ 	 
+  END_CASE  
+ //pom codeur de sécu incrémentaux
+  CASE Step_Pom_CodeurSecu OF 
+  	1: //Retrait Z
+		IF NOT Deg_Laser_full_ok THEN
+			Top_deg_Laser_full:=TRUE;
+		ELSE 
+	  		Step_Pom_CodeurSecu:=2;
+		END_IF
+	2: //A => 0
+		IF ABS(Pos_Reel_A_Laser) >0.5 THEN
+			Pos_cible_A_Laser:=0;
+			En_pos_A_Laser:=FALSE;
+			Top_A_Laser:=TRUE;
+		ELSE
+			Step_Pom_CodeurSecu:=3;
+		END_IF
+	3: //XY laser vers pos pour pom
+		IF ABS(Pos_Reel_X_Laser-Pos_XLaser_PomSecu) >0.5
+		OR ABS(Pos_Reel_Y_Laser-Pos_YLaser_PomSecu) >0.5 THEN
+			Pos_cible_X_Laser:=Pos_XLaser_PomSecu;
+			En_pos_X_Laser:=FALSE;
+			Top_X_Laser:=TRUE;
+			Pos_cible_Y_Laser:=Pos_YLaser_PomSecu;
+			En_pos_Y_Laser:=FALSE;
+			Top_Y_Laser:=TRUE;	
+		ELSE
+				Step_Pom_CodeurSecu:=4;
+		END_IF
+		
+	4: // Envoi start pom codeur sécu
+		Start_Pom_Codeur_Secu:=TRUE;
+		IF Pom_Codeur_Secu_ok THEN 
+			Step_Pom_CodeurSecu:=0;
+		END_IF
+		
+  END_CASE
+ Pom_OK:= Origines_Axes_ok AND Calib_Presseurs_OK AND DI05_Homing_finished AND Pom_Codeur_Secu_ok;
+ 
+(*-------------------- Nouvelle recette donc nouvelle buse => Etalonnage capacitance -----*)
+ IF ProcessID_Driver <> Old_ProcessID THEN	//Créer var old pour mémo si trop rapide mais normalement on reçoit ID driver et le tmps d'envoyer ID à la source l'ID reçut reste différent
+	Old_ProcessID := ProcessID_Driver;
+	Nv_ProcessID:=TRUE;
+ END_IF
+ 
+ 
+(*------------------- RAZ des G7 --------------------------*)
+ IF defaut_general THEN 
+ 	G7_Palpage_Capacitance.SFCInit:=TRUE;
+ END_IF
+ 
+ IF	RE_Mem_arus.Q THEN
+		SFCInit:=TRUE;
+  END_IF
+ IF FE_Mem_arus.Q THEN
+ 	SFCInit:=FALSE;
+ END_IF
+
+ (*SFCInit*)
+ G7_General.SFCInit
+ :=G7_Master_Palpages.SFCInit
+ :=G7_Palpage_Capacitance.SFCInit
+ :=G7_Palpage_Sommet_L.SFCInit
+ :=G7_Cycle_Percages_Laser.SFCInit
+ :=G7_Sel_Face.SFCInit
+ :=SFCInit;
+ G7_Cycle_Percages_Laser.SFCinit:=
+	SFCInit 
+	OR FE_Dec_Manu.Q;
+ 
+(*--------------- Si passage en ARUS ---------------------*)
+ IF RE_Mem_arus.Q THEN
+ 	Allumage_tete_laser:=FALSE;
+ 	Top_perc_laser:=FALSE;
+ 	Start_iso3D:=FALSE;
+ 	Prepa_ISO3D:=FALSE;
+ 	Stop_axes:=FALSE;
+	Start_Gaz:=FALSE;
+	Tir_Laser:=FALSE;
+ 	(*Anticip_stop_laser_sur_G40:=FALSE; 	??
+ 	Top_spray_plasma:=FALSE;	??*)
+ END_IF
+
+(*----------------------- Découpe manuelle laser : X Laser trop proche de la pince ---------------------------------------*) 
+ IF Manu AND Selection_DecManu_Laser 
+ AND Offset_X_Laser + Pos_Reel_X_Laser <= Pos_Reel_X+Zone_X_Interdit_decoupe_manu THEN
+	 	Pince_interdit_decoupe_manu :=TRUE;
+ END_IF
+ 
+ IF Axe_6.NcToPlc.ActPos >-50.5 THEN
+ timePC(NETID:='',START:=TRUE,TMOUT:=T#200MS);
+ END_IF
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_Regulation_Centrale_Atos" Id="{8e4a1b92-0a45-4c95-9aac-57a9f53fcd4e}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Regulation_Centrale_Atos
+VAR_INPUT
+
+	IN								: BOOL;
+
+	Validation						: BOOL;				(*Autorisation nécessaire*)
+
+	Ack_DEF						: BOOL;				(*Acquitement Défaut*)
+
+	Pression_FeedBack				: LREAL;				(*Pression venant du capteur de pression*)
+	Temperature_FeedBack			: LREAL;				(*Température venaut du capteur de Temperature/niveau*)
+
+
+	Mode_Reglage					: BOOL;				(*Mode réglage actif*)
+
+
+	Demande_Basse_Pression			: BOOL;
+
+	PathName						: STRING;
+
+	Filtre_OK							: BOOL;
+	Niveau_Huile_OK					: BOOL;
+
+	Presence_Accumulateur			: BOOL;
+
+END_VAR
+VAR_OUTPUT
+
+	OUT							: BOOL;
+
+	Pression_OK						: BOOL;
+	Pression_Reglage_OK				: BOOL;
+	Defaut_Pression_Consigne			: BOOL;				 (* La consigne demandée est hors limites *)
+	Defaut_Pression_FeedBack		: BOOL;				 (* On n'arrive pas à atteindre la pression de consigne ==> Après une tempo, on passe en défaut  / ou / Coup de belier trop important *)
+
+	Alarme_Temperature_Basse		: BOOL;				(*Huile < 25°C*)
+	Defaut_Temperature_Basse		: BOOL;				(*Huile < 10°C*)
+
+	Alarme_Temperature_Haute		: BOOL;				(*Huile > 70°C*)
+	Defaut_Temperature_Haute			: BOOL;				(*Huile > 75°C*)
+
+	Defaut_Niveau_Huile_Bas			: BOOL;				(*Besoin d'huile*)
+
+	Consigne_Tr_Min					: INT;				(*Consigne RPM*)
+
+	Info_Augmenter_Limiteur_Pression	: BOOL;				(*Affichage Mode Réglage ==> Augmenter*)
+	Info_Reduire_Limiteur_Pression		: BOOL;				(*Affichage Mode Réglage ==> Diminuer*)
+
+	Defaut_Filtre_Colmater				: BOOL;				(*Besoin Nettoyage filtre*)
+
+	Defaut_Centrale_Hydro			: BOOL;				(*Centrale en défaut*)
+
+	Demarrage_Pompe_En_Cours		: BOOL;				(* Pendant la phase de démarrage, pour tourner lentement et ne pas passer en régulation *)
+
+	Pression_Consigne_Temp			: LREAL;
+	PID_Out_RPM					: LREAL;
+	PID_Actif							: BOOL;
+END_VAR
+VAR
+
+	Pression_Consigne				: LREAL := 130;		(*Pression de fonctionnement // fournit par Atos*)
+	Pression_Max					: LREAL := 148;		(*Pression Max // Si l'huile est trop froide la pression monte*)
+	Pression_Min						: LREAL := 0;
+
+	Pression_Consigne_Delta_Min		: LREAL := 5;			(*Utiliser pour le réglage de la pression à régime Minimum*)
+	Pression_Consigne_Delta_Max		: LREAL := 25;			(*Utiliser pour le réglage de la pression à régime Minimum*)
+
+	Min_RPM_Temperature_OK		: LREAL := 320;		(* Température > 25°C ==> Pas Besoin de laminer l'huile  ==> RPM au plus bas*)
+	Min_RPM_Temperature_Basse		: LREAL := 500;		(* Température < 25°C ==> Besoin de laminer l'huile  ==> RPM pas au plus bas*)
+	Max_RPM_Alarme_Temperature	: LREAL := 2000;		(* Température < 25°C  ou Température > 70°C  *)
+	Max_RPM_Temperature_OK		: LREAL := 2500;		(* Température >= 25°C  ou Température <= 70°C  *)
+
+	Min_RPM_Seuil: LREAL;
+	Max_RPM_Seuil: LREAL;
+
+	Temperature_Min_Limite			: LREAL := 5;			(*Température de défaut // huile trop visqueuse*)
+	Temperature_Min					: LREAL := 10;			(*Temperature Mini pour tourner au dessus de 2000 tr/min*)
+	Temperature_Max					: LREAL := 70;			(*Température d'alarme donnée par atos*)
+	Temperature_Max_Limite			: LREAL := 75;			(*Déterioration des joints à 80°C*)
+
+	TON_No_Move					: TON;
+	TON_Validation					: TON;
+
+	TON_Defaut_Pression				: TON;
+	TON_Defaut_Pression_Max			: TON;
+	TON_Defaut_Pression_Max_Temp_Basse					: TON;
+	TON_Defaut_Pression_Min			: TON;
+	TON_Retour_En_Basse_Vitesse	: TON;
+	TP_Masquage_Pression_Faible_a_Retour_En_Basse_Vitesse	: TP;
+	TON_Time_Utilisation_Pome		: TON;
+
+	PID_Pompe						: FB_BasicPID;
+	PID_Reset						: BOOL;
+	Ctrl_Cycle_Time					: LREAL := 0.05;
+	Gain_P							: LREAL := 20;
+	Gain_I							: LREAL := 5.0;
+	Gain_D							: LREAL := 1.0
+;
+	Damping_Time					: LREAL := 0.5;
+
+	RE_V_Max_Pompe_Atteinte		: R_TRIG;
+	Memo_Pression_V_Max_Pompe_Atteinte: LREAL;
+
+	TON_Demande_Basse_Vitesse		: TON;
+	Memo_Pression_Atteinte_Au_Demarrage: BOOL;
+	TON_V_Max_Atteinte				: TON;
+
+	pres								: BOOL;
+	presmax							: BOOL;
+	presmin							: BOOL;
+
+
+	(*divers fichier texte*)
+	step								: INT;
+	Trig								: R_TRIG;
+	hSrcFile							: UINT;
+	En_Tete							: STRING;
+	En_Tete_OK						: INT;
+	Print								: STRING;
+	TON_Tab_Temp					:TON;
+
+	(*Ouverture fichier*)
+	fbFileOpen						: FB_FileOpen;
+	bFileOpenBusy					: BOOL;
+	bFileOpenError					: BOOL;
+	nFileOpenErrId					: UDINT;
+	bError							: BOOL;
+
+	(*écriture fichier*)
+	fbFileWrite						: FB_FileWrite;
+	bFileWriteBusy					: BOOL;
+	bFileWriteError					: BOOL;
+	nFileWriteErrorId					: UDINT;
+	nFileWriteCount					: UDINT;
+
+	(*Férmeture et suppression fichier*)
+	fbFileClose						: FB_FileClose;
+	fbFileDelete						: FB_FileDelete;
+
+	Ton_Activate						: TON;
+
+	(*Horaire*)
+	fbTime							: FB_LocalSystemTime;
+	System_Time						: TIMESTRUCT;
+	Heure							: STRING;
+	Minute							: STRING;
+	Seconde							: STRING;
+
+	TON_Demarrage_Defauts		:TON;
+	AMS_Net_ID 					: T_AmsNetID :='10.13.232.229.1.1';
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF IN THEN
+
+
+	(* TON_Validation sert au démarrage de la pompe, pour ne pas avoir de montée dans les tours alors que l'on n'a pas encore atteint la pression de Consigne *)
+	(* A la Validation, tant que la Tempo n'est pas écoulée, on reste à 200 RPM, le temts de monter à Pression Consigne *)
+	(* Après TON_Validation, on peut rentrer dans la régulation *)
+	IF Validation AND Pression_OK THEN
+		Memo_Pression_Atteinte_Au_Demarrage := TRUE;
+	END_IF;
+	IF NOT Validation THEN
+		Memo_Pression_Atteinte_Au_Demarrage := FALSE;
+	END_IF;
+	TON_Validation(in := Memo_Pression_Atteinte_Au_Demarrage, pt := t#1S);
+	(* TON_No_Move sert à déterminer qu'il n'y a plus de mouvement car on a la pression demandée *)
+	TON_No_Move( in := (Pression_FeedBack > Pression_Consigne - (Pression_Consigne_Delta_Min) ), pt := t#0s);
+
+	(*Pression OK quand elle se trouve entre la consigne +delta Min et la consigne + delta Max*)
+	Pression_OK :=	((Pression_FeedBack > Pression_Consigne -Pression_Consigne_Delta_Min) AND (Pression_FeedBack <= Pression_Consigne + Pression_Consigne_Delta_Max) AND NOT Alarme_Temperature_Basse) OR
+					((Pression_FeedBack > Pression_Consigne - Pression_Consigne_Delta_Min) AND (Pression_FeedBack <= Pression_Max + Pression_Consigne_Delta_Max) AND Alarme_Temperature_Basse);
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** DEB TEMPS UTILISATION POMPE ***************************************************************)
+	(****************************************************************************************************************************************************************************)
+	TON_Time_Utilisation_Pome(in := Validation AND NOT TON_Time_Utilisation_Pome.Q, pt := t#60s);
+	IF TON_Time_Utilisation_Pome.Q THEN
+		NB_Min_En_Service := NB_Min_En_Service + 1;
+		IF NB_Min_En_Service >= 60 THEN
+			NB_Heures_En_Service := NB_Heures_En_Service + 1;
+			NB_Min_En_Service := 0;
+		END_IF;
+	END_IF;
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** FIN TEMPS UTILISATION POMPE ****************************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** DEB LIMITATION DES VITESSES POMPES *****************************************************)
+	(****************************************************************************************************************************************************************************)
+	(*Alarme Temperature*)
+	IF (Temperature_FeedBack < Temperature_Min) AND NOT Defaut_Temperature_Basse THEN
+		Alarme_Temperature_Basse := TRUE;
+	END_IF;
+	IF (Temperature_FeedBack > Temperature_Min + 0.3) AND NOT Defaut_Temperature_Basse THEN
+		Alarme_Temperature_Basse := FALSE;
+	END_IF;
+
+	IF (Temperature_FeedBack > Temperature_Max) AND NOT Defaut_Temperature_Haute THEN
+		Alarme_Temperature_Haute := TRUE;
+	END_IF;
+	IF (Temperature_FeedBack < Temperature_Max - 0.3) AND NOT Defaut_Temperature_Haute THEN
+		Alarme_Temperature_Haute := FALSE;
+	END_IF;
+
+
+(*	Alarme_Temperature_Basse 	:= (Temperature_FeedBack < Temperature_Min) AND NOT Defaut_Temperature_Basse;
+	Alarme_Temperature_Haute	:= (Temperature_FeedBack > Temperature_Max) AND NOT Defaut_Temperature_Haute; *)
+
+	(* Vitesse Min et Vitesse Max = f(Température Huile) *)
+	IF Alarme_Temperature_Basse THEN
+		Min_RPM_Seuil := Min_RPM_Temperature_Basse;			(* Pour Laminer et Donc Chauffer L'Huile *)
+		Max_RPM_Seuil := Max_RPM_Alarme_Temperature;		(* Pour ne pas Caviter, En Basse Température, On ne Doit Pas Tourner Trop Vite *)
+	ELSE
+		Min_RPM_Seuil := Min_RPM_Temperature_OK;
+		IF Alarme_Temperature_Haute THEN
+			Max_RPM_Seuil := Max_RPM_Alarme_Temperature;	(* Pour ne pas Chauffer L'Huile, En Haute Température, On Limite la Vitesse De Rotation *)
+		ELSE
+			Max_RPM_Seuil := Max_RPM_Temperature_OK;		(* Si Pas d'Alarme, On Tourne Normalement *)
+		END_IF;
+	END_IF;
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** FIN LIMITATION DES VITESSES POMPES ******************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** DEB REGULATION PRESSION QUAND MOUVEMANTS *************************************)
+	(****************************************************************************************************************************************************************************)
+
+	(* Si on arrive à V_Max, c'est que l'on atteint pas la Pression Consigne, donc, Pour que le PID ne demande plus à augmenter la vitesse, on Flash la Pression FeedBack et cette dernière deviendra la Pression de Consigne *)
+	TON_V_Max_Atteinte(in := Consigne_Tr_Min >= Max_RPM_Seuil, pt := t#1s);
+	RE_V_Max_Pompe_Atteinte(clk := TON_V_Max_Atteinte.Q);
+	IF RE_V_Max_Pompe_Atteinte.Q THEN
+		Memo_Pression_V_Max_Pompe_Atteinte := Pression_FeedBack-5;
+	END_IF;
+
+	IF TON_V_Max_Atteinte.Q  THEN
+		Pression_Consigne_Temp := Memo_Pression_V_Max_Pompe_Atteinte;
+	ELSE
+		IF NOT Demande_Basse_Pression THEN
+			Pression_Consigne_Temp := Pression_Consigne - 5;
+		ELSE
+			Pression_Consigne_Temp := Pression_Consigne - 5;
+		END_IF;
+	END_IF;
+
+	PID_Pompe.fSetpointValue	:= Pression_Consigne_Temp;
+	PID_Pompe.fActualValue	:= Pression_FeedBack;
+	PID_Pompe.fCtrlCycleTime	:= Ctrl_Cycle_Time;
+	PID_Pompe.bReset		:= PID_Reset;
+	IF NOT Demande_Basse_Pression THEN
+		PID_Pompe.fKp			:= Gain_P;
+		PID_Pompe.fTn			:= Gain_I;
+		PID_Pompe.fTv			:= Gain_D;
+		PID_Pompe.fTd			:= Damping_Time;
+	ELSE
+		PID_Pompe.fKp			:= Gain_P;
+		PID_Pompe.fTn			:= Gain_I;
+		PID_Pompe.fTv			:= Gain_D;
+		PID_Pompe.fTd			:= Damping_Time;
+	END_IF;
+
+
+	IF  TON_Validation.Q THEN
+		PID_Pompe();
+	END_IF;
+
+	(* Quand il n'y a plus de mouvement, on n'utilise plus le PID, on revient à V_Min *)
+	PID_Reset := TON_No_Move.Q OR NOT Validation;	(*ALEX Annul defaut ciao*)
+	PID_Actif := NOT PID_Reset;
+
+	IF TON_Validation.Q THEN
+		IF PID_Pompe.fCtrlOutput < Min_RPM_Seuil THEN
+			TON_Demande_Basse_Vitesse(in := TRUE, pt := t#1s);
+			IF TON_Demande_Basse_Vitesse.Q THEN
+				Consigne_Tr_Min := LREAL_TO_INT(Min_RPM_Seuil);
+			ELSE
+				IF NOT Alarme_Temperature_Basse THEN
+					Consigne_Tr_Min := LREAL_TO_INT(Min_RPM_Seuil*2);
+				ELSE
+					Consigne_Tr_Min := LREAL_TO_INT(Min_RPM_Seuil);
+				END_IF;
+			END_IF;
+		END_IF;
+		IF PID_Pompe.fCtrlOutput > Max_RPM_Seuil THEN
+			TON_Demande_Basse_Vitesse(in := FALSE, pt := t#1s);
+			Consigne_Tr_Min := LREAL_TO_INT(Max_RPM_Seuil);
+		END_IF;
+		IF PID_Pompe.fCtrlOutput >= Min_RPM_Seuil AND PID_Pompe.fCtrlOutput <= Max_RPM_Seuil THEN
+			TON_Demande_Basse_Vitesse(in := FALSE, pt := t#1s);
+			Consigne_Tr_Min := LREAL_TO_INT(PID_Pompe.fCtrlOutput);
+		END_IF;
+	ELSIF Validation THEN
+			(* Pour qu'au démarrage, on ne monte pas à plus de Min_RPM_Temperature_OK, cela évite à la pompe de monter dans les tours, avant d'atteindre la pression de consigne *)
+		TON_Demande_Basse_Vitesse(in := FALSE, pt := t#1s);
+		Consigne_Tr_Min := LREAL_TO_INT(Min_RPM_Seuil);
+	ELSE
+		Consigne_Tr_Min := 0;
+	END_IF;
+
+	PID_Out_RPM := (PID_Pompe.fCtrlOutput);
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** FIN REGULATION PRESSION QUAND MOUVEMANTS **************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** DEB DEMARRAGE DE LA POMPE ****************************************************************)
+	(****************************************************************************************************************************************************************************)
+	Demarrage_Pompe_En_Cours := NOT Mode_Reglage AND Validation AND NOT TON_Validation.Q;
+	IF Demarrage_Pompe_En_Cours THEN
+		IF Presence_Accumulateur THEN
+			Consigne_Tr_Min := 2000;
+		ELSE
+			Consigne_Tr_Min := 400;
+		END_IF;
+	END_IF;
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** FIN DEMARRAGE DE LA POMPE ****************************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** DEB MODE REGLAGE ******************************************************************************)
+	(****************************************************************************************************************************************************************************)
+	IF Mode_Reglage THEN
+		Consigne_Tr_Min := 320;
+		Info_Augmenter_Limiteur_Pression 	:= Pression_FeedBack < (Pression_Consigne + Pression_Consigne_Delta_Min + ((Pression_Consigne_Delta_Max - Pression_Consigne_Delta_Min)/2))-1;
+		Info_Reduire_Limiteur_Pression 		:= Pression_FeedBack > (Pression_Consigne + Pression_Consigne_Delta_Min + ((Pression_Consigne_Delta_Max - Pression_Consigne_Delta_Min)/2))+1;
+		Pression_Reglage_OK 			:= NOT Info_Augmenter_Limiteur_Pression AND NOT Info_Reduire_Limiteur_Pression;
+	ELSE
+		Info_Augmenter_Limiteur_Pression 	:= FALSE;
+		Info_Reduire_Limiteur_Pression 		:= FALSE;
+		Pression_Reglage_OK 			:= FALSE;
+	END_IF;
+	(****************************************************************************************************************************************************************************)
+	(***************************************************************** FIN MODE REGLAGE ********************************************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(************************************************************************** DEB DEFAUTS ******************************************************************************)
+	(****************************************************************************************************************************************************************************)
+	(*Defaut Pression Consigne*)
+	IF  (Pression_Consigne < Pression_Min) OR (Pression_Consigne > Pression_Max) THEN
+		Defaut_Pression_Consigne := TRUE;
+	END_IF;
+
+	(*Defaut Pression FeedBack*)	(*ALEX Ajout annul def pour reset tempos*)
+	TON_Defaut_Pression(in := NOT Mode_Reglage AND Validation AND NOT Ack_DEF AND NOT Pression_OK, pt := t#60s);
+	TON_Defaut_Pression_Max(in := (NOT Mode_Reglage AND Validation AND NOT Ack_DEF AND NOT Alarme_Temperature_Basse AND Pression_FeedBack > Pression_Max), pt := t#30s);
+	TON_Defaut_Pression_Max_Temp_Basse (in :=(NOT Mode_Reglage AND Validation AND NOT Ack_DEF AND  Alarme_Temperature_Basse AND Pression_FeedBack > Pression_Max + Pression_Consigne_Delta_Min), pt := t#30s);
+	TON_Defaut_Pression_Min(in := (NOT Mode_Reglage AND Validation AND NOT Ack_DEF AND Pression_FeedBack <= Pression_Min), pt := t#60s);
+
+(*Debug Alex*)
+	IF TON_Defaut_Pression.Q THEN pres:=TRUE; END_IF
+	IF TON_Defaut_Pression_Max.Q THEN presmax:=TRUE; END_IF
+	IF TON_Defaut_Pression_Min.Q THEN presmin:=TRUE; END_IF
+	IF Ack_DEF THEN	pres:= FALSE;	presmax:= FALSE;		presmin:= FALSE;	END_IF
+(**)
+
+	IF TON_Defaut_Pression_Min.Q OR TON_Defaut_Pression_Max.Q  OR TON_Defaut_Pression.Q THEN
+		Defaut_Pression_FeedBack := TRUE;
+	END_IF
+
+(*ALEX TON a l`appel de la fonction car defaut avant d`appeler les capteurs*)
+	TON_Demarrage_Defauts(in:=TRUE, pt:= t#11s);
+	IF TON_Demarrage_Defauts.Q THEN
+		(*Defaut Temperature*)
+		IF (Temperature_FeedBack <Temperature_Min_Limite) THEN
+			Defaut_Temperature_Basse := TRUE;
+		ELSIF (Temperature_FeedBack > Temperature_Max_Limite) THEN
+			Defaut_Temperature_Haute := TRUE;
+		END_IF
+	
+		(*Defaut Niveau*)
+		IF NOT Niveau_Huile_OK THEN
+			Defaut_Niveau_Huile_Bas := TRUE;
+		END_IF
+	
+		(*Defaut filtre colmater*)
+		IF Filtre_OK = FALSE THEN
+			Defaut_Filtre_Colmater := TRUE;
+		END_IF
+	END_IF
+
+	(*Présence Defauts*)
+	IF Defaut_Pression_Consigne OR Defaut_Pression_FeedBack  OR Defaut_Temperature_Basse OR Defaut_Temperature_Haute OR Defaut_Niveau_Huile_Bas OR Defaut_Filtre_Colmater THEN
+		Consigne_Tr_Min := 0;
+		Defaut_Centrale_Hydro := TRUE;
+	END_IF
+
+	(*ACK defauts*)
+	IF Ack_DEF THEN
+		Defaut_Filtre_Colmater := FALSE;
+		Defaut_Pression_Consigne := FALSE;
+		Defaut_Pression_FeedBack := FALSE;
+		Defaut_Temperature_Basse := FALSE;
+		Defaut_Temperature_Haute := FALSE;
+		Defaut_Niveau_Huile_Bas := FALSE;
+		Defaut_Centrale_Hydro := FALSE;
+	END_IF
+	(****************************************************************************************************************************************************************************)
+	(************************************************************************** FIN DEFAUTS *******************************************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+	(*****************************************************************************************************************************************************************)
+	(*****************************************************************TABLEAU TEMPERATURE**************************************************************)
+	(*****************************************************************************************************************************************************************)
+
+	(*Tempo 1min*)
+	TON_Tab_Temp(in := NOT TON_Tab_Temp.Q, pt := t#60s);
+
+	(*Décalage tableau température sur 1 heure*)
+	IF TON_Tab_Temp.Q AND NOT Defaut_Centrale_Hydro THEN
+		FOR Var_TAB_Logs_Temperature := 2 TO Nbre_Elements_TAB_Logs_Temperature  DO
+			TAB_Log_Before_Temperature_Fault[Var_TAB_Logs_Temperature-1] := TAB_Log_Before_Temperature_Fault[Var_TAB_Logs_Temperature];
+		END_FOR
+
+		(*Condition Température sur 1 heure*)
+		IF Validation THEN
+				IF Temperature_FeedBack <= -10 THEN
+				TAB_Log_Before_Temperature_Fault[Nbre_Elements_TAB_Logs_Temperature] := -10;
+			ELSE
+				TAB_Log_Before_Temperature_Fault[Nbre_Elements_TAB_Logs_Temperature] := LREAL_TO_SINT (Temperature_FeedBack);
+			END_IF
+		END_IF
+	END_IF
+
+	(*****************************************************************************************************************************************************************)
+	(*****************************************************************FIN TABLEAU TEMPERATURE*********************************************************)
+	(*****************************************************************************************************************************************************************)
+
+
+
+	(******************************************************************************************************************************************************************)
+	(**************************************************************** DEB ENREG TEMPERATURE************************************************************)
+	(******************************************************************************************************************************************************************)
+
+	Ton_Activate ( in := NOT Ton_Activate.Q, pt := t#60s);
+
+	(*Récupération de l'horaire actuelle*)
+	fbTime(
+		sNetID:=AMS_Net_ID,
+		bEnable:=TRUE ,
+		dwCycle:= 1,
+		systemTime=>System_Time ,);
+
+	(*Réarmement en cas de défaut*)
+	IF ACK_File_Def THEN
+		Step := 0;
+		bFileOpenError := FALSE;
+		bFileWriteError := FALSE;
+	END_IF
+
+	(*écriture de l'en-tête*)
+	En_Tete := ('Date/Heure	Temperature
+');
+
+	(*Réglage format Heure / Minute / Seconde*)
+	IF System_Time.wHour = 0 THEN
+		Heure := '00';
+	ELSIF System_Time.wHour > 0 AND System_Time.wHour < 10 THEN
+		Heure := CONCAT('0',WORD_TO_STRING(System_Time.wHour));
+	ELSIF System_Time.wHour >= 10 THEN
+		Heure := WORD_TO_STRING(System_Time.wHour);
+	END_IF
+
+	IF System_Time.wMinute = 0 THEN
+		Minute := '00';
+	ELSIF System_Time.wMinute > 0 AND System_Time.wMinute < 10 THEN
+		Minute := CONCAT('0',WORD_TO_STRING(System_Time.wMinute));
+	ELSIF System_Time.wMinute >= 10 THEN
+		Minute := WORD_TO_STRING(System_Time.wMinute);
+	END_IF
+
+	IF System_Time.wSecond = 0 THEN
+		Seconde := '00';
+	ELSIF System_Time.wSecond > 0 AND System_Time.wSecond < 10 THEN
+		Seconde := CONCAT('0',WORD_TO_STRING(System_Time.wSecond));
+	ELSIF System_Time.wSecond >= 10 THEN
+		Seconde := WORD_TO_STRING(System_Time.wSecond);
+	END_IF
+
+	(*écriture de l'horaire et des valeurs de temperature d'huile et de pression d'huile*)
+	Print := CONCAT(Heure,':');
+	Print := CONCAT(Print,Minute);
+	Print := CONCAT(Print,':');
+	Print := CONCAT(Print,Seconde);
+	Print := CONCAT(Print,'		');
+	Print := CONCAT(Print,LREAL_TO_STRING (Temperature_FeedBack));
+	Print := CONCAT(Print,'
+');
+
+	(*boucle pour ouverture, écriture et férmeture du fichier texte*)
+	CASE step OF
+		0:	Trig (clk := Ton_Activate.Q AND Validation );
+			IF Trig.Q THEN
+				hSrcFile := 0;
+				Step := 1;
+			END_IF
+
+		1:	fbFileOpen(bExecute:= FALSE);
+			fbFileOpen(
+				sNetId:=AMS_Net_ID ,
+				sPathName:= PathName,											(*Arborescence*)
+				nMode:= FOPEN_MODEAPPEND,									(*Sélection du mode*)
+				ePath:= PATH_GENERIC,
+				bExecute:= TRUE ,
+				tTimeout:= t#2s,
+				bBusy=> bFileOpenBusy ,
+				bError=> bFileOpenError,
+				nErrId=> nFileOpenErrId ,);
+
+			Step := Step +1;
+
+		2:	fbFileOpen( bExecute:= FALSE);
+			IF ( NOT fbFileOpen.bBusy ) THEN
+				IF ( fbFileOpen.bError ) THEN
+					bError := TRUE;
+					Step := 50;												(*Defaut à l'ouverture du fichier*)
+				ELSIF En_Tete_OK = 0 THEN
+					hSrcFile := fbFileOpen.hFile;									(*Sauvegarde pointeur vers le fichier ouvert*)
+					fbFileOpen( bExecute:= FALSE);
+					Step := Step + 1;
+				ELSIF En_Tete_OK = 1 THEN
+					hSrcFile := fbFileOpen.hFile;									(*Sauvegarde pointeur vers le fichier ouvert*)
+					fbFileOpen( bExecute:= FALSE);
+					Step := 5;
+				END_IF
+			END_IF
+
+	(********BESOIN D'ECRIRE L'EN-TETE**************)
+
+		3:	fbFileWrite(bExecute := FALSE);
+			fbFileWrite(
+				sNetId:= AMS_Net_ID ,
+				hFile:=hSrcFile ,
+				pWriteBuff:= ADR (En_Tete) ,
+				cbWriteLen:= LEN  (En_Tete),
+				bExecute:= TRUE,
+				tTimeout:= t#2s,
+				bBusy=> bFileWriteBusy,
+				bError=>bFileWriteError ,
+				nErrId=>nFileWriteErrorId ,
+				cbWrite=> nFileWriteCount);
+
+			En_Tete_OK := 1;			(*l'en-tête est écrit une fois au début du document*)
+			Step := Step+1;
+
+		4:	fbFileWrite( bExecute := FALSE );
+			IF ( NOT fbFileWrite.bBusy ) THEN
+				IF ( fbFileWrite.bError ) THEN
+					bError := TRUE;
+					Step := 50;					(*Defaut à l'ecriture du fichier*)
+				ELSE
+					Step := Step + 1;
+				END_IF
+			END_IF
+
+	(********FINIT D'ECRIRE L'EN-TETE**************)
+
+		5:	fbFileWrite(bExecute := FALSE);
+			fbFileWrite(
+				sNetId:=AMS_Net_ID ,
+				hFile:=hSrcFile ,
+				pWriteBuff:= ADR (Print) ,
+				cbWriteLen:= LEN  (Print),
+				bExecute:= TRUE,
+				tTimeout:= t#2s,
+				bBusy=> bFileWriteBusy,
+				bError=>bFileWriteError ,
+				nErrId=>nFileWriteErrorId ,
+				cbWrite=> nFileWriteCount);
+
+			Step := Step+1;
+
+		6:	fbFileWrite( bExecute := FALSE );
+			IF ( NOT fbFileWrite.bBusy ) THEN
+				IF ( fbFileWrite.bError ) THEN
+					bError := TRUE;
+					Step := 50;					(*Defaut à l'ecriture du fichier*)
+				ELSE
+					Step := Step + 1;
+				END_IF
+			END_IF
+
+
+
+		7:	fbFileClose(bExecute := FALSE);
+			fbFileClose(
+				sNetId:= AMS_Net_ID,
+				hFile:= hSrcFile,
+				bExecute:= TRUE,
+				tTimeout:= T#2s);
+
+			Step := Step + 1;
+
+		8:	fbFileClose( bExecute := FALSE );
+			IF ( NOT fbFileClose.bBusy ) THEN
+				IF ( fbFileClose.bError ) THEN
+					bError := TRUE;
+					Step := 50;						(*Defaut pendant la femeture du fichier*)
+				ELSE
+					Step := 0;
+				END_IF
+			END_IF
+
+		50:	IF (fbFileOpen.bError) OR (fbFileWrite.bError) THEN				(*étape si érreur dans un bloc fonction*)
+				Step := 7;
+				En_Tete_OK := 0;
+			ELSE
+				IF Ack_DEF THEN
+					Step := 0;
+					En_Tete_OK := 0;
+				END_IF
+			END_IF
+
+	END_CASE
+
+	(*suppression du fichier texte*)
+	IF File_Delete THEN
+		fbFileDelete (bExecute := FALSE);
+		fbFileDelete (sNetId :=AMS_Net_ID,
+					sPathName := 'PathName',
+					ePath := PATH_GENERIC,
+					bExecute := TRUE,
+					tTimeout := t#2s);
+		En_Tete_OK := 0;					(*si le fichier texte est supprimer alors il faut réécrire l'en-tête*)
+	END_IF
+
+
+
+	(****************************************************************************************************************************************************************************)
+	(************************************************************************** FIN ENREG TEMPERATURE**************************************************************)
+	(****************************************************************************************************************************************************************************)
+
+
+
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

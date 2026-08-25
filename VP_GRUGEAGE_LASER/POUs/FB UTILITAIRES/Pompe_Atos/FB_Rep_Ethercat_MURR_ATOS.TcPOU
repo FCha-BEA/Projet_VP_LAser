@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_Rep_Ethercat_MURR_ATOS" Id="{0a4c8e99-9838-4711-a01d-44582f32b2ad}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Rep_Ethercat_MURR_ATOS
+VAR_INPUT
+	Valid : BOOL;
+
+	LINK_REP_TSM_MAP_DI : UINT;
+
+	Port_0_Pin_4_Sortie : BOOL;
+	Port_0_Pin_2_Sortie : BOOL;
+	Port_1_Pin_4_Sortie : BOOL;
+	Port_1_Pin_2_Sortie : BOOL;
+	Port_2_Pin_4_Sortie : BOOL;
+	Port_2_Pin_2_Sortie : BOOL;
+	Port_3_Pin_4_Sortie : BOOL;
+	Port_3_Pin_2_Sortie : BOOL;
+	Port_4_Pin_4_Sortie : BOOL;
+	Port_4_Pin_2_Sortie : BOOL;
+	Port_5_Pin_4_Sortie : BOOL;
+	Port_5_Pin_2_Sortie : BOOL;
+	Port_6_Pin_4_Sortie : BOOL;
+	Port_6_Pin_2_Sortie : BOOL;
+	Port_7_Pin_4_Sortie : BOOL;
+	Port_7_Pin_2_Sortie : BOOL;
+END_VAR
+
+VAR_OUTPUT
+	Out : BOOL;
+
+	LINK_REP_TSM_MAP_DO : UINT;
+
+	Port_0_Pin_4_Entree : BOOL;
+	Port_0_Pin_2_Entree : BOOL;
+	Port_1_Pin_4_Entree : BOOL;
+	Port_1_Pin_2_Entree : BOOL;
+	Port_2_Pin_4_Entree : BOOL;
+	Port_2_Pin_2_Entree : BOOL;
+	Port_3_Pin_4_Entree : BOOL;
+	Port_3_Pin_2_Entree : BOOL;
+	Port_4_Pin_4_Entree : BOOL;
+	Port_4_Pin_2_Entree : BOOL;
+	Port_5_Pin_4_Entree : BOOL;
+	Port_5_Pin_2_Entree : BOOL;
+	Port_6_Pin_4_Entree : BOOL;
+	Port_6_Pin_2_Entree : BOOL;
+	Port_7_Pin_4_Entree : BOOL;
+	Port_7_Pin_2_Entree : BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Lecture des Entrées *)
+Port_0_Pin_4_Entree := LINK_REP_TSM_MAP_DI.0;
+Port_0_Pin_2_Entree := LINK_REP_TSM_MAP_DI.1;
+Port_1_Pin_4_Entree := LINK_REP_TSM_MAP_DI.2;
+Port_1_Pin_2_Entree := LINK_REP_TSM_MAP_DI.3;
+Port_2_Pin_4_Entree := LINK_REP_TSM_MAP_DI.4;
+Port_2_Pin_2_Entree := LINK_REP_TSM_MAP_DI.5;
+Port_3_Pin_4_Entree := LINK_REP_TSM_MAP_DI.6;
+Port_3_Pin_2_Entree := LINK_REP_TSM_MAP_DI.7;
+Port_4_Pin_4_Entree := LINK_REP_TSM_MAP_DI.8;
+Port_4_Pin_2_Entree := LINK_REP_TSM_MAP_DI.9;
+Port_5_Pin_4_Entree := LINK_REP_TSM_MAP_DI.10;
+Port_5_Pin_2_Entree := LINK_REP_TSM_MAP_DI.11;
+Port_6_Pin_4_Entree := LINK_REP_TSM_MAP_DI.12;
+Port_6_Pin_2_Entree := LINK_REP_TSM_MAP_DI.13;
+Port_7_Pin_4_Entree := LINK_REP_TSM_MAP_DI.14;
+Port_7_Pin_2_Entree := LINK_REP_TSM_MAP_DI.15;
+
+(* Ecriture des sorties *)
+LINK_REP_TSM_MAP_DO.0 := Port_0_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.1 := Port_0_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.2 := Port_1_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.3 := Port_1_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.4 := Port_2_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.5 := Port_2_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.6 := Port_3_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.7 := Port_3_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.8 := Port_4_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.9 := Port_4_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.10 := Port_5_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.11 := Port_5_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.12 := Port_6_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.13 := Port_6_Pin_2_Sortie;
+LINK_REP_TSM_MAP_DO.14 := Port_7_Pin_4_Sortie;
+LINK_REP_TSM_MAP_DO.15 := Port_7_Pin_2_Sortie;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Rep_Ethercat_MURR_ATOS">
+      <LineId Id="47" Count="34" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Ech_Com_Pupitre" Id="{daf3edfe-34f7-4779-af7a-8a7cede651bf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Ech_Com_Pupitre
+VAR
+	TP_Arret_Opanel_to_PLC: TP;
+	Ton_TP_Arret_Opanel_to_PLC: TON;
+	TEST_vitesse: LREAL;
+	TON_Pnc_Status_203: TON;
+	RE_I_Joystick_ana_Bt_valid: R_TRIG;
+	Ton_Start_Opanel: TON;
+
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*-------------------------------------------------------------------------- Paramètres -------------------------------------------------------------------*)
+	Pnc_Time_Key_Delay := LREAL_TO_TIME(Pnc_Pupitre[13]);
+	Pnc_Time_Key_Repeat := LREAL_TO_TIME(Pnc_Pupitre[14]);
+	Pnc_Time_Unselect := LREAL_TO_TIME(Pnc_Pupitre[15]);
+	Pnc_Selection_by_Jog := Pnc_Pupitre[16]=1;
+
+(*-------------------------------------------------------------------------- Fonctions pupitre-------------------------------------------------------------------*)
+	Pnc_Status[201]:=Pnc_Index_Fct_PLC_valide;
+	Pnc_Status[202]:=Pnc_Index_Fct_PLC_Presel;
+	
+	IF Pnc_Sync_Pupitre[1]<>0 THEN	(*Validation N° index fonction preselection*)
+		Pnc_Enable_Fct_Pup_Presel:=Pnc_Sync_Pupitre[1]=1;
+		Pnc_Sync_Pupitre[1]:=0;
+	END_IF
+	IF Pnc_Sync_Pupitre[2]<>0 THEN	(*N° de index fonction preselection*)
+		Pnc_Index_Fct_Pup_Presel:=LREAL_TO_INT(Pnc_Sync_Pupitre[2]);
+	END_IF
+	IF Pnc_Sync_Pupitre[3]<>0 THEN	(*Modulation vitesse auto (0 à 100%)*)
+		Pnc_Modulation_Vitesse:=Pnc_Sync_Pupitre[3];
+	END_IF
+	
+	
+	(*Permet de réafficher le OPanel sans avoir à faire BP gauche/droite (ce qui modifierait la présélection en Pnc_Status[202]. Pas prévu au départ*)
+	
+	RE_I_Joystick_ana_Bt_valid(clk:=Joystick_Bt_Valid);
+	
+	IF RE_I_Joystick_ana_Bt_valid.Q THEN
+		Pnc_Status[203]:=1;
+	END_IF
+	TON_Pnc_Status_203(in:=Pnc_Status[203]=1,pt:=t#1s);
+	IF TON_Pnc_Status_203.Q THEN
+		Pnc_Status[203]:=0;
+	END_IF
+	
+
+(*-----------------------------Focus actif sur Opanel----------------------------*)
+
+Pnc_Focus_sur_Opanel:=Pnc_Sync_Pupitre[5]=0;
+
+(*----------------------------------MAJ Nbrs de fonctions-----------------------------*)
+
+Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
+
+(*Selections pupitre*)
+(*	FC - Enelever comm quand fcts OPanel complètes
+	Selection_X:= Selection_Unite_Pup=010101;
+	Selection_ZChariot := Selection_Unite_Pup=010102;
+	Selection_XYLaser:=Selection_Unite_Pup=010201;
+	Selection_ZLaser:=Selection_Unite_Pup=010202;
+	Selection_A:=Selection_Unite_Pup=010203;
+	Selection_DecManu_Laser:=Selection_Unite_Pup=010204;
+	Selection_Presseurs_Laser := Selection_Unite_Pup=010301;
+	*)
+	
+	Joystick:= Joystick_Cmd_Bas OR Joystick_Cmd_Haut OR Joystick_Cmd_Gauche OR Joystick_Cmd_Droite;
+
+(*Commandes manuelles*)
+ (*-------------------- Serr / Desserr presseurs ----------------------------*)
+ Dem_Desserrage_Presseurs_Manu := (Manu AND Selection_Presseurs_Laser AND Joystick_Cmd_Haut) OR Divers_cycles.TP_Desserrage_Manu.Q;															 
+ Dem_Serrage_Presseurs_Manu := Manu AND Selection_Presseurs_Laser AND Joystick_Cmd_Bas AND NOT Divers_cycles.TP_Desserrage_Manu.Q;
+ IF NOT auto THEN
+ 	Dem_Serrage_Presseur_Amont_Laser_Auto:=
+ 	Dem_Desserrage_Presseur_Amont_Laser_Auto:=
+ 	Dem_Serrage_Presseur_Aval_Laser_Auto:=
+ 	Dem_Desserrage_Presseur_Aval_Laser_Auto	:=FALSE;
+ END_IF
+
+ (*-------------------- Relevage / Abaissement pince --------------------------*)
+  	Bit_Relevage_pince := Selection_X AND Joystick_Cmd_Haut AND NOT Pince_dans_Machine AND Fin_Desserage_Pince AND NOT Mem_Arus;
+	Bit_Abaissement_pince:= Selection_X AND Joystick_Cmd_Bas AND NOT Mem_Arus;
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

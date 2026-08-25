@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Str_Recette_Laser" Id="{9c58208b-73d4-490a-9621-590bf79465d1}">
+    <Declaration><![CDATA[TYPE Str_Recette_Laser :
+STRUCT
+	Id_Driver       : LREAL;		 
+    Type_Process    : LREAL;	 
+    Epaisseur       : LREAL;		 
+    Type_Gaz        : LREAL;	 
+    Type_Buse       : LREAL;	 
+    Type_Matiere    : LREAL;	 
+    Taille_Buse     : LREAL;	 
+    Perp_Chanfrein  : LREAL;	 
+    Prof_Marq       : LREAL;	 
+    Angle           : LREAL;		 
+    Nb_Etape_Perc   : LREAL;	 
+    Saignee         : LREAL;	 
+    Free2           : LREAL;		 
+    Free3           : LREAL;		 
+    Free4           : LREAL;		 
+    Free5           : LREAL;		 
+    Free6           : LREAL;		 
+    Free7           : LREAL;		 
+    Free8           : LREAL;		 
+    Free9           : LREAL;		 
+    Tb_Dec          : Str_Param_Laser;	 
+    Tb_Perc         : ARRAY[1..5] OF Str_Param_Laser;
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

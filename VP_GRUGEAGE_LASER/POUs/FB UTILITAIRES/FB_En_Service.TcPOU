@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_En_Service" Id="{3ad692a9-c659-4b17-b9d7-c03b6ebeabaf}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_En_Service
+VAR_INPUT
+	Marche_Arret:BOOL;
+	Secu_Marche:BOOL;
+	Securites:BOOL;
+	En_Service:BOOL;
+	OK_puissance_Var:BOOL;
+	Time_Valid_Ok_Axes:TIME;
+	Time_Devalid_Axes:TIME;
+END_VAR
+VAR_OUTPUT
+	Top_En_Service:BOOL;
+	En_Service_Vars:BOOL;
+	Ok_valid_axes:BOOL;
+	K_Hors_Service_1:BOOL;
+	K_Hors_Service_2:BOOL;
+	K_Hors_Service_3:BOOL;
+END_VAR
+VAR
+	FE_En_service: F_TRIG;
+	FE_Cde_Marche_Arret: F_TRIG;
+	Time_of_axes:TIME;
+	TON_Valid_Axes: TON;
+	TOF_Valid_Axes: TOF;
+	TP_Marche: TP;
+	TP_Arret: TP;
+	Memo_en_service:BOOL;
+	TOF_En_Service:TOF;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[FE_En_service(CLK:=En_service );
+FE_Cde_Marche_Arret(CLK:=Marche_Arret );
+TOF_En_Service(in:=En_service,pt:=t#5s);
+(*Signal marche*)
+TP_Marche(in:=NOT TOF_En_Service.Q
+			AND FE_Cde_Marche_Arret.Q
+			AND NOT En_service
+			AND K_Hors_Service_1 ,pt:=t#1000ms);
+
+Top_En_Service:=TP_Marche.Q;
+
+IF FE_En_service.Q THEN
+	Memo_en_service:=FALSE;
+END_IF
+IF top_en_service THEN
+	Memo_en_service:=TRUE;
+END_IF
+
+(*Signal Arret*)
+TP_Arret(in:=FE_Cde_Marche_Arret.Q AND En_service,pt:=t#1s);
+
+K_Hors_Service_1:=K_Hors_Service_2:=K_Hors_Service_3:=NOT tp_arret.Q AND Secu_Marche;
+
+(*Validation Axes*)
+En_Service_Vars:=En_service;
+IF En_service THEN
+	Time_of_axes:=Time_Devalid_Axes;
+END_IF
+IF FE_En_service.Q THEN
+	Time_of_axes:=t#0s;
+END_IF
+TON_Valid_Axes(in:=En_service AND Securites,pt:=Time_Valid_Ok_Axes);
+TOF_Valid_Axes(in:=TON_Valid_Axes.Q AND Securites,pt:=Time_of_axes);
+Ok_valid_axes:= (TON_Valid_Axes.Q OR TOF_Valid_Axes.Q) AND OK_puissance_Var AND K_Hors_Service_1;
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_En_Service">
+      <LineId Id="29" Count="35" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="Var_I550M" Id="{50db8044-c942-4b33-aa99-415c8a2eb7ba}">
+    <Declaration><![CDATA[TYPE Var_I550M :
+STRUCT
+//INPUT	
+	Status_Word				AT%I*:UINT;
+	Active_Operation_Mode	AT%I*:SINT;
+	Actual_Speed			AT%I*:INT;
+	Apparent_current		AT%I*:INT;
+	Error_Code				AT%I*:UINT;
+	Rated_Current			AT%I*:UINT;
+	Defect_Number			AT%I*:INT;
+	
+//OUTPUT	
+	Net_WordIn1			AT%Q*:UINT;
+	Operation_Mode		AT%Q*:SINT;
+	Set_Speed_Value		AT%Q*:INT;
+	Set_Torque_Value	AT%Q*:INT;
+	Accel_time			AT%Q*:UINT;
+	Decel_time			AT%Q*:UINT;
+	Control_word		AT%Q*:UINT;
+	V_Max_Tr_Min		AT%Q*:INT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

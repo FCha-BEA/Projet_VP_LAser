@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <DUT Name="I_Var_LENZE" Id="{04eef2fa-d9ab-4f26-866e-b43b57f9c323}">
+    <Declaration><![CDATA[TYPE I_Var_LENZE :
+STRUCT
+
+	Status_Word				:UINT;
+	Active_Operation_Mode	:SINT;
+	Actual_Speed			:INT;
+	Apparent_current			:INT;
+	Error_Code				:UINT;
+	Rated_Current			:UINT;
+	Defect_Number			:INT;
+
+END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

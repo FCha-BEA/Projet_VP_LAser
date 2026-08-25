@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="_Divers_lifter_VB" Id="{b9f1caf5-6bd8-4dc6-a3ff-74b2510711ca}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM _Divers_lifter_VB
+VAR	RE_Mem_arus,	RE_Fin_programme:R_TRIG;	
+	FE_Mem_arus,	FE_Laser_Start,		FE_Decoupe_plasma_manuelle:F_TRIG;
+	FE_Top_deg_torche_VB_full, FE_Top_deg_torche_VB_partiel: F_trig;
+	nbr_echantillon, i, nbr_U_cumul: INT;
+	velo_Z_Plasma, U_cumul, Dist_Max, Dist_Min : LREAL;
+	echantillon : ARRAY[1..100] OF LREAL;
+	RE_contact_ohmique, RE_Top_deg_torche_VB_partiel: R_trig;
+	FE_Breakaway_Plasma_ok: F_trig;
+	Ep_retract_partiel_torche_temp: LREAL;
+	TON_NOT_Kjellberg_contact_ohmique:TON;
+	blocage_torche_grande_variation_tension_scope: BOOL;
+	id_Dist_max, id_Dist_min : INT;
+	step_top_torche: int;
+	TON_Bug_top_torche: Ton;
+	FE_TOF_Laser_Start: F_trig;
+	TOF_Laser_Start: TOF;
+	Step_control_geometrie_plasma: INT;
+	TON_Case_102, TON_Case_105: Ton;
+	RE_Top_cycle_controle_geometrie_torche : R_trig;
+	TON_Start_axe: Ton;
+	TP_blocage_torche_grande_variation_tension: TP;
+	time_autoKerf: TIME;
+	ecart_u_arc:LREAL;
+	Rdy_to_retract : bool;
+	RE_Rdy_to_retract: R_trig;
+	RE_autokerf: R_trig;
+	FE_autokerf: F_trig;
+	Memo_Dist_ap_autokerf: INT;
+	Memo_Dist_av_autokerf: INT;
+	inhib_autokerf: BOOL;
+	TP_inhib_autokerf: TP;
+	FE_inhib_autokerf: f_trig;
+	Largeur_pont_Chain_Cut: LREAL;
+	memo_Fin_decoupe: bool := false;
+	memo_contact_torche_tole: BOOL;
+	TON_contact_torche_tole: Ton;
+	RE_Test_reponse_indicielle, RE_Laser_Start: R_trig;
+	FE_Test_reponse_indicielle: F_trig;
+	Memo_lissage_tension_arc_plasma, Memo_fonction_ecrettage_corresction : BOOL;
+	Ponderation_Uarc : INT := 0;
+	TON_Ponderation_Uarc_step1, TON_Ponderation_Uarc_step2, TON_Ponderation_Uarc_step3, TON_Ponderation_Uarc_step4, TON_Ponderation_Uarc_step5: Ton;
+	Case_Ponderation_Uarc: INT;
+	TON_anti_scintillement_collision_Laser: Ton;
+	RE_Lifter_VB_ok_pour_decoupe: R_trig;
+	RE_Start_ISO_5D: R_trig;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*********************** Front et tempo **********************)
+	RE_Mem_arus(clk:=Mem_arus);			FE_Mem_arus(clk:=Mem_arus);
+	FE_Decoupe_plasma_manuelle(clk:=Selection_DecManu_Laser AND Joystick);
+	FE_Laser_Start(clk:= Laser_Start); //tempo Pour attendre FE_jog avant de demander un retract
+	RE_Laser_Start(clk:= Laser_Start); //pour detecter le début d'une coupe manuelle
+	FE_TOF_Laser_Start(clk:= TOF_Laser_Start.Q);
+	TOF_Laser_Start(in:=Laser_Start,PT:=T#0.5S);
+	FE_Top_deg_torche_VB_full(clk:=Top_deg_Laser_full);
+	FE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
+	RE_Fin_programme(clk:=Sequence[Pt_sequence].M=0);
+	RE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
+	
+
+(*********************** Blocage torche si variation de tension **********************)
+ nbr_echantillon := 30;
+	IF Auto_kerf_active AND NOT Inhib_Auto_kerf_active THEN
+		//Recup Distance max et min sur 30 échantillons
+			Dist_Max := -1;
+			Dist_Min := 32767;
+			U_cumul :=0;
+			nbr_U_cumul :=0;
+			echantillon[1] := Prog_Capacitance_Actual_Value_mm;
+			FOR i:=1 TO nbr_echantillon DO
+				IF echantillon[i]>0 THEN
+					nbr_U_cumul := nbr_U_cumul+1;
+					IF echantillon[i] > Dist_Max THEN
+						Dist_Max := echantillon[i];
+						id_Dist_max := i; 
+					ELSIF echantillon[i] < Dist_Min THEN
+						Dist_Min := echantillon[i];
+						id_Dist_min := i; 
+					END_IF						
+				END_IF
+			END_FOR
+	
+			FOR i:= nbr_echantillon-1 TO 1 BY -1 DO
+				echantillon[i+1] :=  echantillon[i];
+			END_FOR
+		(*	Calcul largeur pont pour traversée saignée, de ce que j'ai compris
+			IF Ep_tole_Driver >= 40 THEN
+				Largeur_pont_Chain_Cut := 28+2*Pnc_plasma_1[35];
+			ELSIF Ep_tole_Driver >=26 THEN
+				Largeur_pont_Chain_Cut := 25+2*Pnc_plasma_1[35];
+			ELSIF Ep_tole_Driver>= 21 THEN
+				Largeur_pont_Chain_Cut := 20+2*Pnc_plasma_1[35];
+			ELSIF Ep_tole_Driver >= 16 THEN
+				Largeur_pont_Chain_Cut := 18+2*Pnc_plasma_1[35];
+			ELSIF Ep_tole_Driver >= 10 THEN
+				Largeur_pont_Chain_Cut := 16+2*Pnc_plasma_1[35];
+			ELSE
+				Largeur_pont_Chain_Cut := 12+2*Pnc_plasma_1[35];
+			END_IF	*)
+	
+		ecart_u_arc := Dist_Max-Dist_Min;
+		//Calcul tmps pour autokerf
+		IF Pnc_Laser[34]<>0 THEN
+			// conversiont du temps en ms, d'où le "60*1000"
+			time_autoKerf := LREAL_TO_TIME(60*1000*Largeur_pont_Chain_Cut/ Pnc_Laser[34]);	// tableau de largeur des pont de CCC (valaeurs renseignée dans lantek) + 2 fois la saignée.
+			//time_autoKerf := LREAL_TO_TIME(2*60*1000*Pnc_plasma_1[35]/ Pnc_plasma_1[34]); 		// deux fois la valeur de la saignés pour etre sur d'avoir depassé la saignée
+		END_IF
+		TP_blocage_torche_grande_variation_tension(
+				in := nbr_U_cumul<>0 
+					AND id_Dist_max < id_Dist_min
+					AND ABS(Dist_Max-Dist_Min)>(11-Auto_kerf_sensitivity)*Auto_kerf_treshhold,
+				pt := time_autoKerf);
+		// inhib de l'autokerf si la tension est troujours trop élevé après le blocage.
+		// permet à la torche de redescendre normalement
+		RE_autokerf(clk:= TP_blocage_torche_grande_variation_tension.Q);
+		FE_autokerf(clk:= TP_blocage_torche_grande_variation_tension.Q);		
+		
+		IF RE_autokerf.Q THEN
+			Memo_Dist_av_autokerf := LREAL_TO_INT(Prog_Capacitance_Actual_Value_mm);
+		END_IF
+		IF FE_autokerf.Q THEN
+			Memo_Dist_ap_autokerf := LREAL_TO_INT(Prog_Capacitance_Actual_Value_mm);
+			IF Memo_Dist_ap_autokerf-Memo_Dist_av_autokerf> Auto_kerf_treshhold THEN
+				inhib_autokerf := TRUE;
+			END_IF
+		END_IF
+		
+		TP_inhib_autokerf(in := inhib_autokerf , pt:=T#1S);
+		FE_inhib_autokerf(clk := TP_inhib_autokerf.Q);
+		IF FE_inhib_autokerf.Q THEN
+			inhib_autokerf := FALSE;
+		END_IF
+		
+		blocage_asserv_gde_variation := TP_blocage_torche_grande_variation_tension.Q
+				AND NOT inhib_autokerf;			
+
+	END_IF
+	
+		IF NOT Lifter_VB_Ok_pour_Decoupe THEN
+		Memo_Dist_ap_autokerf:=0;
+		Memo_Dist_av_autokerf:=0;
+	END_IF
+
+
+(***********************Cycle de réponse indicielle du systeme plasma ******************************** test indiciel à false dans le dernier prog de Mag donc peut être pas utile ? 
+	RE_Lifter_VB_ok_pour_decoupe(clk:=Lifter_VB_ok_pour_decoupe);
+	RE_Test_reponse_indicielle(clk := Test_reponse_indicielle);
+	FE_Test_reponse_indicielle(clk := Test_reponse_indicielle);
+	RE_Start_ISO_5D(clk:=ISO5D_en_cours);
+	IF RE_Test_reponse_indicielle.Q THEN
+		// se débarrasse de toutes les fonctions pour avoir la vrai réponse indicielle du systeme
+		Memo_lissage_tension_arc_plasma := lissage_tension_arc_plasma;
+		Memo_fonction_ecrettage_corresction := fonction_ecrettage_corresction;
+		Inhib_Auto_kerf_active := TRUE;
+		lissage_tension_arc_plasma:= FALSE;
+		fonction_ecrettage_corresction := FALSE;
+	END_IF
+	
+	IF FE_Test_reponse_indicielle.Q THEN
+		// Reactive les fonction de traitement du signal une fois les tests terminés
+		lissage_tension_arc_plasma := Memo_lissage_tension_arc_plasma;
+		fonction_ecrettage_corresction := Memo_fonction_ecrettage_corresction;
+		Inhib_Auto_kerf_active := FALSE;
+	END_IF
+	
+	IF Mem_arus OR NOT Test_reponse_indicielle THEN
+		Ponderation_Uarc := 0;
+		Case_Ponderation_Uarc := 0;
+	END_IF
+	
+	IF Test_reponse_indicielle THEN
+		
+		TON_Ponderation_Uarc_step1(in := Case_Ponderation_Uarc=1, pt:= T#3S);
+		TON_Ponderation_Uarc_step2(in := Case_Ponderation_Uarc=2, pt:= T#1S);
+		TON_Ponderation_Uarc_step3(in := Case_Ponderation_Uarc=3, pt:= T#1.5S);
+		TON_Ponderation_Uarc_step4(in := Case_Ponderation_Uarc=4, pt:= T#1S);
+		TON_Ponderation_Uarc_step5(in := Case_Ponderation_Uarc=5, pt:= T#1S);
+		
+		IF (manu AND RE_Lifter_VB_ok_pour_decoupe.Q)
+			OR
+			(auto AND RE_Start_ISO_5D.Q) THEN
+			Case_Ponderation_Uarc := 1;
+		END_IF
+		
+		IF Case_Ponderation_Uarc<>0 THEN
+			CASE Case_Ponderation_Uarc OF 
+				1: // Début de la découpe : pas de pondération
+					Ponderation_Uarc := 0;
+					IF TON_Ponderation_Uarc_step1.Q THEN
+						Case_Ponderation_Uarc := 3;
+					END_IF
+				2: // première pondération : +1V ; +0.1mm
+					Ponderation_Uarc := -10;
+					IF TON_Ponderation_Uarc_step2.Q THEN
+						Case_Ponderation_Uarc := 3;
+					END_IF
+				3: // deuxième pondération : +10V ; +1mm
+					Ponderation_Uarc := -100;
+					IF TON_Ponderation_Uarc_step3.Q THEN
+						Case_Ponderation_Uarc := 5;
+					END_IF
+				4: // troisième pondération : +20V ; +2mm
+					Ponderation_Uarc := -200;
+					IF TON_Ponderation_Uarc_step4.Q THEN
+						Case_Ponderation_Uarc := 5;
+					END_IF
+				5: // Fin de coupe, retour à 0 pondération, puis arrêt de la découpe
+					Ponderation_Uarc := 0;
+					IF TON_Ponderation_Uarc_step5.Q THEN
+						Laser_Start := FALSE;
+						Case_Ponderation_Uarc := 0;
+					END_IF
+			END_CASE
+		END_IF
+		
+	END_IF*)
+
+(************************* Blocage torche pour grande vitesse ************************)
+	IF Pnc_decoupe[4] >= 6000 THEN
+		blocage_torche_grande_vitesse := TRUE;
+	ELSE
+		blocage_torche_grande_vitesse := FALSE;
+	END_IF
+
+(****************************** Dégagement partiel de la torche (Z)******************************)
+	IF FE_Laser_Start.Q THEN
+		memo_Fin_decoupe := TRUE;
+	END_IF
+	
+	IF (memo_Fin_decoupe OR Top_deg_Laser_partiel)
+	AND G7_Cycle_Percages_Laser.Init.x 
+	AND NOT Z_Laser_en_mode_esclave 
+	AND No_Move_Z_Laser 
+	AND Status_Fb_exec_ISO_3D_init
+	THEN	
+	
+		memo_Fin_decoupe := FALSE;
+		
+		full_retract_torche := Ep_retract_partiel_torche=0;
+		
+		IF Ep_retract_partiel_torche=0 THEN
+			Ep_retract_partiel_torche_temp :=0;
+		ELSIF Ep_secu < Ep_retract_partiel_torche THEN
+			Ep_retract_partiel_torche_temp := pos_ref_torche-Ep_retract_partiel_torche ;
+		ELSE 
+			Ep_retract_partiel_torche_temp := pos_ref_torche-Ep_secu ;
+		END_IF 	
+		
+		IF Ep_retract_partiel_torche_temp < Pnc_axe_Z_Robot.Limite_Moins THEN
+			Pos_cible_Z_Laser:= Ep_retract_partiel_torche_temp ;
+		ELSE 	
+			Pos_cible_Z_Laser:= Ep_retract_partiel_torche_temp ;
+		END_IF
+		
+		IF Retract_speed > Pnc_axe_Z_Robot.Vitesse_PTP THEN
+			Vitesse_Z_Laser_PTP:= Pnc_axe_Z_Robot.Vitesse_PTP;
+		ELSE
+			Vitesse_Z_Laser_PTP := Retract_speed;
+		END_IF
+		Top_Z_Laser:=TRUE;
+		
+	END_IF
+	
+	Deg_Laser_partiel_ok:= ABS(Pos_cible_Z_Laser-Ep_retract_partiel_torche_temp)<2 ;		
+	(*<2 car 1.7 mm d'inertie*)
+	
+	IF Deg_Laser_partiel_ok			(**)
+	OR Bp_Arret_Usinage THEN						(*"Bp_arus" pour arrêter le deg si on rappuie sur Arus*)
+		Top_deg_Laser_partiel:=FALSE;
+		memo_Fin_decoupe := FALSE;
+	END_IF
+	
+	IF FE_Top_deg_torche_VB_partiel.Q THEN
+		Top_Z_Laser :=FALSE;
+	END_IF
+	
+(****************************** Dégagement Full de la torche (Z)******************************)
+	IF  G7_Cycle_Percages_Laser.Init.x 
+		AND (Ref_Ok_X_Laser AND Ref_Ok_Y_Laser AND Ref_Ok_Z_Laser AND Ref_Ok_A_Laser )
+		AND ((Manu AND Selection_ZLaser AND Joystick_Cmd_Gauche)
+			OR FE_mem_arus.Q
+			OR RE_Fin_programme.Q )THEN	// retract en fin de programe ou FE_arus ou Repli manuel
+				Top_deg_Laser_full:=TRUE;
+	END_IF
+	
+	IF Top_deg_Laser_full THEN
+		//retract Z
+		Pos_cible_Z_Laser:= 0 ;	
+		IF Retract_speed > Pnc_axe_Z_Robot.Vitesse_PTP THEN
+			Vitesse_Z_Laser_PTP:= Pnc_axe_Z_Robot.Vitesse_PTP;
+		ELSE
+			Vitesse_Z_Laser_PTP := Retract_speed;
+		END_IF
+		IF NOT Top_Z_Laser THEN
+			Top_Z_Laser:=TRUE;
+		END_IF 	
+	
+	END_IF
+	
+	Deg_Laser_full_ok:=	ABS(Pos_cible_Z_Laser-0)<2;		(*<2 car 1.7 mm d'inertie*)
+	
+	IF Deg_Laser_full_ok			(**)
+	OR Bp_Arret_Usinage THEN						(*"Bp_arus" pour arrêter le deg si on rappuie sur Arus*)
+		Top_deg_Laser_full:=FALSE;
+	END_IF
+	
+	IF FE_Top_deg_torche_VB_full.Q THEN
+		Top_Z_Laser :=FALSE;
+	END_IF
+
+(****************************** Palpage de la torche ******************************)
+ IF (Manu AND NOT mem_Arus 
+ 	AND Selection_ZLaser
+ 	AND Joystick_Cmd_Droite)THEN
+ 		Fct_palpage_Etal:=TRUE;
+ ELSE 
+ 		Fct_palpage_Etal := FALSE;
+ END_IF
+  
+ IF FE_Fct_palpage_Etal.Q OR FE_Decoupe_plasma_manuelle.Q OR mem_arus THEN 
+ 	Pv_Z_Laser := FALSE;
+ 	Palpage_Torche := FALSE;
+ 	Top_Z_Laser :=FALSE;
+ END_IF
+ 
+ IF G7_Cycle_Percages_Laser.Init.x THEN
+ 	limite_couple_negatif_axe_Z_Laser := 1000;
+ END_IF
+
+(****************************** Défaut collision et défaut lifter torche plasma ******************************)
+ TON_anti_scintillement_collision_Laser(in :=DI01_Collision, pt:=T#100MS);
+ FE_Breakaway_Plasma_ok(clk := TON_anti_scintillement_collision_Laser.Q);
+ 
+ IF ((Auto AND CodeM_50 AND ISO_en_cours)	// si decoupe auto en cours...
+ 	 OR										// ...ou...
+ 	(Manu AND Laser_Start)) 					// ...decoupe manu en cours...
+ 	AND FE_Breakaway_Plasma_ok.Q THEN		//... et perte du capteur anti collision
+ 		Defaut_collision_laser:=TRUE;
+ END_IF
+ 
+ IF ((Auto AND CodeM_50)						// Si sequence de decoupe plasma...
+ 		 OR 								// ...ou...
+ 		(Manu AND Laser_Start)) 				// ...coupe manuelle...
+ 	AND DI01_Collision THEN		// ...et torche pas en place, alors ...
+ 	
+ 		Defaut_torche_debrayee:=TRUE;
+ 		// le defaut apparait au debut d'une coupe si la torche n'est pas en place ;
+ 		// contrairement a la colision qui apparait en cours de coupe
+ END_IF
+
+ //RAZ défaut
+	IF Bp_Annul_Defauts THEN
+		Defaut_torche_debrayee:=FALSE;
+		Defaut_contact_torche_tole:= FALSE;	
+		Test_capacitance_defectueux:=FALSE;
+		Top_deg_Laser_full:=FALSE;
+		Top_deg_Laser_partiel:=FALSE;
+		memo_contact_torche_tole := FALSE;
+	END_IF
+
+ TON_contact_torche_tole(in :=  
+		G7_Cycle_Percages_Laser.Init.x 										// permet de couper le plasma en cas de collision non brutale avec la tole
+		AND sequence[Pt_sequence].M=50 AND NOT F_M10						//  défaut unniquement pendant une coupe plasma si on ne bloque pas la troche.
+		AND NOT blocage_asserv_gde_variation						// pour ne pas passer en défaut si une pièce bascule en fin de coupe CCC : pas de M10 sur les ponts
+		AND Laser_Start
+		, pt := T#0.5S);
+
+ IF TON_contact_torche_tole.Q
+ THEN
+ 	Defaut_contact_torche_tole:= TRUE;										(* a tester : risque de contacts parasites avec les gerbes de plasma*)
+ END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

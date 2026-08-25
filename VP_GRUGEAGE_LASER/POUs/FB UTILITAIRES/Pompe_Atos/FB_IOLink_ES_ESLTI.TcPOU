@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+  <POU Name="FB_IOLink_ES_ESLTI" Id="{a450a168-df48-4360-acb8-804c81384bdd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_ES_ESLTI
+VAR_INPUT
+	Valid	:BOOL;
+	Byte0	:BYTE;
+	Byte1	:BYTE;
+	Byte2	:BYTE;
+	Byte3	:BYTE;
+	Byte4	:BYTE;
+	Byte5	:BYTE;
+	Byte6	:BYTE;
+	Byte7	:BYTE;
+	Byte8	:BYTE;
+
+END_VAR
+VAR_OUTPUT
+	Err	:BOOL;
+	Device_OK :BOOL;
+	Temp_Out_Of_Range :BOOL;
+	Pourcentage_Niveau :LREAL;
+	Temperature_Celcius :LREAL;
+	Niveau_OK			:BOOL;
+
+END_VAR
+VAR
+	Pointeur_Niveau : POINTER TO REAL;
+	Niveau_REAL :REAL;
+	Pointeur_Temperature : POINTER TO REAL;
+	Temperature_REAL :REAL;
+
+	Bytes1_4: DWORD;
+	Bytes5_8: DWORD;
+	Byte1_DWORD: DWORD;
+	Byte2_DWORD: DWORD;
+	Byte3_DWORD: DWORD;
+	Byte4_DWORD: DWORD;
+	Byte5_DWORD: DWORD;
+	Byte6_DWORD: DWORD;
+	Byte7_DWORD: DWORD;
+	Byte8_DWORD: DWORD;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF Valid THEN
+
+	Device_OK := Byte0.0;
+	Temp_Out_Of_Range := Byte0.2;
+
+	Byte1_DWORD		:= USINT_TO_DWORD(Byte1);
+	Byte2_DWORD		:= USINT_TO_DWORD(Byte2);
+	Byte3_DWORD		:= USINT_TO_DWORD(Byte3);
+	Byte4_DWORD		:= USINT_TO_DWORD(Byte4);
+	Byte5_DWORD		:= USINT_TO_DWORD(Byte5);
+	Byte6_DWORD		:= USINT_TO_DWORD(Byte6);
+	Byte7_DWORD		:= USINT_TO_DWORD(Byte7);
+	Byte8_DWORD		:= USINT_TO_DWORD(Byte8);
+
+	Bytes1_4 := Byte4_DWORD + SHL(Byte3_DWORD,8) + SHL(Byte2_DWORD,16) + SHL(Byte1_DWORD,24);
+
+	Bytes5_8 := Byte8_DWORD + SHL(Byte7_DWORD,8) + SHL(Byte6_DWORD,16) + SHL(Byte5_DWORD,24);
+(*	Bytes1_4 := SHL(BYTE_TO_DWORD(Byte4),24) OR SHL(BYTE_TO_DWORD(Byte3),16) OR SHL(BYTE_TO_DWORD(Byte2),8) OR BYTE_TO_DWORD(Byte4);
+	Bytes5_8 := Byte5 + SHL(Byte6,8) + SHL(Byte7,16) + SHL(Byte8,24);*)
+
+	Pointeur_Niveau := ADR(Bytes1_4);
+	Niveau_REAL := Pointeur_Niveau^ ;
+	Pourcentage_Niveau := REAL_TO_LREAL(Niveau_REAL);
+
+	Pointeur_Temperature := ADR(Bytes5_8);
+	Temperature_REAL := Pointeur_Temperature^;
+	Temperature_Celcius := REAL_TO_LREAL(Temperature_REAL);
+
+	Niveau_OK := Pourcentage_Niveau >20;
+
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_IOLink_ES_ESLTI">
+      <LineId Id="40" Count="30" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

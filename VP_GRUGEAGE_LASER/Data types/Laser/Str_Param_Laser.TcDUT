@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="Str_Param_Laser" Id="{cd6f0aea-21d0-4ce3-8d98-1d6908ecc835}">
+    <Declaration><![CDATA[TYPE Str_Param_Laser :
+STRUCT
+	Hauteur_Buse           	:LREAL;							//Distance entre pièce et buse - Pour Z laser
+	Distance_Focale        	:LREAL;							//Distance de focale - Pour lentille 
+	Pression_Gaz           	:LREAL;							//Pour servo vanne	
+	Puissance_Laser        	:LREAL;							//Puissance en % du laser - Pour Source
+	Duty_Cycle             	:LREAL;							//Période en % où on envoie la puissance à la fréquence d'impulsion - Pour source
+	Frequence_impulsion    	:LREAL;							//Pour source
+	Tps_phase_perc 			:LREAL;							//Temps de la phase de percage - Pour G7 phase laser 
+	Vitesse_Decoupe			:LREAL;							//Vitesse des axes pour découpe
+	Reserve1				:LREAL;
+	Reserve2				:LREAL;
+	Reserve3				:LREAL;
+	Reserve4				:LREAL;
+	Reserve5				:LREAL;
+	Reserve6				:LREAL;
+	Reserve7				:LREAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

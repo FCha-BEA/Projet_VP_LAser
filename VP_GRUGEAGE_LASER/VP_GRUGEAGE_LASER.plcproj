@@ -1,0 +1,732 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b492f197-d3e9-4017-adf8-5dd2d02dfb9d}</ProjectGuid>
+    <Name>VP_GRUGEAGE_LASER</Name>
+    <Application>{f21062e1-b6b1-45e3-a432-0c80cbcafa66}</Application>
+    <TypeSystem>{5e13d351-bfba-4c7d-899f-931e26ea428e}</TypeSystem>
+    <Implicit_Task_Info>{4a2e9413-1bb4-453e-8df8-82914a7a2f39}</Implicit_Task_Info>
+    <Implicit_KindOfTask>{adb3f635-5e76-42e9-8341-bdf628477636}</Implicit_KindOfTask>
+    <Implicit_Jitter_Distribution>{182e1ec9-096f-48cf-92de-83731f44e420}</Implicit_Jitter_Distribution>
+    <LibraryReferences>{2a9e611e-a34c-47f4-a5f5-09cf66a2d9f1}</LibraryReferences>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Title>PLC Grugeage Laser</Title>
+    <Author>EC/FC</Author>
+    <Description>Module de grugeage laser pour VP
+</Description>
+    <Released>false</Released>
+    <ProjectVersion>0.01</ProjectVersion>
+    <Company>VB</Company>
+    <ProgramVersion>3.1.4026.24</ProgramVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Data types" />
+    <Folder Include="Data types\I_O_Variateurs" />
+    <Folder Include="Data types\IOLINK" />
+    <Folder Include="Data types\Laser" />
+    <Folder Include="Global Variables" />
+    <Folder Include="Global Variables\1 - VARIABLES E_S" />
+    <Folder Include="Global Variables\1 - VARIABLES E_S\02 - I_O_MACHINE" />
+    <Folder Include="Global Variables\1 - VARIABLES E_S\LASER" />
+    <Folder Include="Global Variables\1 - VARIABLES E_S\IO_BE" />
+    <Folder Include="Global Variables\2 - VARIABLES INTERNES" />
+    <Folder Include="Global Variables\2 - VARIABLES INTERNES\CONFIG MACHINE" />
+    <Folder Include="Global Variables\5-TWINCAT" />
+    <Folder Include="POUs" />
+    <Folder Include="POUs\02  - LASER" />
+    <Folder Include="POUs\00 - Echanges PNC" />
+    <Folder Include="POUs\000 - REP ETHERCAT" />
+    <Folder Include="POUs\01 - General\En service" />
+    <Folder Include="POUs\01 - General\En service\Pompe_Atos" />
+    <Folder Include="POUs\01 - Pupitre" />
+    <Folder Include="POUs\02  - LASER\Palpages" />
+    <Folder Include="POUs\09 - Axes" />
+    <Folder Include="POUs\09 - Axes\Chariot" />
+    <Folder Include="POUs\09 - Axes\Laser" />
+    <Folder Include="POUs\FB UTILITAIRES" />
+    <Folder Include="POUs\FB UTILITAIRES\FB_IOLink" />
+    <Folder Include="POUs\01 - General" />
+    <Folder Include="POUs\FB UTILITAIRES\Laser" />
+    <Folder Include="POUs\FB UTILITAIRES\Axes" />
+    <Folder Include="POUs\FB UTILITAIRES\Pompe_Atos" />
+    <Folder Include="POUs\03 - Chariot" />
+    <Folder Include="Visualizations" />
+    <Folder Include="Visualizations\EXPLICATION" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data types\Coordonnees.TcDUT" />
+    <Compile Include="Data types\Laser\Data_Laser.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Laser\Points_Palpage_Laser.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Laser\Str_Presseur_Laser.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Laser\Str_Param_Laser.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\IOL_2IN.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\IOL_3OUT.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\IOL_4IN.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\IOL_4oIN_2oOUT.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\IOL_9IN.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\IOLINK\Link_REP_Ethercat.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Infos_Outil.TcDUT" />
+    <Compile Include="Data types\I_O_Variateurs\I_Var_LENZE.TcDUT" />
+    <Compile Include="Data types\I_O_Variateurs\O_Var_LENZE.TcDUT" />
+    <Compile Include="Data types\I_O_Variateurs\Var_I550M.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Laser\Str_Recette_Laser.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data types\Parametre_Axe.TcDUT" />
+    <Compile Include="Data types\SEQUENCE_PROGRAMME.TcDUT" />
+    <Compile Include="Data types\SEQUENCE_PROGRAMME_STATUS.TcDUT" />
+    <Compile Include="Gestionnaire de visualisation.TcVMO" />
+    <Compile Include="Global Variables\1 - VARIABLES E_S\02 - I_O_MACHINE\IO_ARMOIRE.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\02 - I_O_MACHINE\IO_Axes_codeurs.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\02 - I_O_MACHINE\IO_PUPITRE.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\IO_BE\IO_BE.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\IO_BE\IO_CHARIOT.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\IO_Rep_Ethc.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\IO_Glob_Status_ethercat.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="Global Variables\1 - VARIABLES E_S\LASER\IO_PRESSEURS_LASER.TcGVL" />
+    <Compile Include="Global Variables\1 - VARIABLES E_S\LASER\IO_SOURCE_MAXPHOTONICS.TcGVL" />
+    <Compile Include="Global Variables\1 - VARIABLES E_S\LASER\IO_TETE_LASER_RAYTOOLS.TcGVL" />
+    <Compile Include="Global Variables\1 - VARIABLES E_S\LASER\Palpage_laser.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\CONFIG MACHINE\Global_Configuration_Machine_PNC.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Axes_Laser.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\CONFIG MACHINE\Global_Configuration_Machine_en_Dur.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Atos.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Axes_Chariot.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Chariot.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Commandes.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Divers.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Ethercat.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Laser.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Lifter_VB.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_PUPITRE.TcGVL">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_Var_Presseurs_Laser.TcGVL" />
+    <Compile Include="Global Variables\2 - VARIABLES INTERNES\Global_PRONC.TcGVL" />
+    <Compile Include="Global Variables\5-TWINCAT\TwinCAT_Import.TcGVL" />
+    <Compile Include="Global Variables\5-TWINCAT\Variable_Configuration.TcGVL" />
+    <Compile Include="Global Variables\Global_Checks.TcGVL" />
+    <Compile Include="GlobalImagePool.TcGIPO" />
+    <Compile Include="GlobalTextList.TcGTLO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\00 - Echanges PNC\Status_Ethercat.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\00 - Echanges PNC\Status_machine.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\000 - REP ETHERCAT\Forcage_Rep.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\000 - REP ETHERCAT\OK_Repartiteurs_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\000 - REP ETHERCAT\Rep_BE.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\000 - REP ETHERCAT\Rep_Bs.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01 - General\En service\Voyants.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01 - General\G7_General.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\Gestion_ConvLaser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\Divers_Decoupe.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\G7_Cycle_Percages_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\G7_Sel_Face.TcPOU" />
+    <Compile Include="POUs\02  - LASER\Palpages\G7_Master_Palpages.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\Palpages\G7_Palpage_Capacitance.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\Palpages\G7_Palpage_Sommet_L.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\Presseurs_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\02  - LASER\_0_LASER_ST.TcPOU" />
+    <Compile Include="POUs\02  - LASER\_1_LASER.TcPOU" />
+    <Compile Include="POUs\02  - LASER\_Divers_lifter_VB.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\00 - Echanges PNC\Defauts_Alarmes.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\00 - Echanges PNC\Parametres_PNC.TcPOU" />
+    <Compile Include="POUs\000 - REP ETHERCAT\OK_Rep_Chariot_BE.TcPOU" />
+    <Compile Include="POUs\000 - REP ETHERCAT\OK_Rep_Pupitre.TcPOU">
+      <ExcludeFromBuild>false</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\01 - General\En service\En_service.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01 - General\En service\Pompe_Atos\Regulation_Centrale_Hydro.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01 - Pupitre\Ech_Com_Pupitre.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\01 - Pupitre\Pupitre.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\03 - Chariot\Gestion_Pince.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Chariot\Axe_01_X.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Chariot\Axe_02_ZChariot.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Divers_axe.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Exec_ISO.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Laser\Axe_03_X_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Laser\Axe_04_Y_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Laser\Axe_05_Z_Laser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\09 - Axes\Laser\Axe_06_A.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Brouillon.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_Ethercat_V2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_axe_ZLaser.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Exec_ISO3_libTC3_V2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_WriteGrpMinVeloTrans.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Fb_decode_real.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_En_Service.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\FB_Fonction_Pupitre.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_IOLink_Leuze_ODT3CL1.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_IOLink_MURR_HUB.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_IOLink_MURR_MVP12.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_IOLink_Servo_ITV2030.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_IOLink_TURCK_CL50.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_LED_LC25C.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_IOLink\FB_MPA_251THTP0_SICK_IOLink.TcPOU" />
+    <Compile Include="POUs\FB UTILITAIRES\FB_Rep_Ethercat_MURR.TcPOU" />
+    <Compile Include="POUs\01 - General\Divers_cycles.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\FB_Var_LENZE_I550_Motec.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Laser\FB_Calcul_Chgt_Origine_Plan.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Laser\FB_LASER_SOURCE_MAXPHOTONICS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Laser\FB_LASER_TETE_RAYTOOLS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Laser\FB_Presseurs_LASER.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Laser\FB_SMC_Regul_Press_ITV.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_IOLink_ES_ESLTI.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_IOLink_IFM_PV7000.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_Regulation_Centrale_Atos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_Regulation_Centrale_Atos_Accu.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_Rep_Ethercat_MURR_ATOS.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Pompe_Atos\FB_Var_LENZE_I550_Motec_Centrale_Atos.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\LAF.TcPOU">
+      <SubType>Code</SubType>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="POUs\MAIN.TcPOU" />
+    <Compile Include="Recipe Manager.TcRMO" />
+    <Compile Include="Standard.TcTTO" />
+    <Compile Include="TextList.TcTLO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Visualizations\Chgt_Reperes.TcVIS">
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\EXPLICATION\Presseurs.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\Laser_Source_1.TcVIS">
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Visualizations\Laser_Tete_Raytools_1.TcVIS">
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\Laser_Tete_Raytools_2.TcVIS">
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\MenuPrincipal.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\POMPE_ATOS_ECRAN.TcVIS">
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+      <ExcludeFromBuild>true</ExcludeFromBuild>
+    </Compile>
+    <Compile Include="Visualizations\Porte_secu.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\Selection_Rep.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\StateEthercat.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\Visualization.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizations\VisuForce.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISU_TASK.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderReference Include="CmpDynamicText">
+      <DefaultResolution>CmpDynamicText, * (System)</DefaultResolution>
+      <Namespace>CmpDynamicText</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+    </PlaceholderReference>
+    <PlaceholderReference Include="RecipeManagement">
+      <DefaultResolution>Recipe Management, 3.5.13.2 (System)</DefaultResolution>
+      <Namespace>Recipe_Management</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemMeter">
+      <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemMeter</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElems">
+      <DefaultResolution>VisuElems, 3.5.13.40 (System)</DefaultResolution>
+      <Namespace>VisuElems</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsSpecialControls">
+      <DefaultResolution>VisuElemsSpecialControls, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemsSpecialControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemsWinControls">
+      <DefaultResolution>VisuElemsWinControls, 3.5.13.20 (System)</DefaultResolution>
+      <Namespace>VisuElemsWinControls</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuElemTextEditor">
+      <DefaultResolution>VisuElemTextEditor, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuElemTextEditor</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="system_visuinputs">
+      <DefaultResolution>visuinputs, 3.5.13.0 (system)</DefaultResolution>
+      <Namespace>visuinputs</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="System_VisuNativeControl">
+      <DefaultResolution>VisuNativeControl, 3.5.13.0 (System)</DefaultResolution>
+      <Namespace>VisuNativeControl</Namespace>
+      <SystemLibrary>true</SystemLibrary>
+      <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Drive">
+      <DefaultResolution>Tc2_Drive, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Drive</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_EtherCAT">
+      <DefaultResolution>Tc2_EtherCAT, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_EtherCAT</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Math">
+      <DefaultResolution>Tc2_Math, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Math</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_MC2">
+      <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_MC2_Drive">
+      <DefaultResolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2_Drive</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_NCI">
+      <DefaultResolution>Tc2_NCI, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_NCI</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Standard">
+      <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Standard</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_System">
+      <DefaultResolution>Tc2_System, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_System</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_Utilities">
+      <DefaultResolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_Utilities</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Module">
+      <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="VisuDialogs">
+      <DefaultResolution>VisuDialogs, * (System)</DefaultResolution>
+      <Namespace>VisuDialogs</Namespace>
+    </PlaceholderReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VP_GRUGEAGE_LASER.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="Tc2_NC,3.3.11.0,Beckhoff Automation GmbH">
+      <Namespace>Tc2_NC</Namespace>
+    </LibraryReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PlaceholderResolution Include="System_VisuElemsSpecialControls">
+      <Resolution>VisuElemsSpecialControls, * (System)</Resolution>
+    </PlaceholderResolution>
+  </ItemGroup>
+  <ProjectExtensions>
+    <PlcProjectOptions>
+      <XmlArchive>
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
+      <v n="Name">"&lt;ProjectRoot&gt;"</v>
+      <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+        <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
+        <o>
+          <v n="Name">"{192FAD59-8248-4824-A8DE-9177C94C195A}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{246001F4-279D-43AC-B241-948EB31120E1}</v>
+        <o>
+          <v n="Name">"{246001F4-279D-43AC-B241-948EB31120E1}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{29BD8D0C-3586-4548-BB48-497B9A01693F}</v>
+        <o>
+          <v n="Name">"{29BD8D0C-3586-4548-BB48-497B9A01693F}"</v>
+          <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+            <v>NamingConventions</v>
+            <o>
+              <v n="Name">"NamingConventions"</v>
+              <d n="SubKeys" t="Hashtable" />
+              <d n="Values" t="Hashtable" />
+            </o>
+            <v>Rules</v>
+            <o>
+              <v n="Name">"Rules"</v>
+              <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
+                <v>167</v>
+                <o>
+                  <v n="Name">"167"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>27</v>
+                <o>
+                  <v n="Name">"27"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>28</v>
+                <o>
+                  <v n="Name">"28"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>33</v>
+                <o>
+                  <v n="Name">"33"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>4</v>
+                <o>
+                  <v n="Name">"4"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+                <v>6</v>
+                <o>
+                  <v n="Name">"6"</v>
+                  <d n="SubKeys" t="Hashtable" />
+                  <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+                    <v>bActive</v>
+                    <v>False</v>
+                  </d>
+                </o>
+              </d>
+              <d n="Values" t="Hashtable" />
+            </o>
+          </d>
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{40450F57-0AA3-4216-96F3-5444ECB29763}</v>
+        <o>
+          <v n="Name">"{40450F57-0AA3-4216-96F3-5444ECB29763}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="String">
+            <v>ActiveVisuProfile</v>
+            <v>IR0whWr8bwfwBwAAiD2qpQAAAABVAgAA37x72QAAAAABAAAAAAAAAAEaUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwACTHsAZgA5ADUAYgBiADQAMgA2AC0ANQA1ADIANAAtADQAYgA0ADUALQA5ADQAMAAwAC0AZgBiADAAZgAyAGUANwA3AGUANQAxAGIAfQADCE4AYQBtAGUABDBUAHcAaQBuAEMAQQBUACAAMwAuADEAIABCAHUAaQBsAGQAIAA0ADAAMgA0AC4ANwAFFlAAcgBvAGYAaQBsAGUARABhAHQAYQAGTHsAMQA2AGUANQA1AGIANgAwAC0ANwAwADQAMwAtADQAYQA2ADMALQBiADYANQBiAC0ANgAxADQANwAxADMAOAA3ADgAZAA0ADIAfQAHEkwAaQBiAHIAYQByAGkAZQBzAAhMewAzAGIAZgBkADUANAA1ADkALQBiADAANwBmAC0ANABkADYAZQAtAGEAZQAxAGEALQBhADgAMwAzADUANgBhADUANQAxADQAMgB9AAlMewA5AGMAOQA1ADgAOQA2ADgALQAyAGMAOAA1AC0ANAAxAGIAYgAtADgAOAA3ADEALQA4ADkANQBmAGYAMQBmAGUAZABlADEAYQB9AAoOVgBlAHIAcwBpAG8AbgALBmkAbgB0AAwKVQBzAGEAZwBlAA0KVABpAHQAbABlAA4aVgBpAHMAdQBFAGwAZQBtAE0AZQB0AGUAcgAPDkMAbwBtAHAAYQBuAHkAEAxTAHkAcwB0AGUAbQARElYAaQBzAHUARQBsAGUAbQBzABIwVgBpAHMAdQBFAGwAZQBtAHMAUwBwAGUAYwBpAGEAbABDAG8AbgB0AHIAbwBsAHMAEyhWAGkAcwB1AEUAbABlAG0AcwBXAGkAbgBDAG8AbgB0AHIAbwBsAHMAFCRWAGkAcwB1AEUAbABlAG0AVABlAHgAdABFAGQAaQB0AG8AcgAVIlYAaQBzAHUATgBhAHQAaQB2AGUAQwBvAG4AdAByAG8AbAAWFHYAaQBzAHUAaQBuAHAAdQB0AHMAFwxzAHkAcwB0AGUAbQAYGFYAaQBzAHUARQBsAGUAbQBCAGEAcwBlABkmRABlAHYAUABsAGEAYwBlAGgAbwBsAGQAZQByAHMAVQBzAGUAZAAaCGIAbwBvAGwAGyJQAGwAdQBnAGkAbgBDAG8AbgBzAHQAcgBhAGkAbgB0AHMAHEx7ADQAMwBkADUAMgBiAGMAZQAtADkANAAyAGMALQA0ADQAZAA3AC0AOQBlADkANAAtADEAYgBmAGQAZgAzADEAMABlADYAMwBjAH0AHRxBAHQATABlAGEAcwB0AFYAZQByAHMAaQBvAG4AHhRQAGwAdQBnAGkAbgBHAHUAaQBkAB8WUwB5AHMAdABlAG0ALgBHAHUAaQBkACBIYQBmAGMAZAA1ADQANAA2AC0ANAA5ADEANAAtADQAZgBlADcALQBiAGIANwA4AC0AOQBiAGYAZgBlAGIANwAwAGYAZAAxADcAIRRVAHAAZABhAHQAZQBJAG4AZgBvACJMewBiADAAMwAzADYANgBhADgALQBiADUAYwAwAC0ANABiADkAYQAtAGEAMAAwAGUALQBlAGIAOAA2ADAAMQAxADEAMAA0AGMAMwB9ACMOVQBwAGQAYQB0AGUAcwAkTHsAMQA4ADYAOABmAGYAYwA5AC0AZQA0AGYAYwAtADQANQAzADIALQBhAGMAMAA2AC0AMQBlADMAOQBiAGIANQA1ADcAYgA2ADkAfQAlTHsAYQA1AGIAZAA0ADgAYwAzAC0AMABkADEANwAtADQAMQBiADUALQBiADEANgA0AC0ANQBmAGMANgBhAGQAMgBiADkANgBiADcAfQAmFk8AYgBqAGUAYwB0AHMAVAB5AHAAZQAnVFUAcABkAGEAdABlAEwAYQBuAGcAdQBhAGcAZQBNAG8AZABlAGwARgBvAHIAQwBvAG4AdgBlAHIAdABpAGIAbABlAEwAaQBiAHIAYQByAGkAZQBzACgQTABpAGIAVABpAHQAbABlACkUTABpAGIAQwBvAG0AcABhAG4AeQAqHlUAcABkAGEAdABlAFAAcgBvAHYAaQBkAGUAcgBzACs4UwB5AHMAdABlAG0ALgBDAG8AbABsAGUAYwB0AGkAbwBuAHMALgBIAGEAcwBoAHQAYQBiAGwAZQAsEnYAaQBzAHUAZQBsAGUAbQBzAC1INgBjAGIAMQBjAGQAZQAxAC0AZAA1AGQAYwAtADQAYQAzAGIALQA5ADAANQA0AC0AMgAxAGYAYQA3ADUANgBhADMAZgBhADQALihJAG4AdABlAHIAZgBhAGMAZQBWAGUAcgBzAGkAbwBuAEkAbgBmAG8AL0x7AGMANgAxADEAZQA0ADAAMAAtADcAZgBiADkALQA0AGMAMwA1AC0AYgA5AGEAYwAtADQAZQAzADEANABiADUAOQA5ADYANAAzAH0AMBhNAGEAagBvAHIAVgBlAHIAcwBpAG8AbgAxGE0AaQBuAG8AcgBWAGUAcgBzAGkAbwBuADIMTABlAGcAYQBjAHkAMzBMAGEAbgBnAHUAYQBnAGUATQBvAGQAZQBsAFYAZQByAHMAaQBvAG4ASQBuAGYAbwA0MEwAbwBhAGQATABpAGIAcgBhAHIAaQBlAHMASQBuAHQAbwBQAHIAbwBqAGUAYwB0ADUaQwBvAG0AcABhAHQAaQBiAGkAbABpAHQAeQDQAAIaA9ADAS0E0AUGGgfQBwgaAUUHCQjQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtDtAPAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60BAAAA0A0BLRHQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0S0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAUAAAA0AwLrQIAAADQDQEtE9APAS0Q0AAJGgRFCgsEAwAAAAUAAAANAAAAAAAAANAMC60CAAAA0A0BLRTQDwEtENAACRoERQoLBAMAAAAFAAAADQAAAAAAAADQDAutAgAAANANAS0V0A8BLRDQAAkaBEUKCwQDAAAABQAAAA0AAAAAAAAA0AwLrQIAAADQDQEtFtAPAS0X0AAJGgRFCgsEAwAAAAUAAAANAAAAKAAAANAMC60EAAAA0A0BLRjQDwEtENAZGq0BRRscAdAAHBoCRR0LBAMAAAAFAAAADQAAAAAAAADQHh8tINAhIhoCRSMkAtAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAAAAANADAS0n0CgBLRHQKQEtENAAJRoFRQoLBAMAAAADAAAAAAAAAAoAAADQJgutAQAAANADAS0n0CgBLRHQKQEtEJoqKwFFAAEC0AABLSzQAAEtF9AAHy0t0C4vGgPQMAutAQAAANAxC60XAAAA0DIarQDQMy8aA9AwC60CAAAA0DELrQMAAADQMhqtANA0Gq0A0DUarQA=</v>
+          </d>
+        </o>
+        <v>{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}</v>
+        <o>
+          <v n="Name">"{8A0FB252-96EB-4DCC-A5B4-B4804D05E2D6}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>WriteLineIDs</v>
+            <v>True</v>
+          </d>
+        </o>
+        <v>{8F99A816-E488-41E4-9FA3-846536012284}</v>
+        <o>
+          <v n="Name">"{8F99A816-E488-41E4-9FA3-846536012284}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{A3BBA713-63D7-4de6-BEC2-E3BAAD8789F8}</v>
+        <o>
+          <v n="Name">"{A3BBA713-63D7-4de6-BEC2-E3BAAD8789F8}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{C70B7845-2722-4a9b-A0EA-88C877A4B36F}</v>
+        <o>
+          <v n="Name">"{C70B7845-2722-4a9b-A0EA-88C877A4B36F}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String">
+            <v>EnableMaxAuthenticationTrials</v>
+            <v>true</v>
+            <v>EnableMaxTimeOfInactivity</v>
+            <v>true</v>
+            <v>EnableNewHashFormat</v>
+            <v>false</v>
+            <v>GroupList</v>
+            <o t="GroupList">
+              <a n="Groups" cet="Group">
+                <o>
+                  <v n="Id">{0e28d4a2-60c0-4bf2-bc6f-ee18b4398f02}</v>
+                  <v n="Name">"Everyone"</v>
+                  <v n="Description">""</v>
+                  <v n="IsEveryoneGroup">true</v>
+                  <v n="IsOwnerGroup">false</v>
+                  <l n="UserMembers" t="ArrayList" cet="Guid">
+                    <v>6c8578b9-3ea3-41db-a052-140fb13bda00</v>
+                  </l>
+                  <l n="GroupMembers" t="ArrayList" />
+                </o>
+                <o>
+                  <v n="Id">{7bca53ed-8284-4cfc-82da-0f8bb454cbdf}</v>
+                  <v n="Name">"Owner"</v>
+                  <v n="Description">""</v>
+                  <v n="IsEveryoneGroup">false</v>
+                  <v n="IsOwnerGroup">true</v>
+                  <l n="UserMembers" t="ArrayList" cet="Guid">
+                    <v>6c8578b9-3ea3-41db-a052-140fb13bda00</v>
+                  </l>
+                  <l n="GroupMembers" t="ArrayList" />
+                </o>
+              </a>
+            </o>
+            <v>MaxAuthenticationTrials</v>
+            <v>3</v>
+            <v>MaxTimeOfInactivity</v>
+            <v>10</v>
+            <v>UserAuthentication</v>
+            <o t="UserAuthentication">
+              <d n="UserToPasswordHash" t="Hashtable" ckt="Guid" cvt="String">
+                <v>6c8578b9-3ea3-41db-a052-140fb13bda00</v>
+                <v>d41d8cd98f00b204e9800998ecf8427e</v>
+              </d>
+            </o>
+            <v>UserList</v>
+            <o t="UserList">
+              <a n="Users" cet="User">
+                <o>
+                  <v n="Id">{6c8578b9-3ea3-41db-a052-140fb13bda00}</v>
+                  <v n="Name">"Owner"</v>
+                  <v n="FullName">""</v>
+                  <v n="Description">""</v>
+                  <v n="Active">true</v>
+                </o>
+              </a>
+            </o>
+          </d>
+        </o>
+        <v>{E709B08B-B6E4-4966-8EED-D793A13114C6}</v>
+        <o>
+          <v n="Name">"{E709B08B-B6E4-4966-8EED-D793A13114C6}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Int32">
+            <v>MaxCompilerWarnings</v>
+            <v>2147483647</v>
+          </d>
+        </o>
+        <v>{eeeeeeee-3909-4298-8022-501ac3238667}</v>
+        <o>
+          <v n="Name">"{eeeeeeee-3909-4298-8022-501ac3238667}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" />
+        </o>
+        <v>{F66C7017-BDD8-4114-926C-81D6D687E35F}</v>
+        <o>
+          <v n="Name">"{F66C7017-BDD8-4114-926C-81D6D687E35F}"</v>
+          <d n="SubKeys" t="Hashtable" />
+          <d n="Values" t="Hashtable" ckt="String" cvt="Boolean">
+            <v>FlagDeclarePause</v>
+            <v>False</v>
+          </d>
+        </o>
+      </d>
+      <d n="Values" t="Hashtable" />
+    </o>
+  </Data>
+  <TypeList>
+    <Type n="ArrayList">System.Collections.ArrayList</Type>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Group">{daecd4be-1e2b-4335-a125-4a1ac83ea49f}</Type>
+    <Type n="GroupList">{bf4dffda-f055-446d-9d7a-5f126720896b}</Type>
+    <Type n="Guid">System.Guid</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="Int32">System.Int32</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+    <Type n="User">{cd83029e-13b0-491e-9e4b-921adda0d86b}</Type>
+    <Type n="UserAuthentication">{3635a671-97f5-41bb-9e29-0ebb9795975c}</Type>
+    <Type n="UserList">{9fe6b547-6bc8-4f11-b589-b517860c5891}</Type>
+  </TypeList>
+</XmlArchive>
+    </PlcProjectOptions>
+  </ProjectExtensions>
+</Project>
