@@ -14,6 +14,7 @@ VAR
 	
 	  
 	 t_floppy1	:BOOL;	//sert de test, à suppr dans ver finale
+	 j	:INT;
 	 
 	 LaserTYpe	:UINT;
 	 PasswordDisplay	:UINT;
@@ -56,6 +57,15 @@ END_VAR]]></Declaration>
  			Face_En_Cours := 0;
  END_IF;
  
+//Selection recette reçue du Driver
+  IF Sequence[Pt_Sequence].M = 100 AND Sequence[Pt_Sequence].P10 <> 0 THEN	//P10 = ID recette driver
+	FOR j := 1 TO 500 DO
+		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
+			Index_Recette_Laser := j;
+			EXIT;
+		END_IF
+	END_FOR 
+  END_IF
  
  Face_En_Pos := Face_Cible <> 0 AND Face_En_Cours <> 0 AND Face_Cible = Face_En_Cours;
  IF Top_Face AND Face_En_Pos THEN
@@ -162,9 +172,6 @@ END_VAR]]></Declaration>
  
 LaserTYpe:=UDINT_TO_UINT(Source_MaxPhotonics.PROGRAM_NUMBER_IN);
 PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
-
-	
-	
 	
 	
 	

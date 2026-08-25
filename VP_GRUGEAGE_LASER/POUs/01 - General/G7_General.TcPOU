@@ -3974,23 +3974,23 @@ END_IF
     </Action>
     <Action Name="Step221_entry" Id="{136b9709-3735-4173-9f23-c7d57741e24c}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Z_Laser := pos_ref_torche - Tab_Datas_Laser[0].Hauteur_Buse-Ep_secu;
+        <ST><![CDATA[Pos_cible_Z_Laser := pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse-Ep_secu;
 En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step223_entry" Id="{8280820c-8759-470a-b7f0-98ca53832f93}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Z_Laser := Pos_Reel_Z_Laser +( Prog_Capacitance_Actual_Value_mm -Tab_Datas_Laser[0].Hauteur_Buse);
+        <ST><![CDATA[Pos_cible_Z_Laser := Pos_Reel_Z_Laser +( Prog_Capacitance_Actual_Value_mm -Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse);
 En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
 
-Consigne_Pression_Gaz					:=Tab_Datas_Laser[0].Pression_Gaz;
-Prog_Power_Watt_Target					:=Tab_Datas_Laser[0].Puissance_Laser;
-Prog_Per_Cent_Of_Duty_Cycle_Target		:=Tab_Datas_Laser[0].Duty_Cycle;
-Prog_Frequency_0_20000Hz_Target			:=Tab_Datas_Laser[0].Frequence_impulsion;
-Prog_Distance_Focal_Demandee 			:=Tab_Datas_Laser[0].Distance_Focale;
-Start_Gaz:=TRUE;]]></ST>
+Consigne_Pression_Gaz					:=Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Pression_Gaz;
+Prog_Power_Watt_Target					:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Puissance_Laser);
+Prog_Per_Cent_Of_Duty_Cycle_Target		:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Duty_Cycle);
+Prog_Frequency_0_20000Hz_Target			:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Frequence_impulsion);
+Prog_Distance_Focal_Demandee 			:=Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Distance_Focale;
+Start_Gaz:=TRUE; ]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step260_Action" Id="{47d2b299-c154-4f53-a0b3-9eef55b28759}">
@@ -4190,8 +4190,8 @@ AND step200.t>T#20MS ]]></ST>
     <Transition Name="Trans210a" Id="{bc5b8177-fb42-4a83-ab52-0d64ff904a7c}">
       <Implementation>
         <ST><![CDATA[FE_Prepa_ISO_3D.Q 
-AND Nbr_phase_perc>0
-and not Reprise_decoupe
+AND Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[1].Puissance_Laser <>0 // La 1ère phase de perçage existe, donc il y a bien au moins une phase de perçage
+AND NOT Reprise_decoupe
 ]]></ST>
       </Implementation>
       <ObjectProperties>
@@ -4211,7 +4211,7 @@ and not Reprise_decoupe
     <Transition Name="Trans210b" Id="{13faeb58-343f-4fab-be0b-91c1daad5107}">
       <Implementation>
         <ST><![CDATA[FE_Prepa_ISO_3D.Q 
-AND Nbr_phase_perc=0
+AND Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[1].Puissance_Laser=0	//Pas de phase de perçage
 or Reprise_decoupe]]></ST>
       </Implementation>
     </Transition>
@@ -4241,7 +4241,7 @@ and not Top_Z_Laser]]></ST>
     <Transition Name="Trans223" Id="{ce3d769d-61b5-4e24-9e53-7de6cba5017c}">
       <Implementation>
         <ST><![CDATA[step223.t>T#20MS
-AND ABS(Prog_Capacitance_Actual_Value_mm -Tab_Datas_Laser[0].Hauteur_Buse) <0.5
+AND ABS(Prog_Capacitance_Actual_Value_mm -Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse) <0.5
 AND Data13_Cutting_Gas_Temp			=	Consigne_Pression_Gaz	AND 			
 _1_LASER.Feedback_Laser_Power	=	Prog_Power_Watt_Target	AND 		
 _1_LASER.Feedback_Laser_Duty	=	Prog_Per_Cent_Of_Duty_Cycle_Target AND	

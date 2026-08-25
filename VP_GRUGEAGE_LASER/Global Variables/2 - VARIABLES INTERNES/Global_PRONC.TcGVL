@@ -70,8 +70,9 @@ VAR_GLOBAL
 	
 //pas possible de les desactiver dans driver, icone masquee
 	Pnc_outil2_U1,Pnc_outil2_U2,Pnc_outil2_U3		:ARRAY [1..50] OF LREAL; (*Paramètres pour le nouveau Pupitre/ Joystick*)
-//Push test
-PushTest3	:INT;
+
+Tab_St_Recette_Laser : ARRAY [1..500] OF Str_Recette_Laser;
+Index_Recette_Laser		:INT;	//Pour pointer la bonne recette dans le Tab_St_Recette_Laser 
 
 END_VAR
 ]]></Declaration>
