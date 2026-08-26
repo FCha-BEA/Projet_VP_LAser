@@ -124,10 +124,9 @@ VAR_GLOBAL
  Lifter_VB_ok_pour_decoupe	:BOOL:=FALSE;	//Tete laser à hauteur de découpe après les phases de perçages
 
 //Paramètres laser 
- Tab_Datas_Laser				:ARRAY [0..5] OF Str_Param_Laser ;	//Données à envoyer au laser, 0-> découpe, 1 à 5-> phases de perçages --EXPERIMENTAL EN ATTENTE DE LA VER DEF DU DRIVER
  Type_gaz						:UINT;	// Comment et à qui envoyer le type de gaz ? Pas dans la tête ni la source, d'après les échanges TC , Gestion en local ? 
  Consigne_Pression_Gaz			:LREAL;
- Phase_perc_encours				:INT;	//Phase de perçage en cours, s'il y a plusieurs phases de perçage
+ Phase_perc_encours				:INT:=1;	//Phase de perçage en cours, s'il y a plusieurs phases de perçage
  Tir_Laser, Tir_Ok				:BOOL;
  
 //Servovanne régulation gaz tête laser

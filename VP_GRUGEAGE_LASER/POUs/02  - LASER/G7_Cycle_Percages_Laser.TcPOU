@@ -1714,7 +1714,7 @@ Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_R
 Prog_Distance_Focal_Demandee 			:=	Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Distance_Focale;
 //Type_gaz								:= Tab_Datas_Laser[Phase_perc_encours].Type_Gaz;
 
-Pos_cible_Z_Laser:= Pos_Reel_Z_Laser +(Prog_Capacitance_Actual_Value_mm-Tab_Datas_Laser[Phase_perc_encours].Hauteur_Buse);
+Pos_cible_Z_Laser:= Pos_Reel_Z_Laser +(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Hauteur_Buse);
 En_pos_Z_Laser:=FALSE;
 Vitesse_Z_Laser_PTP := Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Vitesse_Decoupe;
 Top_Z_Laser:=TRUE;

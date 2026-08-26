@@ -2651,7 +2651,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{E46A170F-9696-F993-8821-86519F4A0397}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{8189EFA7-D783-93F3-0BB4-38105F8694B5}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2721,13 +2721,13 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO02_Home_Start</Name>
@@ -2761,6 +2761,39 @@ resolution 3/2exp20
 							<Name>.Consigne_ServoVanne</Name>
 							<Comment><![CDATA[Asservissement gaz]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Net_WordIn1</Name>
+							<Comment><![CDATA[OUTPUT	]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Operation_Mode</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Set_Speed_Value</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Set_Torque_Value</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Accel_time</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Decel_time</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Control_word</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.V_Max_Tr_Min</Name>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.K_Service_Machine</Name>
@@ -2951,7 +2984,7 @@ Sécurité/Réarmement]]></Comment>
 						</Var>
 						<Var>
 							<Name>.Presseur_Amont_K11.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulement ]]></Comment>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -2971,7 +3004,7 @@ Sécurité/Réarmement]]></Comment>
 						</Var>
 						<Var>
 							<Name>.Presseur_Aval_L12.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulement ]]></Comment>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -2981,10 +3014,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.B420_Rep_ChaBe.Link_OUT</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.OUT_Byte2</Name>
-							<Type>BYTE</Type>
 						</Var>
 						<Var>
 							<Name>.B820_Rep1_Laser.Link_OUT</Name>
@@ -3000,6 +3029,10 @@ Sécurité/Réarmement]]></Comment>
 						</Var>
 						<Var>
 							<Name>.ServoVanne_Tete_Laser.OUT_Byte1</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.OUT_Byte2</Name>
 							<Type>BYTE</Type>
 						</Var>
 						<Var>
@@ -3056,16 +3089,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
@@ -3102,39 +3135,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>Global_Lifter_VB.list_axe_MCS[5].PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Net_WordIn1</Name>
-							<Comment><![CDATA[OUTPUT	]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Operation_Mode</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Set_Speed_Value</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Set_Torque_Value</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Accel_time</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Decel_time</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Control_word</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.V_Max_Tr_Min</Name>
-							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
@@ -3268,18 +3268,14 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>.Servo_Error</Name>
-							<Comment><![CDATA[Echange avec tête]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Actual_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DI01_Collision</Name>
 							<Comment><![CDATA[Entrées TOR]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Servo_Error</Name>
+							<Comment><![CDATA[Echange avec tête]]></Comment>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI02_Up_Limit</Name>
@@ -3288,6 +3284,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.DI03_Down_Limit</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Actual_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -3310,6 +3310,11 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
+							<Comment><![CDATA[ 0.01 °C ]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>.Data01_Capacitance_Actual_Value</Name>
 							<Comment><![CDATA[Datas input]]></Comment>
 							<Type>UDINT</Type>
@@ -3317,11 +3322,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Data02_Capacitance_HeartBeat_Accumulated_Value</Name>
 							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
-							<Comment><![CDATA[ 0.01 °C ]]></Comment>
-							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.Data04_Focus_Lens_Temperature</Name>
@@ -3463,6 +3463,35 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Prog_Tete_Laser_State</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Status_Word</Name>
+							<Comment><![CDATA[INPUT	]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Active_Operation_Mode</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Actual_Speed</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Apparent_current</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Error_Code</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Rated_Current</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Var_ConvLaser.Defect_Number</Name>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.Machine_en_Service</Name>
@@ -3682,6 +3711,14 @@ Sécurité/Réarmement]]></Comment>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
+							<Name>.Detect_Pression_Huile.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Pression_Huile.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
 							<Name>.B1520_Rep_Be.Link_IN</Name>
 							<Type>UINT</Type>
 						</Var>
@@ -3735,14 +3772,6 @@ Sécurité/Réarmement]]></Comment>
 						</Var>
 						<Var>
 							<Name>.Detect_Niv_Temp_Huile.BYTE8</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Pression_Huile.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Pression_Huile.BYTE1</Name>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
@@ -3850,10 +3879,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>.Pompe_Centrale_BM.Status_Word</Name>
 							<Comment><![CDATA[INPUT	]]></Comment>
 							<Type>UINT</Type>
@@ -3885,6 +3910,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>
@@ -3929,35 +3958,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>Global_Lifter_VB.list_axe_MCS[5].NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Status_Word</Name>
-							<Comment><![CDATA[INPUT	]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Active_Operation_Mode</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Actual_Speed</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Apparent_current</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Error_Code</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Rated_Current</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Var_ConvLaser.Defect_Number</Name>
-							<Type>INT</Type>
 						</Var>
 					</Vars>
 					<Contexts>
