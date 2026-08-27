@@ -775,7 +775,7 @@ END_VAR
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pos_Reel_A_Laser &gt; 46 OR test1"</v>
+                            <v n="Operand">"Pos_Reel_A_Laser &lt; 45.5 OR test1"</v>
                             <v n="Type">"LREAL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -794,7 +794,7 @@ END_VAR
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pos_Reel_A_Laser &lt; -46 OR test1"</v>
+                            <v n="Operand">"Pos_Reel_A_Laser &gt; -90.5 OR test1"</v>
                             <v n="Type">"LREAL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>

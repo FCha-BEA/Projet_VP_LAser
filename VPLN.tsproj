@@ -2451,11 +2451,13 @@ resolution 3/2exp20
 				<Axis Id="43" CreateSymbols="true" AxisType="1" GroupId="6">
 					<Name>Axe 43 (A - Laser)</Name>
 					<AxisPara>
-						<Velo SlowManual="5" FastManual="50"/>
+						<General UnitName="°"/>
+						<Dynamic AccelerationMaximum="100" DecelerationMaximum="100" Acceleration="100" Deceleration="100" Jerk="6428"/>
+						<Velo RefSearch="1" RefSync="1" SlowManual="1" FastManual="20" Maximum="34"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="7.00658681441326e-06" Offset="-52.9991274463887" MaxCount="#xffffffff" ReferenceSystem="1"/>
+						<EncPara ScaleFactorNumerator="1.40131736288265e-06" Offset="43.718" MaxCount="#xffffffff" ReferenceSystem="1"/>
 						<Vars VarGrpType="1">
 							<Name>Entrées</Name>
 							<Var>
@@ -2514,7 +2516,7 @@ resolution 3/2exp20
 					</Encoder>
 					<Drive Name="Drive" DrvType="9">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="34" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2651,7 +2653,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0687AD63-42D4-D09D-D166-E6A1827D3F3C}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{18B98A58-9756-F77D-CAE9-127C044CF9AE}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -7690,7 +7692,7 @@ Sécurité/Réarmement]]></Comment>
 								<MBoxUserCmdData>020005000a0000001d000000000000000000000000000000000000000000000023403d800000000007004d6f746f722074656d70657261747572652073656e736f72207479706500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a00000017000000000000000000000000000000000000000000000023400280000000003e0043757272656e74206374726c206379636c652074696d6500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005001c000000150000000000000000000000000000000000000000000000234036800000000010001e004158353230332d303030302d23232323436f6e66696775726564206472697665207479706500</MBoxUserCmdData>
-								<MBoxUserCmdData>020005000c0000001a000000000000000000000000000000000000000000000023405d800000000050140000436f6e66696775726564206368616e6e656c2063757272656e7400</MBoxUserCmdData>
+								<MBoxUserCmdData>020005000c0000001a000000000000000000000000000000000000000000000023405d8000000000a00f0000436f6e66696775726564206368616e6e656c2063757272656e7400</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000c0000001f000000000000000000000000000000000000000000000023405c800000000070170000436f6e66696775726564206368616e6e656c207065616b2063757272656e7400</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000c0000001d00000000000000000000000000000000000000000000002340468000000000000500004d6f746f7220636f6e74696e756f7573207374616c6c20746f7271756500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a00000020000000000000000000000000000000000000000000000023406a00000000004b0643757272656e74206c6f6f702070726f706f7274696f6e616c206761696e203100</MBoxUserCmdData>
