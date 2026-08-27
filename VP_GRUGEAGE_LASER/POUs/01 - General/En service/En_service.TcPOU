@@ -3,7 +3,7 @@
   <POU Name="En_service" Id="{9816ed1a-dafd-4cfd-b0f2-e8afdefc0ff8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM En_service
 VAR	Fb_En_Service1:FB_En_Service;	B_Secu_Marche,	B_Securites,	Arret_auto,	Arret_Centrale_Niveau_Bas:BOOL;
-	TON_K_En_Service_Hydraulique,	TON_ok_pour_rearm_1,	TON_ok_pour_rearm_2,	TON_K_Broches:TON;
+	TON_K_En_Service_Hydraulique,	TON_K_Broches:TON;
 	TON_Pressostat_Air, 	TON_Air_Ok,	TON_Marche_Ventilateur_centrale,	Ton_arret_Machine_Automatique:TON;
 	TON_Acces_Machine_1,	TON_Acces_Machine_2: TON;
 	TP_Reset,	TP_Rearm_Secu_1,	TP_Rearm_Secu_2,	TP_Arret_auto,	TP_Arret_Niveau_Bas:TP;		Ton_Validation_Variateur_Centrale: TON;
@@ -2625,7 +2625,7 @@ END_VAR]]></Declaration>
                               </o>
                               <o>
                                 <o n="Operand" t="Operand">
-                                  <v n="Operand">"TON_ok_pour_rearm_1.Q"</v>
+                                  <v n="Operand">"TON_rearm.Q"</v>
                                   <v n="Type">"BOOL"</v>
                                   <v n="Comment">""</v>
                                   <v n="SymbolComment">""</v>
