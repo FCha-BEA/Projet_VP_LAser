@@ -2311,7 +2311,7 @@ resolution 3/2exp20
 					<Name>Axe 42 (Z - Laser)</Name>
 					<AxisPara>
 						<Dynamic Acceleration="6000" Deceleration="6000" Jerk="109090"/>
-						<Velo SlowManual="10" FastManual="100"/>
+						<Velo SlowManual="1" FastManual="10"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
@@ -2453,15 +2453,8 @@ resolution 3/2exp20
 					<AxisPara>
 						<General UnitName="°"/>
 						<Dynamic AccelerationMaximum="100" DecelerationMaximum="100" Acceleration="100" Deceleration="100" Jerk="6428"/>
-						<Velo RefSearch="1" RefSync="1" SlowManual="1" FastManual="20" Maximum="34"/>
+						<Velo RefSearch="1" RefSync="1" SlowManual="1" FastManual="30" Maximum="34"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
-						<ParameterChanged>242</ParameterChanged>
-						<ParameterChanged>257</ParameterChanged>
-						<ParameterChanged>7</ParameterChanged>
-						<ParameterChanged>39</ParameterChanged>
-						<ParameterChanged>9</ParameterChanged>
-						<ParameterChanged>241</ParameterChanged>
-						<ParameterChanged>6</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
 						<EncPara ScaleFactorNumerator="1.40131736288265e-06" Offset="43.718" MaxCount="#xffffffff" ReferenceSystem="1"/>
@@ -2660,7 +2653,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{18B98A58-9756-F77D-CAE9-127C044CF9AE}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{F77571EB-EDD1-0F5C-D5FF-66DE821846D1}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">

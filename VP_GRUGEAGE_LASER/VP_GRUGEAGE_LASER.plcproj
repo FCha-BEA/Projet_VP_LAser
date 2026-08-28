@@ -261,6 +261,9 @@
     <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_Ethercat_V2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_A_Ethercat_V1.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\FB UTILITAIRES\Axes\FB_axe_ZLaser.TcPOU">
       <SubType>Code</SubType>
     </Compile>

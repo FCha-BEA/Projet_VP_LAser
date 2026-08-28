@@ -3,7 +3,7 @@
   <POU Name="Axe_06_A" Id="{a446512a-96b4-4e5c-99bc-e9ea8dad01a1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Axe_06_A	//Rotation angulaire laser
 VAR
-	ALaser	:FB_Axe_Ethercat_v2;
+	ALaser	:FB_Axe_A_Ethercat_V1;
 	test1: BOOL;
 END_VAR
 ]]></Declaration>
@@ -67,7 +67,7 @@ END_VAR
                           <v n="LValue">false</v>
                           <v n="Boolean">false</v>
                           <v n="IsInstance">true</v>
-                          <v n="Id">29L</v>
+                          <v n="Id">148L</v>
                         </o>
                         <o n="OutputItems" t="OutputItemList">
                           <l2 n="OutputItems" />
@@ -136,6 +136,25 @@ END_VAR
                             </o>
                             <v n="Id">35L</v>
                           </o>
+                          <o>
+                            <o n="Operand" t="Operand">
+                              <v n="Operand">"Joystick_Cmd_Bas"</v>
+                              <v n="Type">"BOOL"</v>
+                              <v n="Comment">""</v>
+                              <v n="SymbolComment">""</v>
+                              <v n="Address">""</v>
+                              <o n="Flags" t="Flags">
+                                <v n="Flags">0</v>
+                                <v n="Fixed">false</v>
+                                <v n="Extensible">false</v>
+                              </o>
+                              <v n="LValue">false</v>
+                              <v n="Boolean">false</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">151L</v>
+                            </o>
+                            <v n="Id">150L</v>
+                          </o>
                         </l2>
                         <o n="InputParam" t="ParamList">
                           <l2 n="Names" />
@@ -151,7 +170,7 @@ END_VAR
                         <n n="STSnippet" />
                         <v n="ContainsExtensibleInputs">false</v>
                         <v n="ProvidesSTSnippet">false</v>
-                        <v n="Id">30L</v>
+                        <v n="Id">149L</v>
                       </o>
                       <v n="Id">12L</v>
                     </o>
@@ -211,7 +230,7 @@ END_VAR
                           <v n="LValue">false</v>
                           <v n="Boolean">false</v>
                           <v n="IsInstance">true</v>
-                          <v n="Id">37L</v>
+                          <v n="Id">144L</v>
                         </o>
                         <o n="OutputItems" t="OutputItemList">
                           <l2 n="OutputItems" />
@@ -280,6 +299,25 @@ END_VAR
                             </o>
                             <v n="Id">43L</v>
                           </o>
+                          <o>
+                            <o n="Operand" t="Operand">
+                              <v n="Operand">"Joystick_Cmd_Haut"</v>
+                              <v n="Type">"BOOL"</v>
+                              <v n="Comment">""</v>
+                              <v n="SymbolComment">""</v>
+                              <v n="Address">""</v>
+                              <o n="Flags" t="Flags">
+                                <v n="Flags">0</v>
+                                <v n="Fixed">false</v>
+                                <v n="Extensible">false</v>
+                              </o>
+                              <v n="LValue">false</v>
+                              <v n="Boolean">false</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">147L</v>
+                            </o>
+                            <v n="Id">146L</v>
+                          </o>
                         </l2>
                         <o n="InputParam" t="ParamList">
                           <l2 n="Names" />
@@ -295,7 +333,7 @@ END_VAR
                         <n n="STSnippet" />
                         <v n="ContainsExtensibleInputs">false</v>
                         <v n="ProvidesSTSnippet">false</v>
-                        <v n="Id">38L</v>
+                        <v n="Id">145L</v>
                       </o>
                       <v n="Id">8L</v>
                     </o>
@@ -314,10 +352,10 @@ END_VAR
                   <v n="OutCommented">false</v>
                   <l2 n="NetworkItems" cet="BoxTreeBox">
                     <o>
-                      <v n="BoxType">"FB_Axe_Ethercat_v2"</v>
+                      <v n="BoxType">"FB_Axe_A_Ethercat_V1"</v>
                       <o n="Instance" t="Operand">
                         <v n="Operand">"ALaser"</v>
-                        <v n="Type">"FB_Axe_Ethercat_v2"</v>
+                        <v n="Type">"FB_Axe_A_Ethercat_V1"</v>
                         <v n="Comment">""</v>
                         <v n="SymbolComment">""</v>
                         <v n="Address">""</v>
@@ -329,7 +367,7 @@ END_VAR
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">138L</v>
+                        <v n="Id">152L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -463,7 +501,7 @@ END_VAR
                             <v n="Id">64L</v>
                           </o>
                           <o>
-                            <v n="Operand">""</v>
+                            <v n="Operand">"Ref_Ok_A_Laser"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -832,7 +870,7 @@ END_VAR
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">""</v>
+                            <v n="Operand">"Selection_A AND Joystick_Bt_Valid"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1434,7 +1472,7 @@ END_VAR
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">139L</v>
+                      <v n="Id">153L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />

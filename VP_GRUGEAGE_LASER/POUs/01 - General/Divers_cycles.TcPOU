@@ -21,6 +21,7 @@ VAR	FW_GetSystemTime1:FW_GetSystemTime;
 	 Calib_Presseurs_OK	:BOOL;
 	//Après Pom, envoi X et Y laser à des positions specifiques pour pom codeur de sécu incrémentaux
 	 Step_Pom_CodeurSecu	:INT;
+	 TP_Start_PomCodSecu	:TP;
 	 
 	 TimePC	:NT_GetTime;
 END_VAR]]></Declaration>
@@ -31,14 +32,13 @@ END_VAR]]></Declaration>
 
 timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 
-(*------------------------------------------------Detection fronts En_Service,DCY,Arus, etc.-----------------------------------------*)
+(*---------------------------Detection fronts En_Service,DCY,Arus, etc.-----------------------------------------*)
 	RE_Machine_en_Service(CLK:=Machine_en_Service);
 	FE_Machine_en_Service(CLK:=Machine_en_Service);
 	RE_Bp_en_Service(CLK:=Bp_En_Service);
 	RE_Bp_Annul_Defauts(CLK:=Bp_Annul_Defauts);
 	FE_Arus(CLK:=Bp_Arret_Usinage );
 	RE_DCY(CLK:=Bp_Depart_Cycle);
-
 	TON_Auto(in:=Auto,pt:=T#100MS);
 	TP_Ok_Valid_Secu(in:=Controle_Acces_Machine,pt:= T#4S); 	(*Tempo pour degagement unite apres cellule pendant percage attente axes enable*)
 	Re_Mesure_Barre_Ok(CLK:=Mesure_Barre_Ok);
@@ -52,9 +52,10 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
 	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
 	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
+	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#20MS);
 	
 	
-(*-----------------------------------------------------------Bit_Machine_ON---------------------------------------------------------*)
+(*---------------------------Bit_Machine_ON---------------------------------------------------------*)
 	IF Machine_ON AND RE_Bp_en_Service.Q THEN
 		Machine_On:=FALSE;
 	END_IF
@@ -71,7 +72,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		Machine_ON:=FALSE;
 	END_IF
 
-(*-----------------------------------------------------------ARRET USINAGE---------------------------------------------------------*)
+(*--------------------------ARRET USINAGE---------------------------------------------------------*)
 	IF (NOT Mem_arus AND Fe_arus.Q)
 	OR RE_Machine_en_Service.Q
 	OR NOT Machine_en_Service
@@ -109,7 +110,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	RE_Mem_arus(CLK:=Mem_Arus);
 	FE_Mem_arus(CLK:=Mem_Arus);
 
-(*---------------------------------------------------START COM---------------------------------------------------------------------*)
+(*--------------------------START COM---------------------------------------------------------------------*)
 	(*Positionement du pointeur de sequences*)
 	IF Pnc_Start[1]=1AND manu AND Pnc_Start[2]<>0 AND NOT Mem_Arus THEN (*Si StartCom=1*)
 		Pt_Sequence:=LREAL_TO_WORD(Pnc_Start[2]);
@@ -126,7 +127,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	END_IF
 	
 
-(*-------------------------------------------------MODE AUTO / MODE MANUEL-----------------------------------------------*)
+(*-------------------------MODE AUTO / MODE MANUEL-----------------------------------------------*)
 	IF NOT Mem_Arus
 	AND Origines_Axes_ok
 	AND Start_ready
@@ -164,7 +165,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 
 	END_IF
 
-(*---------------------------------------------------------------MESURE BARRE ------------------------------------------------------*)
+(*------------------------MESURE BARRE ------------------------------------------------------*)
 	// Fronts 
 
 	(*Si Passage en ARUS*)
@@ -246,7 +247,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	END_IF
 
 
-(*-------------------------------------------------DIVERS------------------------------------------------------------------------------*)
+(*-----------------------DIVERS------------------------------------------------------------------------------*)
  (*Verification X suivant et X precedent*)
  IF Pt_Sequence>1 THEN
  	X_Precedent_Idem:=Sequence[Pt_Sequence-1].X=Sequence[Pt_Sequence].X;
@@ -266,7 +267,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	Defaut_General:=FALSE;
  END_IF
  
-(*-------------------------------------------------- Bits pour Clignotants -------------------------------------------------------- ---*)
+(*--------------------- Bits pour Clignotants -------------------------------------------------------- ---*)
 	FW_GetSystemTime1();
 	Clignotant_Affichage_Pop_up:=GETBIT32(FW_GetSystemTime1.dwTimeLo,30);
 	Clignotant_tttt_lent:=GETBIT32(FW_GetSystemTime1.dwTimeLo,27);
@@ -385,7 +386,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		END_IF
 		
 	4: // Envoi start pom codeur sécu
-		Start_Pom_Codeur_Secu:=TRUE;
+		Start_Pom_Codeur_Secu:=TP_Start_PomCodSecu.Q;
 		IF Pom_Codeur_Secu_ok THEN 
 			Step_Pom_CodeurSecu:=0;
 		END_IF
@@ -424,7 +425,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	SFCInit 
 	OR FE_Dec_Manu.Q;
  
-(*--------------- Si passage en ARUS ---------------------*)
+(*---------------------- Si passage en ARUS ---------------------*)
  IF RE_Mem_arus.Q THEN
  	Allumage_tete_laser:=FALSE;
  	Top_perc_laser:=FALSE;

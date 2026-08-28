@@ -301,7 +301,7 @@ END_VAR]]></Declaration>
 	
 	END_IF
 	
-	Deg_Laser_full_ok:=	ABS(Pos_cible_Z_Laser-0)<2;		(*<2 car 1.7 mm d'inertie*)
+	Deg_Laser_full_ok:=	Pos_Reel_Z_Laser<2;		(*<2 car 1.7 mm d'inertie*)
 	
 	IF Deg_Laser_full_ok			(**)
 	OR Bp_Arret_Usinage THEN						(*"Bp_arus" pour arrêter le deg si on rappuie sur Arus*)

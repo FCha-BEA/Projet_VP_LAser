@@ -57,14 +57,19 @@ Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
 
 (*Selections pupitre*)
 (*	FC - Enelever comm quand fcts OPanel complètes
-	Selection_X:= Selection_Unite_Pup=010101;
+	Selection_X:= Selection_Unite_Pup=010101 ;
 	Selection_ZChariot := Selection_Unite_Pup=010102;
 	Selection_XYLaser:=Selection_Unite_Pup=010201;
 	Selection_ZLaser:=Selection_Unite_Pup=010202;
 	Selection_A:=Selection_Unite_Pup=010203;
 	Selection_DecManu_Laser:=Selection_Unite_Pup=010204;
-	Selection_Presseurs_Laser := Selection_Unite_Pup=010301;
-	*)
+	Selection_Presseurs_Laser := Selection_Unite_Pup=010301;*)
+	Selection_XYLaser;
+	Selection_ZLaser;
+	Selection_A;
+	Selection_DecManu_Laser;
+	Selection_Presseurs_Laser ;
+	//*)
 	
 	Joystick:= Joystick_Cmd_Bas OR Joystick_Cmd_Haut OR Joystick_Cmd_Gauche OR Joystick_Cmd_Droite;
 
