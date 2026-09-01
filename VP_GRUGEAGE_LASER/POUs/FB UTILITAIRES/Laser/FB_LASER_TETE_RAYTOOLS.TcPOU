@@ -309,7 +309,15 @@ END_VAR]]></Declaration>
 	 IF Start_Capacitance_Calibration AND NOT Capacitance_Calibration_OK THEN
      
 	 	IF Distance_Buse_Piece_mm *10 >=0 AND Distance_Buse_Piece_mm *10 <1000 THEN
-	 		TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
+			IF TRUNC(Distance_Buse_Piece_mm *10) >= 1 THEN
+				IF Data01_Capacitance_Actual_Value >= TAB_Capacitance_Calibration[(TRUNC(Distance_Buse_Piece_mm *10))-1] THEN
+					TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
+				ELSE
+					TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)]:=TAB_Capacitance_Calibration[(TRUNC(Distance_Buse_Piece_mm *10))-1];
+				END_IF
+			ELSIF TRUNC(Distance_Buse_Piece_mm *10) < 1 THEN
+				TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
+			END_IF
 		END_IF
      
 	 	(* Si aucune valeur = Zero ==> Calibration OK *)
