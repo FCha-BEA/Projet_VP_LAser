@@ -1165,6 +1165,14 @@ Status_Water_Cooling_Plate_Low_Temperature_Alarm"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"495"</v>
+              <v n="TextDefault">"Top 1 Cover glass Ambient Temp °C"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"974"</v>
               <v n="TextDefault">"Top_1_Cover_Glass_Ambient_Temp"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -1226,6 +1234,14 @@ Status_Water_Cooling_Plate_Low_Temperature_Alarm"</v>
             <o>
               <v n="TextID">"389"</v>
               <v n="TextDefault">"Vitesse ( RPM)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1134"</v>
+              <v n="TextDefault">"°C"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

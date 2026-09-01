@@ -119,6 +119,7 @@ Id;Default;eng;FR
 617;Tete laser 1;;
 510;Tete laser 2;;
 1061;texte pour test;;
+495;Top 1 Cover glass Ambient Temp °C;;
 974;Top_1_Cover_Glass_Ambient_Temp;;
 975;Top_1_Cover_Glass_Temp;;
 418;Tête Laser RayTools;;
@@ -127,3 +128,4 @@ Id;Default;eng;FR
 475;Vitesse$R$N(RPM);Speed;Vitesse
 388;Vitesse ( RPM );;
 389;Vitesse ( RPM);;
+1134;°C;;

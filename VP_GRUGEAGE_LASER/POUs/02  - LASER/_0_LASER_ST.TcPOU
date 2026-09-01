@@ -47,11 +47,11 @@ END_VAR]]></Declaration>
  END_IF;
 
 // Quelle face en cours ? 
- IF		Pos_reel_A_Laser = - 45 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ IF		ABS(Pos_reel_A_Laser - 45)<0.1 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
  			Face_En_Cours := 1;
- ELSIF 	Pos_reel_A_Laser = + 45 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ ELSIF 	ABS(Pos_reel_A_Laser - (-45))<0.1 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
  			Face_En_Cours := 2;
- ELSIF 	Pos_reel_A_Laser = + 90 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
+ ELSIF 	ABS(Pos_reel_A_Laser - (-90))<0.1 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
  			Face_En_Cours := 3;
  ELSE
  			Face_En_Cours := 0;

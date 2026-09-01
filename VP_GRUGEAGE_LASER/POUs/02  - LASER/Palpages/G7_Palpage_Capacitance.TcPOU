@@ -11,6 +11,7 @@ VAR	SFCCurrentStep : STRING;
 	FE_Detect_tole: F_trig;
 	Memo_avant_decal_X : LREAL;
 	Pas_besoin_palpage	:BOOL;
+	floppytest	:BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <SFC>
@@ -2257,6 +2258,7 @@ G7_Master_Palpages"</v>
     <Action Name="Init_active" Id="{6c6b803e-94fe-4973-a3db-39b3b6ea881f}">
       <Implementation>
         <ST><![CDATA[RE_fct_palpage_seul(clk:=Fct_palpage_Etal);
+
 ]]></ST>
       </Implementation>
     </Action>
@@ -2277,7 +2279,7 @@ IF Vitesse_approche_rapide > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 ELSE
 	Vitesse_Z_Laser_PTP:=Vitesse_approche_rapide;
 END_IF
-
+En_pos_Z_Laser:=false;
 Top_Z_Laser:=TRUE;
 
 
@@ -2289,18 +2291,18 @@ Top_Z_Laser:=TRUE;
     <Action Name="Step20_active" Id="{f926592e-8b95-49c1-9273-718b7a84803d}">
       <Implementation>
         <ST><![CDATA[Re_Detect_tole(clk :=
-	DI01_Collision); //UDINT valeur max 4 294 967 295, Buse en contact : detection capacitance (aug si dist baisse))
+	Data01_Capacitance_Actual_Value < 1); //UDINT valeur max 4 294 967 295, Buse en contact : detection capacitance (aug si dist baisse))
 	
 IF Re_Detect_tole.Q THEN
 	Pos_ref_torche_RE := Pos_Reel_Z_Laser - Axe_5.NcToPlc.PosDiff;
 END_IF
 
-//debug redondance top torche
+(*//debug redondance top torche
 IF NOT Top_Z_Laser AND No_Move_Z_Laser 
-AND Data01_Capacitance_Actual_Value < 4294967000
+AND Data01_Capacitance_Actual_Value >2000000
 AND Axe_5.NcToPlc.PosDiff<0.5 THEN
 	Top_Z_Laser:=TRUE;
-END_IF]]></ST>
+END_IF*)]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step20_entry" Id="{53bbef7f-5647-4459-9bdf-9cba9d586bed}">
@@ -2311,8 +2313,9 @@ Pos_cible_Z_Laser:=Pnc_axe_Z_Robot.Limite_Plus-0.5;
 IF Vitesse_de_palpage > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
 ELSE
-	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage;
+	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage/5;
 END_IF
+En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
 ]]></ST>
       </Implementation>
@@ -2327,7 +2330,7 @@ limite_couple_negatif_axe_Z_Laser := 1000;
     <Action Name="Step30_active" Id="{a4aab25e-dc53-4305-9940-e0a275e3fa42}">
       <Implementation>
         <ST><![CDATA[// Si palpage raté ...
-IF NOT DI01_Collision THEN
+IF NOT DI01_Collision AND Data01_Capacitance_Actual_Value > 2000000 THEN
 	// ... alors on se décale pour ressayer.
 	IF NOT memo_besoin_decalage  AND auto THEN
 		Memo_avant_decal_X := Pos_Reel_X_Laser;
@@ -2344,25 +2347,28 @@ END_IF
     </Action>
     <Action Name="Step31_active" Id="{9642a9b0-90c3-44ac-b540-31fffc53a98d}">
       <Implementation>
-        <ST><![CDATA[FE_Detect_tole(clk :=DI01_Collision)	;
+        <ST><![CDATA[FE_Detect_tole(clk :=Data01_Capacitance_Actual_Value < 1)	;
 	
 IF FE_Detect_tole.Q THEN
 	Pos_ref_torche_Fe := Pos_Reel_Z_Laser;
 	Prog_Start_Capacitance_Calibration:=TRUE;	//Lors du retrait de la buse, on enregistre la capacitance dans un tableau selon la distance buse
-END_IF]]></ST>
+END_IF
+
+Prog_Distance_Buse_Piece_mm:= Pos_ref_torche_Fe-Pos_Reel_Z_Laser;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step31_entry" Id="{cca5c4e9-2974-426b-9f8c-b20bf5e377a2}">
       <Implementation>
         <ST><![CDATA[Pos_ref_torche := Pos_ref_torche_RE;
-Pv_Z_Laser := TRUE;
+//Pv_Z_Laser := TRUE;
 
-Pos_cible_Z_Laser:=Pnc_axe_Z_Robot.Limite_moins+10;
+Pos_cible_Z_Laser:=Pos_Reel_Z_Laser - 110;
 IF Vitesse_de_palpage > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
 ELSE
 	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage;
 END_IF
+En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
 
 ]]></ST>
@@ -2474,16 +2480,15 @@ END_IF
       <Implementation>
         <ST><![CDATA[(
  (En_pos_Z_Laser AND NOT Top_Z_Laser AND No_Move_Z_Laser)
- OR
- (Pos_cible_Z_Laser>=Pnc_axe_Z_Robot.Limite_Plus-EP_Aile-ep_secu)
+ //OR
+ //(Pos_cible_Z_Laser>=Pnc_axe_Z_Robot.Limite_Plus-EP_Aile-ep_secu)
 )
 AND Step10.t>T#20MS]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans20" Id="{b3433e34-56a0-482d-a145-cf017a5dc98e}">
       <Implementation>
-        <ST><![CDATA[//Data01_Capacitance_Actual_Value >= 4294967295
-(*OR*) DI01_Collision
+        <ST><![CDATA[Data01_Capacitance_Actual_Value < 1
 OR Axe_5.NcToPlc.PosDiff>=0.5
 
 ]]></ST>
@@ -2507,7 +2512,7 @@ AND memo_besoin_decalage]]></ST>
     </Transition>
     <Transition Name="Trans31" Id="{37d2d310-4e23-482a-a051-513dbd809572}">
       <Implementation>
-        <ST><![CDATA[not DI01_Collision
+        <ST><![CDATA[Data01_Capacitance_Actual_Value > 2000000
 AND Prog_Capacitance_Calibration_OK
 AND NOT Top_Z_Laser
 AND En_pos_Z_Laser

@@ -2033,7 +2033,7 @@ resolution 3/2exp20
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="9.5367431640625e-06" Offset="88.9" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1"/>
+						<EncPara ScaleFactorNumerator="9.5367431640625e-06" Offset="88.88" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1"/>
 						<Vars VarGrpType="1">
 							<Name>Entrées</Name>
 							<Var>
@@ -2311,7 +2311,7 @@ resolution 3/2exp20
 					<Name>Axe 42 (Z - Laser)</Name>
 					<AxisPara>
 						<Dynamic Acceleration="6000" Deceleration="6000" Jerk="109090"/>
-						<Velo SlowManual="1" FastManual="10"/>
+						<Velo SlowManual="2" FastManual="10" Maximum="330"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
@@ -2374,7 +2374,7 @@ resolution 3/2exp20
 					</Encoder>
 					<Drive Name="Drive" DrvType="9">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="330" VeloScale="1.02400649589962" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2653,7 +2653,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{D11E681F-F592-A0A1-6015-9941B2D685E1}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{8330EE0A-3EB2-D562-3A22-559CA9FA0554}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -8594,7 +8594,7 @@ Sécurité/Réarmement]]></Comment>
 							<EtherCAT SlaveType="2" PdiType="#x0c08" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="2" VendorId="#x00000002" ProductCode="#x14536012" RevisionNo="#x00d80000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" TimeoutStateChange2="20000" TimeoutStateChange3="10000" TimeoutStateChange4="500" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="12305" IdentificationAdo="308" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5203-0000-0216 EtherCAT Drive (SoE, 2 Ch.)" Desc="AX5203-0000-0216" PortABoxInfo="#x0100000e">
 								<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
 								<SyncMan>001a80002200010002000000800080008000001a22010000</SyncMan>
-								<SyncMan>00100c002400010003000000000000000000001024010000</SyncMan>
+								<SyncMan>00100e002400010003000000000000000000001024010000</SyncMan>
 								<SyncMan>001118002200010004000000000000000000001122010000</SyncMan>
 								<SyncMan>002000002400010005000000000000000000002024010000</SyncMan>
 								<SyncMan>002400002000010006000000000000000000002420010000</SyncMan>
@@ -8738,6 +8738,9 @@ Sécurité/Réarmement]]></Comment>
 									</Entry>
 									<Entry Name="Position command value" Index="#x002f">
 										<Type>DINT</Type>
+									</Entry>
+									<Entry Name="Positive torque/force limit value" Index="#x0052">
+										<Type>UINT</Type>
 									</Entry>
 								</Pdo>
 								<Pdo Name="MDT 2" Index="#x1018" InOut="1" Flags="#x0001" SyncMan="2">
@@ -11260,6 +11263,7 @@ Sécurité/Réarmement]]></Comment>
 		<MappingInfo Identifier="{00000000-2001-0850-0020-500831000403}" Id="#x02030020"/>
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0040-0304-1000-040342000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{08502001-0020-0304-0020-500820000403}" Id="#x02030050" Watchdog="00000000000000000000000000000000"/>
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030040" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axe 40 (X - Laser)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-811A1 Var X/A Laser (AX5203-0000-0216)">
@@ -11280,6 +11284,7 @@ Sécurité/Réarmement]]></Comment>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axe 41 (Y - Laser)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-812A1 Var Z/Y Laser (AX5203-0000-0216)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT 2^Following distance"/>
+				<Link VarA="Drive^Inputs^In^nDataIn3[0]" VarB="AT 2^Torque/force feedback value"/>
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
 				<Link VarA="Drive^Inputs^In^nState1" VarB="AT 2^Drive status word" Size="8" OffsB="8"/>
 				<Link VarA="Drive^Inputs^In^nState2" VarB="AT 2^Drive status word"/>
@@ -11508,6 +11513,9 @@ Sécurité/Réarmement]]></Comment>
 				<Link VarA="Standard Outputs^.Var_ConvLaser.Operation_Mode" VarB="RPDO (A) user config^CiA: Operation mode"/>
 				<Link VarA="Standard Outputs^.Var_ConvLaser.Set_Speed_Value" VarB="RPDO (A) Velocity^Set speed"/>
 				<Link VarA="Standard Outputs^.Var_ConvLaser.Set_Torque_Value" VarB="RPDO (A) user config^Set torque"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-812A1 Var Z/Y Laser (AX5203-0000-0216)">
+				<Link VarA="Standard Outputs^.limite_couple_negatif_axe_Z_Laser" VarB="MDT 1^Positive torque/force limit value"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-820 Rep1 Laser (54632)">
 				<Link VarA="Standard Inputs^.B820_Rep1_Laser.Link_IN" VarB="TxPDO Mapping of Digital Inputs^PD (I/Q Pin2 + C/Q Pin4)"/>

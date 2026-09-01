@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_axe_ZLaser" Id="{ccebce18-4a05-41f4-b46b-7712f5aa4b29}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_axe_ZLaser
 VAR_INPUT
@@ -23,7 +23,7 @@ VAR_INPUT
 	Tool_Offset : lREAL;
 	asserv: BOOL := FALSE;
 	auto_kerf : BOOL := FALSE;
-	Distance_Buse: INT;
+	Distance_Buse: LREAL;
 	ISO :BOOL;
 END_VAR
 VAR_IN_OUT
@@ -98,7 +98,7 @@ VAR
 	erreur3: LREAL;
 	RE_PTP_Start: R_trig;
 	REAL_U_arc_reelle: REAL;
-	REAL_memo_Dist: REAL;
+	REAL_memo_Dist: LREAL;
 	TOF_auto_kerf: Tof;
 	limite_asserv: BOOL := false;
 	MC_ExtSetPointGenEnable_3D, MC_ExtSetPointGenEnable_5D: MC_ExtSetPointGenEnable;
@@ -122,6 +122,7 @@ VAR
 
 	Accel_asserv: LREAL := 500;
 	velo_asserv: LREAL := 20;
+	Testfloppy: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -443,9 +444,9 @@ IF Phase_asservissement<>0 THEN
 
 		2:	(*memo de la tension + activation du SetPointGenerator*)
 			Reset_PID := FALSE;
-			IF REAL_memo_Dist=0 THEN			
+			//IF REAL_memo_Dist=0 THEN			
 				REAL_memo_Dist := Distance_Buse;
-			end_if
+			//end_if
 			
 			Enable_SetPoint_Generator_3D := TRUE;						
 			
@@ -506,6 +507,7 @@ END_IF
 	FE_TOF_auto_kerf(clk := auto_kerf);
 	//RE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
 	//FE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+	Pos_Reel_Z_Laser; //206
 	
 	IF RE_TOF_auto_kerf.Q THEN
 		Reset_PID := TRUE;
@@ -535,8 +537,8 @@ END_IF
 		
 	// génération de la trajectoire corrigée
 		MC_ExtSetPointGenFeed(
-			Position := consigne_Point_Gen,
-			Velocity := 20,//PTP_Vitesse,
+			Position := -PID_Input_mm,//consigne_Point_Gen,
+			Velocity := 300,//PTP_Vitesse,
 			Acceleration := PTP_Accel_Deccel,
 			Direction := 1,
 			Axis := Axe_Z_Laser);
@@ -552,41 +554,5 @@ END_IF
 			Axis := Axe_Z_Laser,
 			Execute := Disable_SetPoint_Generator_3D);]]></ST>
     </Implementation>
-    <LineIds Name="FB_axe_ZLaser">
-      <LineId Id="14994" Count="138" />
-      <LineId Id="15134" Count="1" />
-      <LineId Id="15137" Count="2" />
-      <LineId Id="15144" Count="5" />
-      <LineId Id="15151" Count="13" />
-      <LineId Id="15168" Count="1" />
-      <LineId Id="15171" Count="8" />
-      <LineId Id="15181" Count="1" />
-      <LineId Id="15186" Count="49" />
-      <LineId Id="15238" Count="8" />
-      <LineId Id="15248" Count="9" />
-      <LineId Id="15259" Count="16" />
-      <LineId Id="15296" Count="46" />
-      <LineId Id="15515" Count="1" />
-      <LineId Id="15343" Count="0" />
-      <LineId Id="15346" Count="8" />
-      <LineId Id="15358" Count="0" />
-      <LineId Id="15360" Count="1" />
-      <LineId Id="15364" Count="4" />
-      <LineId Id="15370" Count="4" />
-      <LineId Id="15378" Count="0" />
-      <LineId Id="15380" Count="2" />
-      <LineId Id="15386" Count="0" />
-      <LineId Id="15388" Count="2" />
-      <LineId Id="15392" Count="3" />
-      <LineId Id="15399" Count="0" />
-      <LineId Id="15401" Count="6" />
-      <LineId Id="15409" Count="39" />
-      <LineId Id="15458" Count="1" />
-      <LineId Id="15461" Count="3" />
-      <LineId Id="15471" Count="7" />
-      <LineId Id="15487" Count="5" />
-      <LineId Id="15494" Count="5" />
-      <LineId Id="15507" Count="4" />
-    </LineIds>
   </POU>
 </TcPlcObject>

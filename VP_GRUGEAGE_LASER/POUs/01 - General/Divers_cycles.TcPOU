@@ -52,7 +52,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
 	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
 	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
-	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#20MS);
+	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#100MS);
 	
 	
 (*---------------------------Bit_Machine_ON---------------------------------------------------------*)

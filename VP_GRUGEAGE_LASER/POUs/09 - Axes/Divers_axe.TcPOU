@@ -8,7 +8,6 @@ VAR
 	ZChariot_Interdit	:BOOL;
 	//Relevage/abaissement pince
 	 Pos_Parking_ZChariot	:LREAL;
-
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -49,7 +48,8 @@ Origines_Axes_ok :=
 	 Override_Chariot:=80 * (Pnc_Modulation_Vitesse/9);
  END_IF
  
- 
+
+
 
 
 ]]></ST>

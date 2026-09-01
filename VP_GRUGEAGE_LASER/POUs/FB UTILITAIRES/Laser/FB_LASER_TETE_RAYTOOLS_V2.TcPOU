@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_LASER_TETE_RAYTOOLS_V2" Id="{a63b533b-a27d-48f1-af48-76d741494030}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LASER_TETE_RAYTOOLS_V2
+
+VAR_INPUT
+	IN																: BOOL;
+
+	Servo_Error														: UINT;
+	Focus_Position_Actual_Value										: DINT;
+
+	DI01_Collision													: BOOL;
+	DI02_Up_Limit													: BOOL;
+	DI03_Down_Limit													: BOOL;
+	DI04_Bottom_1_Cover_Glass_Ready									: BOOL;
+	DI05_Homing_finished												: BOOL;
+	DI06_Reserved													: BOOL;
+	DI07_Reserved													: BOOL;
+	DI08_Reserved													: BOOL;
+
+	Data01_Capacitance_Actual_Value									: UDINT;
+	Data02_Capacitance_HeartBeat_Accumulated_Value					: UDINT;
+	Data03_Focus_Lens_Ambient_Temperature							: INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	Data04_Focus_Lens_Temperature									: INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	Data05_Reserved													: INT;												(* 0.01 °C *)
+	Data06_Reserved													: INT;												(* 0.01 °C *)
+	Data07_Top_1_Cover_Glass_Ambient_Temp							: INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	Data08_Top_1_Cover_Glass_Temp									: INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	Data09_Bottom_1_Cover_Glass_Ambient_Temp						: INT;		(* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)	(* 0.01 °C *)
+	Data10_Bottom_1_Cover_Glasst_Temp								: INT;		(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)	(* 0.01 °C *)
+	Data11_Cavity_Temp												: INT;												(* 0.01 °C *)
+	Data12_Cavity_Pressure											: INT;												(* 0.1 Bar *)
+	Data13_Cutting_Gas_Temp											: INT;												(* 0.01 °C *)
+	Data14_Cutting_Gas_Pressure										: INT;												(* 0.01 Bar *)
+	Data15_Per_10000_Humidity										: INT;
+	Data16_Dew_Point_Temp											: INT;		(* Température du point de rosée *)			(* 0.01 °C *)
+	Data17_TTA_Preamplifier_Temp									: INT;												(* 0.01 °C *)
+	Data18_Process_Monitor											: UINT;												(* 0 - 12288 *)
+	Data19_Visible_Light_Pierce_Detect									: UINT;												(* 0 - 12288 *)
+	Data20_Process_Monitor											: UINT;												(* 0 - 12288 *)
+	Data21_Visible_Light_Pierce_Detect									: UINT;												(* 0 - 12288 *)
+	Data22_Process_Monitor											: UINT;												(* 0 - 12288 *)
+	Data23_Visible_Light_Pierce_Detect									: UINT;												(* 0 - 12288 *)
+	Data24_Process_Monitor											: UINT;												(* 0 - 12288 *)
+	Data25_Visible_Light_Pierce_Detect									: UINT;												(* 0 - 12288 *)
+	Data26_Stray_Beam_Reserved										: UINT;												(* 0 - 4096 *)
+	Data27_Stray_Beam_Top_1_Cover_Glass							: UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	Data28_Stray_Beam_Focus_Lens									: UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	Data29_Stray_Beam_Bottom_1_Cover_Glass							: UINT;		(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)	(* 0 - 4096 *)
+	Data30_Reserved													: UINT;
+
+	Offset_Focal														: LREAL;		(* mm *)
+	Distance_Focal_Demandee										: LREAL;		(* mm *)
+
+	Distance_Buse_Piece_mm											: LREAL;		(* mm *) (* Pour Etalonnage Capacitance *)
+
+	Annul_Defaut														: BOOL;
+
+END_VAR
+
+
+VAR_IN_OUT
+
+	Demande_POM_Focal												: BOOL;
+
+	Start_Capacitance_Calibration										: BOOL;
+	TAB_Capacitance_Calibration										: ARRAY[0..1000] OF UDINT;
+	TAB_Capacitance_Segment_a										: ARRAY[0..1000] OF LREAL;
+	TAB_Capacitance_Segment_b										: ARRAY[0..1000] OF LREAL;
+
+END_VAR
+
+
+VAR_OUTPUT
+	OUT															: BOOL;
+
+	Focus_Position_Target_Value										: DINT;
+
+	DO01_TTA_Capacitance_Preamplifier_Select							: BOOL;
+	DO02_Home_Start												: BOOL;
+	DO03_Status_Output												: BOOL;
+	DO04_Status_Output												: BOOL;
+	DO05_Status_Output												: BOOL;
+	DO06_Status_LED													: BOOL;
+	DO07_Status_LED													: BOOL;
+	DO08_Status_LED													: BOOL;
+
+
+	Distance_Focal_Reelle											: LREAL;		(* mm *)
+	Distance_Focal_OK												: BOOL;
+
+	Capacitance_Actual_Value_mm										: LREAL;
+	Capacitance_Calibration_OK										: BOOL;
+
+	Tete_Prete_Pour_Decoupe											: BOOL;
+
+	Defaut_Collision													: BOOL;
+	Defaut_Limite_Atteinte												: BOOL;
+	Defaut_Temperature_Lens											: BOOL;
+	Defaut_Temperature_Lamelle_Verre_Superieure						: BOOL;
+	Defaut_Temperature_Lamelle_Verre_Inferieure						: BOOL;
+	Defaut_Temperature_Point_de_Rosee								: BOOL;
+	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure					: BOOL;
+	Defaut_Faisceau_parasite_Lamelle_Verre_Lens						: BOOL;
+	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure					: BOOL;
+
+	Defaut															: BOOL;
+
+END_VAR
+
+VAR
+
+	TAB_FOCUS_CALCULATION										: ARRAY[1..8,1..6] OF LREAL;
+
+	Focus_Calculation_TAB_y											: INT := 2;		(* Pour Choix du Type de Tête - Longueur Focal Collimation - Longueur Focal Focal *)
+																				(* 1 : 100 - 150 *)
+																	(*****)		(* 2 : 100 - 200 *)		(******)
+																				(* 3 : 100 - 220 *)
+																				(* 4 : 150 - 350 *)
+																				(* 5 : 100 - 300 *)
+																				(* 6 : 100 - 125 *)
+
+	i: INT;
+	RE_Start_Capacitance_Calibration: R_TRIG;
+
+	Shark: BOOL;
+	
+	RE_PomOk	:R_TRIG;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF IN THEN
+
+
+	(******************************************************************************************************************************)
+	(***************************************************DEB DEFAUTS - ALARMES *****************************************)
+	(******************************************************************************************************************************)
+	 IF DI01_Collision THEN
+	 	Defaut_Collision												:= TRUE;
+	 END_IF;
+     
+	 IF DI02_Up_Limit OR DI03_Down_Limit THEN
+	 	Defaut_Limite_Atteinte 											:= TRUE;
+	 END_IF;
+     
+	 IF Data03_Focus_Lens_Ambient_Temperature >= 2000 OR Data04_Focus_Lens_Temperature >= 5500THEN
+	 	Defaut_Temperature_Lens	 									:= TRUE;
+	 END_IF;
+     
+	 IF Data07_Top_1_Cover_Glass_Ambient_Temp >= 2000 OR Data08_Top_1_Cover_Glass_Temp >= 5500 THEN
+	 	Defaut_Temperature_Lamelle_Verre_Superieure 					:= TRUE;
+	 END_IF;
+     
+	 IF Data09_Bottom_1_Cover_Glass_Ambient_Temp > 2000 OR Data10_Bottom_1_Cover_Glasst_Temp > 5500 THEN
+	 	Defaut_Temperature_Lamelle_Verre_Inferieure 					:= TRUE;
+	 END_IF;
+     
+	 IF Data16_Dew_Point_Temp < 400 THEN
+	 	Defaut_Temperature_Point_de_Rosee 							:= TRUE;
+	 END_IF;
+     
+	 IF Data27_Stray_Beam_Top_1_Cover_Glass >= 2500 THEN
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure 				:= TRUE;
+	 END_IF;
+     
+	 IF Data28_Stray_Beam_Focus_Lens >= 2500 THEN
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Lens 					:= TRUE;
+	 END_IF;
+     
+	 IF Data29_Stray_Beam_Bottom_1_Cover_Glass >= 2500 THEN
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure 				:= TRUE;
+	 END_IF;
+     
+	 Defaut 															:= 	Defaut_Collision OR
+	 																	Defaut_Limite_Atteinte OR
+	 																	Defaut_Temperature_Lens OR
+	 																	Defaut_Temperature_Lamelle_Verre_Superieure OR
+	 																	Defaut_Temperature_Lamelle_Verre_Inferieure OR
+	 																	Defaut_Temperature_Point_de_Rosee OR
+	 																	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure OR
+	 																	Defaut_Faisceau_parasite_Lamelle_Verre_Lens OR
+	 																	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure;
+     
+	 IF Annul_Defaut THEN
+	 	Defaut_Collision												:= FALSE;
+	 	Defaut_Limite_Atteinte 											:= FALSE;
+	 	Defaut_Temperature_Lens										:= FALSE;
+	 	Defaut_Temperature_Lamelle_Verre_Superieure					:= FALSE;
+	 	Defaut_Temperature_Lamelle_Verre_Inferieure					:= FALSE;
+	 	Defaut_Temperature_Point_de_Rosee							:= FALSE;
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure				:= FALSE;
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Lens					:= FALSE;
+	 	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure				:= FALSE;
+	 END_IF;
+	(******************************************************************************************************************************)
+	(*************************************************** FIN DEFAUTS - ALARMES *****************************************)
+	(******************************************************************************************************************************)
+
+
+
+	(******************************************************************************************************************************)
+	(****************************************************** DEB POM FOCAL **************************************************)
+	(******************************************************************************************************************************)
+	 DO02_Home_Start := Demande_POM_Focal;
+	 RE_PomOk(clk:=DI05_Homing_finished);
+     
+	 IF RE_PomOk.Q THEN
+	 	DO02_Home_Start 												:= FALSE;
+	 	Demande_POM_Focal 											:= FALSE;
+	 END_IF;
+	(******************************************************************************************************************************)
+	(****************************************************** FIN POM FOCAL ***************************************************)
+	(******************************************************************************************************************************)
+
+
+
+	(******************************************************************************************************************************)
+	(*************************************** DEB FOCUS CALCULATION FORMULA **************************************)
+	(******************************************************************************************************************************)
+	 (* Focal Length of Collimator (fC) *)
+	 TAB_FOCUS_CALCULATION[1,1] := 100;
+	 TAB_FOCUS_CALCULATION[1,2] := 100;
+	 TAB_FOCUS_CALCULATION[1,3] := 100;
+	 TAB_FOCUS_CALCULATION[1,4] := 150;
+	 TAB_FOCUS_CALCULATION[1,5] := 100;
+	 TAB_FOCUS_CALCULATION[1,6] := 100;
+     
+	 (* Focal Length of Focus (fF) *)
+	 TAB_FOCUS_CALCULATION[2,1] := 150;
+	 TAB_FOCUS_CALCULATION[2,2] := 200;
+	 TAB_FOCUS_CALCULATION[2,3] := 220;
+	 TAB_FOCUS_CALCULATION[2,4] := 350;
+	 TAB_FOCUS_CALCULATION[2,5] := 300;
+	 TAB_FOCUS_CALCULATION[2,6] := 125;
+     
+	 (* Magnification Ratio *)
+	 TAB_FOCUS_CALCULATION[3,1] := 2.2;
+	 TAB_FOCUS_CALCULATION[3,2] := 4;
+	 TAB_FOCUS_CALCULATION[3,3] := 5;
+	 TAB_FOCUS_CALCULATION[3,4] := 5.5;
+	 TAB_FOCUS_CALCULATION[3,5] := 9;
+	 TAB_FOCUS_CALCULATION[3,6] := 1.6;
+     
+	 (* Focus Range - *)
+	 TAB_FOCUS_CALCULATION[4,1] := -17.6;
+	 TAB_FOCUS_CALCULATION[4,2] := -32.0;
+	 TAB_FOCUS_CALCULATION[4,3] := -40.0;
+	 TAB_FOCUS_CALCULATION[4,4] := -44.0;
+	 TAB_FOCUS_CALCULATION[4,5] := -72.0;
+	 TAB_FOCUS_CALCULATION[4,6] := -12.8;
+     
+	 (* Focus Range + *)
+	 TAB_FOCUS_CALCULATION[5,1] := 17.6;
+	 TAB_FOCUS_CALCULATION[5,2] := 32.0;
+	 TAB_FOCUS_CALCULATION[5,3] := 40.0;
+	 TAB_FOCUS_CALCULATION[5,4] := 44.0;
+	 TAB_FOCUS_CALCULATION[5,5] := 72.0;
+	 TAB_FOCUS_CALCULATION[5,6] := 12.8;
+     
+	 (* Focus Offset Range - *)
+	 TAB_FOCUS_CALCULATION[6,1] := -04.4;
+	 TAB_FOCUS_CALCULATION[6,2] := -08.0;
+	 TAB_FOCUS_CALCULATION[6,3] := -10.0;
+	 TAB_FOCUS_CALCULATION[6,4] := -11.0;
+	 TAB_FOCUS_CALCULATION[6,5] := -18.0;
+	 TAB_FOCUS_CALCULATION[6,6] := -03.2;
+     
+	 (* Focus Offset Range + *)
+	 TAB_FOCUS_CALCULATION[7,1] := 04.4;
+	 TAB_FOCUS_CALCULATION[7,2] := 08.0;
+	 TAB_FOCUS_CALCULATION[7,3] := 10.0;
+	 TAB_FOCUS_CALCULATION[7,4] := 11.0;
+	 TAB_FOCUS_CALCULATION[7,5] := 18.0;
+	 TAB_FOCUS_CALCULATION[7,6] := 03.2;
+     
+	 (* Parameters Setting *)
+	 TAB_FOCUS_CALCULATION[8,1] := 0;
+	 TAB_FOCUS_CALCULATION[8,2] := 1;
+	 TAB_FOCUS_CALCULATION[8,3] := 2;
+	 TAB_FOCUS_CALCULATION[8,4] := 3;
+	 TAB_FOCUS_CALCULATION[8,5] := 4;
+	 TAB_FOCUS_CALCULATION[8,6] := 7;
+     
+	 Focus_Position_Target_Value 	:= LREAL_TO_DINT( Distance_Focal_Demandee * ( 8000 / ( 2 * TAB_FOCUS_CALCULATION[3,Focus_Calculation_TAB_y] ) ) );
+	 Distance_Focal_Reelle		:= DINT_TO_LREAL( Focus_Position_Actual_Value) / ( 8000 / ( 2 * TAB_FOCUS_CALCULATION[3,Focus_Calculation_TAB_y]  ) );
+	 Distance_Focal_OK			:= ABS( Distance_Focal_Demandee - Distance_Focal_Reelle ) < 0;
+	(******************************************************************************************************************************)
+	(*************************************** FIN FOCUS CALCULATION FORMULA **************************************)
+	(******************************************************************************************************************************)
+
+
+
+	(******************************************************************************************************************************)
+	(******************************************** DEB CAPACITANCE CALIBRATION **************************************)
+	(******************************************************************************************************************************)
+	 DO01_TTA_Capacitance_Preamplifier_Select 							:= TRUE;		(* Set DO01 to 1 to obtain capacitance from internal TTA (capacitance preamplifier). *)
+     
+	 (* Debut de la Calibration Capacitance = RAZ des Tableaux *)
+	 RE_Start_Capacitance_Calibration(clk := Start_Capacitance_Calibration);
+	 IF RE_Start_Capacitance_Calibration.Q THEN
+	 	Capacitance_Calibration_OK := FALSE;
+	 	FOR i := 0 TO 1000 DO
+	 		TAB_Capacitance_Calibration[i] := 0;
+	 		TAB_Capacitance_Segment_a[i] := 0;
+	 		TAB_Capacitance_Segment_b[i] := 0;
+	 	END_FOR
+	 END_IF;
+     
+	 (* Calibration Capacitance *)
+	 IF Start_Capacitance_Calibration AND NOT Capacitance_Calibration_OK THEN
+     
+	 	TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
+     
+	 	(* Si aucune valeur = Zero ==> Calibration OK *)
+	 	Capacitance_Calibration_OK := TRUE;
+	 	FOR i := 0 TO 1000 DO
+	 		IF TAB_Capacitance_Calibration[i] = 0 THEN
+	 			Capacitance_Calibration_OK := FALSE;
+	 			EXIT;
+	 		END_IF;
+	 	END_FOR
+     
+	 	IF Capacitance_Calibration_OK THEN
+	 		(* y1 = ax1 + b ; y2 = ax2 + b ==> a = (y2 - y1) / (x2 - x1) ==> b = y2 - ax2 *)
+     
+	 		FOR i := 0 TO 999 DO
+	 			TAB_Capacitance_Segment_a[i] := ( TAB_Capacitance_Calibration[i+1] - TAB_Capacitance_Calibration[i] ) / ( 1 );
+	 		END_FOR
+	 	
+	 		FOR i := 0 TO 999 DO
+	 			TAB_Capacitance_Segment_b[i] := TAB_Capacitance_Calibration[i+1] - ( TAB_Capacitance_Segment_a[i] * ( i + 1 ) );
+	 		END_FOR
+     
+	 		Start_Capacitance_Calibration := FALSE;
+	 	END_IF;
+     
+	 END_IF;
+	(******************************************************************************************************************************)
+	(********************************************* FIN CAPACITANCE CALIBRATION **************************************)
+	(******************************************************************************************************************************)
+
+
+
+	(******************************************************************************************************************************)
+	(************************************************* DEB CAPACITANCE ==> mm  ****************************************)
+	(******************************************************************************************************************************)
+	 IF NOT Start_Capacitance_Calibration AND Capacitance_Calibration_OK THEN
+	 	FOR i := 0 TO 999 DO
+	 		IF Data01_Capacitance_Actual_Value > TAB_Capacitance_Calibration[i] AND Data01_Capacitance_Actual_Value <= TAB_Capacitance_Calibration[i+1] THEN
+	 			Capacitance_Actual_Value_mm :=( ( Data01_Capacitance_Actual_Value - TAB_Capacitance_Segment_b[i] ) / TAB_Capacitance_Segment_a[i] ) * 10;
+	 			EXIT;
+	 		END_IF;
+	 	END_FOR
+     
+	 	IF Data01_Capacitance_Actual_Value < TAB_Capacitance_Calibration[i] THEN
+	 		Shark := Shark;
+	 	END_IF;
+     
+	 	IF Data01_Capacitance_Actual_Value > TAB_Capacitance_Calibration[i] THEN
+	 		Shark := Shark;
+	 	END_IF;
+	 END_IF;
+	(******************************************************************************************************************************)
+	(*************************************************** FIN CAPACITANCE ==> mm  ****************************************)
+	(******************************************************************************************************************************)
+
+	Tete_Prete_Pour_Decoupe		:= 	NOT Defaut AND
+									DI04_Bottom_1_Cover_Glass_Ready AND
+									NOT DO02_Home_Start AND
+									DI05_Homing_finished AND
+									Distance_Focal_OK AND
+									NOT Start_Capacitance_Calibration AND
+									Capacitance_Calibration_OK;
+
+
+END_IF;
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

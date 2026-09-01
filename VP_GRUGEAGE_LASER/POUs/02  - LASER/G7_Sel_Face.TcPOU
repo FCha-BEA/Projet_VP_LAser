@@ -2,9 +2,14 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="G7_Sel_Face" Id="{49dae811-3853-40e4-bac2-7b6e429e66a1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM G7_Sel_Face
-VAR_INPUT	SFCInit:BOOL;	END_VAR
+VAR_INPUT	
+ SFCInit:BOOL;	
+ SFCReset	:BOOL;
+
+END_VAR
 
 VAR
+	Test_Face: BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <SFC>
@@ -638,7 +643,7 @@ Ecretage ( + 90° )
                         <o>
                           <v n="AttributeId">{a6b08bd8-b696-47e3-9cbf-7408b61c9ff8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">""</v>
+                            <v n="Value">"_aStep5_entry"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">48L</v>
@@ -1049,6 +1054,24 @@ Ecretage ( + 90° )
         </XmlArchive>
       </SFC>
     </Implementation>
+    <Action Name="_aStep5_entry" Id="{f3cdd2f8-776c-4b9d-94f8-f1dda6a2c4ad}">
+      <Implementation>
+        <ST><![CDATA[Test_Face:=false;]]></ST>
+      </Implementation>
+      <ObjectProperties>
+        <XmlArchive>
+          <Data>
+            <o xml:space="preserve" t="ActionObjectDuplicationModeProperty">
+              <v n="Embedded">true</v>
+            </o>
+          </Data>
+          <TypeList>
+            <Type n="ActionObjectDuplicationModeProperty">{6a58c9ae-b0e2-4127-8d9c-cbfc36a09580}</Type>
+            <Type n="Boolean">System.Boolean</Type>
+          </TypeList>
+        </XmlArchive>
+      </ObjectProperties>
+    </Action>
     <Action Name="Step1_Entry" Id="{ada27c39-3dc0-49b1-ad30-6a2eec0f2efa}">
       <Implementation>
         <ST><![CDATA[Pos_cible_Y_Laser := 675;
@@ -1065,9 +1088,9 @@ Top_Z_Laser := TRUE;
     <Action Name="Step4_Entry" Id="{767f3cb6-ba5a-4a9c-9a41-c8a571a62f42}">
       <Implementation>
         <ST><![CDATA[CASE Face_Cible OF
-	1 : Pos_cible_A_Laser := -45;
-	2 : Pos_cible_A_Laser := +45;
-	3 : Pos_cible_A_Laser := +90;
+	1 : Pos_cible_A_Laser := 45;
+	2 : Pos_cible_A_Laser := -45;
+	3 : Pos_cible_A_Laser := -90;
 END_CASE
 
 En_pos_A_Laser :=FALSE;
@@ -1079,11 +1102,10 @@ Face_En_Pos := FALSE;
     </Action>
     <Transition Name="Trans0" Id="{04679d42-ab2b-466a-9504-c6066902e2e2}">
       <Implementation>
-        <ST><![CDATA[Auto 						AND
-Top_Face 					AND
-NOT Face_En_Pos 			AND
-Face_Cible <> 0 				AND
-Face_Cible <> Face_En_Cours
+        <ST><![CDATA[(Test_Face OR (Auto AND Top_Face) )				
+AND NOT Face_En_Pos 
+AND Face_Cible <> 0 	
+AND Face_Cible <> Face_En_Cours
 
 
 ]]></ST>
@@ -1098,7 +1120,8 @@ Face_Cible <> Face_En_Cours
     <Transition Name="Trans4" Id="{7e2007b4-2c2c-4787-88c8-f8f13a424ae0}">
       <Implementation>
         <ST><![CDATA[En_pos_A_Laser AND NOT Top_A_Laser 	AND
-Auto 									AND
+(Test_Face OR 
+Auto) 									AND
 NOT Top_Face 							AND
 Face_En_Pos 							AND
 Face_Cible <> 0 							AND
