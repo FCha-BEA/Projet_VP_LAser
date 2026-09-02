@@ -62,7 +62,7 @@ END_VAR
                             <v n="Id">8L</v>
                           </o>
                           <o>
-                            <v n="Operand">"Cellule_mesure_barre"</v>
+                            <v n="Operand">""</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -78,7 +78,7 @@ END_VAR
                             <v n="Id">9L</v>
                           </o>
                           <o>
-                            <v n="Operand">""</v>
+                            <v n="Operand">"Cellule_mesure_barre"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>

@@ -127,16 +127,19 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Z := 746.23;
 
 //Asservissement pression gaz dans tete laser
+//Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-6Bar
+//
  IF Start_Gaz OR Test_Asserv THEN
   Asserv_Pression.fKp:=P;
   Asserv_Pression.fTn:=I;
   Asserv_Pression.fTv:=D;
   Asserv_Pression.fTd:=Td;
-  Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
-  Asserv_Pression.fActualValue:=Data14_Cutting_Gas_Pressure;
+  Asserv_Pression.fSetpointValue:=(Consigne_Pression_Gaz*4095) /6;
+  Asserv_Pression.fActualValue:=((INT_TO_REAL(Data14_Cutting_Gas_Pressure)/100) * 4095) / 6;
   Asserv_Pression.fCtrlCycleTime:=0.01; //Tmps de cycle tâche plc, à augmenter si besoin - en multiple de tmps de cycle uniqement, d'après la doc
- 
-  Consigne_ServoVanne:=LREAL_TO_UINT(Asserv_Pression.fCtrlOutput);
+  Asserv_Pression();
+  
+  Consigne_ServoVanne:=LREAL_TO_UINT(Asserv_Pression.fCtrlOutput);	
  END_IF
 
 //Autorisation ouverture gâche sécurisée

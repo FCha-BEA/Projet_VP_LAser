@@ -389,6 +389,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		Start_Pom_Codeur_Secu:=TP_Start_PomCodSecu.Q;
 		IF Pom_Codeur_Secu_ok THEN 
 			Step_Pom_CodeurSecu:=0;
+			Start_Pom_Codeur_Secu:=FALSE;
 		END_IF
 		
   END_CASE

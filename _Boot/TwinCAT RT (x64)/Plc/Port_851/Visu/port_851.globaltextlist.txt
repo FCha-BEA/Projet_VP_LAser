@@ -36,6 +36,7 @@ Id;Default;eng;FR
 391;Annulation defaut;;
 722;Augmenter$R$NLimiteur$R$NPression;;
 830;BACK;;
+1150;Bars;;
 976;Bot_1_Cover_Glass_Ambient_Temp;;
 977;Bot_1_Cover_Glass_Temp;;
 811;Cavity_Pressure;;

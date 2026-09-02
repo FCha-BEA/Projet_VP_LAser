@@ -312,6 +312,14 @@ Pression"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"1150"</v>
+              <v n="TextDefault">"Bars"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"976"</v>
               <v n="TextDefault">"Bot_1_Cover_Glass_Ambient_Temp"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

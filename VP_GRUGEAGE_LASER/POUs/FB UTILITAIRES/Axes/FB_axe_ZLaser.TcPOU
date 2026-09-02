@@ -491,10 +491,10 @@ END_IF
 //////////////////////////////////////////////////////
 //		Asserv Basic PID							//
 //////////////////////////////////////////////////////	
-	PID_Input_mm := (REAL_memo_Dist - Distance_Buse);
+	PID_Input_mm := Pos_Reel_Z_Laser;
 
 	FB_BasicPID_0(
-		fSetpointValue := 0,
+		fSetpointValue := (Pos_Reel_Z_Laser - (REAL_memo_Dist - Distance_Buse)),
 		fActualValue := PID_Input_mm,
 		bReset := Reset_PID,
 		fCtrlCycleTime := 0.002,
@@ -537,8 +537,8 @@ END_IF
 		
 	// génération de la trajectoire corrigée
 		MC_ExtSetPointGenFeed(
-			Position := -(PID_Input_mm),//consigne_Point_Gen,
-			Velocity := 300,//PTP_Vitesse,
+			Position := Pos_Reel_Z_Laser + consigne_Point_Gen,
+			Velocity := 330,//PTP_Vitesse,
 			Acceleration := PTP_Accel_Deccel,
 			Direction := 1,
 			Axis := Axe_Z_Laser);
@@ -547,7 +547,7 @@ END_IF
 			Axis := Axe_Z_Laser,
 			Execute := Enable_SetPoint_Generator_3D,
 			Position := Pos_axe_Z_Laser,
-			PositionType := POSITIONTYPE_RELATIVE);
+			PositionType :=POSITIONTYPE_ABSOLUTE); //POSITIONTYPE_RELATIVE);
 
 	// Désactivation de l'altération de la traj	
 		MC_ExtSetPointGenDisable_3D(

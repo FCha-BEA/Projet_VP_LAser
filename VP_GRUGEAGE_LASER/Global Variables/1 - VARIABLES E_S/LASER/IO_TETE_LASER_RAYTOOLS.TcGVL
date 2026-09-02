@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <GVL Name="IO_TETE_LASER_RAYTOOLS" Id="{23b8efd8-e063-4db9-aaca-58e59faac592}">
     <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
 VAR_GLOBAL
@@ -88,11 +88,14 @@ VAR_GLOBAL
 	TAB_Capacitance_Segment_b										: ARRAY[0..1000] OF LREAL;
 	Prog_Tete_Laser_WcState											AT%I* : BOOL;
 	Prog_Tete_Laser_State											AT%I* : UINT;
-
-(*Asservissement gaz*)
- Consigne_ServoVanne			AT%Q*:UINT;
- 
- 
+	
+ (*Gaz et refroidissement*)
+ //Gaz de decoupe	-	SOIT O2, AIR ou N2, pas de combinaison
+  Consigne_ServoVanne		AT%Q*:UINT;	//Asservissement gaz decoupe : O2 uniquement
+  Ev_GazLaser_Air			AT%Q*:BOOL; //Gaz de decoupe : Air comprime
+  Ev_GazLaser_Azote			AT%Q*:BOOL; //Gaz de decoupe : Azote
+ //Refroidissement 
+  Ev_Refroidissement		AT%Q*:BOOL; //Gaz de refroidissement : Air comprime ou Azote
 
 
 END_VAR

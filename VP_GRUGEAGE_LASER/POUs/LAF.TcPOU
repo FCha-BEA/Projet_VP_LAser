@@ -16,6 +16,9 @@ A TESTER 6 : Faire sécu porte laser
 7  : voir comm fc pour faire divers
 OK - 8: mettre xml source
 OK - 9 : installer drive manager 1
+
+10 : Fleches + images sur visu temperature
+11 : Choix gaz de decoupe
 ]]></ST>
     </Implementation>
   </POU>

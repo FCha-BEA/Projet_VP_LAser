@@ -47,7 +47,7 @@ VAR_GLOBAL
 	RE_Fct_palpage_Etal							:R_TRIG;
  	FE_Fct_palpage_Etal							:F_TRIG;
 	Ep_secu										:LREAL:=20;
-	Couple_de_Palpage 							:LREAL 	:= 100;	//A affiner
+	Couple_de_Palpage 							:LREAL:=20;	//A affiner
 	Memo_X_Laser_Decal							:LREAL;
 	
 //Cycles et divers - Voir bits inutiles à suppr

@@ -1,25 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_IOLink_Servo_ITV2030" Id="{b0f71f3a-cce0-4e09-b3fe-ee8daa904e4c}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_IOLink_Servo_ITV2030
 VAR_INPUT
-	IN_Byte1,			//0:Pression ok /3: temps d'activation total /4->7: Alarme
-	IN_Byte2,			//0->2:Alarme /3->7:Défaut
-	IN_Byte3,			//Retour pression Byte 1	
-	IN_Byte4	:BYTE;	//Retour pression Byte 2
+	IN_Byte0,			//Retour pression Byte 1
+	IN_Byte1,			//Retour pression Byte 2 
+	IN_Byte2,			//0->2:Alarme 3->7:Défaut 
+	IN_Byte3	:BYTE;	//0:Pression ok 3: temps d'activation total /4->7: Alarme
 	
 	Consigne_Pression_PLC	:UINT;
 END_VAR
 VAR_OUTPUT
 	OUT	:BOOL;
-	OUT_Byte1,
-	OUT_Byte2				:BYTE;
+	OUT_Byte0,
+	OUT_Byte1				:BYTE;
 	Bit_Alarme,
 	Bit_Defaut				:BOOL;
 	String_Alarme,
 	String_Defaut			:STRING;
 	Retour_Pression			:UINT;
 	Pression_OK				:BOOL;
+	Retour_Pression_Bars	:REAL;	
 END_VAR
 VAR
 	
@@ -27,21 +28,20 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Retour pression de la servovanne 
- Retour_Pression:= IN_Byte4;
- Retour_Pression:= SHL(Retour_Pression,8);
- Retour_Pression:= Retour_Pression + IN_Byte3;
-
+ Retour_Pression := SHL(IN_Byte0,7) + IN_Byte1;
+ Retour_Pression_Bars := (Retour_Pression * 6) / 4095;
+ 
 //Ecriture consigne pression
- OUT_Byte1 := UINT_TO_BYTE(Consigne_Pression_PLC); //Ne prends que les 8 premiers bit de la consigne
- OUT_Byte2 := UINT_TO_BYTE(SHR(Consigne_Pression_PLC,8));
+ OUT_Byte0 := UINT_TO_BYTE(SHR(Consigne_Pression_PLC,7)); //Ne prends que les 8 premiers bit de la consigne
+ OUT_Byte1 := UINT_TO_BYTE(Consigne_Pression_PLC);
  
 //Récupéraition alarmes
  Bit_Alarme := IN_Byte2.2; 
  String_Alarme:='';
- IF IN_Byte1.4 THEN String_Alarme := CONCAT(String_Alarme,'Pression résiduelle$n'); END_IF	
- IF IN_Byte1.5 THEN String_Alarme := CONCAT(String_Alarme,'Consigne pression > max$n'); END_IF	
- IF IN_Byte1.6 THEN String_Alarme := CONCAT(String_Alarme,'Retour de pression < Consigne$n'); END_IF	
- IF IN_Byte1.7 THEN String_Alarme := CONCAT(String_Alarme,'Retour de pression > Consigne$n'); END_IF	
+ IF IN_Byte3.4 THEN String_Alarme := CONCAT(String_Alarme,'Pression résiduelle$n'); END_IF	
+ IF IN_Byte3.5 THEN String_Alarme := CONCAT(String_Alarme,'Consigne pression > max$n'); END_IF	
+ IF IN_Byte3.6 THEN String_Alarme := CONCAT(String_Alarme,'Retour de pression < Consigne$n'); END_IF	
+ IF IN_Byte3.7 THEN String_Alarme := CONCAT(String_Alarme,'Retour de pression > Consigne$n'); END_IF	
  IF IN_Byte2.0 THEN String_Alarme := CONCAT(String_Alarme,'Vanne Sous alimentée$n'); END_IF	
  IF IN_Byte2.1 THEN String_Alarme := CONCAT(String_Alarme,'Vanne Sur alimentée$n'); END_IF	
  
@@ -54,31 +54,8 @@ END_VAR
  IF IN_Byte2.6 THEN String_Defaut := CONCAT(String_Defaut,'Erreur mémoire EEPROM$n'); END_IF
 
 
-Pression_Ok := 	IN_Byte1.0;
+Pression_Ok := 	IN_Byte3.0;
  ]]></ST>
     </Implementation>
-    <LineIds Name="FB_IOLink_Servo_ITV2030">
-      <LineId Id="34" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="38" Count="1" />
-      <LineId Id="37" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="42" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="62" Count="0" />
-      <LineId Id="70" Count="4" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="50" Count="0" />
-      <LineId Id="44" Count="0" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="79" Count="3" />
-      <LineId Id="85" Count="1" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="76" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
