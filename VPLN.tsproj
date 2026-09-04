@@ -2654,26 +2654,11 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{98F7A8FA-4A9A-2047-4E5E-3AC78A86E55E}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{2009616D-C501-ACF7-D997-ADB2FFCA311E}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>Standard Outputs</Name>
-						<Var>
-							<Name>.Ev_GazLaser_Air</Name>
-							<Comment><![CDATA[Gaz de decoupe : Air comprime]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Ev_GazLaser_Azote</Name>
-							<Comment><![CDATA[Gaz de decoupe : Azote]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Ev_Refroidissement</Name>
-							<Comment><![CDATA[Gaz de refroidissement : Air comprime ou Azote]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -2739,10 +2724,6 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
@@ -2754,6 +2735,10 @@ resolution 3/2exp20
 						<Var>
 							<Name>.DO03_Status_Output</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO04_Status_Output</Name>
@@ -2776,9 +2761,24 @@ resolution 3/2exp20
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>.Ev_GazLaser_Air</Name>
+							<Comment><![CDATA[Gaz de decoupe : Air comprime]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>.Consigne_ServoVanne</Name>
 							<Comment><![CDATA[Asservissement gaz decoupe : O2 uniquement]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Ev_GazLaser_Azote</Name>
+							<Comment><![CDATA[Gaz de decoupe : Azote]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Ev_Refroidissement</Name>
+							<Comment><![CDATA[Gaz de refroidissement : Air comprime ou Azote]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.Var_ConvLaser.Net_WordIn1</Name>
@@ -3286,26 +3286,26 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>.DI01_Collision</Name>
-							<Comment><![CDATA[Entrées TOR]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>.Servo_Error</Name>
 							<Comment><![CDATA[Echange avec tête]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.DI01_Collision</Name>
+							<Comment><![CDATA[Entrées TOR]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.DI02_Up_Limit</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.DI03_Down_Limit</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>.Focus_Position_Actual_Value</Name>
 							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>.DI03_Down_Limit</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -5726,7 +5726,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-420 REP1 Chariot (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="0a0d84ef02080204" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000005">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016601010204" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000005">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81704006400010003000000000040020000d81764010000</SyncMan>
@@ -5734,7 +5734,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>0100000066013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -6314,7 +6314,7 @@ Sécurité/Réarmement]]></Comment>
 					<Box Id="11" Disabled="true" BoxType="9099" BoxFlags="#x00000020">
 						<Name>B-1572 Rep1 BS (54632)</Name>
 						<ImageId>1008</ImageId>
-						<EtherCAT SlaveType="3" AdsServerAddress="0a0d84ef020c0404" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x03000008">
+						<EtherCAT SlaveType="3" AdsServerAddress="153f016501010404" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x03000008">
 							<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 							<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 							<SyncMan>d81703006400010003000000000040020000d81764010000</SyncMan>
@@ -6322,7 +6322,7 @@ Sécurité/Réarmement]]></Comment>
 							<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 							<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-							<SwitchPortData>01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+							<SwitchPortData>0100000065013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 							<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 							<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 							<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -8773,7 +8773,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="16" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-820 Rep1 Laser (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="0a0de84a02110a04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000f">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016701010a04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000f">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81708006400010003000000000040020000d81764010000</SyncMan>
@@ -8781,7 +8781,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>0100000067013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -9279,7 +9279,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="17" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-821 Rep2 Laser (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="0a0de84a02120b04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000010">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016801010b04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000010">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81704006400010003000000000040020000d81764010000</SyncMan>
@@ -9287,7 +9287,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>0100000068013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -9922,7 +9922,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="20" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-822 Rep3 Laser (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="0a0de84a0215ea07" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000050">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f01690101ea07" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000050">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81708006400010003000000000040020000d81764010000</SyncMan>
@@ -9930,7 +9930,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>0100000000153f1500ffffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>0100000069013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -10358,7 +10358,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="29" BoxType="9099">
 							<Name>B-961REP1 - Console (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT EtherCatAddr="2961" SlaveType="3" AdsServerAddress="0a0de8e502484354" FixedAdsServerNetId="true" PdiType="#x0006" EtherCatAddrFixed="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="3" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" MaxSlotCount="8" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0300000a">
+							<EtherCAT EtherCatAddr="2961" SlaveType="3" AdsServerAddress="153f016a01014354" FixedAdsServerNetId="true" PdiType="#x0006" EtherCatAddrFixed="true" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="3" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" MaxSlotCount="8" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0300000a">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81706006400010003000000000040020000d81764010000</SyncMan>
@@ -10366,7 +10366,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>0100000079013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>010000006a013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000003e0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20313d537562737469747574652056616c75652c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -10872,7 +10872,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="21" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-1520 Rep1 BE (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="0a0de84a0216920b" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000a">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f01640101920b" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000a">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81702006400010003000000000040020000d81764010000</SyncMan>
@@ -10880,7 +10880,7 @@ Sécurité/Réarmement]]></Comment>
 								<Fmmu>0000000000000000d81700020100000001000000000000000000000000000000</Fmmu>
 								<Fmmu>0000000000000000981e00010100000002000000000000000000000000000000</Fmmu>
 								<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
-								<SwitchPortData>01000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
+								<SwitchPortData>0100000064013f150000ffff3f153f15000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</SwitchPortData>
 								<DcMode>4672656552756e000000000000000000467265652052756e000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000</DcMode>
 								<MBoxUserCmdData>020003000900000032000000030000000000000000000000000000000000000020012000010000000050442d4c61796f757420436f6e66696775726174696f6e3a20303d506f72742042617365642c20313d50696e20426173656400</MBoxUserCmdData>
 								<MBoxUserCmdData>02000300090000002a0000000300000000000000000000000000000000000000200220010100000000444f2053756273746974757465204d6f64653a20303d536574204c6f772c20323d486f6c64206c61737400</MBoxUserCmdData>
@@ -11272,7 +11272,7 @@ Sécurité/Réarmement]]></Comment>
 						</Box>
 					</Box>
 				</Box>
-				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="12" MaxSwitchFrames="320"/>
+				<EtherCAT DcSyncMode="3" EnableVirtualSwitch="true" MaxSwitchPorts="26" MaxSwitchFrames="600" MaxSwitchMACs="100"/>
 			</Device>
 		</Io>
 	</Project>

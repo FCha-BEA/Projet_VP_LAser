@@ -1708,9 +1708,9 @@ Laser_ok_pour_decoupe:=false;]]></ST>
     <Action Name="Step10_entry" Id="{2bb15733-e641-464d-bd4e-45156e223342}">
       <Implementation>
         <ST><![CDATA[Consigne_Pression_Gaz					:=	Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Pression_Gaz;
-Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Puissance_Laser);
-Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Duty_Cycle);
-Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Frequence_impulsion);
+PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Puissance_Laser);
+PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Duty_Cycle);
+PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Frequence_impulsion);
 Prog_Distance_Focal_Demandee 			:=	Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Distance_Focale;
 //Type_gaz								:= Tab_Datas_Laser[Phase_perc_encours].Type_Gaz;
 
@@ -1780,9 +1780,9 @@ Top_Z_Laser:=TRUE;]]></ST>
     <Transition Name="Trans10" Id="{a4250394-6059-47e2-a02a-d5aa77c45abf}">
       <Implementation>
         <ST><![CDATA[Data13_Cutting_Gas_Temp			=	Consigne_Pression_Gaz	AND 			
-_1_LASER.Feedback_Laser_Power	=	Prog_Power_Watt_Target	AND 		
-_1_LASER.Feedback_Laser_Duty	=	Prog_Per_Cent_Of_Duty_Cycle_Target AND	
-_1_LASER.Feedback_Laser_Freq	=	Prog_Frequency_0_20000Hz_Target AND		
+_1_LASER.Feedback_Laser_Power	=	PLC_Prog_Power_Watt_Target	AND 		
+_1_LASER.Feedback_Laser_Duty	=	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target AND	
+_1_LASER.Feedback_Laser_Freq	=	PLC_Prog_Frequency_0_20000Hz_Target AND		
 Prog_Distance_Focal_Reelle 		= 	Prog_Distance_Focal_Demandee 	AND 
 
 ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Hauteur_Buse <1)]]></ST>

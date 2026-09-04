@@ -1350,7 +1350,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Power_Watt_Max"</v>
+                            <v n="Operand">"PLC_Prog_Power_Watt_Max"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1369,7 +1369,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Power_Watt_Target"</v>
+                            <v n="Operand">"PLC_Prog_Power_Watt_Target"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1388,7 +1388,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Per_Cent_Of_Duty_Cycle_Max"</v>
+                            <v n="Operand">"PLC_Prog_Per_Cent_Of_Duty_Cycle_Max"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1407,7 +1407,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Per_Cent_Of_Duty_Cycle_Target"</v>
+                            <v n="Operand">"PLC_Prog_Per_Cent_Of_Duty_Cycle_Target"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1426,7 +1426,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Frequency_0_20000Hz_Max"</v>
+                            <v n="Operand">"PLC_Prog_Frequency_0_20000Hz_Max"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1445,7 +1445,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Prog_Frequency_0_20000Hz_Target"</v>
+                            <v n="Operand">"PLC_Prog_Frequency_0_20000Hz_Target"</v>
                             <v n="Type">"UDINT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1462,11 +1462,10 @@ END_VAR]]></Declaration>
                           </o>
                           <v n="Id">79L</v>
                         </o>
-                        <o t="BoxTreeBox">
-                          <v n="BoxType">"AND"</v>
-                          <o n="Instance" t="Operand">
-                            <n n="Operand" />
-                            <v n="Type">""</v>
+                        <o t="BoxTreeOperand">
+                          <o n="Operand" t="Operand">
+                            <v n="Operand">"Prog_Cutting_Mode"</v>
+                            <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>
@@ -1477,73 +1476,10 @@ END_VAR]]></Declaration>
                             </o>
                             <v n="LValue">false</v>
                             <v n="Boolean">false</v>
-                            <v n="IsInstance">true</v>
-                            <v n="Id">418L</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">82L</v>
                           </o>
-                          <o n="OutputItems" t="OutputItemList">
-                            <l2 n="OutputItems" />
-                          </o>
-                          <o n="Flags" t="Flags">
-                            <v n="Flags">0</v>
-                            <v n="Fixed">false</v>
-                            <v n="Extensible">false</v>
-                          </o>
-                          <n n="InputFlags" />
-                          <l2 n="InputItems" cet="BoxTreeOperand">
-                            <o>
-                              <o n="Operand" t="Operand">
-                                <v n="Operand">"Prog_Cutting_Mode"</v>
-                                <v n="Type">"BOOL"</v>
-                                <v n="Comment">""</v>
-                                <v n="SymbolComment">""</v>
-                                <v n="Address">""</v>
-                                <o n="Flags" t="Flags">
-                                  <v n="Flags">0</v>
-                                  <v n="Fixed">false</v>
-                                  <v n="Extensible">false</v>
-                                </o>
-                                <v n="LValue">false</v>
-                                <v n="Boolean">false</v>
-                                <v n="IsInstance">false</v>
-                                <v n="Id">82L</v>
-                              </o>
-                              <v n="Id">81L</v>
-                            </o>
-                            <o>
-                              <o n="Operand" t="Operand">
-                                <v n="Operand">"FALSE"</v>
-                                <v n="Type">"BOOL"</v>
-                                <v n="Comment">""</v>
-                                <v n="SymbolComment">""</v>
-                                <v n="Address">""</v>
-                                <o n="Flags" t="Flags">
-                                  <v n="Flags">0</v>
-                                  <v n="Fixed">true</v>
-                                  <v n="Extensible">false</v>
-                                </o>
-                                <v n="LValue">false</v>
-                                <v n="Boolean">true</v>
-                                <v n="IsInstance">false</v>
-                                <v n="Id">421L</v>
-                              </o>
-                              <v n="Id">420L</v>
-                            </o>
-                          </l2>
-                          <o n="InputParam" t="ParamList">
-                            <l2 n="Names" />
-                            <l2 n="Types" />
-                          </o>
-                          <o n="OutputParam" t="ParamList">
-                            <l2 n="Names" />
-                            <l2 n="Types" />
-                          </o>
-                          <v n="CallType" t="Operator">And</v>
-                          <n n="EN" />
-                          <n n="ENO" />
-                          <n n="STSnippet" />
-                          <v n="ContainsExtensibleInputs">false</v>
-                          <v n="ProvidesSTSnippet">false</v>
-                          <v n="Id">419L</v>
+                          <v n="Id">81L</v>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
@@ -1629,6 +1565,25 @@ END_VAR]]></Declaration>
                                 <v n="Id">88L</v>
                               </o>
                               <v n="Id">87L</v>
+                            </o>
+                            <o t="BoxTreeOperand">
+                              <o n="Operand" t="Operand">
+                                <v n="Operand">"_0_LASER_ST.Pulse_Tir.Q"</v>
+                                <v n="Type">"BOOL"</v>
+                                <v n="Comment">""</v>
+                                <v n="SymbolComment">""</v>
+                                <v n="Address">""</v>
+                                <o n="Flags" t="Flags">
+                                  <v n="Flags">0</v>
+                                  <v n="Fixed">true</v>
+                                  <v n="Extensible">false</v>
+                                </o>
+                                <v n="LValue">false</v>
+                                <v n="Boolean">true</v>
+                                <v n="IsInstance">false</v>
+                                <v n="Id">428L</v>
+                              </o>
+                              <v n="Id">427L</v>
                             </o>
                             <o t="BoxTreeBox">
                               <v n="BoxType">"AND"</v>

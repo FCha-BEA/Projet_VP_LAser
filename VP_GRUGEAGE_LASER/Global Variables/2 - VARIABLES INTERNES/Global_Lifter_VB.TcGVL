@@ -58,7 +58,7 @@
 	Arc_Voltage_Sample		:INT := 25;
 	
 	(*Palpage*)
-	Vitesse_de_palpage		:LREAL:=2;
+	Vitesse_de_palpage		:LREAL:=10;
 	Palpage_Torche			:BOOL;
 	
 // Gestion plasma

@@ -9,14 +9,14 @@ VAR_GLOBAL
 
 	Source_MaxPhotonics										:Data_Laser; 
 
-	Prog_Power_Watt_Max										: UDINT := 6000; 		(* Watt *) (* 0... 6000*)	(* OK *)
-	Prog_Power_Watt_Target									: UDINT := 0; 			(* Watt *) (* 0... 6000*)	(* OK *)
+	PLC_Prog_Power_Watt_Max										: UDINT := 6000; 		(* Watt *) (* 0... 6000*)	(* OK *)
+	PLC_Prog_Power_Watt_Target									: UDINT := 0; 			(* Watt *) (* 0... 6000*)	(* OK *)
 	(***********************************************************************************************************************)
-	Prog_Per_Cent_Of_Duty_Cycle_Max							: UDINT := 100;		(* 0...100% *)			(* OK *)
-	Prog_Per_Cent_Of_Duty_Cycle_Target						: UDINT := 0;			(* 0...100% *)			(* OK *)
+	PLC_Prog_Per_Cent_Of_Duty_Cycle_Max							: UDINT := 100;		(* 0...100% *)			(* OK *)
+	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target						: UDINT := 0;			(* 0...100% *)			(* OK *)
 	(***********************************************************************************************************************)
-	Prog_Frequency_0_20000Hz_Max							: UDINT := 20000;		(* Hz *) (* 0... 20 000 *)	(* OK *)
-	Prog_Frequency_0_20000Hz_Target							: UDINT := 0; 			(* Hz *) (* 0... 20 000Hz *)(* OK *)
+	PLC_Prog_Frequency_0_20000Hz_Max							: UDINT := 20000;		(* Hz *) (* 0... 20 000 *)	(* OK *)
+	PLC_Prog_Frequency_0_20000Hz_Target							: UDINT := 0; 			(* Hz *) (* 0... 20 000Hz *)(* OK *)
 	(***********************************************************************************************************************)
 
 	Prog_Cutting_Mode										: BOOL := TRUE;

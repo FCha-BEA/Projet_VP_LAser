@@ -3986,9 +3986,9 @@ En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
 
 Consigne_Pression_Gaz					:=Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Pression_Gaz;
-Prog_Power_Watt_Target					:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Puissance_Laser);
-Prog_Per_Cent_Of_Duty_Cycle_Target		:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Duty_Cycle);
-Prog_Frequency_0_20000Hz_Target			:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Frequence_impulsion);
+PLC_Prog_Power_Watt_Target					:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Puissance_Laser);
+PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Duty_Cycle);
+PLC_Prog_Frequency_0_20000Hz_Target			:=LREAL_TO_UDINT(Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Frequence_impulsion);
 Prog_Distance_Focal_Demandee 			:=Tab_St_Recette_Laser[index_Recette_Laser].Tb_dec.Distance_Focale;
 Start_Gaz:=TRUE; ]]></ST>
       </Implementation>
@@ -4243,9 +4243,9 @@ and not Top_Z_Laser]]></ST>
         <ST><![CDATA[step223.t>T#20MS
 AND ABS(Prog_Capacitance_Actual_Value_mm -Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse) <0.5
 AND Data13_Cutting_Gas_Temp			=	Consigne_Pression_Gaz	AND 			
-_1_LASER.Feedback_Laser_Power	=	Prog_Power_Watt_Target	AND 		
-_1_LASER.Feedback_Laser_Duty	=	Prog_Per_Cent_Of_Duty_Cycle_Target AND	
-_1_LASER.Feedback_Laser_Freq	=	Prog_Frequency_0_20000Hz_Target AND		
+_1_LASER.Feedback_Laser_Power	=	PLC_Prog_Power_Watt_Target	AND 		
+_1_LASER.Feedback_Laser_Duty	=	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target AND	
+_1_LASER.Feedback_Laser_Freq	=	PLC_Prog_Frequency_0_20000Hz_Target AND		
 Prog_Distance_Focal_Reelle 		= 	Prog_Distance_Focal_Demandee]]></ST>
       </Implementation>
     </Transition>

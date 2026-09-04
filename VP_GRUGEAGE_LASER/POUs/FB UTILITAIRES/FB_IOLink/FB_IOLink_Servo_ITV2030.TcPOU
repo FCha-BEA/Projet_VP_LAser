@@ -28,11 +28,14 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Retour pression de la servovanne 
- Retour_Pression := SHL(IN_Byte0,7) + IN_Byte1;
- Retour_Pression_Bars := (Retour_Pression * 6) / 4095;
+
+ Retour_Pression	:= BYTE_TO_UINT(IN_Byte0);
+ Retour_Pression := SHL(Retour_Pression,8);
+ Retour_Pression := Retour_Pression + IN_Byte1;
+ Retour_Pression_Bars := UINT_TO_REAL(Retour_Pression) * 5 / 4095;	//mise a l echelle, 100% pression = 5 bars
  
 //Ecriture consigne pression
- OUT_Byte0 := UINT_TO_BYTE(SHR(Consigne_Pression_PLC,7)); //Ne prends que les 8 premiers bit de la consigne
+ OUT_Byte0 := UINT_TO_BYTE(SHR(Consigne_Pression_PLC,8)); //Ne prends que les 8 premiers bit de la consigne
  OUT_Byte1 := UINT_TO_BYTE(Consigne_Pression_PLC);
  
 //Récupéraition alarmes

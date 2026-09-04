@@ -383,11 +383,6 @@
       <SubType>Code</SubType>
       <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
     </Compile>
-    <Compile Include="Visualizations\Visualization_1.TcVIS">
-      <SubType>Code</SubType>
-      <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>
-      <ExcludeFromBuild>true</ExcludeFromBuild>
-    </Compile>
     <Compile Include="Visualizations\VisuForce.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>Gestionnaire de visualisation.TcVMO</DependentUpon>

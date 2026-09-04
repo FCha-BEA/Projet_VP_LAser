@@ -517,13 +517,13 @@ END_VAR]]></Declaration>
 		16 		: Status_Display_Machine_Type := 'MFSC_2000W_Global';
 		32 		: Status_Display_Machine_Type := 'MFSC_3000W_Global';
 		48 		: Status_Display_Machine_Type := 'MFSC_4000W_Global';
-		64 		: Status_Display_Machine_Type := 'MFSC_5000W_Global';
-		80 		: Status_Display_Machine_Type := 'MFSC_6000W_Global';
-		96 		: Status_Display_Machine_Type := 'MFSC_12000W_Global';
-		112 		: Status_Display_Machine_Type := 'MFSC_1500W_Global';
-		128 		: Status_Display_Machine_Type := 'MFSC_2000W_Global';
-		144 		: Status_Display_Machine_Type := 'MFSC_3000W_Global';
-		160 		: Status_Display_Machine_Type := 'MFSC_4000W_Global';
+		64 		: Status_Display_Machine_Type := 'MFSC_6000W_Global';
+		80 		: Status_Display_Machine_Type := 'MFMC_6000W_Global';
+		96 		: Status_Display_Machine_Type := 'MFMC_12000W_Global';
+		112 		: Status_Display_Machine_Type := 'MFMC_1500W_Global';
+		128 		: Status_Display_Machine_Type := 'MFMC_2000W_Global';
+		144 		: Status_Display_Machine_Type := 'MFMC_3000W_Global';
+		160 		: Status_Display_Machine_Type := 'MFMC_4000W_Global';
 	END_CASE;
 	Status_PassWord													:= DWORD_TO_UINT(SHR(UDINT_TO_DWORD(Status_Free_Status_8),16) AND 2#00000000000000001111111111111111) ;
 	CASE	Status_PassWord OF
@@ -735,10 +735,14 @@ END_VAR]]></Declaration>
 
 	PROGRAM_NUMBER_OUT										:= Ctrl_Free_Ctrl_7;
 
+	RAMPING_TIME_OUT												:= UINT_TO_UDINT(Ctrl_PassWord);
+	RAMPING_TIME_OUT 												:= SHL(RAMPING_TIME_OUT,16);
+	RAMPING_TIME_OUT												:= RAMPING_TIME_OUT + UINT_TO_UDINT(Ctrl_Machine_Type);
+(*
 	Temp_Ctrl_Machine_Type											:= SHR(UINT_TO_UDINT(Ctrl_Machine_Type),0);
 	Temp_Ctrl_PassWord												:= SHR(UINT_TO_UDINT(Ctrl_PassWord),16);
 	RAMPING_TIME_OUT												:= Temp_Ctrl_Machine_Type + Temp_Ctrl_PassWord;
-
+*)
 	LASER_NUMBER_OUT											:= Ctrl_Free_Ctrl_9;
 
 	(*************************************************************************************************************************************)

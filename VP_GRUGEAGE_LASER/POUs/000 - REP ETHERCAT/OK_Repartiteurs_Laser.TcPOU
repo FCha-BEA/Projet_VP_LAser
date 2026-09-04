@@ -3656,7 +3656,7 @@ END_VAR]]></Declaration>
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">325L</v>
+                        <v n="Id">373L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -3788,6 +3788,22 @@ END_VAR]]></Declaration>
                             <v n="Boolean">false</v>
                             <v n="IsInstance">false</v>
                             <v n="Id">311L</v>
+                          </o>
+                          <o>
+                            <v n="Operand">""</v>
+                            <v n="Type">"REAL"</v>
+                            <v n="Comment">""</v>
+                            <v n="SymbolComment">""</v>
+                            <v n="Address">""</v>
+                            <o n="Flags" t="Flags">
+                              <v n="Flags">0</v>
+                              <v n="Fixed">false</v>
+                              <v n="Extensible">false</v>
+                            </o>
+                            <v n="LValue">true</v>
+                            <v n="Boolean">false</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">375L</v>
                           </o>
                         </l2>
                       </o>
@@ -3921,6 +3937,7 @@ END_VAR]]></Declaration>
                           <v>String_Defaut</v>
                           <v>Retour_Pression</v>
                           <v>Pression_OK</v>
+                          <v>Retour_Pression_Bars</v>
                         </l2>
                         <l2 n="Types" cet="String">
                           <v>BOOL</v>
@@ -3932,6 +3949,7 @@ END_VAR]]></Declaration>
                           <v>STRING</v>
                           <v>UINT</v>
                           <v>BOOL</v>
+                          <v>REAL</v>
                         </l2>
                       </o>
                       <v n="CallType" t="Operator">FunctionBlock</v>
@@ -3940,7 +3958,7 @@ END_VAR]]></Declaration>
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">326L</v>
+                      <v n="Id">374L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />

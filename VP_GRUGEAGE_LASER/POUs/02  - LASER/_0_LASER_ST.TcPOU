@@ -9,8 +9,11 @@ VAR
 	 Num_operation_Cycle 				: INT;
 	//Asservissement pression
 	 Asserv_Pression				:FB_BasicPID;
-	  P,I,D,Td						:LREAL;	//Pour essais lors du test asservissement   
-	  Test_asserv					:BOOL;
+	  P							:LREAL;	//Pour essais lors du test asservissement
+	  I							:LREAL;	//Pour essais lors du test asservissement
+	  D							:LREAL;	//Pour essais lors du test asservissement
+	  Td						:LREAL;	//Pour essais lors du test asservissement   
+	  Test_asserv				:BOOL;
 	
 	  
 	 t_floppy1	:BOOL;	//sert de test, à suppr dans ver finale
@@ -18,6 +21,11 @@ VAR
 	 
 	 LaserTYpe	:UINT;
 	 PasswordDisplay	:UINT;
+	 
+	//Test impulsion lqser 
+	 Pulse_Tir		:TP;	// Impulsion de tir laser
+	 Dmd_Test_Tir	:BOOL; //Test pour demander une petite impulsion de tir laser
+	 Mode_Test_Tir: BOOL;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// CHOIX DE LA FACE EN CYCLE AUTO   
@@ -126,22 +134,22 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Y := 363.76;
  	Palp_R[3].R00.Z := 746.23;
 
-//Asservissement pression gaz dans tete laser
-//Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-6Bar
-//
- IF Start_Gaz OR Test_Asserv THEN
-  Asserv_Pression.fKp:=P;
-  Asserv_Pression.fTn:=I;
-  Asserv_Pression.fTv:=D;
-  Asserv_Pression.fTd:=Td;
-  Asserv_Pression.fSetpointValue:=(Consigne_Pression_Gaz*4095) /6;
-  Asserv_Pression.fActualValue:=((INT_TO_REAL(Data14_Cutting_Gas_Pressure)/100) * 4095) / 6;
-  Asserv_Pression.fCtrlCycleTime:=0.01; //Tmps de cycle tâche plc, à augmenter si besoin - en multiple de tmps de cycle uniqement, d'après la doc
-  Asserv_Pression();
-  
-  Consigne_ServoVanne:=LREAL_TO_UINT(Asserv_Pression.fCtrlOutput);	
+//Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars
+IF Tir_Laser OR Test_asserv THEN
+	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
+	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
+	Asserv_Pression.fKp:=P;
+	Asserv_Pression.fTn:=I;
+	Asserv_Pression.fTv:=D;
+	Asserv_Pression.fTd:=Td;
+	Asserv_Pression.fCtrlCycleTime:=0.01;
+	Asserv_Pression.bReset:=(Consigne_Pression_Gaz=0);
+	
+	Asserv_Pression();
+	
+	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 4095 / 5);
  END_IF
-
+ 
 //Autorisation ouverture gâche sécurisée
  //Evacuation air cabine
   Tps_Aspiration:=REAL_TO_TIME(Volume_Cabine/Debit_Aspiration*1000);
@@ -176,8 +184,15 @@ END_VAR]]></Declaration>
 LaserTYpe:=UDINT_TO_UINT(Source_MaxPhotonics.PROGRAM_NUMBER_IN);
 PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
+//Impulsion test laser
+IF Mode_Test_Tir THEN  
+	PLC_Prog_Power_Watt_Target:=600;
+	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target:=100;
+	PLC_Prog_Frequency_0_20000Hz_Target:=10000;
 	
-	
+	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#100MS);
+
+END_IF
 	
 	
 	
