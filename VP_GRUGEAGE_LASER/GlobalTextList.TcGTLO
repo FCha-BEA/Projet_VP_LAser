@@ -14,9 +14,152 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"79"</v>
+              <v n="TextDefault">"
+Data11_Cavity_Temp		(* 0.01 °C *)
+Data12_Cavity_Pressure		(* 0.1 Bar *)
+Data13_Cutting_Gas_Temp		(* 0.01 °C *)
+Data14_Cutting_Gas_Pressure 	(* 0.01 Bar *)
+Data15_Per_10000_Humidity
+Data16_Dew_Point_Temp 		(* Température du point de rosée *) (* 0.01 °C *)
+Data17_TTA_Preamplifier_Temp 	(* 0.01 °C *)
+Data18_Process_Monitor (* 0 - 12288 *)
+Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data20_Process_Monitor 		(* 0 - 12288 *)
+Data21_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data22_Process_Monitor 		(* 0 - 12288 *)
+Data23_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data24_Process_Monitor 		(* 0 - 12288 *)
+Data25_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)
+Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
+Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data30_Reserved"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"738"</v>
               <v n="TextDefault">"
 Convoyeur"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1617"</v>
+              <v n="TextDefault">"
+Data07_Top_1_Cover_Glass_Ambient_Temp  	(* - 1400 &lt; T -Alarme- T &lt; 2000 -Défaut- *)	(* 0.01 °C *)
+Data08_Top_1_Cover_Glass_Temp 		(* - 5000 &lt; T -Alarme- T &lt; 5500 -Défaut- *)	(* 0.01 °C *)
+Data09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 &lt; T -Alarme- T &lt; 2000 -Défaut- *)	(* 0.01 °C *)
+Data10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 &lt; T -Alarme- T &lt; 5500 -Défaut- *)		(* 0.01 °C *)
+Data11_Cavity_Temp		(* 0.01 °C *)
+Data12_Cavity_Pressure		(* 0.1 Bar *)
+Data13_Cutting_Gas_Temp		(* 0.01 °C *)
+Data14_Cutting_Gas_Pressure 	(* 0.01 Bar *)
+Data15_Per_10000_Humidity
+Data16_Dew_Point_Temp 		(* Température du point de rosée *) (* 0.01 °C *)
+Data17_TTA_Preamplifier_Temp 	(* 0.01 °C *)
+Data18_Process_Monitor		(* 0 - 12288 *)
+Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data20_Process_Monitor 		(* 0 - 12288 *)
+Data21_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data22_Process_Monitor 		(* 0 - 12288 *)
+Data23_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data24_Process_Monitor 		(* 0 - 12288 *)
+Data25_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)
+Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
+Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data30_Reserved"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"805"</v>
+              <v n="TextDefault">"
+Data07_Top_1_Cover_Glass_Ambient_Temp  	(* - 1400 &lt; T -Alarme- T &lt; 2000 -Défaut- *)	(* 0.01 °C *)
+Data08_Top_1_Cover_Glass_Temp 		(* - 5000 &lt; T -Alarme- T &lt; 5500 -Défaut- *)	(* 0.01 °C *)
+Data09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 &lt; T -Alarme- T &lt; 2000 -Défaut- *)	(* 0.01 °C *)
+Data10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 &lt; T -Alarme- T &lt; 5500 -Défaut- *)		(* 0.01 °C *)
+Data11_Cavity_Temp		(* 0.01 °C *)
+Data12_Cavity_Pressure		(* 0.1 Bar *)
+Data13_Cutting_Gas_Temp		(* 0.01 °C *)
+Data14_Cutting_Gas_Pressure 	(* 0.01 Bar *)
+Data15_Per_10000_Humidity
+Data16_Dew_Point_Temp 		(* Température du point de rosée *) (* 0.01 °C *)
+Data17_TTA_Preamplifier_Temp 	(* 0.01 °C *)
+Data18_Process_Monitor (* 0 - 12288 *)
+Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data20_Process_Monitor 		(* 0 - 12288 *)
+Data21_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data22_Process_Monitor 		(* 0 - 12288 *)
+Data23_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data24_Process_Monitor 		(* 0 - 12288 *)
+Data25_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)
+Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)
+Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
+Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
+Data30_Reserved"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"543"</v>
+              <v n="TextDefault">"
+Prog_Distance_Focal_OK
+
+Prog_Capacitance_Actual_Value_mm
+Prog_Capacitance_Calibration_OK
+
+Prog_Tete_Prete_Pour_Decoupe
+
+Prog_Defaut_Collision
+Prog_Defaut_Limite_Atteinte
+
+
+Prog_Defaut_Temperature_Point_de_Rosee
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
+
+Prog_Defaut_Tete"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"331"</v>
+              <v n="TextDefault">"
+Prog_Distance_Focal_OK
+
+Prog_Capacitance_Actual_Value_mm
+Prog_Capacitance_Calibration_OK
+
+Prog_Tete_Prete_Pour_Decoupe
+
+Prog_Defaut_Collision
+Prog_Defaut_Limite_Atteinte
+Prog_Defaut_Temperature_Lens
+Prog_Defaut_Temperature_Lamelle_Verre_Superieure
+Prog_Defaut_Temperature_Lamelle_Verre_Inferieure
+Prog_Defaut_Temperature_Point_de_Rosee
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
+Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
+
+Prog_Defaut_Tete"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -73,6 +216,325 @@ Convoyeur"</v>
             <o>
               <v n="TextID">"311"</v>
               <v n="TextDefault">"%s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1261"</v>
+              <v n="TextDefault">"%s		Data01_Capacitance_Actual_Value"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"407"</v>
+              <v n="TextDefault">"%s		Data02_Capacitance_HeartBeat_Accumulated_Value"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1600"</v>
+              <v n="TextDefault">"%s		Data18_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2107"</v>
+              <v n="TextDefault">"%s		Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1836"</v>
+              <v n="TextDefault">"%s		Data20_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"335"</v>
+              <v n="TextDefault">"%s		Data21_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"800"</v>
+              <v n="TextDefault">"%s		Data22_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1312"</v>
+              <v n="TextDefault">"%s		Data23_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"826"</v>
+              <v n="TextDefault">"%s		Data24_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"151"</v>
+              <v n="TextDefault">"%s		Data25_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1481"</v>
+              <v n="TextDefault">"%s		Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"937"</v>
+              <v n="TextDefault">"%s		Data27_Stray_Beam_Top_1_Cover_Glass 
+	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1707"</v>
+              <v n="TextDefault">"%s		Data28_Stray_Beam_Focus_Lens 
+	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *) (* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"95"</v>
+              <v n="TextDefault">"%s		Data29_Stray_Beam_Bottom_1_Cover_Glass 
+	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1522"</v>
+              <v n="TextDefault">"%s		Reserved"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"983"</v>
+              <v n="TextDefault">"%s	Data01_Capacitance_Actual_Value"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"401"</v>
+              <v n="TextDefault">"%s	Data02_Capacitance_HeartBeat_Accumulated_Value"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1392"</v>
+              <v n="TextDefault">"%s	Data03_Focus_Lens_Ambient_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"123"</v>
+              <v n="TextDefault">"%s	Data04_Focus_Lens_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"791"</v>
+              <v n="TextDefault">"%s	Data18_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1157"</v>
+              <v n="TextDefault">"%s	Data18_Process_Monitor (* 0 - 12288 *)*"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1112"</v>
+              <v n="TextDefault">"%s	Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"326"</v>
+              <v n="TextDefault">"%s	Data20_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"404"</v>
+              <v n="TextDefault">"%s	Data20_Process_Monitor(* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"779"</v>
+              <v n="TextDefault">"%s	Data21_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"22"</v>
+              <v n="TextDefault">"%s	Data22_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"786"</v>
+              <v n="TextDefault">"%s	Data23_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1076"</v>
+              <v n="TextDefault">"%s	Data24_Process_Monitor (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"406"</v>
+              <v n="TextDefault">"%s	Data25_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1813"</v>
+              <v n="TextDefault">"%s	Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"513"</v>
+              <v n="TextDefault">"%s	Data27_Stray_Beam_Top_1_Cover_Glass 
+(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"235"</v>
+              <v n="TextDefault">"%s	Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"636"</v>
+              <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens 
+(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"776"</v>
+              <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens 
+(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *) (* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"26"</v>
+              <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1109"</v>
+              <v n="TextDefault">"%s	Data29_Stray_Beam_Bottom_1_Cover_Glass 
+(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"358"</v>
+              <v n="TextDefault">"%s	Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"637"</v>
+              <v n="TextDefault">"%s	Prog_Distance_Focal_Reelle	(* mm *)"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"544"</v>
+              <v n="TextDefault">"%s	Reserved"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -151,8 +613,288 @@ HHHHH : MM"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"1762"</v>
+              <v n="TextDefault">"%s Bars		Data12_Cavity_Pressure"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"53"</v>
+              <v n="TextDefault">"%s Bars	Data12_Cavity_Pressure"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"792"</v>
+              <v n="TextDefault">"%s Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"341"</v>
               <v n="TextDefault">"%s °C"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1926"</v>
+              <v n="TextDefault">"%s%		Data15_Air_Humidity"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"993"</v>
+              <v n="TextDefault">"%s%	Data15_Air_Humidity"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"671"</v>
+              <v n="TextDefault">"%s% Data15_Air_Humidity"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"337"</v>
+              <v n="TextDefault">"%sBars		Data12_Cavity_Pressure"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1801"</v>
+              <v n="TextDefault">"%sBars		Data14_Cutting_Gas_Pressure "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1305"</v>
+              <v n="TextDefault">"%sBars	Data12_Cavity_Pressure"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1506"</v>
+              <v n="TextDefault">"%sBars	Data14_Cutting_Gas_Pressure "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"481"</v>
+              <v n="TextDefault">"%s°C"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1315"</v>
+              <v n="TextDefault">"%s°C	"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"978"</v>
+              <v n="TextDefault">"%s°C		Data03_Focus_Lens_Ambient_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2064"</v>
+              <v n="TextDefault">"%s°C		Data04_Focus_Lens_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2166"</v>
+              <v n="TextDefault">"%s°C		Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"455"</v>
+              <v n="TextDefault">"%s°C		Data08_Top_1_Cover_Glass_Temp "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1976"</v>
+              <v n="TextDefault">"%s°C		Data09_Bottom_1_Cover_Glass_Ambient_Temp "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2255"</v>
+              <v n="TextDefault">"%s°C		Data10_Bottom_1_Cover_Glasst_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1578"</v>
+              <v n="TextDefault">"%s°C		Data11_Cavity_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2016"</v>
+              <v n="TextDefault">"%s°C		Data13_Cutting_Gas_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1191"</v>
+              <v n="TextDefault">"%s°C		Data16_Dew_Point_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"359"</v>
+              <v n="TextDefault">"%s°C		Data17_TTA_Preamplifier_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"642"</v>
+              <v n="TextDefault">"%s°C		Temperature difference"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1867"</v>
+              <v n="TextDefault">"%s°C	Data03_Focus_Lens_Ambient_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"655"</v>
+              <v n="TextDefault">"%s°C	Data04_Focus_Lens_Temperature "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1679"</v>
+              <v n="TextDefault">"%s°C	Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"247"</v>
+              <v n="TextDefault">"%s°C	Data08_Top_1_Cover_Glass_Temp "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"402"</v>
+              <v n="TextDefault">"%s°C	Data09_Bottom_1_Cover_Glass_Ambient_Temp "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"403"</v>
+              <v n="TextDefault">"%s°C	Data10_Bottom_1_Cover_Glasst_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1826"</v>
+              <v n="TextDefault">"%s°C	Data11_Cavity_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1583"</v>
+              <v n="TextDefault">"%s°C	Data12_Cavity_Pressure"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1543"</v>
+              <v n="TextDefault">"%s°C	Data13_Cutting_Gas_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2007"</v>
+              <v n="TextDefault">"%s°C	Data16_Dew_Point_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1138"</v>
+              <v n="TextDefault">"%s°C	Data17_TTA_Preamplifier_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1591"</v>
+              <v n="TextDefault">"%s°C	Temperature difference"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

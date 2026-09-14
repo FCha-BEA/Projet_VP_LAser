@@ -96,13 +96,16 @@ VAR_OUTPUT
 
 	Defaut_Collision													: BOOL;
 	Defaut_Limite_Atteinte												: BOOL;
+	Alarme_Temperature_Lens											: BOOL;
 	Defaut_Temperature_Lens											: BOOL;
+	Alarme_Temperature_Lamelle_Verre_Superieure						: BOOL; 
 	Defaut_Temperature_Lamelle_Verre_Superieure						: BOOL;
+	Alarme_Temperature_Lamelle_Verre_Inferieure						: BOOL;
 	Defaut_Temperature_Lamelle_Verre_Inferieure						: BOOL;
 	Defaut_Temperature_Point_de_Rosee								: BOOL;
-	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure					: BOOL;
+	Defaut_Faisceau_parasite_Lamelle_Verre_Superieure				: BOOL;
 	Defaut_Faisceau_parasite_Lamelle_Verre_Lens						: BOOL;
-	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure					: BOOL;
+	Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure				: BOOL;
 
 	Defaut															: BOOL;
 
@@ -142,17 +145,24 @@ END_VAR]]></Declaration>
 	 	Defaut_Limite_Atteinte 											:= TRUE;
 	 END_IF;
      
-	 IF Data03_Focus_Lens_Ambient_Temperature >= 2000 OR Data04_Focus_Lens_Temperature >= 5500THEN
-	 	Defaut_Temperature_Lens	 									:= TRUE;
+	 IF Data04_Focus_Lens_Temperature - Data03_Focus_Lens_Ambient_Temperature >= 2000 THEN
+	 	Defaut_Temperature_Lens	 := TRUE;
+	 ELSIF Data04_Focus_Lens_Temperature - Data03_Focus_Lens_Ambient_Temperature >= 1400 THEN
+		Alarme_Temperature_Lens := TRUE;
+	 END_IF;
+    
+	 IF Data08_Top_1_Cover_Glass_Temp - Data07_Top_1_Cover_Glass_Ambient_Temp >= 2000 THEN
+	 	Defaut_Temperature_Lens	 := TRUE;
+	 ELSIF Data08_Top_1_Cover_Glass_Temp - Data07_Top_1_Cover_Glass_Ambient_Temp >= 1400 THEN
+		Alarme_Temperature_Lens := TRUE;
+	 END_IF;
+
+	 IF Data10_Bottom_1_Cover_Glasst_Temp - Data09_Bottom_1_Cover_Glass_Ambient_Temp >= 2000 THEN
+	 	Defaut_Temperature_Lens	 := TRUE;
+	 ELSIF Data10_Bottom_1_Cover_Glasst_Temp - Data09_Bottom_1_Cover_Glass_Ambient_Temp >= 1400 THEN
+		Alarme_Temperature_Lens := TRUE;
 	 END_IF;
      
-	 IF Data07_Top_1_Cover_Glass_Ambient_Temp >= 2000 OR Data08_Top_1_Cover_Glass_Temp >= 5500 THEN
-	 	Defaut_Temperature_Lamelle_Verre_Superieure 					:= TRUE;
-	 END_IF;
-     
-	 IF Data09_Bottom_1_Cover_Glass_Ambient_Temp > 2000 OR Data10_Bottom_1_Cover_Glasst_Temp > 5500 THEN
-	 	Defaut_Temperature_Lamelle_Verre_Inferieure 					:= TRUE;
-	 END_IF;
      
 	 IF Data16_Dew_Point_Temp < 400 THEN
 	 	Defaut_Temperature_Point_de_Rosee 							:= TRUE;

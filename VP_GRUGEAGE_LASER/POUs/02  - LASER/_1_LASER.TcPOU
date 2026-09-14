@@ -1845,7 +1845,7 @@ END_VAR]]></Declaration>
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">92L</v>
+                        <v n="Id">429L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -2107,6 +2107,22 @@ END_VAR]]></Declaration>
                             <v n="Id">109L</v>
                           </o>
                           <o>
+                            <v n="Operand">""</v>
+                            <v n="Type">"BOOL"</v>
+                            <v n="Comment">""</v>
+                            <v n="SymbolComment">""</v>
+                            <v n="Address">""</v>
+                            <o n="Flags" t="Flags">
+                              <v n="Flags">0</v>
+                              <v n="Fixed">false</v>
+                              <v n="Extensible">false</v>
+                            </o>
+                            <v n="LValue">true</v>
+                            <v n="Boolean">false</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">431L</v>
+                          </o>
+                          <o>
                             <v n="Operand">"Prog_Defaut_Temperature_Lens"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
@@ -2123,6 +2139,22 @@ END_VAR]]></Declaration>
                             <v n="Id">110L</v>
                           </o>
                           <o>
+                            <v n="Operand">""</v>
+                            <v n="Type">"BOOL"</v>
+                            <v n="Comment">""</v>
+                            <v n="SymbolComment">""</v>
+                            <v n="Address">""</v>
+                            <o n="Flags" t="Flags">
+                              <v n="Flags">0</v>
+                              <v n="Fixed">false</v>
+                              <v n="Extensible">false</v>
+                            </o>
+                            <v n="LValue">true</v>
+                            <v n="Boolean">false</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">432L</v>
+                          </o>
+                          <o>
                             <v n="Operand">"Prog_Defaut_Temperature_Lamelle_Verre_Superieure"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
@@ -2137,6 +2169,22 @@ END_VAR]]></Declaration>
                             <v n="Boolean">false</v>
                             <v n="IsInstance">false</v>
                             <v n="Id">111L</v>
+                          </o>
+                          <o>
+                            <v n="Operand">""</v>
+                            <v n="Type">"BOOL"</v>
+                            <v n="Comment">""</v>
+                            <v n="SymbolComment">""</v>
+                            <v n="Address">""</v>
+                            <o n="Flags" t="Flags">
+                              <v n="Flags">0</v>
+                              <v n="Fixed">false</v>
+                              <v n="Extensible">false</v>
+                            </o>
+                            <v n="LValue">true</v>
+                            <v n="Boolean">false</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">433L</v>
                           </o>
                           <o>
                             <v n="Operand">"Prog_Defaut_Temperature_Lamelle_Verre_Inferieure"</v>
@@ -2238,7 +2286,7 @@ END_VAR]]></Declaration>
                       </o>
                       <o n="Flags" t="Flags">
                         <v n="Flags">0</v>
-                        <v n="Fixed">false</v>
+                        <v n="Fixed">true</v>
                         <v n="Extensible">false</v>
                       </o>
                       <n n="InputFlags" />
@@ -3293,11 +3341,11 @@ END_VAR]]></Declaration>
                           <v>LREAL</v>
                           <v>LREAL</v>
                           <v>BOOL</v>
-                          <v>BOOL (VAR_IN_OUT)</v>
-                          <v>BOOL (VAR_IN_OUT)</v>
-                          <v>ARRAY [0..1000] OF UDINT (VAR_IN_OUT)</v>
-                          <v>ARRAY [0..1000] OF LREAL (VAR_IN_OUT)</v>
-                          <v>ARRAY [0..1000] OF LREAL (VAR_IN_OUT)</v>
+                          <v>BOOL[REF]</v>
+                          <v>BOOL[REF]</v>
+                          <v>ARRAY [0..1000] OF UDINT[REF]</v>
+                          <v>ARRAY [0..1000] OF LREAL[REF]</v>
+                          <v>ARRAY [0..1000] OF LREAL[REF]</v>
                         </l2>
                       </o>
                       <o n="OutputParam" t="ParamList">
@@ -3319,8 +3367,11 @@ END_VAR]]></Declaration>
                           <v>Tete_Prete_Pour_Decoupe</v>
                           <v>Defaut_Collision</v>
                           <v>Defaut_Limite_Atteinte</v>
+                          <v>Alarme_Temperature_Lens</v>
                           <v>Defaut_Temperature_Lens</v>
+                          <v>Alarme_Temperature_Lamelle_Verre_Superieure</v>
                           <v>Defaut_Temperature_Lamelle_Verre_Superieure</v>
+                          <v>Alarme_Temperature_Lamelle_Verre_Inferieure</v>
                           <v>Defaut_Temperature_Lamelle_Verre_Inferieure</v>
                           <v>Defaut_Temperature_Point_de_Rosee</v>
                           <v>Defaut_Faisceau_parasite_Lamelle_Verre_Superieure</v>
@@ -3354,15 +3405,18 @@ END_VAR]]></Declaration>
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
+                          <v>BOOL</v>
+                          <v>BOOL</v>
+                          <v>BOOL</v>
                         </l2>
                       </o>
                       <v n="CallType" t="Operator">FunctionBlock</v>
-                      <n n="EN" />
-                      <n n="ENO" />
+                      <v n="EN">false</v>
+                      <v n="ENO">false</v>
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">93L</v>
+                      <v n="Id">430L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />
