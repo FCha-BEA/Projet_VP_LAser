@@ -2311,7 +2311,7 @@ resolution 3/2exp20
 					<Name>Axe 42 (Z - Laser)</Name>
 					<AxisPara>
 						<Dynamic Acceleration="6000" Deceleration="6000" Jerk="109090"/>
-						<Velo SlowManual="2" FastManual="10" Maximum="330"/>
+						<Velo SlowManual="0.1" FastManual="10" Maximum="330"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
@@ -2654,11 +2654,19 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C3411B0C-5A74-C366-E6B0-5EEB8178CBA9}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{53FE7748-049E-915F-A39E-6702D7D9D550}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>Standard Outputs</Name>
+						<Var>
+							<Name>.OUT_Perc_Duty_PWM</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.OUT_Freq_PWM</Name>
+							<Type>UDINT</Type>
+						</Var>
 						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -4599,6 +4607,77 @@ Sécurité/Réarmement]]></Comment>
 							</Pdo>
 						</EtherCAT>
 					</Box>
+					<Box Id="18" BoxType="9099" BoxFlags="#x00000020">
+						<Name>B-127PWM1 (EL2502)</Name>
+						<ImageId>1004</ImageId>
+						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x09c63052" RevisionNo="#x001a0000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2502 2Ch. PWM output, 24V" Desc="EL2502" PortABoxInfo="#x01000029">
+							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
+							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
+							<SyncMan>00110c002400010003000000000000000400001124010000</SyncMan>
+							<SyncMan>801100000000000004000000000000000000801100000000</SyncMan>
+							<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+							<BootStrapData>0010f400f410f400</BootStrapData>
+							<MBoxUserCmdData>02000300090000000c000000030000000000000000000000000000000000000020008002010000000150726573656e746174696f6e00</MBoxUserCmdData>
+							<MBoxUserCmdData>02000300090000000e00000003000000000000000000000000000000000000002000800701000000034f7065726174696f6e206d6f646500</MBoxUserCmdData>
+							<Pdo Name="PWM Outputs Channel 1" Index="#x1600" InOut="1" Flags="#x0010">
+								<ExcludePdo>#x1602</ExcludePdo>
+								<ExcludePdo>#x1604</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7000" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="PWM Outputs Channel 2" Index="#x1601" InOut="1" Flags="#x0010">
+								<ExcludePdo>#x1603</ExcludePdo>
+								<ExcludePdo>#x1605</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7010" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="PWM Outputs Channel 1" Index="#x1602" InOut="1" Flags="#x0010">
+								<ExcludePdo>#x1600</ExcludePdo>
+								<ExcludePdo>#x1604</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7000" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+								<Entry Name="PWM period" Index="#x7000" Sub="#x12">
+									<Type>UINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="PWM Outputs Channel 2" Index="#x1603" InOut="1" Flags="#x0010">
+								<ExcludePdo>#x1601</ExcludePdo>
+								<ExcludePdo>#x1605</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7010" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+								<Entry Name="PWM period" Index="#x7010" Sub="#x12">
+									<Type>UINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="PWM Outputs Channel 1" Index="#x1604" InOut="1" Flags="#x0010" SyncMan="2">
+								<ExcludePdo>#x1600</ExcludePdo>
+								<ExcludePdo>#x1602</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7000" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+								<Entry Name="PWM period 1Hz" Index="#x7000" Sub="#x13">
+									<Type>UDINT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="PWM Outputs Channel 2" Index="#x1605" InOut="1" Flags="#x0010" SyncMan="2">
+								<ExcludePdo>#x1601</ExcludePdo>
+								<ExcludePdo>#x1603</ExcludePdo>
+								<Entry Name="PWM output" Index="#x7010" Sub="#x11">
+									<Type>UINT</Type>
+								</Entry>
+								<Entry Name="PWM period 1Hz" Index="#x7010" Sub="#x13">
+									<Type>UDINT</Type>
+								</Entry>
+							</Pdo>
+							<CoeProfile ProfileNo="16389001"/>
+							<CoeProfile ProfileNo="16389001"/>
+						</EtherCAT>
+					</Box>
 				</Box>
 				<Box Id="2" BoxType="9099">
 					<Name>Hub B-81SW1 (CU1128)</Name>
@@ -5726,7 +5805,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-420 REP1 Chariot (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="153f016601010204" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000005">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016601010304" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000005">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81704006400010003000000000040020000d81764010000</SyncMan>
@@ -8773,7 +8852,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="16" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-820 Rep1 Laser (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="153f016701010a04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000f">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016701010b04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x0100000f">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81708006400010003000000000040020000d81764010000</SyncMan>
@@ -9279,7 +9358,7 @@ Sécurité/Réarmement]]></Comment>
 						<Box Id="17" BoxType="9099" BoxFlags="#x00000020">
 							<Name>B-821 Rep2 Laser (54632)</Name>
 							<ImageId>1008</ImageId>
-							<EtherCAT SlaveType="3" AdsServerAddress="153f016801010b04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000010">
+							<EtherCAT SlaveType="3" AdsServerAddress="153f016801010c04" FixedAdsServerNetId="true" PdiType="#x0006" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" EoeType="2" FoeType="1" VendorId="#x0000004f" ProductCode="#x0000d568" RevisionNo="#x00000001" InfoDataAddr="true" InfoDataNetId="true" GenerateOwnNetId="true" InitializeOwnNetId="true" PortPhys="17" IdentificationAdo="308" MaxSlotCount="8" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="IMPACT67 Pro EC DIO8 IOL8" Desc="54632" PortABoxInfo="#x01000010">
 								<SyncMan>0010ec0326000100010000008000ec03ec03001026010000</SyncMan>
 								<SyncMan>ec13ec0322000100020000008000ec03ec03ec1322010000</SyncMan>
 								<SyncMan>d81704006400010003000000000040020000d81764010000</SyncMan>
@@ -11446,6 +11525,10 @@ Sécurité/Réarmement]]></Comment>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Armoire-A (EK1100)^B-126RO6 (EL2612)">
 				<Link VarA="Standard Outputs^.Start_Pom_Codeur_Secu" VarB="Channel 1^Output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Armoire-A (EK1100)^B-127PWM1 (EL2502)">
+				<Link VarA="Standard Outputs^.OUT_Freq_PWM" VarB="PWM Outputs Channel 1^PWM period 1Hz"/>
+				<Link VarA="Standard Outputs^.OUT_Perc_Duty_PWM" VarB="PWM Outputs Channel 1^PWM output"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_2 (CU1128-B)^B-420 REP1 Chariot (54632)">
 				<Link VarA="Standard Inputs^.B420_Rep_ChaBe.Link_IN" VarB="TxPDO Mapping of Digital Inputs^PD (I/Q Pin2 + C/Q Pin4)"/>

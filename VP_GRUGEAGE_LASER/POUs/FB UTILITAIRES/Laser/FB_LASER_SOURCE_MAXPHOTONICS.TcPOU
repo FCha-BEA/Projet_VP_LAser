@@ -70,6 +70,10 @@ VAR_OUTPUT
 	Status_Percentage_Of_Laser_Output_Power							: USINT;
 	Status_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				: USINT;
 	Status_Percentage_Of_Laser_Frequency_Of_PWM_Wave				: UINT;
+	
+	PWM_Duty_Perc_UINT												:UINT;	// Pour carte EL2502 De pourcent a valeur en UINT (de 0-65535)
+	PWM_Freq_UDINT													:UDINT; // Pour carte EL2502 : on envoie la periode en us
+	
 
 END_VAR
 
@@ -243,7 +247,7 @@ VAR
 
 	(****************************************************************************************************************)
 
-	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 101140;
+	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 123456;
 
 	Ctrl_Free_Ctrl_1_0													: BOOL;
 	Ctrl_Turn_Laser_On												: BOOL;
@@ -546,15 +550,15 @@ END_VAR]]></Declaration>
 	(*************************************************************************************************************************************)
 	(*************************************************************************************************************************************)
 	IF 	NOT Status_Main_Power_Start_ON OR
-		NOT Status_Start_Switch_ON OR
+		//NOT Status_Start_Switch_ON OR
 		Status_Alarm OR
 		Status_Dewing_Alarm OR
 		Status_Device_Forward_Light_Locked OR
 		Status_QBH_Temperature_Locked OR
 		Status_Reflection_Locked OR
 		Status_Factory_Locked OR
-		NOT Status_Air_Conditioning_Connected OR
-		NOT Status_Water_Cooling_Connected OR
+		//NOT Status_Air_Conditioning_Connected OR
+		//NOT Status_Water_Cooling_Connected OR
 		Status_RTC_Incorrect_Encrypted_Data OR
 		NOT Status_Interlock_1_Connected OR
 		NOT Status_Interlock_2_Connected THEN
@@ -573,7 +577,7 @@ END_VAR]]></Declaration>
 		Defaut_power_Watt_Target := TRUE;
 	END_IF;
 	(* FeedBackde la puissance à La Source Laser *)
-	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack(in := ABS(Ctrl_Percentage_Of_Laser_Output_Power - Status_Percentage_Of_Laser_Output_Power) > 2, pt := t#1s);
+	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack(in := ABS(Ctrl_Percentage_Of_Laser_Output_Power - Status_Percentage_Of_Laser_Output_Power) > 2, pt := t#300s);
 	IF  TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack.Q THEN
 		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack := TRUE;
 	END_IF;
@@ -626,13 +630,20 @@ END_VAR]]></Declaration>
 		(* Envoi de la Frequence *)
 		Ctrl_Laser_Frequency_Of_PWM_Wave := UDINT_TO_UINT(Prog_Frequency_0_20000Hz_Target);
 
-		Ctrl_Turn_Laser_On 		:= TRUE;
+		Ctrl_Turn_Laser_On 		:= true;
 		Ctrl_Turn_Pilot_Laser_On	:= TRUE;
 		Ctrl_Laser_Enable			:= Prog_Valid;
+		
+		PWM_Duty_Perc_UINT := (Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave *65535) / 100;
+		IF Ctrl_Laser_Frequency_Of_PWM_Wave <> 0 THEN 
+			PWM_Freq_UDINT := 1000000/Ctrl_Laser_Frequency_Of_PWM_Wave ;	// envoi de la periode en us
+		ELSE
+			PWM_Freq_UDINT:=0;
+		END_IF
 
 	ELSE
 		Ctrl_Percentage_Of_Laser_Output_Power							:= 0;
-;		Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				:= 0;
+		Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				:= 0;
 		Ctrl_Laser_Frequency_Of_PWM_Wave							:= 0;
 
 		Ctrl_Turn_Laser_On 		:= FALSE;

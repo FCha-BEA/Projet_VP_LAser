@@ -403,9 +403,9 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  
  
 (*------------------- RAZ des G7 --------------------------*)
- IF defaut_general THEN 
- 	G7_Palpage_Capacitance.SFCInit:=TRUE;
- END_IF
+ G7_Palpage_Capacitance.SFCInit:=Top_deg_Laser_full OR SFCInit;
+
+ 
  
  IF	RE_Mem_arus.Q THEN
 		SFCInit:=TRUE;
@@ -417,7 +417,6 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  (*SFCInit*)
  G7_General.SFCInit
  :=G7_Master_Palpages.SFCInit
- :=G7_Palpage_Capacitance.SFCInit
  :=G7_Palpage_Sommet_L.SFCInit
  :=G7_Cycle_Percages_Laser.SFCInit
  :=G7_Sel_Face.SFCInit

@@ -32,6 +32,10 @@ VAR_GLOBAL
 	Prog_Defaut_Status_3									: BOOL;						(* OK *)
 	Prog_Defaut_Status_4									: BOOL;						(* OK *)                                                   	
 	Prog_Defaut_Source_Laser								: BOOL;						(* OK *)
+	
+	OUT_Perc_Duty_PWM	AT%Q*:UINT;
+	OUT_Freq_PWM		AT%Q*:UDINT;
+	
 END_VAR
 ]]></Declaration>
   </GVL>

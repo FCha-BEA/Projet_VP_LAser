@@ -14,6 +14,83 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"747"</v>
+              <v n="TextDefault">"
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1791"</v>
+              <v n="TextDefault">"
+
+
+
+
+
+
+
+
+Prog_Cutting_Mode	
+Prog_Marking_Mode
+
+Prog_Secu_OK		Laser_Ready
+Prog_Valid		Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"79"</v>
               <v n="TextDefault">"
 Data11_Cavity_Temp		(* 0.01 °C *)
@@ -160,6 +237,134 @@ Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
 Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
 
 Prog_Defaut_Tete"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"482"</v>
+              <v n="TextDefault">" Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"40"</v>
+              <v n="TextDefault">" Laser_Ready"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1692"</v>
+              <v n="TextDefault">" Prog_Cutting_Mode	"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2172"</v>
+              <v n="TextDefault">" Prog_Frequency_0_20000Hz_Max : %sHz"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1140"</v>
+              <v n="TextDefault">" Prog_Frequency_0_20000Hz_Target : %sHz"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1594"</v>
+              <v n="TextDefault">" Prog_Marking_Mode"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1827"</v>
+              <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Max : %s%"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"327"</v>
+              <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2101"</v>
+              <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s   %"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2391"</v>
+              <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s %"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"790"</v>
+              <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s%"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"457"</v>
+              <v n="TextDefault">" Prog_Power_Watt_Max : %s 	"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1338"</v>
+              <v n="TextDefault">" Prog_Power_Watt_Max : %sW"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"145"</v>
+              <v n="TextDefault">" Prog_Power_Watt_Target : %sW"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"409"</v>
+              <v n="TextDefault">" Prog_Secu_OK		"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1763"</v>
+              <v n="TextDefault">" Prog_Valid"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -637,6 +842,54 @@ HHHHH : MM"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"770"</v>
+              <v n="TextDefault">"%s Prog_Frequency_0_20000Hz_Max"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1817"</v>
+              <v n="TextDefault">"%s Prog_Frequency_0_20000Hz_Target"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1172"</v>
+              <v n="TextDefault">"%s Prog_Per_Cent_Of_Duty_Cycle_Max"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"520"</v>
+              <v n="TextDefault">"%s Prog_Per_Cent_Of_Duty_Cycle_Target"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"152"</v>
+              <v n="TextDefault">"%s Prog_Power_Watt_Max	"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2304"</v>
+              <v n="TextDefault">"%s Prog_Power_Watt_Target"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"341"</v>
               <v n="TextDefault">"%s °C"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -695,6 +948,14 @@ HHHHH : MM"</v>
             <o>
               <v n="TextID">"1506"</v>
               <v n="TextDefault">"%sBars	Data14_Cutting_Gas_Pressure "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"72"</v>
+              <v n="TextDefault">"%sProg_Power_Watt_Max	"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -1369,6 +1630,44 @@ Pompe"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"860"</v>
+              <v n="TextDefault">"Feed Back
+
+
+
+
+
+
+
+
+Prog_Cutting_Mode	
+Prog_Marking_Mode
+
+Prog_Secu_OK		Laser_Ready
+Prog_Valid		Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"408"</v>
+              <v n="TextDefault">"Feed Back
+
+
+
+
+Prog_Cutting_Mode	
+Prog_Marking_Mode
+
+Prog_Secu_OK		Laser_Ready
+Prog_Valid		Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"1217"</v>
               <v n="TextDefault">"Focus_Lens"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -1401,6 +1700,14 @@ Pompe"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"1914"</v>
+              <v n="TextDefault">"Gestion Porte"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"1141"</v>
               <v n="TextDefault">"jj"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -1419,6 +1726,31 @@ Pompe"</v>
             <o>
               <v n="TextID">"339"</v>
               <v n="TextDefault">"Jog Av"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2524"</v>
+              <v n="TextDefault">"Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"758"</v>
+              <v n="TextDefault">"Laser_Ready"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2076"</v>
+              <v n="TextDefault">"Laser_Ready
+Laser_ON"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -1763,6 +2095,14 @@ D"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"2373"</v>
+              <v n="TextDefault">"Power Feed Back OK ?"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"365"</v>
               <v n="TextDefault">"Pression"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -1797,6 +2137,14 @@ OK"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"71"</v>
+              <v n="TextDefault">"Prog_Cutting_Mode	"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"60"</v>
               <v n="TextDefault">"Prog_Distance_Focal_Reelle	(* mm *)
 Prog_Distance_Focal_OK
@@ -1823,6 +2171,14 @@ Prog_Defaut_Tete"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"56"</v>
+              <v n="TextDefault">"Prog_Marking_Mode"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"312"</v>
               <v n="TextDefault">"Prog_Power_Watt_Max	Feed Back
 Prog_Power_Watt_Target
@@ -1838,6 +2194,22 @@ Prog_Marking_Mode
 
 Prog_Secu_OK		Laser_Ready
 Prog_Valid		Laser_ON"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"596"</v>
+              <v n="TextDefault">"Prog_Secu_OK		"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"136"</v>
+              <v n="TextDefault">"Prog_Valid"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -1999,8 +2371,395 @@ Porte"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"2566"</v>
+              <v n="TextDefault">"Source laser"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"310"</v>
               <v n="TextDefault">"Source Laser MaxPhotonics"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2191"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2234"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1889"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"607"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31
+"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"462"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+
+Status_External_CTRL_EN_Connected
+
+Status_External_CTRL_PWM_Connected
+
+Status_External_CTRL_0_10V_Connected
+
+Status_External_CTRL_Connected
+
+Status_QBH_Temperature_Locked
+
+Status_Reflection_Locked
+
+Status_Factory_Locked
+
+Status_Air_Conditioning_Connected
+
+Status_SD_Card_Installed
+
+Status_Water_Cooling_Connected
+
+Status_RTC_Incorrect_Encrypted_Data
+
+Status_Interlock_1_Connected
+
+Status_Interlock_2_Connected
+
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31
+"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1265"</v>
+              <v n="TextDefault">"Status_Extrernal_Ctrl
+
+Status_Laser_Output_Light_ON
+
+Status_Main_Power_Start_ON
+
+Status_Start_Switch_ON
+
+Status_Alarm
+
+Status_Dewing_Alarm
+
+Status_Encryption_Started
+
+Status_Encrypted
+
+Status_Device_Forward_Light_Locked
+Status_External_CTRL_EN_Connected
+Status_External_CTRL_PWM_Connected
+Status_External_CTRL_0_10V_Connected
+Status_External_CTRL_Connected
+Status_QBH_Temperature_Locked
+Status_Reflection_Locked
+Status_Factory_Locked
+Status_Air_Conditioning_Connected
+Status_SD_Card_Installed
+Status_Water_Cooling_Connected
+Status_RTC_Incorrect_Encrypted_Data
+Status_Interlock_1_Connected
+Status_Interlock_2_Connected
+Status_Free_Status_2_22
+Status_Free_Status_2_23
+Status_Free_Status_2_24
+Status_Free_Status_2_25
+Status_Free_Status_2_26
+Status_Free_Status_2_27
+Status_Free_Status_2_28
+Status_Free_Status_2_29
+Status_Free_Status_2_30
+Status_Free_Status_2_31
+"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -2041,6 +2800,46 @@ Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31
 "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1844"</v>
+              <v n="TextDefault">"Status_Fiber_Burning_Risk_Alarm
+
+Status_PD_SD1_Light_On_Alarm
+Status_PD_SD1_Light_Off_Alarm
+Status_PD1_Light_On_Alarm
+Status_PD1_Light_Off_Alarm
+Status_PD2_Light_On_Alarm
+Status_PD2_Light_Off_Alarm
+Status_Abnormal_Power_Supply_Of_Pump
+Status_Abnormal_Current_Of_First_Level_MOS_Tube
+Status_Abnormal_Current_Of_Second_Level_MOS_Tube
+Status_Power_Attenuation_Alarm
+Status_Abnormal_Power_Supply_Alarm
+Status_Abnormal_Control_Signal
+Status_Optical_Module_Alarm
+Status_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm
+Status_Optical_Module_Condensation_Alarm
+Status_Electrical_Module_Condensation_Alarm
+Status_Free_Status_4_17
+Status_Free_Status_4_18
+Status_Free_Status_4_19
+Status_Free_Status_4_20
+Status_Free_Status_4_21
+Status_Free_Status_4_22
+Status_Free_Status_4_23
+Status_Free_Status_4_24
+Status_Free_Status_4_25
+Status_Free_Status_4_26
+Status_Free_Status_4_27
+Status_Free_Status_4_28
+Status_Free_Status_4_29
+Status_Free_Status_4_30
+Status_Free_Status_4_31"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

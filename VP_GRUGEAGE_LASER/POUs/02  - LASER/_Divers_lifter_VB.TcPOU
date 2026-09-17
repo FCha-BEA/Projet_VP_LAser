@@ -321,7 +321,7 @@ END_VAR]]></Declaration>
  		Fct_palpage_Etal := FALSE;
  END_IF
   
- IF FE_Fct_palpage_Etal.Q OR FE_Decoupe_plasma_manuelle.Q OR mem_arus THEN 
+ IF FE_Decoupe_plasma_manuelle.Q OR mem_arus THEN 
  	Pv_Z_Laser := FALSE;
  	Palpage_Torche := FALSE;
  	Top_Z_Laser :=FALSE;

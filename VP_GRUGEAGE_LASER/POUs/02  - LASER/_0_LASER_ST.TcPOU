@@ -186,11 +186,11 @@ PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
 //Impulsion test laser
 IF Mode_Test_Tir THEN  
-	PLC_Prog_Power_Watt_Target:=600;
-	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target:=100;
-	PLC_Prog_Frequency_0_20000Hz_Target:=10000;
+	//PLC_Prog_Power_Watt_Target:=600;
+	//PLC_Prog_Per_Cent_Of_Duty_Cycle_Target:=100;
+	//PLC_Prog_Frequency_0_20000Hz_Target:=10000;
 	
-	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#100MS);
+	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#1S);
 
 END_IF
 	

@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"33"</v>
+          <v n="UniqueIdGenerator">"42"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -13368,7 +13368,7 @@ Status_Free_Status_4_31"</v>
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"IO_SOURCE_MAXPHOTONICS.Prog_Power_Watt_Max"</v>
+                      <v n="Value">"IO_SOURCE_MAXPHOTONICS.PLC_Prog_Power_Watt_Max"</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>
@@ -13641,7 +13641,7 @@ Prog_Valid		Laser_ON"</v>
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"IO_SOURCE_MAXPHOTONICS.Prog_Power_Watt_Target"</v>
+                      <v n="Value">"IO_SOURCE_MAXPHOTONICS.PLC_Prog_Power_Watt_Target"</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>

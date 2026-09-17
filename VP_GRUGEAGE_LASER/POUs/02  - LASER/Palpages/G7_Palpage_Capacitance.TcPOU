@@ -7,8 +7,8 @@ VAR	SFCCurrentStep : STRING;
 	Ton_Step_11: TON;
 	memo_besoin_decalage : BOOL := FALSE;
 	RE_fct_palpage_seul	:R_TRIG;
-	Re_Detect_tole: R_trig;
-	FE_Detect_tole: F_trig;
+	Re_Detect_Piece: R_trig;
+	FE_Detect_Piece: F_trig;
 	Memo_avant_decal_X : LREAL;
 	Pas_besoin_palpage	:BOOL;
 	floppytest	:BOOL;
@@ -2258,8 +2258,7 @@ G7_Master_Palpages"</v>
     <Action Name="Init_active" Id="{6c6b803e-94fe-4973-a3db-39b3b6ea881f}">
       <Implementation>
         <ST><![CDATA[RE_fct_palpage_seul(clk:=Fct_palpage_Etal);
-
-]]></ST>
+Prog_Start_Capacitance_Calibration:=false;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Init_exit" Id="{e3d2b9e0-19e0-446f-9109-9f68deddd8da}">
@@ -2290,10 +2289,10 @@ Top_Z_Laser:=TRUE;
     </Action>
     <Action Name="Step20_active" Id="{f926592e-8b95-49c1-9273-718b7a84803d}">
       <Implementation>
-        <ST><![CDATA[Re_Detect_tole(clk :=
+        <ST><![CDATA[Re_Detect_Piece(clk :=
 	Data01_Capacitance_Actual_Value < 1); //UDINT valeur max 4 294 967 295, Buse en contact : detection capacitance (aug si dist baisse))
 	
-IF Re_Detect_tole.Q THEN
+IF Re_Detect_Piece.Q THEN
 	Pos_ref_torche_RE := Pos_Reel_Z_Laser - Axe_5.NcToPlc.PosDiff;
 END_IF
 
@@ -2313,7 +2312,7 @@ Pos_cible_Z_Laser:=Pnc_axe_Z_Robot.Limite_Plus-0.5;
 IF Vitesse_de_palpage > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
 ELSE
-	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage/5;
+	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage;
 END_IF
 En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
@@ -2347,9 +2346,9 @@ END_IF
     </Action>
     <Action Name="Step31_active" Id="{9642a9b0-90c3-44ac-b540-31fffc53a98d}">
       <Implementation>
-        <ST><![CDATA[FE_Detect_tole(clk :=Data01_Capacitance_Actual_Value < 1)	;
+        <ST><![CDATA[FE_Detect_Piece(clk :=Data01_Capacitance_Actual_Value < 2000000)	;
 	
-IF FE_Detect_tole.Q THEN
+IF FE_Detect_Piece.Q THEN
 	Pos_ref_torche_Fe := Pos_Reel_Z_Laser;
 	Prog_Start_Capacitance_Calibration:=TRUE;	//Lors du retrait de la buse, on enregistre la capacitance dans un tableau selon la distance buse
 END_IF
@@ -2366,7 +2365,7 @@ Pos_cible_Z_Laser:=Pos_Reel_Z_Laser - 110;
 IF Vitesse_de_palpage > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
 ELSE
-	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage;
+	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage/2.5;
 END_IF
 En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
@@ -2483,12 +2482,12 @@ END_IF
  //OR
  //(Pos_cible_Z_Laser>=Pnc_axe_Z_Robot.Limite_Plus-EP_Aile-ep_secu)
 )
-AND Step10.t>T#20MS]]></ST>
+AND Step10.t>T#1S]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans20" Id="{b3433e34-56a0-482d-a145-cf017a5dc98e}">
       <Implementation>
-        <ST><![CDATA[Data01_Capacitance_Actual_Value < 1
+        <ST><![CDATA[Data01_Capacitance_Actual_Value < 2000000
 OR Axe_5.NcToPlc.PosDiff>=0.5
 
 ]]></ST>

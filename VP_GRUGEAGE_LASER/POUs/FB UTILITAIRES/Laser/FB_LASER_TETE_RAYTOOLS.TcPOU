@@ -129,6 +129,10 @@ VAR
 	Shark: BOOL;
 	
 	RE_PomOk	:R_TRIG;
+	Indiq_Non_Variation1mm,
+	Indiq_Non_Variation5dixmm,
+	cpt	:INT;	//A partir de quelle distance la variation de capacitance est quasi inexistante ?	
+	k: INT;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF IN THEN
@@ -319,14 +323,15 @@ END_VAR]]></Declaration>
 	 IF Start_Capacitance_Calibration AND NOT Capacitance_Calibration_OK THEN
      
 	 	IF Distance_Buse_Piece_mm *10 >=0 AND Distance_Buse_Piece_mm *10 <1000 THEN
-			IF TRUNC(Distance_Buse_Piece_mm *10) >= 1 THEN
+			IF TRUNC(Distance_Buse_Piece_mm *10) > 1 THEN
 				IF Data01_Capacitance_Actual_Value >= TAB_Capacitance_Calibration[(TRUNC(Distance_Buse_Piece_mm *10))-1] THEN
 					TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
 				ELSE
 					TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)]:=TAB_Capacitance_Calibration[(TRUNC(Distance_Buse_Piece_mm *10))-1];
 				END_IF
-			ELSIF TRUNC(Distance_Buse_Piece_mm *10) < 1 THEN
+			ELSE 
 				TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
+
 			END_IF
 		END_IF
      
@@ -350,8 +355,10 @@ END_VAR]]></Declaration>
 	 			TAB_Capacitance_Segment_b[i] := TAB_Capacitance_Calibration[i+1] - ( TAB_Capacitance_Segment_a[i] * ( i + 1 ) );
 	 		END_FOR
      
-	 		Start_Capacitance_Calibration := FALSE;
+	 		Start_Capacitance_Calibration := FALSE;		
+			
 	 	END_IF;
+		
      
 	 END_IF;
 	(******************************************************************************************************************************)
@@ -378,6 +385,21 @@ END_VAR]]></Declaration>
 	 	IF Data01_Capacitance_Actual_Value > TAB_Capacitance_Calibration[i] THEN
 	 		Shark := Shark;
 	 	END_IF;
+	
+		FOR k := 0 TO 998 BY 1 DO 
+			IF TAB_Capacitance_Calibration[k+1] = TAB_Capacitance_Calibration[k] THEN 
+				cpt := cpt+1;
+			ELSE 
+				cpt:=0;		
+			END_IF
+			IF cpt >4 AND Indiq_Non_Variation5dixmm = 0 THEN 
+				Indiq_Non_Variation5dixmm := k;	//i = distance buse piece ou les 10 precedentes valeurs de capacitance sont identiques
+			END_IF
+			IF cpt >10 AND Indiq_Non_Variation1mm = 0 THEN
+				Indiq_Non_Variation1mm := k;	//i = distance buse piece ou les 10 precedentes valeurs de capacitance sont identiques
+				cpt:=0;
+			END_IF
+		END_FOR
 	 END_IF;
 	(******************************************************************************************************************************)
 	(*************************************************** FIN CAPACITANCE ==> mm  ****************************************)
