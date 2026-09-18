@@ -2654,19 +2654,11 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{8753B659-55F6-1132-A211-FAFD3893B25C}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{A772F491-D01C-04DD-B384-BA49A2016392}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>Standard Outputs</Name>
-						<Var>
-							<Name>.OUT_Perc_Duty_PWM</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.OUT_Freq_PWM</Name>
-							<Type>UDINT</Type>
-						</Var>
 						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -2732,6 +2724,10 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
@@ -2743,10 +2739,6 @@ resolution 3/2exp20
 						<Var>
 							<Name>.DO03_Status_Output</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO04_Status_Output</Name>
@@ -2769,14 +2761,14 @@ resolution 3/2exp20
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Ev_GazLaser_Air</Name>
-							<Comment><![CDATA[Gaz de decoupe : Air comprime]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>.Consigne_ServoVanne</Name>
 							<Comment><![CDATA[Asservissement gaz decoupe : O2 uniquement]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Ev_GazLaser_Air</Name>
+							<Comment><![CDATA[Gaz de decoupe : Air comprime]]></Comment>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.Ev_GazLaser_Azote</Name>
@@ -2908,19 +2900,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Verr_Lum_Machine_Vert</Name>
-							<Comment><![CDATA[Verrine/Bandeaux]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Verr_Lum_Machine_Jaune</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Verr_Lum_Machine_Rouge</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>.Source_MaxPhotonics.CONTROL_0</Name>
 							<Type>UDINT</Type>
 						</Var>
@@ -2959,6 +2938,27 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Source_MaxPhotonics.LASER_NUMBER_OUT</Name>
 							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>.OUT_Perc_Duty_PWM</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.OUT_Freq_PWM</Name>
+							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>.Verr_Lum_Machine_Vert</Name>
+							<Comment><![CDATA[Verrine/Bandeaux]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Verr_Lum_Machine_Jaune</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Verr_Lum_Machine_Rouge</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.XYL_NciChannelFromPlc</Name>
@@ -3115,16 +3115,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
@@ -3294,26 +3294,26 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>.Servo_Error</Name>
-							<Comment><![CDATA[Echange avec tête]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
 							<Name>.DI01_Collision</Name>
 							<Comment><![CDATA[Entrées TOR]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Servo_Error</Name>
+							<Comment><![CDATA[Echange avec tête]]></Comment>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI02_Up_Limit</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Focus_Position_Actual_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DI03_Down_Limit</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Actual_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -3733,16 +3733,8 @@ Sécurité/Réarmement]]></Comment>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Detect_Pression_Huile.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
 							<Name>.Axe_6.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Pression_Huile.BYTE1</Name>
-							<Type>USINT</Type>
 						</Var>
 						<Var>
 							<Name>.B1520_Rep_Be.Link_IN</Name>
@@ -3798,6 +3790,14 @@ Sécurité/Réarmement]]></Comment>
 						</Var>
 						<Var>
 							<Name>.Detect_Niv_Temp_Huile.BYTE8</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Pression_Huile.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Pression_Huile.BYTE1</Name>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
@@ -3905,6 +3905,10 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>.Pompe_Centrale_BM.Status_Word</Name>
 							<Comment><![CDATA[INPUT	]]></Comment>
 							<Type>UINT</Type>
@@ -3936,10 +3940,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>

@@ -77,7 +77,7 @@ Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
  (*-------------------- Serr / Desserr presseurs ----------------------------*)
  Dem_Desserrage_Presseurs_Manu := (Manu AND Selection_Presseurs_Laser AND Joystick_Cmd_Haut) OR Divers_cycles.TP_Desserrage_Manu.Q;															 
  Dem_Serrage_Presseurs_Manu := Manu AND Selection_Presseurs_Laser AND Joystick_Cmd_Bas AND NOT Divers_cycles.TP_Desserrage_Manu.Q;
- IF NOT auto THEN
+ IF NOT auto AND Divers_cycles.Step_Calib_Presseurs_Laser = 0  THEN
  	Dem_Serrage_Presseur_Amont_Laser_Auto:=
  	Dem_Desserrage_Presseur_Amont_Laser_Auto:=
  	Dem_Serrage_Presseur_Aval_Laser_Auto:=

@@ -1420,6 +1420,22 @@ Pression"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"2131"</v>
+              <v n="TextDefault">"Calibration presseur OK"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"988"</v>
+              <v n="TextDefault">"Capacitance_Calibration_OK"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"811"</v>
               <v n="TextDefault">"Cavity_Pressure"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -1694,6 +1710,14 @@ Prog_Valid		Laser_ON"</v>
             <o>
               <v n="TextID">"397"</v>
               <v n="TextDefault">"FORCAGE"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"754"</v>
+              <v n="TextDefault">"Free, not used"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -2015,6 +2039,14 @@ D"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"1142"</v>
+              <v n="TextDefault">"Pom secu OK "</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"385"</v>
               <v n="TextDefault">"Pompe"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -2089,6 +2121,46 @@ D"</v>
             <o>
               <v n="TextID">"578"</v>
               <v n="TextDefault">"Port 7"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1982"</v>
+              <v n="TextDefault">"Pos A : %0.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1023"</v>
+              <v n="TextDefault">"Pos X : %0.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"766"</v>
+              <v n="TextDefault">"Pos X : %s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"927"</v>
+              <v n="TextDefault">"Pos Y : %0.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2836"</v>
+              <v n="TextDefault">"Pos Z : %0.1f"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -2381,6 +2453,14 @@ Porte"</v>
             <o>
               <v n="TextID">"310"</v>
               <v n="TextDefault">"Source Laser MaxPhotonics"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"847"</v>
+              <v n="TextDefault">"Status machine"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

@@ -1,20 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Axe_Ethercat_V2" Id="{d39edc44-6303-4003-b957-9e1640c74413}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Axe_Ethercat_V2
-VAR_INPUT	IN:BOOL;		Id_axe:UINT;
-	En_service,	Reset,	Arus,	Jog_plus,	Jog_moins,	Fc_plus,	Fc_moins,	Fc_origine,	Dem_gv,		Dem_pv,		Dem_V_nulle,	Palpage, bit_POM_ok:BOOL;
-	Pos_origine, Offset_axe,	Butee_soft_plus,	Butee_soft_moins,	Zone_PV_devant_limites,	Vitesse_man,	PTP_Pos_cible,	PTP_Vitesse,	PTP_Accel_decel:LREAL;
-	Override:REAL;	Esclave:BOOL;	Id_axe_maitre:UINT;	Pos_externe_forcage:LREAL;	ISO:BOOL;	END_VAR
-VAR_IN_OUT	PTP_Start,	Demande_ref:BOOL;	Axis,Axis_Maitre:AXIS_REF;
-	Forcage_flag_ref:BOOL;	Forcage_pos:BOOL;	END_VAR
-VAR_OUTPUT	Validation_variateur,	Axe_enable,	Defaut_axe:BOOL;
-	Numero_defaut:UDINT;	Defaut_Top_et_V_nulle,	Defaut_var_18000,		Defaut_poursuite_17744:BOOL;
-	Pos_axe:LREAL;	Ref_ok:BOOL;	PTP_Axe_en_pos,	Axe_no_move,	Axe_no_job,	Limite_atteinte,	Axe_en_mode_esclave:BOOL;	Vitesse_axe:LREAL;
-	Defaut_var_AX5000:BOOL;	Diag_number_AX5000:UDINT;	Diag_Mess_AX5000:STRING;	END_VAR
-VAR	Bit_de_cde_axe:UDINT;	MC_GearIn_1:MC_GearIn; MC_GearInMultiMaster_1:MC_GearInMultiMaster;	MC_GearOut_1:MC_GearOut;	MC_Home_1,	MC_Home_forcage: MC_Home;	MC_SetPosition_1: MC_SetPosition;
+VAR_INPUT	
+	IN:BOOL;	Id_axe:UINT;
+	En_service,	Reset,	Arus,	
+	Jog_plus,Jog_moins,	Fc_plus,	
+	Fc_moins,Fc_origine,Dem_gv,		
+	Dem_pv,Dem_V_nulle,	Palpage,bit_POM_ok	:BOOL;
+	Pos_origine, Offset_axe,Butee_soft_plus,
+	Butee_soft_moins,Zone_PV_devant_limites,Vitesse_man,
+	PTP_Pos_cible,PTP_Vitesse,PTP_Accel_decel:LREAL;
+	Override:REAL;	Esclave:BOOL;	Id_axe_maitre:UINT;	Pos_externe_forcage:LREAL;	ISO:BOOL;	
+END_VAR
+
+VAR_IN_OUT	
+	PTP_Start,	Demande_ref:BOOL;	
+	Axis,Axis_Maitre:AXIS_REF;
+	Forcage_flag_ref,	Forcage_pos:BOOL;	
+END_VAR
+
+VAR_OUTPUT	
+	Validation_variateur,Axe_enable,Defaut_axe:BOOL;
+	Numero_defaut:UDINT;	
+	Defaut_Top_et_V_nulle,Defaut_var_18000,Defaut_poursuite_17744:BOOL;
+	Pos_axe:LREAL;	
+	Ref_ok,PTP_Axe_en_pos,Axe_no_move,Axe_no_job,Limite_atteinte,Axe_en_mode_esclave:BOOL;	
+	Vitesse_axe:LREAL;	Defaut_var_AX5000:BOOL;	Diag_number_AX5000:UDINT;	Diag_Mess_AX5000:STRING;	
+END_VAR
+
+VAR	
+	Bit_de_cde_axe:UDINT;	
+	MC_GearIn_1:MC_GearIn; 
+	MC_GearInMultiMaster_1:MC_GearInMultiMaster;	
+	MC_GearOut_1:MC_GearOut;	
+	MC_Home_1,	MC_Home_forcage: MC_Home;	MC_SetPosition_1: MC_SetPosition;
 	MC_MoveAbsolute_1,MC_MoveAbsolute_2:MC_MoveAbsolute;	MC_Stop_1:MC_Stop;	MC_reset_1:MC_Reset;	MC_Jog_1:MC_Jog;
-	RE_En_service,	RE_Demande_ref,		RE_Defaut_Axe,	RE_Axe_Enable,	RE_Reset,	RE_Arus: R_TRIG;		FE_En_service,	FE_Reset: F_TRIG;
+	RE_En_service,	RE_Demande_ref,		RE_Defaut_Axe,	
+	RE_Axe_Enable,	RE_Reset,	RE_Arus: R_TRIG;		
+	FE_En_service,	FE_Reset: F_TRIG;
 	TON_En_pos,	TON_Valid_ok,	TON_Top_et_V_nulle:TON;		TOF_Axe_enable:TOF;
 	Bit_petite_vitesse,		Memo_Demande_ref,	Top_Chgt_Vitesse_PTP,	Read_status_Ax5000:BOOL;
 	Memo_PTP_Vitesse:LREAL;
@@ -24,16 +48,11 @@ VAR	Bit_de_cde_axe:UDINT;	MC_GearIn_1:MC_GearIn; MC_GearInMultiMaster_1:MC_GearI
 	FB_Read_Diag_Number_VarAX5000:FB_SoEReadDiagNumber;	
 	Diag_message_VarAX5000:ST_SoE_String;
 	Stop_Axe: BOOL;
-	dummy2: AXIS_REF;
-	dummy3: AXIS_REF;
-	dummy4: AXIS_REF;
+	dummy2,dummy3,dummy4: AXIS_REF;
 	Memo_Numero_defaut:UDINT;	Memo_defaut_valid:BOOL;		TON_POM_ok:TON;
-	RE_Execute_PTP_1: r_trig;
-	RE_Execute_PTP_2: R_trig;
+	RE_Execute_PTP_1,RE_Execute_PTP_2: R_trig;
 	TP_Stop_Axe: Tp;
 	MemoVitesse_Man	:REAL;
-	
-	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Détection des fronts*)
@@ -396,14 +415,5 @@ RE_Arus(clk:=Arus);
 		Forcage_flag_ref:=FALSE;
 	END_IF]]></ST>
     </Implementation>
-    <LineIds Name="FB_Axe_Ethercat_V2">
-      <LineId Id="2888" Count="13" />
-      <LineId Id="3246" Count="0" />
-      <LineId Id="3258" Count="0" />
-      <LineId Id="2902" Count="0" />
-      <LineId Id="3248" Count="0" />
-      <LineId Id="2903" Count="339" />
-      <LineId Id="418" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

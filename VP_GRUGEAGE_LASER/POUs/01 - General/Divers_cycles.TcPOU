@@ -47,10 +47,10 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	FE_Dec_Manu(clk:=Selection_DecManu_Laser AND Joystick);
 	RE_Start_Origines(CLK:=Start_Origines);
 	Re_Origines(CLK:=Origines_Axes_ok);
-	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
-	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
-	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
-	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#10S);
+	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#10S);
+	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_L12_Ref)<5,pt:=T#10S);
+	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_L12_Opp_Ref)<5,pt:=T#10S);
 	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
 	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#100MS);
 	
@@ -313,41 +313,50 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
   END_IF
   
  //Calibrage presseur : on serre à vide et on enregistre la valeur
+ Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
+ Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
+ Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
+ Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
   CASE Step_Calib_Presseurs_Laser OF 
  	 1: 
  	 Def_Calib_Presseurs:=
  	 Calib_Presseurs_OK:=FALSE;
- 	 Presseur_Amont_K11.Dem_Serrage:=TRUE;				//On serre tous les presseurs ...
- 	 Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
- 	 Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
- 	 Presseur_Aval_L12.Dem_Serrage:=TRUE;
- 	 Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
- 	 Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+	 Dem_Desserrage_Presseur_Amont_Laser_Auto:=
+	 Dem_Desserrage_Presseur_Aval_Laser_Auto:=FALSE;
+	 Dem_Serrage_Presseur_Amont_Laser_Auto:=
+	 Dem_Serrage_Presseur_Aval_Laser_Auto:=TRUE;			//On serre tous les presseurs ...
+	 IF NOT TON_NoMvt_Val_K11_Ref.Q AND NOT TON_NoMvt_Val_K11_Opp_Ref.Q			 
+ 	 AND NOT TON_NoMvt_Val_L12_Ref.Q AND NOT TON_NoMvt_Val_L12_Opp_Ref.Q THEN
+	 	Step_Calib_Presseurs_Laser:=2;
+	 END_IF
  	 
+	 2:
  	 IF TON_NoMvt_Val_K11_Ref.Q AND TON_NoMvt_Val_K11_Opp_Ref.Q				//... et on attends d'être complétement serré, à vide, la valeur mesurée ne varie plus ...
  	 AND TON_NoMvt_Val_L12_Ref.Q AND TON_NoMvt_Val_L12_Opp_Ref.Q THEN
  		Presseur_Amont_K11.Val_Ref_SerreVide := Presseur_Amont_K11.Val_Mesure_Ref;	//... puis on l'enregistre ...
  		Presseur_Amont_K11.Val_Opp_Ref_SerreVide := Presseur_Amont_K11.Val_Mesure_Opp_Ref;
  		Presseur_Aval_L12.Val_Ref_SerreVide := Presseur_Aval_L12.Val_Mesure_Ref;
  		Presseur_Aval_L12.Val_Opp_Ref_SerreVide := Presseur_Aval_L12.Val_Mesure_Opp_Ref;
- 		Presseur_Amont_K11.Dem_Serrage:=FALSE;
- 	 	Presseur_Aval_L12.Dem_Serrage:=FALSE;
- 		Step_Calib_Presseurs_Laser := 2;
+		Dem_Serrage_Presseur_Amont_Laser_Auto:=
+		Dem_Serrage_Presseur_Aval_Laser_Auto:=FALSE;	
+ 		Step_Calib_Presseurs_Laser := 3;
  	 END_IF	 
  	 
- 	 2: 
- 	 Presseur_Amont_K11.Dem_Desserrage:=TRUE;	//... et on desserre ...
- 	 Presseur_Aval_L12.Dem_Desserrage:=TRUE;
- 	 Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
- 	 Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
- 	 Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
- 	 Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ 	 3: 
+	 Dem_Desserrage_Presseur_Amont_Laser_Auto:=
+	 Dem_Desserrage_Presseur_Aval_Laser_Auto:=TRUE;	//... et on desserre
+	 IF NOT TON_NoMvt_Val_K11_Ref.Q AND NOT TON_NoMvt_Val_K11_Opp_Ref.Q			 
+ 	 AND NOT TON_NoMvt_Val_L12_Ref.Q AND NOT TON_NoMvt_Val_L12_Opp_Ref.Q THEN
+	 	Step_Calib_Presseurs_Laser:=4;
+	 END_IF
+	 
+	 4:
  	 IF TON_NoMvt_Val_K11_Ref.Q AND TON_NoMvt_Val_K11_Opp_Ref.Q			 
  	 AND TON_NoMvt_Val_L12_Ref.Q AND TON_NoMvt_Val_L12_Opp_Ref.Q THEN	//... On  fait monter le défaut selon l'écart constaté, voir décla défaut
- 	 	IF ABS(Presseur_Amont_K11.Val_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Ref) < 250
- 			OR ABS(Presseur_Amont_K11.Val_Opp_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Opp_Ref) < 250
- 			OR ABS(Presseur_Aval_L12.Val_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Ref) < 250
- 			OR ABS(Presseur_Aval_L12.Val_Opp_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Opp_Ref) < 250 THEN 
+ 	 	IF ABS(Presseur_Amont_K11.Val_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Ref) < 50	
+ 			OR ABS(Presseur_Amont_K11.Val_Opp_Ref_SerreVide - Presseur_Amont_K11.Val_Mesure_Opp_Ref) < 50
+ 			OR ABS(Presseur_Aval_L12.Val_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Ref) < 50
+ 			OR ABS(Presseur_Aval_L12.Val_Opp_Ref_SerreVide - Presseur_Aval_L12.Val_Mesure_Opp_Ref) < 50 THEN 	//50 car c est la course env du verin
  			Def_Calib_Presseurs:=TRUE;
  		ELSE
  			Calib_Presseurs_OK:=TRUE;

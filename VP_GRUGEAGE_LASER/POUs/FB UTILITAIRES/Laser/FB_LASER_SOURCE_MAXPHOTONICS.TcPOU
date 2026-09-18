@@ -247,7 +247,7 @@ VAR
 
 	(****************************************************************************************************************)
 
-	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 123456;
+	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 101140;
 
 	Ctrl_Free_Ctrl_1_0													: BOOL;
 	Ctrl_Turn_Laser_On												: BOOL;
