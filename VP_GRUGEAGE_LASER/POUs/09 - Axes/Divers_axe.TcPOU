@@ -35,7 +35,7 @@ Origines_Axes_ok :=
  AND Ref_Ok_A_Laser
  ;
 
-//Vitesse X chariot : selection Opanel + override
+//Vitesse X chariot : selection Opanel + override / A voir - corriger par vitesse si besoin
  Vitesse_Chariot_Manu :=PNC_Axe_Chariot.Vitesse_MAN ;
  IF Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot 
 	 THEN
@@ -48,8 +48,12 @@ Origines_Axes_ok :=
 	 Override_Chariot:=80 * (Pnc_Modulation_Vitesse/9);
  END_IF
  
-
-
+// Pos Y relative a la corniere - Si offset Y Face 1/2/ecr OK seulement !
+	Pos_Y_RelaFaceRef:=Pos_Reel_Y_Laser - Offset_Y_Laser_REF;
+	Pos_Y_RelaFaceOppRef:=Pos_Reel_Y_Laser - Offset_Y_Laser_OPP_REF;
+	Pos_Y_RelaFaceEcret:=Pos_Reel_Y_Laser - Offset_Y_Laser_ECRETAGE;
+	
+	
 
 
 ]]></ST>

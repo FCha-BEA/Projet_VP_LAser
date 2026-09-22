@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="b3f08f98-48d1-46b4-ae5a-cdf629b93e1d">Global_PRONC</Type>
+      <From>Index_Recette_Laser</From>
+      <To>Index_Recette_Laser_Auto</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

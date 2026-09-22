@@ -1695,7 +1695,8 @@ OU
     </Implementation>
     <Action Name="Init_active" Id="{b84e6206-9148-4ebb-8eae-f5089194580a}">
       <Implementation>
-        <ST><![CDATA[RE_Top_Laser(clk:=Top_perc_laser OR (Selection_DecManu_Laser AND Joystick));
+        <ST><![CDATA[RE_Top_Laser(clk:=Top_perc_laser 
+	OR (Selection_DecManu_Laser AND Joystick AND manu AND (Index_Recette_Decoupe <> 0 OR B_Marq_DecManu )));
 ]]></ST>
       </Implementation>
     </Action>
@@ -1707,16 +1708,16 @@ Laser_ok_pour_decoupe:=false;]]></ST>
     </Action>
     <Action Name="Step10_entry" Id="{2bb15733-e641-464d-bd4e-45156e223342}">
       <Implementation>
-        <ST><![CDATA[Consigne_Pression_Gaz					:=	Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Pression_Gaz;
-PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Puissance_Laser);
-PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Duty_Cycle);
-PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Frequence_impulsion);
-Prog_Distance_Focal_Demandee 			:=	Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Distance_Focale;
+        <ST><![CDATA[Consigne_Pression_Gaz					:=	Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Pression_Gaz;
+PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Puissance_Laser);
+PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Duty_Cycle);
+PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Frequence_impulsion);
+Prog_Distance_Focal_Demandee 			:=	Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Distance_Focale;
 //Type_gaz								:= Tab_Datas_Laser[Phase_perc_encours].Type_Gaz;
 
-Pos_cible_Z_Laser:= Pos_Reel_Z_Laser +(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Hauteur_Buse);
+Pos_cible_Z_Laser:= Pos_Reel_Z_Laser +(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Hauteur_Buse);
 En_pos_Z_Laser:=FALSE;
-Vitesse_Z_Laser_PTP := Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Vitesse_Decoupe;
+Vitesse_Z_Laser_PTP := Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Vitesse_Decoupe;
 Top_Z_Laser:=TRUE;
 
 Start_Gaz:=TRUE;]]></ST>
@@ -1724,7 +1725,7 @@ Start_Gaz:=TRUE;]]></ST>
     </Action>
     <Action Name="Step20_active" Id="{b7ec6f98-9eac-4984-8523-659733601c36}">
       <Implementation>
-        <ST><![CDATA[TON_Percage(IN:=Source_MaxPhotonics.STATUS_2.3,PT:=LREAL_TO_TIME(Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Tps_phase_perc));]]></ST>
+        <ST><![CDATA[TON_Percage(IN:=Source_MaxPhotonics.STATUS_2.1,PT:=LREAL_TO_TIME(Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Tps_phase_perc));]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step20_entry" Id="{d829b634-5ad5-45ae-b9cb-72b012df8f12}">
@@ -1743,7 +1744,7 @@ END_IF]]></ST>
     </Action>
     <Action Name="Step30_active" Id="{f8a7fb90-8063-4f72-92b3-9919f23841f9}">
       <Implementation>
-        <ST><![CDATA[IF ABS(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse)<0.5
+        <ST><![CDATA[IF ABS(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Dec.Hauteur_Buse)<0.5
 AND En_pos_Z_Laser
 AND NOT Top_Z_Laser THEN
 	Laser_ok_pour_decoupe:=TRUE;
@@ -1752,9 +1753,9 @@ END_IF]]></ST>
     </Action>
     <Action Name="Step30_entry" Id="{2eec282b-42d8-4ea9-b3c5-46a1f9bd35a4}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Z_Laser:= Pos_Reel_Z_Laser + (Prog_Capacitance_Actual_Value_mm- Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Hauteur_Buse);
+        <ST><![CDATA[Pos_cible_Z_Laser:= Pos_Reel_Z_Laser + (Prog_Capacitance_Actual_Value_mm- Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Dec.Hauteur_Buse);
 En_pos_Z_Laser:=FALSE;
-Vitesse_Z_Laser_PTP	:= Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Dec.Vitesse_Decoupe;
+Vitesse_Z_Laser_PTP	:= Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Dec.Vitesse_Decoupe;
 Top_Z_Laser:=TRUE;
 ]]></ST>
       </Implementation>
@@ -1766,7 +1767,19 @@ Top_Z_Laser:=TRUE;
     </Action>
     <Action Name="Step5_entry" Id="{bb7c64dd-3352-4e9c-b911-4e491eb51e3b}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Z_Laser:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Hauteur_Buse-Ep_secu;
+        <ST><![CDATA[IF Top_perc_laser THEN 
+	Pos_cible_Z_Laser:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Hauteur_Buse-Ep_secu;
+ELSIF (Selection_DecManu_Laser AND Joystick AND manu) THEN	//Decoupe en manu
+	IF NOT B_Marq_DecManu
+
+	IF Index_Recette_Marquage <> 0 THEN   
+		Pos_cible_Z_Laser:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Marquage].Tb_Dec.Hauteur_Buse-Ep_secu;
+	ELSE 
+		Pos_cible_Z_Laser:=Pos_ref_torche - 20;
+	END_IF
+	
+END_IF
+
 En_pos_Z_Laser:=FALSE;
 Vitesse_Z_Laser_PTP:= Pnc_axe_Z_Robot.Vitesse_PTP;
 Top_Z_Laser:=TRUE;]]></ST>
@@ -1779,25 +1792,25 @@ Top_Z_Laser:=TRUE;]]></ST>
     </Transition>
     <Transition Name="Trans10" Id="{a4250394-6059-47e2-a02a-d5aa77c45abf}">
       <Implementation>
-        <ST><![CDATA[Data13_Cutting_Gas_Temp			=	Consigne_Pression_Gaz	AND 			
+        <ST><![CDATA[// FC test enleve Data13_Cutting_Gas_Temp			=	Consigne_Pression_Gaz	AND 			
 _1_LASER.Feedback_Laser_Power	=	PLC_Prog_Power_Watt_Target	AND 		
 _1_LASER.Feedback_Laser_Duty	=	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target AND	
 _1_LASER.Feedback_Laser_Freq	=	PLC_Prog_Frequency_0_20000Hz_Target AND		
 Prog_Distance_Focal_Reelle 		= 	Prog_Distance_Focal_Demandee 	AND 
 
-ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours].Hauteur_Buse <1)]]></ST>
+ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Hauteur_Buse <1)]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans20a" Id="{8c414336-6b61-48d2-b5b8-e1a737a8c372}">
       <Implementation>
         <ST><![CDATA[TON_Percage.Q
-AND Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours+1].Puissance_Laser=0	//Il y a une phase suivante ?]]></ST>
+AND Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours+1].Puissance_Laser=0	//Il y a une phase suivante ?]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans20b" Id="{b951d7ca-07cf-42fc-8dd1-666bd3dbd5bd}">
       <Implementation>
         <ST><![CDATA[TON_Percage.Q
-AND Tab_St_Recette_Laser[Index_Recette_Laser].Tb_Perc[Phase_perc_encours+1].Puissance_Laser>0;]]></ST>
+AND Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours+1].Puissance_Laser>0;]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans30" Id="{4e42bc20-327c-43d3-b2c1-6afeece3986d}">

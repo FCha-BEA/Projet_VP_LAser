@@ -1102,7 +1102,7 @@ Face_En_Pos := FALSE;
     </Action>
     <Transition Name="Trans0" Id="{04679d42-ab2b-466a-9504-c6066902e2e2}">
       <Implementation>
-        <ST><![CDATA[(Test_Face OR (Auto AND Top_Face) )				
+        <ST><![CDATA[((Test_Face OR Auto) AND Top_Face )				
 AND NOT Face_En_Pos 
 AND Face_Cible <> 0 	
 AND Face_Cible <> Face_En_Cours

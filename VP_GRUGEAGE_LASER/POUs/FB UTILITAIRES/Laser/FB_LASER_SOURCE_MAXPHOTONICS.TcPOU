@@ -632,6 +632,7 @@ END_VAR]]></Declaration>
 
 		Ctrl_Turn_Laser_On 		:= true;
 		Ctrl_Turn_Pilot_Laser_On	:= TRUE;
+		Ctrl_Internal_Control_Enable := TRUE;
 		Ctrl_Laser_Enable			:= Prog_Valid;
 		
 		PWM_Duty_Perc_UINT := (Ctrl_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave *65535) / 100;
@@ -649,6 +650,7 @@ END_VAR]]></Declaration>
 		Ctrl_Turn_Laser_On 		:= FALSE;
 		Ctrl_Turn_Pilot_Laser_On	:= FALSE;
 		Ctrl_Laser_Enable			:= FALSE;
+		Ctrl_Internal_Control_Enable := FALSE;
 	END_IF;
 
 

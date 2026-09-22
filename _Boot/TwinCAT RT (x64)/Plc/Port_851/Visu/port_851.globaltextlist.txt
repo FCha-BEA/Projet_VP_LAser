@@ -173,6 +173,7 @@ Id;Default;eng;FR
 223;DI01_Collision$R$NDI02_Up_Limit$R$NDI03_Down_Limit$R$NDI04_Bottom_1_Cover_Glass_Ready$R$NDI05_Homing_finished;;
 1473;Différence de température entre Lentille / Air ambiant;;
 723;Diminuer$R$NLimiteur$R$NPression;;
+419;Dist buse - Piece : %0.1f;;
 476;Démarrage$R$NPompe;;
 816;ENTREE;;
 860;Feed Back$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON;;
@@ -267,6 +268,7 @@ Id;Default;eng;FR
 903;Source;;
 2566;Source laser;;
 310;Source Laser MaxPhotonics;;
+338;Start POM Secu ?;;
 847;Status machine;;
 2191;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$N$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31;;
 2234;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31;;
@@ -310,5 +312,8 @@ Id;Default;eng;FR
 388;Vitesse ( RPM );;
 389;Vitesse ( RPM);;
 34;XY Laser;;
+2559;Y relatif F1 : %0.1f;;
+2145;Y relatif F2 : %0.1f;;
+2828;Y relatif FEcret : %0.1f;;
 1403;Z Laser;;
 1134;°C;;

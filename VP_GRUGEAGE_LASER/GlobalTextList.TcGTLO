@@ -1452,6 +1452,14 @@ Pression"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"3104"</v>
+              <v n="TextDefault">"Commande manu laser"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"560"</v>
               <v n="TextDefault">"Couple
 
@@ -1623,6 +1631,14 @@ DI05_Homing_finished"</v>
               <v n="TextDefault">"Diminuer
 Limiteur
 Pression"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"419"</v>
+              <v n="TextDefault">"Dist buse - Piece : %0.1f"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -2379,6 +2395,39 @@ Porte"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"1658"</v>
+              <v n="TextDefault">"Recette decoupe"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1102"</v>
+              <v n="TextDefault">"Recette decoupe pour 
+ep driver"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1544"</v>
+              <v n="TextDefault">"Recette decoupe pour ep driver"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"1378"</v>
+              <v n="TextDefault">"Recette marquage"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"884"</v>
               <v n="TextDefault">"Repères"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -2453,6 +2502,14 @@ Porte"</v>
             <o>
               <v n="TextID">"310"</v>
               <v n="TextDefault">"Source Laser MaxPhotonics"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"338"</v>
+              <v n="TextDefault">"Start POM Secu ?"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -3260,6 +3317,30 @@ Impulsion laser"</v>
             <o>
               <v n="TextID">"34"</v>
               <v n="TextDefault">"XY Laser"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2559"</v>
+              <v n="TextDefault">"Y relatif F1 : %0.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2145"</v>
+              <v n="TextDefault">"Y relatif F2 : %0.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2828"</v>
+              <v n="TextDefault">"Y relatif FEcret : %0.1f"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

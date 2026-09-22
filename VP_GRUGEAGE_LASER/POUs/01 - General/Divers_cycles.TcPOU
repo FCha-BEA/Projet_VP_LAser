@@ -40,7 +40,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	FE_Arus(CLK:=Bp_Arret_Usinage );
 	RE_DCY(CLK:=Bp_Depart_Cycle);
 	TON_Auto(in:=Auto,pt:=T#100MS);
-	TP_Ok_Valid_Secu(in:=Controle_Acces_Machine,pt:= T#4S); 	(*Tempo pour degagement unite apres cellule pendant percage attente axes enable*)
+	TP_Ok_Valid_Secu(in:=Controle_Acces_Machine,pt:= T#2S); 	
 	Re_Mesure_Barre_Ok(CLK:=Mesure_Barre_Ok);
 	RE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);
 	FE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);

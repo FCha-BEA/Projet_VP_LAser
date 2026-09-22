@@ -49,8 +49,11 @@ VAR_GLOBAL
 	 Vitesse_Reelle_X_Laser							: LREAL;
 (* Axe Y *)
 	 Offset_Y_Laser_REF								: LREAL := 617;
-	 Offset_Y_Laser_OPP_REF							: LREAL := -709.3;
-	 Offset_Y_Laser_ECRETAGE						: LREAL := -806.0;
+	 	Pos_Y_RelaFaceRef							:LREAL;
+	 Offset_Y_Laser_OPP_REF							: LREAL := 153;
+	 	 Pos_Y_RelaFaceOppRef						:LREAL;
+	 Offset_Y_Laser_ECRETAGE						: LREAL := 52;
+	 	 Pos_Y_RelaFaceEcret						:LREAL;
 	 Pos_cible_Y_Laser								: LREAL:=0;
 	 Pos_Reel_Y_Laser								: LREAL:=0;
 	 Num_Defaut_Y_Laser								: UDINT:=0;
@@ -71,9 +74,9 @@ VAR_GLOBAL
 	 Vitesse_Reelle_Y_Laser							: LREAL;
 	 
 (* Axe Z *)
-	 Offset_Z_Laser_REF								: LREAL := 220;	//a regler
-	 Offset_Z_Laser_OPP_REF							: LREAL := 200; //a regler
-	 Offset_Z_Laser_ECRETAGE						: LREAL := 200; //a regler
+	 Offset_Z_Laser_REF								: LREAL := 229;	//a regler
+	 Offset_Z_Laser_OPP_REF							: LREAL := 229; //a regler
+	 Offset_Z_Laser_ECRETAGE						: LREAL := 100; //a regler
 	 Pos_cible_Z_Laser								: LREAL:=0;
 	 Pos_Reel_Z_Laser								: LREAL:=0;
 	 Num_Defaut_Z_Laser								: UDINT:=0;     

@@ -22,7 +22,7 @@ VAR
 	 LaserTYpe	:UINT;
 	 PasswordDisplay	:UINT;
 	 
-	//Test impulsion lqser 
+	//Test impulsion laser 
 	 Pulse_Tir		:TP;	// Impulsion de tir laser
 	 Dmd_Test_Tir	:BOOL; //Test pour demander une petite impulsion de tir laser
 	 Mode_Test_Tir: BOOL;
@@ -65,11 +65,11 @@ END_VAR]]></Declaration>
  			Face_En_Cours := 0;
  END_IF;
  
-//Selection recette reçue du Driver
+//Selection recette reçue du Driver - en auto
   IF Sequence[Pt_Sequence].M = 100 AND Sequence[Pt_Sequence].P10 <> 0 THEN	//P10 = ID recette driver
 	FOR j := 1 TO 500 DO
 		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
-			Index_Recette_Laser := j;
+			Index_Recette_Laser_Auto := j;
 			EXIT;
 		END_IF
 	END_FOR 
@@ -135,20 +135,20 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Z := 746.23;
 
 //Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars
-IF Tir_Laser OR Test_asserv THEN
-	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
-	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
-	Asserv_Pression.fKp:=P;
-	Asserv_Pression.fTn:=I;
-	Asserv_Pression.fTv:=D;
-	Asserv_Pression.fTd:=Td;
-	Asserv_Pression.fCtrlCycleTime:=0.01;
-	Asserv_Pression.bReset:=(Consigne_Pression_Gaz=0);
-	
-	Asserv_Pression();
-	
-	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 4095 / 5);
- END_IF
+ IF Tir_Laser OR Test_asserv THEN
+ 	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
+ 	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
+ 	Asserv_Pression.fKp:=P;
+ 	Asserv_Pression.fTn:=I;
+ 	Asserv_Pression.fTv:=D;
+ 	Asserv_Pression.fTd:=Td;
+ 	Asserv_Pression.fCtrlCycleTime:=0.01;
+ 	Asserv_Pression.bReset:=(Consigne_Pression_Gaz=0);
+ 	
+ 	Asserv_Pression();
+ 	
+ 	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 4095 / 5);
+  END_IF
  
 //Autorisation ouverture gâche sécurisée
  //Evacuation air cabine
@@ -185,16 +185,23 @@ LaserTYpe:=UDINT_TO_UINT(Source_MaxPhotonics.PROGRAM_NUMBER_IN);
 PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
 //Impulsion test laser
-IF Mode_Test_Tir THEN  
-	//PLC_Prog_Power_Watt_Target:=600;
-	//PLC_Prog_Per_Cent_Of_Duty_Cycle_Target:=100;
-	//PLC_Prog_Frequency_0_20000Hz_Target:=10000;
-	
+IF Mode_Test_Tir AND Manu THEN  
 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#1S);
-
 END_IF
 	
-	
+//Recherche recette marquage pour decoupe manu ou forcage valeurs par defaut
+IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
+	 FOR j := 1 TO 500 DO 
+		 IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
+			 Index_Recette_Marquage := J;
+		 END_IF
+		 IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 0 THEN 
+			 Index_Recette_Decoupe := J;
+		 END_IF
+	 END_FOR
+ END_IF
+ 
+ 
 	
 	
 	

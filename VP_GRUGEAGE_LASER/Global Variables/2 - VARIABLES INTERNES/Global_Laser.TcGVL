@@ -128,6 +128,8 @@ VAR_GLOBAL
  Consigne_Pression_Gaz			:LREAL;
  Phase_perc_encours				:INT:=1;	//Phase de perçage en cours, s'il y a plusieurs phases de perçage
  Tir_Laser, Tir_Ok				:BOOL;
+ Recette_Marquage				:Str_Param_Laser;	//Recette de marquage, normalement commune a toutes epaisseurs
+ B_Marq_DecManu					:BOOL;	// OP permute entre decoupe et marquage en commande de decoupe manu - false = decoupe
  
 //Servovanne régulation gaz tête laser
  Defaut_Servovanne,

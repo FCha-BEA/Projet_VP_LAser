@@ -117,7 +117,7 @@ VAR
 
 	Focus_Calculation_TAB_y											: INT := 2;		(* Pour Choix du Type de Tête - Longueur Focal Collimation - Longueur Focal Focal *)
 																				(* 1 : 100 - 150 *)
-																	(*****)		(* 2 : 100 - 200 *)		(******)
+																	(*****)		(* 2 : 100 - 200 *)		(***Caractéristique de la lentille de focus qui correspond a ce modele de tete laser***)
 																				(* 3 : 100 - 220 *)
 																				(* 4 : 150 - 350 *)
 																				(* 5 : 100 - 300 *)

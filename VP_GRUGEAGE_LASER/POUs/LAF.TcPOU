@@ -19,6 +19,9 @@ OK - 9 : installer drive manager 1
 
 10 : Fleches + images sur visu temperature
 11 : Choix gaz de decoupe
+
+
+12 : Choix recette marquage si manu ou auto et val par defaut si pas de recette de marq
 ]]></ST>
     </Implementation>
   </POU>
