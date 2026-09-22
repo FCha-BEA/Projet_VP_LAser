@@ -5,16 +5,19 @@
 
 VAR_INPUT
 	IN																: BOOL;
+
 	STATUS_0														: UDINT;						(* OK *)
 	STATUS_1														: UDINT;						(* OK *)
 	STATUS_2														: UDINT;						(* OK *)
 	STATUS_3														: UDINT;						(* OK *)
 	STATUS_4														: UDINT;						(* OK *)
 	STATUS_5														: UDINT;						(* OK *)
+
 	POWER_IN														: UDINT;						(* OK *)
 	OPTICAL_CHANNEL_IN											: UDINT;						(* OK *)
 	PROGRAM_NUMBER_IN											: UDINT;						(* OK *)
 	LASER_NUMBER_IN												: UDINT;						(* OK *)
+
 	(***********************************************************************************************************************)
 	Prog_Power_Watt_Max											: UDINT; (* Watt *) (* 0... 6000*)	(* OK *)
 	Prog_Power_Watt_Target											: UDINT; (* Watt *) (* 0... 6000*)	(* OK *)
@@ -25,11 +28,16 @@ VAR_INPUT
 	Prog_Frequency_0_20000Hz_Max									: UDINT; (* Hz *) (* 0... 20 000 *)	(* OK *)
 	Prog_Frequency_0_20000Hz_Target									: UDINT; (* Hz *) (* 0... 20 000Hz *)	(* OK *)
 	(***********************************************************************************************************************)
+
 	Prog_Cutting_Mode												: BOOL;
 	Prog_Marking_Mode												: BOOL;
+
 	Prog_Secu_OK													: BOOL;						(* OK *)
 	Prog_Valid														: BOOL;						(* OK *)
+
 	Prog_Annul_Defaut												: BOOL;						(* OK *)
+
+
 END_VAR
 
 VAR_OUTPUT
@@ -40,26 +48,32 @@ VAR_OUTPUT
 	CONTROL_2														: UDINT;
 	CONTROL_3														: UDINT;
 	CONTROL_4														: UDINT;
-	POWER_OUT														: UDINT; (* 0...100% *)
-	OPTICAL_CHANNEL_OUT												: UDINT;
-	PROGRAM_NUMBER_OUT												: UDINT;
+	POWER_OUT													: UDINT; (* 0...100% *)
+	OPTICAL_CHANNEL_OUT											: UDINT;
+	PROGRAM_NUMBER_OUT										: UDINT;
 	RAMPING_TIME_OUT												: UDINT;
-	LASER_NUMBER_OUT												: UDINT;
+	LASER_NUMBER_OUT											: UDINT;
+
 	Source_Prete_Pour_Decoupe										: BOOL;
-	Defaut_power_Watt_Target										: BOOL;						(* OK *)
+
+	Defaut_power_Watt_Target											: BOOL;						(* OK *)
 	Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack					: BOOL;						(* OK *)
-	Defaut_Per_Cent_Of_Duty_Cycle_Target							: BOOL;						(* OK *)
+	Defaut_Per_Cent_Of_Duty_Cycle_Target								: BOOL;						(* OK *)
 	Defaut_Laser_Frequency_Of_PWM_Wave_Target						: BOOL;						(* OK *)
+
 	Defaut_Status_2													: BOOL;						(* OK *)
 	Defaut_Status_3													: BOOL;						(* OK *)
 	Defaut_Status_4													: BOOL;						(* OK *)
+
 	Defaut															: BOOL;						(* OK *)
+
 	Status_Percentage_Of_Laser_Output_Power							: USINT;
 	Status_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				: USINT;
 	Status_Percentage_Of_Laser_Frequency_Of_PWM_Wave				: UINT;
+	
 	PWM_Duty_Perc_UINT												:UINT;	// Pour carte EL2502 De pourcent a valeur en UINT (de 0-65535)
 	PWM_Freq_UDINT													:UDINT; // Pour carte EL2502 : on envoie la periode en us
-	Status_Laser_Output_Light_ON									: BOOL;
+	
 
 END_VAR
 
@@ -102,6 +116,7 @@ VAR
 	Status_Free_Status_1_31											: BOOL;
 
 	Status_Extrernal_Ctrl												: BOOL;
+	Status_Laser_Output_Light_ON										: BOOL;
 	Status_Main_Power_Start_ON										: BOOL;
 	Status_Start_Switch_ON											: BOOL;
 	Status_Alarm														: BOOL;
@@ -584,18 +599,18 @@ END_VAR]]></Declaration>
 																		Defaut_Status_4;
 
 	IF Prog_Annul_Defaut THEN
-		Defaut_power_Watt_Target									:= FALSE;
+		Defaut_power_Watt_Target										:= FALSE;
 		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack				:= FALSE;
-		Defaut_Per_Cent_Of_Duty_Cycle_Target						:= FALSE;
+		Defaut_Per_Cent_Of_Duty_Cycle_Target							:= FALSE;
 		Defaut_Laser_Frequency_Of_PWM_Wave_Target					:= FALSE;
 		Defaut_Status_2												:= FALSE;
 		Defaut_Status_3												:= FALSE;
 		Defaut_Status_4												:= FALSE;
 	END_IF;
 
-	Ctrl_Software_Reset												:= Prog_Annul_Defaut AND Status_Emergency_Stop_Alarm; //or not, a voir pdt test
+	Ctrl_Software_Reset												:= Prog_Annul_Defaut;
 
-	Ctrl_Dispaly_Cuting_Mode										:= Prog_Cutting_Mode;
+	Ctrl_Dispaly_Cuting_Mode											:= Prog_Cutting_Mode;
 	Ctrl_Dispaly_Marking_Mode										:= Prog_Marking_Mode;
 
 	TON_Secu_OK(in := Prog_Secu_OK AND Status_Interlock_1_Connected AND Status_Interlock_2_Connected, pt := t#1s);
@@ -742,8 +757,6 @@ END_VAR]]></Declaration>
 	RAMPING_TIME_OUT												:= Temp_Ctrl_Machine_Type + Temp_Ctrl_PassWord;
 *)
 	LASER_NUMBER_OUT											:= Ctrl_Free_Ctrl_9;
-	
-	Interlock_OK	:= Status_Interlock_1_Connected AND Status_Interlock_2_Connected AND NOT Status_Emergency_Stop_Alarm; (*or alarm, a voir pdt test*)
 
 	(*************************************************************************************************************************************)
 	(*************************************************************************************************************************************)

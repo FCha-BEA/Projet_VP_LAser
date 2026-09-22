@@ -2328,25 +2328,6 @@ Prog_Valid		Laser_ON"</v>
               </l>
             </o>
             <o>
-              <v n="TextID">"557"</v>
-              <v n="TextDefault">"Présence recette 
-decoupe ? 
-"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
-            </o>
-            <o>
-              <v n="TextID">"2999"</v>
-              <v n="TextDefault">"Présence recette decoupe ? 
-"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
-            </o>
-            <o>
               <v n="TextID">"474"</v>
               <v n="TextDefault">"Puissance
 (kVA)"</v>

@@ -2,24 +2,9 @@
 <Refactors>
   <Renames>
     <RenamedSymbol>
-      <Type guid="0fe38036-6898-4647-a792-4a015553fb31">Global_Laser</Type>
-      <From>B_Marq_DecManu</From>
-      <To>Sel_DecMarq_Manu</To>
-    </RenamedSymbol>
-    <RenamedSymbol>
-      <Type guid="e72f5ffe-2adf-4f12-b359-592dff2a5a24">IO_SOURCE_MAXPHOTONICS</Type>
-      <From>Prog_Secu_Source_OK</From>
-      <To>Secu_Source_OK</To>
-    </RenamedSymbol>
-    <RenamedSymbol>
-      <Type guid="0fe38036-6898-4647-a792-4a015553fb31">Global_Laser</Type>
-      <From>Laser_Start</From>
-      <To>Tir_Laser</To>
-    </RenamedSymbol>
-    <RenamedSymbol>
-      <Type guid="ad69e8d5-d28c-4935-a0bf-bfec9a41b1eb">Global_Chariot</Type>
-      <From>Pince_interdit_decoupe_manu</From>
-      <To>Pince_interdit_decoupe</To>
+      <Type guid="b3f08f98-48d1-46b4-ae5a-cdf629b93e1d">Global_PRONC</Type>
+      <From>Index_Recette_Laser</From>
+      <To>Index_Recette_Laser_Auto</To>
     </RenamedSymbol>
   </Renames>
 </Refactors>

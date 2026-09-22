@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"84"</v>
+          <v n="UniqueIdGenerator">"78"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -14420,7 +14420,7 @@ Status_Free_Status_4_31"</v>
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"Secu_Source_OK"</v>
+                      <v n="Value">"Prog_Secu_Source_OK"</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>
@@ -48469,9 +48469,7 @@ END_VAR"</v>
             </d2>
             <v n="Version">2</v>
           </o>
-          <o n="FrameInterfaceDataModel" t="HierarchicalProperties">
-            <l2 n="HierarchicalProperties" />
-          </o>
+          <n n="FrameInterfaceDataModel" />
         </o>
       </Data>
       <TypeList>
@@ -48493,7 +48491,6 @@ END_VAR"</v>
         <Type n="GenericVisualElem">{f86c2928-8614-4cca-824b-e819ac4d58c4}</Type>
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
-        <Type n="HierarchicalProperties">{af53e824-e51f-4be1-b210-d001ef8efbd1}</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
         <Type n="Int16">System.Int16</Type>
         <Type n="Int32">System.Int32</Type>

@@ -94,7 +94,6 @@ VAR_GLOBAL
   Consigne_ServoVanne		AT%Q*:UINT;	//Asservissement gaz decoupe : O2 uniquement
   Ev_GazLaser_Air			AT%Q*:BOOL; //Gaz de decoupe : Air comprime
   Ev_GazLaser_Azote			AT%Q*:BOOL; //Gaz de decoupe : Azote
-  Ev_GazLaser_Oxygene		AT%Q*:BOOL; //Gaz de decoupe : Oxygène, à coupler avec la consigne servovanne
  //Refroidissement 
   Ev_Refroidissement		AT%Q*:BOOL; //Gaz de refroidissement : Air comprime ou Azote
 

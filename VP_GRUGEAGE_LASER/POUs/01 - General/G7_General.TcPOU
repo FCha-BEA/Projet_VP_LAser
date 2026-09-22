@@ -3997,16 +3997,17 @@ Start_Gaz:=TRUE; ]]></ST>
       <Implementation>
         <ST><![CDATA[FE_ISO_en_cours(clk:=ISO_en_cours);
 
-
+(*Extinction plasma en fin de découpe*)
+IF F_M14 THEN
+	Allumage_tete_laser:=FALSE;
+END_IF
 
 TON_Ecart_Pression_Gaz
 (IN:=(ABS (LREAL_TO_INT(Consigne_Pression_Gaz) - Data14_Cutting_Gas_Pressure) > Ecart_Pression_Gaz) AND Tir_Laser AND NOT F_M14 ,
 PT:=Tmps_Ecart_Pression);
 
 
-IF TON_Ecart_Pression_Gaz.Q THEN 
-	Defaut_pression_gaz :=TRUE; 
-END_IF
+IF TON_Ecart_Pression_Gaz.Q THEN Defaut_pression_gaz :=TRUE; END_IF
 ]]></ST>
       </Implementation>
     </Action>

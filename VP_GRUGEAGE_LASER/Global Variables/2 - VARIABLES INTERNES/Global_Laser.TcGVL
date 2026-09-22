@@ -51,10 +51,9 @@ VAR_GLOBAL
 	Memo_X_Laser_Decal							:LREAL;
 	
 //Cycles et divers - Voir bits inutiles à suppr
+ Laser_Start				:BOOL;
  Allumage_tete_laser			:BOOL:=FALSE;
  B_Allumage_torche_laser		:BOOL:=FALSE;
- Tir_Laser						:BOOL;
- 	Tir_en_Cours				:BOOL; //retour de la source, laser en cours d'émission
  Defaut_collision_laser			:BOOL:=FALSE;
  Defaut_torche_debrayee			:BOOL:=FALSE;
  Memo_amorcage_laser_ok			:BOOL:=FALSE;
@@ -66,8 +65,6 @@ VAR_GLOBAL
  	RE_Top_Laser					:R_TRIG;
  FE_Dec_Manu						:F_TRIG;	
  Offset_Origine_Y_Laser			:LREAL;		//Distance entre référence sommet cornière / laser quand Y laser =0	
- Cmd_Manu_Laser					:BOOL;	//OP teste de tirer avec le laser en manu
-
  
  ProcessID_Driver,Old_ProcessID	:LREAL;	//Process ID de la découpe laser reçu du Driver, selon recette
  Nv_ProcessID		:BOOL;	//Si ProcessID_Driver <> ProcessID_Source, Autorise le palpage en auto 
@@ -127,11 +124,12 @@ VAR_GLOBAL
  Lifter_VB_ok_pour_decoupe	:BOOL:=FALSE;	//Tete laser à hauteur de découpe après les phases de perçages
 
 //Paramètres laser 
- Type_gaz						:LREAL;	// Comment et à qui envoyer le type de gaz ? Pas dans la tête ni la source, d'après les échanges TC , Gestion en local ? 
+ Type_gaz						:UINT;	// Comment et à qui envoyer le type de gaz ? Pas dans la tête ni la source, d'après les échanges TC , Gestion en local ? 
  Consigne_Pression_Gaz			:LREAL;
  Phase_perc_encours				:INT:=1;	//Phase de perçage en cours, s'il y a plusieurs phases de perçage
+ Tir_Laser, Tir_Ok				:BOOL;
  Recette_Marquage				:Str_Param_Laser;	//Recette de marquage, normalement commune a toutes epaisseurs
- Sel_DecMarq_Manu					:BOOL;	// OP permute entre decoupe et marquage en commande de decoupe manu - false = decoupe
+ B_Marq_DecManu					:BOOL;	// OP permute entre decoupe et marquage en commande de decoupe manu - false = decoupe
  
 //Servovanne régulation gaz tête laser
  Defaut_Servovanne,

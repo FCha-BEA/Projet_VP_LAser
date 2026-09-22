@@ -65,51 +65,20 @@ END_VAR]]></Declaration>
  			Face_En_Cours := 0;
  END_IF;
  
+//Selection recette reçue du Driver - en auto
+  IF Sequence[Pt_Sequence].M = 100 AND Sequence[Pt_Sequence].P10 <> 0 THEN	//P10 = ID recette driver
+	FOR j := 1 TO 500 DO
+		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
+			Index_Recette_Laser_Auto := j;
+			EXIT;
+		END_IF
+	END_FOR 
+  END_IF
+ 
  Face_En_Pos := Face_Cible <> 0 AND Face_En_Cours <> 0 AND Face_Cible = Face_En_Cours;
  IF Top_Face AND Face_En_Pos THEN
  	Top_Face := FALSE;
  END_IF;
- 
-//Selection recette reçue du Driver
- //En auto
- IF Sequence[Pt_Sequence].M = 100 AND Sequence[Pt_Sequence].P10 <> 0 THEN	//P10 = ID recette driver
- 	FOR j := 1 TO 500 DO
- 		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
- 			Index_Recette_Laser_Auto := j;
- 			EXIT;
- 		END_IF
- 	END_FOR 
- END_IF
-  
- //En manu
- IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
- 	FOR j := 1 TO 500 DO 
- 		IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
- 			 Index_Recette_Marquage := J;
- 		END_IF
- 		IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 0 THEN 
- 			 Index_Recette_Decoupe := J;
- 		END_IF
- 	END_FOR
- END_IF
-  
- IF Index_Recette_Decoupe = 0 THEN Sel_DecMarq_Manu := TRUE; END_IF	//Pas de recette de découpe, on force le marquage
- IF Index_Recette_Marquage = 0 THEN	//Forcage d'une recette de marquage, données vient du fichier de recette crée/actualisé par BEM
-	 Tab_St_Recette_Laser[0].Epaisseur := Ep_aile;
-	 Tab_St_Recette_Laser[0].Nb_Etape_Perc:=0;
-	 Tab_St_Recette_Laser[0].Type_Process:=1;
-	 Tab_St_Recette_Laser[0].Taille_Buse:=1.2;
-	 Tab_St_Recette_Laser[0].Type_Gaz:=1;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Pression_Gaz:=1;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Distance_Focale:=0;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Puissance_Laser:=900;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Duty_Cycle:=25;
- 	 Tab_St_Recette_Laser[0].Tb_Dec.Frequence_impulsion:=100;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Hauteur_Buse:=15;
- END_IF
- 
- 
- 
 
 //Palpage sommet
  (* Aile Ref *)
@@ -165,8 +134,8 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Y := 363.76;
  	Palp_R[3].R00.Z := 746.23;
 
-//Gestion des gaz : Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars + Activ EV gaz O2, Air ou N2
- IF Start_Gaz OR Test_asserv THEN
+//Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars
+ IF Tir_Laser OR Test_asserv THEN
  	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
  	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
  	Asserv_Pression.fKp:=P;
@@ -179,11 +148,7 @@ END_VAR]]></Declaration>
  	Asserv_Pression();
  	
  	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 4095 / 5);
- END_IF
- Ev_GazLaser_Oxygene:= Start_Gaz AND Type_gaz = 0;
- Ev_GazLaser_Azote:= Start_Gaz AND Type_gaz = 1;
- Ev_GazLaser_Air:= Start_Gaz AND Type_gaz = 2;
- 
+  END_IF
  
 //Autorisation ouverture gâche sécurisée
  //Evacuation air cabine
@@ -220,9 +185,24 @@ LaserTYpe:=UDINT_TO_UINT(Source_MaxPhotonics.PROGRAM_NUMBER_IN);
 PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
 //Impulsion test laser
- IF Mode_Test_Tir AND Manu THEN  
- 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#1S);
+IF Mode_Test_Tir AND Manu THEN  
+	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#1S);
+END_IF
+	
+//Recherche recette marquage pour decoupe manu ou forcage valeurs par defaut
+IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
+	 FOR j := 1 TO 500 DO 
+		 IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
+			 Index_Recette_Marquage := J;
+		 END_IF
+		 IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 0 THEN 
+			 Index_Recette_Decoupe := J;
+		 END_IF
+	 END_FOR
  END_IF
+ 
+ 
+	
 	
 	
 	

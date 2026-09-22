@@ -87,9 +87,6 @@ Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
  (*-------------------- Relevage / Abaissement pince --------------------------*)
   	Bit_Relevage_pince := Selection_X AND Joystick_Cmd_Haut AND NOT Pince_dans_Machine AND Fin_Desserage_Pince AND NOT Mem_Arus;
 	Bit_Abaissement_pince:= Selection_X AND Joystick_Cmd_Bas AND NOT Mem_Arus;
-	
-(*---------------------- Découpe laser en manu ---------------------------------*)
-Cmd_Manu_Laser := Manu AND Selection_DecManu_Laser AND Joystick;
 ]]></ST>
     </Implementation>
   </POU>

@@ -192,7 +192,7 @@ END_VAR]]></Declaration>
                                 <l2 n="InputItems" cet="BoxTreeOperand">
                                   <o>
                                     <o n="Operand" t="Operand">
-                                      <v n="Operand">"Cmd_Manu_Laser"</v>
+                                      <v n="Operand">"Selection_DecManu_Laser"</v>
                                       <v n="Type">"BOOL"</v>
                                       <v n="Comment">""</v>
                                       <v n="SymbolComment">""</v>
@@ -675,7 +675,7 @@ END_VAR]]></Declaration>
                                 <l2 n="InputItems" cet="BoxTreeOperand">
                                   <o>
                                     <o n="Operand" t="Operand">
-                                      <v n="Operand">"Cmd_Manu_Laser"</v>
+                                      <v n="Operand">"Selection_DecManu_Laser"</v>
                                       <v n="Type">"BOOL"</v>
                                       <v n="Comment">""</v>
                                       <v n="SymbolComment">""</v>
@@ -993,7 +993,7 @@ END_VAR]]></Declaration>
                       <v n="BoxType">"FB_Axe_Ethercat_V2"</v>
                       <o n="Instance" t="Operand">
                         <v n="Operand">"YLaser"</v>
-                        <v n="Type">"FB_Axe_Ethercat_V3"</v>
+                        <v n="Type">"FB_Axe_Ethercat_V2"</v>
                         <v n="Comment">""</v>
                         <v n="SymbolComment">""</v>
                         <v n="Address">""</v>
@@ -2229,7 +2229,7 @@ END_VAR]]></Declaration>
                       <v n="BoxType">"FB_Axe_Ethercat_V3"</v>
                       <o n="Instance" t="Operand">
                         <v n="Operand">"YLaser"</v>
-                        <v n="Type">"FB_Axe_Ethercat_V3"</v>
+                        <v n="Type">"FB_Axe_Ethercat_V2"</v>
                         <v n="Comment">""</v>
                         <v n="SymbolComment">""</v>
                         <v n="Address">""</v>

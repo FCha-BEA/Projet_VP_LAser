@@ -12,7 +12,7 @@ VAR	RE_Mem_arus,	RE_G7_General_step1000:R_TRIG;
 	Memo_Vmin_decoupe:LREAL;	Top_Memo_Vmin_decoupe,	Cligno_pour_reglage_rouleaux_plasma,	Test_rouleaux_plasma:BOOL;
 	X_ok_pour_descente_rouleau_plasma_amont,	X_ok_pour_descente_rouleau_plasma_aval:BOOL;
 	TON_Descente_complete_rouleau_plasma_amont,	TON_Descente_complete_rouleau_plasma_aval:TON;
-	TP_Montee_partielle_rouleau_plasma_amont,	TP_Montee_partielle_rouleau_plasma_aval,	TP_Spray_plasma :TP;
+	TP_Montee_partielle_rouleau_plasma_amont,	TP_Montee_partielle_rouleau_plasma_aval,	TP_Spray_plasma,	TP_Top_Laser:TP;
 	TON_Descente_partielle_rouleau_plasma_amont,TON_Descente_partielle_rouleau_plasma_aval:TON;
 	Phase_rouleau_plasma_amont,	Phase_rouleau_plasma_aval:INT;
 	toto: BOOL;
@@ -25,12 +25,21 @@ END_VAR]]></Declaration>
  RE_Mem_arus(clk:=Mem_arus);
  RE_Bp_cde_manu(clk:=Bp_Cde_Operation);
  FE_Mem_arus(clk:=Mem_arus);
+ TP_Top_Laser(in:=Top_perc_laser,pt:=T#100MS);
 
 
 IF NOT Top_perc_laser THEN
 	Lifter_VB_ok_pour_decoupe:=FALSE;
 END_IF
 
+(****************************** Si passage en ARUS ******************************)
+ IF RE_Mem_arus.Q THEN
+ 	Allumage_tete_laser:=FALSE;
+ 	Top_perc_laser:=FALSE;
+ 	Start_iso3D:=FALSE;
+ 	Prepa_ISO3D:=FALSE;
+ 	Stop_axes:=FALSE;
+ END_IF
 
 (****************************** Découpe interne ou externe? ******************************)
  (*Découpe interne: une découpe externe est toujours un multiple de 1000:
