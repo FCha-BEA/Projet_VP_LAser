@@ -71,7 +71,7 @@ VAR_GLOBAL
 //pas possible de les desactiver dans driver, icone masquee
 	Pnc_outil2_U1,Pnc_outil2_U2,Pnc_outil2_U3		:ARRAY [1..50] OF LREAL; (*Paramètres pour le nouveau Pupitre/ Joystick*)
 
-Tab_St_Recette_Laser : ARRAY [1..500] OF Str_Recette_Laser;
+Tab_St_Recette_Laser : ARRAY [0..500] OF Str_Recette_Laser;	//0 - recette de marquage, unique et commune à toutes épaisseur  
 Index_Recette_Laser_Auto	:INT:=0;	//Pour pointer la bonne recette dans le Tab_St_Recette_Laser en auto 
 Index_Recette_Marquage		:INT:=0;	//Recette de marquage presente ? Pour manu seulement 
 Index_Recette_Decoupe		:INT:=0;	//Recette de decoupe  presente ? Pour manu seulement

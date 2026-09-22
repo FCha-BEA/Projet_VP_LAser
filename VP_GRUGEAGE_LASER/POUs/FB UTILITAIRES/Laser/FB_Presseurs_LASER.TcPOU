@@ -42,7 +42,7 @@ END_VAR]]></Declaration>
 	Stop_Chariot 			:= (Pos_Reelle_Presseur_D < Pos_Presseur_Desserre) OR  (Pos_Reelle_Presseur_G < Pos_Presseur_Desserre);
 	Presseur_Desserre		:=	NOT Stop_Chariot;
 
-	Ok_pour_operation 		:= Dem_Serrage AND ((Pos_Reelle_Presseur_D <EP_Aile + 7) AND (Pos_Reelle_Presseur_G <EP_Aile + 7) OR Chariot_Sous_Presseur); //+7 par essais
+	Ok_pour_operation 		:= Divers_cycles.Calib_Presseurs_OK AND Dem_Serrage AND ((Pos_Reelle_Presseur_D <EP_Aile + 7) AND (Pos_Reelle_Presseur_G <EP_Aile + 7) OR Chariot_Sous_Presseur); //+7 par essais
                             	
 	Serrage 				:= Dem_Serrage AND NOT Chariot_Sous_Presseur; 
 	Maintien              	:= Ok_pour_operation AND NOT Chariot_Sous_Presseur;           												

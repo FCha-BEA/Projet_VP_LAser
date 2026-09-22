@@ -52,10 +52,10 @@ END_VAR]]></Declaration>
       <ST><![CDATA[(*********************** Front et tempo **********************)
 	RE_Mem_arus(clk:=Mem_arus);			FE_Mem_arus(clk:=Mem_arus);
 	FE_Decoupe_plasma_manuelle(clk:=Selection_DecManu_Laser AND Joystick);
-	FE_Laser_Start(clk:= Laser_Start); //tempo Pour attendre FE_jog avant de demander un retract
-	RE_Laser_Start(clk:= Laser_Start); //pour detecter le début d'une coupe manuelle
+	FE_Laser_Start(clk:= Tir_Laser); //tempo Pour attendre FE_jog avant de demander un retract
+	RE_Laser_Start(clk:= Tir_Laser); //pour detecter le début d'une coupe manuelle
 	FE_TOF_Laser_Start(clk:= TOF_Laser_Start.Q);
-	TOF_Laser_Start(in:=Laser_Start,PT:=T#0.5S);
+	TOF_Laser_Start(in:=Tir_Laser,PT:=T#0.5S);
 	FE_Top_deg_torche_VB_full(clk:=Top_deg_Laser_full);
 	FE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
 	RE_Fin_programme(clk:=Sequence[Pt_sequence].M=0);
@@ -337,14 +337,14 @@ END_VAR]]></Declaration>
  
  IF ((Auto AND CodeM_50 AND ISO_en_cours)	// si decoupe auto en cours...
  	 OR										// ...ou...
- 	(Manu AND Laser_Start)) 					// ...decoupe manu en cours...
+ 	(Manu AND Tir_Laser)) 					// ...decoupe manu en cours...
  	AND FE_Breakaway_Plasma_ok.Q THEN		//... et perte du capteur anti collision
  		Defaut_collision_laser:=TRUE;
  END_IF
  
  IF ((Auto AND CodeM_50)						// Si sequence de decoupe plasma...
  		 OR 								// ...ou...
- 		(Manu AND Laser_Start)) 				// ...coupe manuelle...
+ 		(Manu AND Tir_Laser)) 				// ...coupe manuelle...
  	AND DI01_Collision THEN		// ...et torche pas en place, alors ...
  	
  		Defaut_torche_debrayee:=TRUE;
@@ -366,7 +366,7 @@ END_VAR]]></Declaration>
 		G7_Cycle_Percages_Laser.Init.x 										// permet de couper le plasma en cas de collision non brutale avec la tole
 		AND sequence[Pt_sequence].M=50 AND NOT F_M10						//  défaut unniquement pendant une coupe plasma si on ne bloque pas la troche.
 		AND NOT blocage_asserv_gde_variation						// pour ne pas passer en défaut si une pièce bascule en fin de coupe CCC : pas de M10 sur les ponts
-		AND Laser_Start
+		AND Tir_Laser
 		, pt := T#0.5S);
 
  IF TON_contact_torche_tole.Q

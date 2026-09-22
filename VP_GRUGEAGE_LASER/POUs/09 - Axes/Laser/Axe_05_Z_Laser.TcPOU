@@ -159,7 +159,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                               </o>
                               <o>
                                 <o n="Operand" t="Operand">
-                                  <v n="Operand">"ISO3D_en_cours"</v>
+                                  <v n="Operand">"Laser_ok_pour_decoupe"</v>
                                   <v n="Type">"BOOL"</v>
                                   <v n="Comment">""</v>
                                   <v n="SymbolComment">""</v>
@@ -172,9 +172,9 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                                   <v n="LValue">false</v>
                                   <v n="Boolean">true</v>
                                   <v n="IsInstance">false</v>
-                                  <v n="Id">2153L</v>
+                                  <v n="Id">2203L</v>
                                 </o>
-                                <v n="Id">2152L</v>
+                                <v n="Id">2202L</v>
                               </o>
                             </l2>
                             <o n="InputParam" t="ParamList">
@@ -223,7 +223,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                             <l2 n="InputItems" cet="BoxTreeOperand">
                               <o>
                                 <o n="Operand" t="Operand">
-                                  <v n="Operand">"Manu"</v>
+                                  <v n="Operand">"Cmd_Manu_Laser"</v>
                                   <v n="Type">"BOOL"</v>
                                   <v n="Comment">""</v>
                                   <v n="SymbolComment">""</v>

@@ -22,8 +22,6 @@ VAR	FW_GetSystemTime1:FW_GetSystemTime;
 	//Après Pom, envoi X et Y laser à des positions specifiques pour pom codeur de sécu incrémentaux
 	 Step_Pom_CodeurSecu	:INT;
 	 TP_Start_PomCodSecu	:TP;
-	 
-	 TimePC	:NT_GetTime;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbSystemTime(
@@ -44,7 +42,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	Re_Mesure_Barre_Ok(CLK:=Mesure_Barre_Ok);
 	RE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);
 	FE_Fct_palpage_Etal(CLK:=Fct_palpage_Etal);
-	FE_Dec_Manu(clk:=Selection_DecManu_Laser AND Joystick);
+	FE_Dec_Manu(clk:=Cmd_Manu_Laser);
 	RE_Start_Origines(CLK:=Start_Origines);
 	Re_Origines(CLK:=Origines_Axes_ok);
 	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#10S);
@@ -166,8 +164,6 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	END_IF
 
 (*------------------------MESURE BARRE ------------------------------------------------------*)
-	// Fronts 
-
 	(*Si Passage en ARUS*)
 	IF Mem_Arus THEN
 		Start_mesure_Barre:=FALSE;
@@ -263,7 +259,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  IF bp_annul_defauts THEN
 	Defaut_Lancement_POM:=FALSE;
 	Def_Calib_Presseurs:=FALSE;	
-	Pince_interdit_decoupe_manu:=FALSE;
+	Pince_interdit_decoupe:=FALSE;
 	Defaut_General:=FALSE;
  END_IF
  
@@ -413,11 +409,12 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  
 (*------------------- RAZ des G7 --------------------------*)
  G7_Palpage_Capacitance.SFCInit:=Top_deg_Laser_full OR SFCInit;
+ G7_Cycle_Percages_Laser.SFCInit := FE_Dec_Manu.Q OR SFCInit;
 
  
  
  IF	RE_Mem_arus.Q THEN
-		SFCInit:=TRUE;
+	SFCInit:=TRUE;
   END_IF
  IF FE_Mem_arus.Q THEN
  	SFCInit:=FALSE;
@@ -427,17 +424,14 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  G7_General.SFCInit
  :=G7_Master_Palpages.SFCInit
  :=G7_Palpage_Sommet_L.SFCInit
- :=G7_Cycle_Percages_Laser.SFCInit
  :=G7_Sel_Face.SFCInit
  :=SFCInit;
  G7_Cycle_Percages_Laser.SFCinit:=
-	SFCInit 
-	OR FE_Dec_Manu.Q;
+	SFCInit;
  
 (*---------------------- Si passage en ARUS ---------------------*)
  IF RE_Mem_arus.Q THEN
  	Allumage_tete_laser:=FALSE;
- 	Top_perc_laser:=FALSE;
  	Start_iso3D:=FALSE;
  	Prepa_ISO3D:=FALSE;
  	Stop_axes:=FALSE;
@@ -447,15 +441,14 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  	Top_spray_plasma:=FALSE;	??*)
  END_IF
 
-(*----------------------- Découpe manuelle laser : X Laser trop proche de la pince ---------------------------------------*) 
- IF Manu AND Selection_DecManu_Laser 
- AND Offset_X_Laser + Pos_Reel_X_Laser <= Pos_Reel_X+Zone_X_Interdit_decoupe_manu THEN
-	 	Pince_interdit_decoupe_manu :=TRUE;
+(*-----------------------  X Laser trop proche de la pince ---------------------------------------*) 
+IF Manu THEN Zone_X_Interdit_decoupe := 50; ELSE Zone_X_Interdit_decoupe := 10; END_IF
+
+ IF  Offset_X_Laser + Pos_Reel_X_Laser <= Pos_Reel_X+Zone_X_Interdit_decoupe THEN
+	 	Pince_interdit_decoupe :=TRUE;
  END_IF
  
- IF Axe_6.NcToPlc.ActPos >-50.5 THEN
- timePC(NETID:='',START:=TRUE,TMOUT:=T#200MS);
- END_IF
+ 
  
  
  

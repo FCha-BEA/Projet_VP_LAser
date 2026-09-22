@@ -21,7 +21,7 @@ VAR_GLOBAL
 
 	Prog_Cutting_Mode										: BOOL := TRUE;
 	Prog_Marking_Mode										: BOOL := FALSE;                                                  	
-	Prog_Secu_Source_OK										: BOOL;						(* OK *)                                              	
+	Secu_Source_OK											: BOOL;						(* OK *)                                              	
 	Prog_Annul_Defaut_Source								: BOOL;						(* OK *)
 	Prog_Source_Prete_Pour_Decoupe							: BOOL;                                                          
 	Prog_Defaut_power_Watt_Target							: BOOL;						(* OK *)

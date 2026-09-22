@@ -8,17 +8,17 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(*
 1 : Inclure le cf après essais 
-A TESTER 2 : Inclure forçage Rép ethercat
+OK - 2 : Inclure forçage Rép ethercat
 3 : vérifier défauts
 4 : Ecrire  BE/BS (cmde, sécu etc.) ?
-A TESTER 5 : Inclure TAMA -Pas info tama NOK ?
-A TESTER 6 : Faire sécu porte laser
+OK - 5 : Inclure TAMA -Pas info tama NOK ?
+OK - 6 : Faire sécu porte laser
 7  : voir comm fc pour faire divers
 OK - 8: mettre xml source
 OK - 9 : installer drive manager 1
 
-10 : Fleches + images sur visu temperature
-11 : Choix gaz de decoupe
+OK - 10 : Fleches + images sur visu temperature
+OK - 11 : Choix gaz de decoupe
 
 
 12 : Choix recette marquage si manu ou auto et val par defaut si pas de recette de marq
