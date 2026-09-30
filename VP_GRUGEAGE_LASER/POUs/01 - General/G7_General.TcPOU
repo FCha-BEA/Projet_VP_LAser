@@ -3932,7 +3932,7 @@ Prepa_ISO3D := TRUE;
     <Action Name="Step220_active" Id="{9d98ecdf-fcb4-420c-b88f-8132c706f74f}">
       <Implementation>
         <ST><![CDATA[TON_Ecart_Pression_Gaz
-(IN:=(ABS (LREAL_TO_INT(Consigne_Pression_Gaz) - Data14_Cutting_Gas_Pressure) > Ecart_Pression_Gaz) AND Tir_Laser ,
+(IN:=(ABS (LREAL_TO_INT(Consigne_Pression_Gaz) - Data14_Cutting_Gas_Pressure) > Ecart_Pression_Gaz) AND Tir_en_Cours AND Type_gaz = 0 ,
 PT:=Tmps_Ecart_Pression);
 
 
@@ -4027,6 +4027,8 @@ Start_ISO3D:=TRUE;
 IF NOT Simul_decoupe THEN		(*Si reprise à faire sur 1 et 2 mais qu'on fait l'une puis l'autre alors il ne faut pas mettre à "ok" dès la 1e. Du coup, on ne met pas à "ok" après la 2e mais on s'en fout*)
 	Sequence_status[Pt_sequence].Ok:=100;
 END_IF
+
+Asserv_Torche_On:=false;
 ]]></ST>
       </Implementation>
     </Action>
@@ -4224,7 +4226,7 @@ or Reprise_decoupe]]></ST>
 	(	Sequence[Pt_sequence].P1=0
 	AND
 	(*Torche 1*)
-		((Laser_ok_pour_decoupe AND G7_Cycle_Percages_Laser.Step31.x)												(*Machine à 1:		Cas normal:					arc 1 transféré et Pierce Delay écoulé*)
+		((Laser_ok_pour_decoupe AND G7_Cycle_Percages_Laser.Step31.x)				(*Machine à 1:		Cas normal:					arc 1 transféré et Pierce Delay écoulé*)
 		OR Simul_decoupe AND G7_Cycle_Percages_Laser.Init.x							(*Machine à 1:		Simulation de découpe:		on n'a pas allumé la torche 1 alors faut bien passer*)
 		OR (Bit_demo))) //AND NOT Option_lifter_plasma_VB)							(*Machine à 1:		Mode démo:					on n'a pas allumé la torche 1 alors faut bien passer*)
 		]]></ST>

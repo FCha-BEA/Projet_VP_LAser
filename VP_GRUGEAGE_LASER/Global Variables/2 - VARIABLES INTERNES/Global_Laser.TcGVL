@@ -11,8 +11,7 @@ VAR_GLOBAL
 	Ecart_Pression_Gaz		:INT;			//Ecart de pression permit pendant un temps donné	- A ajuster
 	Tmps_Ecart_Pression		:TIME;			//Temps au delà duquel on passe en défaut si la pression de gaz de la tête s'écarte trop - A ajuster
  Pos_XLaser_PomSecu,
- Pos_YLaser_PomSecu			:LREAL;
- 
+ Pos_YLaser_PomSecu			:LREAL; 
 
 //Palpage pour calcul position sommet
 	Face_Cible_Cycle							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
@@ -46,7 +45,7 @@ VAR_GLOBAL
 	Fct_palpage_Etal							:BOOL;
 	RE_Fct_palpage_Etal							:R_TRIG;
  	FE_Fct_palpage_Etal							:F_TRIG;
-	Ep_secu										:LREAL:=20;
+	Ep_secu										:LREAL:=3;
 	Couple_de_Palpage 							:LREAL:=20;	//A affiner
 	Memo_X_Laser_Decal							:LREAL;
 	
@@ -70,7 +69,10 @@ VAR_GLOBAL
 
  
  ProcessID_Driver,Old_ProcessID	:LREAL;	//Process ID de la découpe laser reçu du Driver, selon recette
- Nv_ProcessID		:BOOL;	//Si ProcessID_Driver <> ProcessID_Source, Autorise le palpage en auto 
+ Nv_ProcessID					:BOOL;	//Si ProcessID_Driver <> ProcessID_Source, Autorise le palpage en auto
+ 
+ Grugeage_laser					:BOOL;	// Usinage - grugeage avec début tir hors matière, Pos à hauteur de découpe puis asserv direct
+ Gravage_Laser					:BOOL;	// Usinage - gravage dans la matière
 	
 //Pour ISO
  Repertoire_NC_Laser			:STRING:='';

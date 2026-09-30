@@ -13,6 +13,8 @@ VAR
 	A_completer: BOOL;
 	TestKerf: BOOL;
 	Reset_Z: BOOL;
+	TOF_DecMan	:TOF;
+	EXemple: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -29,11 +31,7 @@ END_VAR
                   <v n="ILValid">false</v>
                   <l2 n="ILLines" />
                   <v n="Comment">""</v>
-                  <v n="Title">"Demande d'asservissement
-Ton_decoupe_manu obligatoire pour eviter une activation fugace de l'asserve au debut de la decoupe manu. 
-Le bit "plasma_verrou_torche" est piloter dans la POU "plasma" qui à un tps de cycle de 10ms 
-alors que le bit "lifter_VB_Ok" et piloté par le G7 cycle plasma qui a un tps de cycle de 2ms.
-En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre le moment où le G7 active "lifter_vb_ok_pour_decoupe" et le moment ou "plasma_verrou_torche" s'active."</v>
+                  <v n="Title">""</v>
                   <v n="Label">""</v>
                   <v n="OutCommented">false</v>
                   <l2 n="NetworkItems" cet="BoxTreeAssign">
@@ -47,14 +45,14 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>
                             <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
+                              <v n="Flags">3</v>
                               <v n="Fixed">true</v>
                               <v n="Extensible">false</v>
                             </o>
                             <v n="LValue">true</v>
                             <v n="Boolean">true</v>
                             <v n="IsInstance">false</v>
-                            <v n="Id">655L</v>
+                            <v n="Id">2241L</v>
                           </o>
                         </l2>
                       </o>
@@ -64,7 +62,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                         <v n="Extensible">false</v>
                       </o>
                       <o n="RValue" t="BoxTreeBox">
-                        <v n="BoxType">"OR"</v>
+                        <v n="BoxType">"AND"</v>
                         <o n="Instance" t="Operand">
                           <n n="Operand" />
                           <v n="Type">""</v>
@@ -79,7 +77,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v n="LValue">false</v>
                           <v n="Boolean">false</v>
                           <v n="IsInstance">true</v>
-                          <v n="Id">2154L</v>
+                          <v n="Id">2247L</v>
                         </o>
                         <o n="OutputItems" t="OutputItemList">
                           <l2 n="OutputItems" />
@@ -90,191 +88,44 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v n="Extensible">false</v>
                         </o>
                         <n n="InputFlags" />
-                        <l2 n="InputItems" cet="BoxTreeBox">
+                        <l2 n="InputItems" cet="BoxTreeOperand">
                           <o>
-                            <v n="BoxType">"AND"</v>
-                            <o n="Instance" t="Operand">
-                              <n n="Operand" />
-                              <v n="Type">""</v>
+                            <o n="Operand" t="Operand">
+                              <v n="Operand">"Cmd_Manu_Laser"</v>
+                              <v n="Type">"BOOL"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
                               <v n="Address">""</v>
                               <o n="Flags" t="Flags">
-                                <v n="Flags">0</v>
-                                <v n="Fixed">false</v>
+                                <v n="Flags">1</v>
+                                <v n="Fixed">true</v>
                                 <v n="Extensible">false</v>
                               </o>
                               <v n="LValue">false</v>
-                              <v n="Boolean">false</v>
-                              <v n="IsInstance">true</v>
-                              <v n="Id">2156L</v>
+                              <v n="Boolean">true</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">2240L</v>
                             </o>
-                            <o n="OutputItems" t="OutputItemList">
-                              <l2 n="OutputItems" />
-                            </o>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <n n="InputFlags" />
-                            <l2 n="InputItems" cet="BoxTreeOperand">
-                              <o>
-                                <o n="Operand" t="Operand">
-                                  <v n="Operand">"Auto"</v>
-                                  <v n="Type">"BOOL"</v>
-                                  <v n="Comment">""</v>
-                                  <v n="SymbolComment">""</v>
-                                  <v n="Address">""</v>
-                                  <o n="Flags" t="Flags">
-                                    <v n="Flags">0</v>
-                                    <v n="Fixed">true</v>
-                                    <v n="Extensible">false</v>
-                                  </o>
-                                  <v n="LValue">false</v>
-                                  <v n="Boolean">true</v>
-                                  <v n="IsInstance">false</v>
-                                  <v n="Id">2141L</v>
-                                </o>
-                                <v n="Id">2140L</v>
-                              </o>
-                              <o>
-                                <o n="Operand" t="Operand">
-                                  <v n="Operand">"Simul_decoupe"</v>
-                                  <v n="Type">"BOOL"</v>
-                                  <v n="Comment">""</v>
-                                  <v n="SymbolComment">""</v>
-                                  <v n="Address">""</v>
-                                  <o n="Flags" t="Flags">
-                                    <v n="Flags">1</v>
-                                    <v n="Fixed">true</v>
-                                    <v n="Extensible">false</v>
-                                  </o>
-                                  <v n="LValue">false</v>
-                                  <v n="Boolean">true</v>
-                                  <v n="IsInstance">false</v>
-                                  <v n="Id">2143L</v>
-                                </o>
-                                <v n="Id">2142L</v>
-                              </o>
-                              <o>
-                                <o n="Operand" t="Operand">
-                                  <v n="Operand">"Laser_ok_pour_decoupe"</v>
-                                  <v n="Type">"BOOL"</v>
-                                  <v n="Comment">""</v>
-                                  <v n="SymbolComment">""</v>
-                                  <v n="Address">""</v>
-                                  <o n="Flags" t="Flags">
-                                    <v n="Flags">0</v>
-                                    <v n="Fixed">true</v>
-                                    <v n="Extensible">false</v>
-                                  </o>
-                                  <v n="LValue">false</v>
-                                  <v n="Boolean">true</v>
-                                  <v n="IsInstance">false</v>
-                                  <v n="Id">2203L</v>
-                                </o>
-                                <v n="Id">2202L</v>
-                              </o>
-                            </l2>
-                            <o n="InputParam" t="ParamList">
-                              <l2 n="Names" />
-                              <l2 n="Types" />
-                            </o>
-                            <o n="OutputParam" t="ParamList">
-                              <l2 n="Names" />
-                              <l2 n="Types" />
-                            </o>
-                            <v n="CallType" t="Operator">And</v>
-                            <n n="EN" />
-                            <n n="ENO" />
-                            <n n="STSnippet" />
-                            <v n="ContainsExtensibleInputs">false</v>
-                            <v n="ProvidesSTSnippet">false</v>
-                            <v n="Id">2157L</v>
+                            <v n="Id">2239L</v>
                           </o>
                           <o>
-                            <v n="BoxType">"AND"</v>
-                            <o n="Instance" t="Operand">
-                              <n n="Operand" />
-                              <v n="Type">""</v>
+                            <o n="Operand" t="Operand">
+                              <v n="Operand">"auto"</v>
+                              <v n="Type">"BOOL"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
                               <v n="Address">""</v>
                               <o n="Flags" t="Flags">
-                                <v n="Flags">0</v>
-                                <v n="Fixed">false</v>
+                                <v n="Flags">1</v>
+                                <v n="Fixed">true</v>
                                 <v n="Extensible">false</v>
                               </o>
                               <v n="LValue">false</v>
-                              <v n="Boolean">false</v>
-                              <v n="IsInstance">true</v>
-                              <v n="Id">2160L</v>
+                              <v n="Boolean">true</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">2252L</v>
                             </o>
-                            <o n="OutputItems" t="OutputItemList">
-                              <l2 n="OutputItems" />
-                            </o>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <n n="InputFlags" />
-                            <l2 n="InputItems" cet="BoxTreeOperand">
-                              <o>
-                                <o n="Operand" t="Operand">
-                                  <v n="Operand">"Cmd_Manu_Laser"</v>
-                                  <v n="Type">"BOOL"</v>
-                                  <v n="Comment">""</v>
-                                  <v n="SymbolComment">""</v>
-                                  <v n="Address">""</v>
-                                  <o n="Flags" t="Flags">
-                                    <v n="Flags">0</v>
-                                    <v n="Fixed">true</v>
-                                    <v n="Extensible">false</v>
-                                  </o>
-                                  <v n="LValue">false</v>
-                                  <v n="Boolean">true</v>
-                                  <v n="IsInstance">false</v>
-                                  <v n="Id">2159L</v>
-                                </o>
-                                <v n="Id">2158L</v>
-                              </o>
-                              <o>
-                                <o n="Operand" t="Operand">
-                                  <v n="Operand">"Laser_ok_pour_decoupe"</v>
-                                  <v n="Type">"BOOL"</v>
-                                  <v n="Comment">""</v>
-                                  <v n="SymbolComment">""</v>
-                                  <v n="Address">""</v>
-                                  <o n="Flags" t="Flags">
-                                    <v n="Flags">0</v>
-                                    <v n="Fixed">true</v>
-                                    <v n="Extensible">false</v>
-                                  </o>
-                                  <v n="LValue">false</v>
-                                  <v n="Boolean">true</v>
-                                  <v n="IsInstance">false</v>
-                                  <v n="Id">2163L</v>
-                                </o>
-                                <v n="Id">2162L</v>
-                              </o>
-                            </l2>
-                            <o n="InputParam" t="ParamList">
-                              <l2 n="Names" />
-                              <l2 n="Types" />
-                            </o>
-                            <o n="OutputParam" t="ParamList">
-                              <l2 n="Names" />
-                              <l2 n="Types" />
-                            </o>
-                            <v n="CallType" t="Operator">And</v>
-                            <n n="EN" />
-                            <n n="ENO" />
-                            <n n="STSnippet" />
-                            <v n="ContainsExtensibleInputs">false</v>
-                            <v n="ProvidesSTSnippet">false</v>
-                            <v n="Id">2161L</v>
+                            <v n="Id">2251L</v>
                           </o>
                         </l2>
                         <o n="InputParam" t="ParamList">
@@ -285,19 +136,19 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <l2 n="Names" />
                           <l2 n="Types" />
                         </o>
-                        <v n="CallType" t="Operator">Or</v>
+                        <v n="CallType" t="Operator">And</v>
                         <n n="EN" />
                         <n n="ENO" />
                         <n n="STSnippet" />
                         <v n="ContainsExtensibleInputs">false</v>
                         <v n="ProvidesSTSnippet">false</v>
-                        <v n="Id">2155L</v>
+                        <v n="Id">2248L</v>
                       </o>
-                      <v n="Id">656L</v>
+                      <v n="Id">2242L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />
-                  <v n="Id">653L</v>
+                  <v n="Id">2238L</v>
                 </o>
                 <o>
                   <v n="ILActive">false</v>
@@ -773,7 +624,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">2185L</v>
+                        <v n="Id">2258L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -1034,6 +885,22 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                             <v n="IsInstance">false</v>
                             <v n="Id">1989L</v>
                           </o>
+                          <o>
+                            <v n="Operand">"Kerf_Z"</v>
+                            <v n="Type">"BOOL"</v>
+                            <v n="Comment">""</v>
+                            <v n="SymbolComment">""</v>
+                            <v n="Address">""</v>
+                            <o n="Flags" t="Flags">
+                              <v n="Flags">0</v>
+                              <v n="Fixed">false</v>
+                              <v n="Extensible">false</v>
+                            </o>
+                            <v n="LValue">true</v>
+                            <v n="Boolean">false</v>
+                            <v n="IsInstance">false</v>
+                            <v n="Id">2215L</v>
+                          </o>
                         </l2>
                       </o>
                       <o n="Flags" t="Flags">
@@ -1121,7 +988,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pnc_axe_Z_Robot.Limite_Plus"</v>
+                            <v n="Operand">"Limite_PLus_Z_Laser"</v>
                             <v n="Type">"LREAL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1410,44 +1277,6 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                             <v n="Id">1862L</v>
                           </o>
                           <v n="Id">1861L</v>
-                        </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"FALSE"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">true</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">true</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">1778L</v>
-                          </o>
-                          <v n="Id">1777L</v>
-                        </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"Compensation_mecanique_tool_offset"</v>
-                            <v n="Type">"LREAL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">1852L</v>
-                          </o>
-                          <v n="Id">1851L</v>
                         </o>
                         <o t="BoxTreeBox">
                           <v n="BoxType">"OR"</v>
@@ -1831,8 +1660,6 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v>PTP_Accel_Deccel</v>
                           <v>JOG_Plus</v>
                           <v>JOG_Moins</v>
-                          <v>selection_5D</v>
-                          <v>Tool_Offset</v>
                           <v>asserv</v>
                           <v>auto_kerf</v>
                           <v>Distance_Buse</v>
@@ -1860,10 +1687,8 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
+                          <v>BOOL</v>
                           <v>LREAL</v>
-                          <v>BOOL</v>
-                          <v>BOOL</v>
-                          <v>INT</v>
                           <v>BOOL</v>
                           <v>BOOL[REF]</v>
                           <v>BOOL[REF]</v>
@@ -1890,6 +1715,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v>Vitesse_Axe</v>
                           <v>Ref_ok</v>
                           <v>Axe_en_mode_esclave</v>
+                          <v>Auto_Kerf_Active</v>
                         </l2>
                         <l2 n="Types" cet="String">
                           <v>BOOL</v>
@@ -1909,6 +1735,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                           <v>LREAL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
+                          <v>BOOL</v>
                         </l2>
                       </o>
                       <v n="CallType" t="Operator">FunctionBlock</v>
@@ -1917,7 +1744,7 @@ En debut de decoupe manu, l'asserv est donc actif pendant un bref instant entre 
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">2186L</v>
+                      <v n="Id">2259L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />

@@ -40,7 +40,7 @@
             <v n="UseStandardKeyboardHandling">true</v>
             <v n="PaintDeactiveElementsGrayedOut">true</v>
             <o n="GlobalOpenNumpadKeypadSettings" t="VisualManagerGlobalOpenNumpadKeypadSettings">
-              <v n="GlobalOpenNumpadKeypadType" t="GlobalOpenNumpadKeypadType">OpenCentered</v>
+              <v n="GlobalOpenNumpadKeypadType" t="GlobalOpenNumpadKeypadType">OpenNextToElement</v>
               <n n="PositionX" />
               <n n="PositionY" />
             </o>

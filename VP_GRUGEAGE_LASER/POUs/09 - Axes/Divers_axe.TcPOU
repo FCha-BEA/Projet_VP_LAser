@@ -20,7 +20,14 @@ END_VAR
  RE_En_pos_Z_Laser(clk:=En_pos_Z_Laser);
 
 //Interdit XY Laser en Manu si pas découpe et Z trop bas pour ne pas endommager la buse ?
- XYL_Interdit := Manu AND (Offset_Z_Laser_REF-Pos_Reel_Z_Laser < 2* Global_Divers.EP_Aile) AND NOT Selection_DecManu_Laser;	 
+ XYL_Interdit := Manu AND (Offset_Z_Laser_REF-Pos_Reel_Z_Laser < 2* Global_Divers.EP_Aile) AND NOT Selection_DecManu_Laser;
+//Limite Z laser 
+ IF Prog_Capacitance_Calibration_OK THEN
+ 	Limite_PLus_Z_Laser := pos_ref_torche;
+ ELSE
+ 	Limite_PLus_Z_Laser := Pnc_axe_Z_Robot.Limite_Plus;
+ END_IF
+	 
 //Interdit Z chariot si pince serrée ou dans machine
  ZChariot_Interdit:= Ev_Serrage_pince OR Detecteur_Fond_De_Pince OR Pos_Reel_X>= X_Cell_Mesure_Barre;
 
@@ -51,7 +58,17 @@ Origines_Axes_ok :=
 // Pos Y relative a la corniere - Si offset Y Face 1/2/ecr OK seulement !
 	Pos_Y_RelaFaceRef:=Pos_Reel_Y_Laser - Offset_Y_Laser_REF;
 	Pos_Y_RelaFaceOppRef:=Pos_Reel_Y_Laser - Offset_Y_Laser_OPP_REF;
-	Pos_Y_RelaFaceEcret:=Pos_Reel_Y_Laser - Offset_Y_Laser_ECRETAGE;
+	Pos_Y_RelaFaceEcret:= Offset_Y_Laser_ECRETAGE - Pos_Reel_Y_Laser;
+
+//Gestion vitesses Manu Axes 
+	IF Selection_DecManu_Laser THEN 
+		Vitesse_Manu_X_Laser := 10;
+		Vitesse_Manu_Y_Laser := 10;
+	ELSE
+		Vitesse_Manu_X_Laser := Pnc_axe_X_Robot.Vitesse_MAN;
+		Vitesse_Manu_Y_Laser := Pnc_axe_Y_Robot.Vitesse_MAN;
+	END_IF
+
 	
 	
 

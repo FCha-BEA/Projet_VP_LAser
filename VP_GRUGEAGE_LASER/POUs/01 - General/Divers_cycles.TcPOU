@@ -79,6 +79,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	OR  Attente_Arret_Propre AND G7_General.init.x //Si demande ouverture porte Laser
 	THEN (*Set de L'Arret Usinage*)
 		Mem_arus:=TRUE;
+		Attente_Arret_Propre:=FALSE;
 	END_IF
 	
 	IF NOT Mem_Arus_BP AND Fe_arus.Q THEN

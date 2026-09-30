@@ -68,7 +68,7 @@ VAR_GLOBAL
 		Raz_Pnoz_BS					AT%Q*:BOOL; //fc faire
 		RAZ_Pnoz_Laser				AT%Q*:BOOL; //fc faire
 		RAZ_Pnoz_PorteLaser			AT%Q*:BOOL;	//fc faire - A suppr à la fin
-	K_VerrDeverr_PorteLaser			AT%Q*:BOOL; //Suite à la demande, si les conditions=ok, on verrouille / déverrouille la porte //fc faire
+	K_VerrDeverr_PorteLaser			AT%Q*:BOOL; //Suite à la demande, si les conditions=ok, on verrouille / déverrouille la porte - FALSE = Verrouiller -- TRUE = Deverouiller
 	
 	Start_Pom_Codeur_Secu			AT%Q*:BOOL;	//A la pom, on envoi les axes laser à des positions définies : on raz les positions des codeurs de sécu incrémentaux
 	

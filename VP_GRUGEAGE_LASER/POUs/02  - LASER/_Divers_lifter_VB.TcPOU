@@ -3,7 +3,7 @@
   <POU Name="_Divers_lifter_VB" Id="{b9f1caf5-6bd8-4dc6-a3ff-74b2510711ca}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM _Divers_lifter_VB
 VAR	RE_Mem_arus,	RE_Fin_programme:R_TRIG;	
-	FE_Mem_arus,	FE_Laser_Start,		FE_Decoupe_plasma_manuelle:F_TRIG;
+	FE_Mem_arus,	FE_Laser_Start:F_TRIG;
 	FE_Top_deg_torche_VB_full, FE_Top_deg_torche_VB_partiel: F_trig;
 	nbr_echantillon, i, nbr_U_cumul: INT;
 	velo_Z_Plasma, U_cumul, Dist_Max, Dist_Min : LREAL;
@@ -51,7 +51,6 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*********************** Front et tempo **********************)
 	RE_Mem_arus(clk:=Mem_arus);			FE_Mem_arus(clk:=Mem_arus);
-	FE_Decoupe_plasma_manuelle(clk:=Selection_DecManu_Laser AND Joystick);
 	FE_Laser_Start(clk:= Tir_Laser); //tempo Pour attendre FE_jog avant de demander un retract
 	RE_Laser_Start(clk:= Tir_Laser); //pour detecter le début d'une coupe manuelle
 	FE_TOF_Laser_Start(clk:= TOF_Laser_Start.Q);
@@ -321,7 +320,7 @@ END_VAR]]></Declaration>
  		Fct_palpage_Etal := FALSE;
  END_IF
   
- IF FE_Decoupe_plasma_manuelle.Q OR mem_arus THEN 
+ IF FE_Dec_Manu.Q OR mem_arus THEN 
  	Pv_Z_Laser := FALSE;
  	Palpage_Torche := FALSE;
  	Top_Z_Laser :=FALSE;

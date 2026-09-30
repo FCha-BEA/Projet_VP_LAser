@@ -276,10 +276,11 @@ RE_Arus(clk:=Arus);
 //////////////////////////////////////////////////
 //					J.O.G						//
 //////////////////////////////////////////////////
-	R_ChgtVit(clk:=(Jog_plus OR Jog_moins) AND Csg_Vit <> Memo_Vit_Manu);	//Detect chgt vitesse manu
+	R_ChgtVit(clk:=((Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins and pos_Axe > Butee_soft_moins))
+		AND Csg_Vit <> Memo_Vit_Manu);	//Detect chgt vitesse manu
 	IF Jog_plus THEN Sens_Mvt := MC_Positive_Direction; ELSIF Jog_moins THEN Sens_Mvt := MC_Negative_Direction; END_IF
-	R_Jog(clk:=Jog_plus OR Jog_moins);
-	F_Jog(clk:=(Jog_plus OR Jog_moins) AND Pos_axe<Butee_soft_plus AND Pos_axe>Butee_soft_moins);
+	R_Jog(clk:=(Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins AND pos_Axe > Butee_soft_moins));
+	F_Jog(clk:=(Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins AND pos_Axe > Butee_soft_moins));
 	
 	IF R_Jog.Q THEN
 		bPermut_FBJog := NOT bPermut_FBJog;
@@ -340,7 +341,7 @@ END_IF
 				IF ((Ref_ok
 				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
 					OR ((Pos_axe>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))) THEN
-						Csg_Vit := 20;
+						IF Vitesse_man > 20 THEN Csg_Vit := 20; ELSE Csg_Vit := Vitesse_man/2; END_IF
 				ELSE
 						Csg_Vit := Vitesse_man/2;
 

@@ -60,6 +60,7 @@ VAR_OUTPUT
 	PWM_Duty_Perc_UINT												:UINT;	// Pour carte EL2502 De pourcent a valeur en UINT (de 0-65535)
 	PWM_Freq_UDINT													:UDINT; // Pour carte EL2502 : on envoie la periode en us
 	Status_Laser_Output_Light_ON									: BOOL;
+	Perc_Watt_Laser_Output_Power									:UDINT;	//Feedbqck puissance en Watts
 
 END_VAR
 
@@ -232,7 +233,7 @@ VAR
 
 	(****************************************************************************************************************)
 
-	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 101140;
+	Ctrl_EtherCAT_Communication_PassWord							: UDINT := 123456;
 
 	Ctrl_Free_Ctrl_1_0													: BOOL;
 	Ctrl_Turn_Laser_On												: BOOL;
@@ -326,7 +327,8 @@ VAR
 	Prog_Power_Watt_Max_LREAL										: LREAL;
 
 	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack			: TON;
-
+	TP_Machine_ON												:TP;
+	Laser_Boot													:F_TRIG;
 
 
 END_VAR]]></Declaration>
@@ -495,6 +497,7 @@ END_VAR]]></Declaration>
 
 	Status_Free_Status_6												:= POWER_IN;
 	Status_Percentage_Of_Laser_Output_Power							:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),0) AND 2#00000000000000000000000011111111) ;
+	Perc_Watt_Laser_Output_Power									:=  (USINT_TO_UDINT(Status_Percentage_Of_Laser_Output_Power) * Prog_Power_Watt_Max) / 100;
 	Status_Percentage_Of_Laser_Duty_Cycle_Of_PWM_Wave				:= DWORD_TO_USINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),8) AND 2#00000000000000000000000011111111) ;
 	Status_Percentage_Of_Laser_Frequency_Of_PWM_Wave				:= DWORD_TO_UINT(SHR(UDINT_TO_DWORD(Status_Free_Status_6),16) AND 2#00000000000000001111111111111111) ;
 
@@ -558,20 +561,20 @@ END_VAR]]></Declaration>
 		Defaut_Status_4 := TRUE;
 	END_IF;
 
-	IF (Prog_Power_Watt_Target < 0) OR (Prog_Power_Watt_Target > Prog_Power_Watt_Max) OR (Prog_Power_Watt_Max = 0)THEN
+	IF Status_Interlock_1_Connected AND ((Prog_Power_Watt_Target < 0) OR (Prog_Power_Watt_Target > Prog_Power_Watt_Max) OR (Prog_Power_Watt_Max = 0))THEN
 		Defaut_power_Watt_Target := TRUE;
 	END_IF;
 	(* FeedBackde la puissance à La Source Laser *)
-	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack(in := ABS(Ctrl_Percentage_Of_Laser_Output_Power - Status_Percentage_Of_Laser_Output_Power) > 2, pt := t#300s);
+	TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack(in := Status_Interlock_1_Connected AND (ABS(Ctrl_Percentage_Of_Laser_Output_Power - Status_Percentage_Of_Laser_Output_Power) > 2), pt := T#5S);
 	IF  TON_Defaut_Percentage_Of_Laser_Output_Power_FeedBack.Q THEN
 		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack := TRUE;
 	END_IF;
 
-	IF (Prog_Per_Cent_Of_Duty_Cycle_Target < 0) OR (Prog_Per_Cent_Of_Duty_Cycle_Target > Prog_Per_Cent_Of_Duty_Cycle_Max) THEN
+	IF Status_Interlock_1_Connected AND ((Prog_Per_Cent_Of_Duty_Cycle_Target < 0) OR (Prog_Per_Cent_Of_Duty_Cycle_Target > Prog_Per_Cent_Of_Duty_Cycle_Max)) THEN
 		Defaut_Per_Cent_Of_Duty_Cycle_Target	 := TRUE;
 	END_IF;
 
-	IF (Prog_Frequency_0_20000Hz_Target < 0) OR (Prog_Frequency_0_20000Hz_Target > Prog_Frequency_0_20000Hz_Max) THEN
+	IF Status_Interlock_1_Connected and ((Prog_Frequency_0_20000Hz_Target < 0) OR (Prog_Frequency_0_20000Hz_Target > Prog_Frequency_0_20000Hz_Max)) THEN
 		Defaut_Laser_Frequency_Of_PWM_Wave_Target	 := TRUE;
 	END_IF;
 
@@ -582,8 +585,10 @@ END_VAR]]></Declaration>
 																		Defaut_Status_2 OR
 																		Defaut_Status_3 OR
 																		Defaut_Status_4;
+	Laser_Boot(clk:=Status_Emergency_Stop_Alarm);
 
-	IF Prog_Annul_Defaut THEN
+
+	IF Prog_Annul_Defaut OR Laser_Boot.Q THEN
 		Defaut_power_Watt_Target									:= FALSE;
 		Defaut_Perc_Cent_Of_Laser_Output_Power_FeedBack				:= FALSE;
 		Defaut_Per_Cent_Of_Duty_Cycle_Target						:= FALSE;
@@ -592,8 +597,10 @@ END_VAR]]></Declaration>
 		Defaut_Status_3												:= FALSE;
 		Defaut_Status_4												:= FALSE;
 	END_IF;
-
-	Ctrl_Software_Reset												:= Prog_Annul_Defaut AND Status_Emergency_Stop_Alarm; //or not, a voir pdt test
+	
+	
+	TP_Machine_ON(in:=Machine_en_Service,pt:=T#10S);
+	Ctrl_Software_Reset												:= (TP_Machine_ON.Q OR Bp_Annul_Defauts) AND Status_Emergency_Stop_Alarm;
 
 	Ctrl_Dispaly_Cuting_Mode										:= Prog_Cutting_Mode;
 	Ctrl_Dispaly_Marking_Mode										:= Prog_Marking_Mode;
@@ -743,8 +750,6 @@ END_VAR]]></Declaration>
 *)
 	LASER_NUMBER_OUT											:= Ctrl_Free_Ctrl_9;
 	
-	Interlock_OK	:= Status_Interlock_1_Connected AND Status_Interlock_2_Connected AND NOT Status_Emergency_Stop_Alarm; (*or alarm, a voir pdt test*)
-
 	(*************************************************************************************************************************************)
 	(*************************************************************************************************************************************)
 	(******************************************** FIN ECRITURE DES COMMANDES *********************************************)

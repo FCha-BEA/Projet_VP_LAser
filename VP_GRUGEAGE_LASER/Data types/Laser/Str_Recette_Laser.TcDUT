@@ -28,9 +28,6 @@ STRUCT
 
 END_STRUCT
 END_TYPE
-
-VAR_INPUT
-	Tab_St_Recette_Laser: INT;
-END_VAR]]></Declaration>
+]]></Declaration>
   </DUT>
 </TcPlcObject>

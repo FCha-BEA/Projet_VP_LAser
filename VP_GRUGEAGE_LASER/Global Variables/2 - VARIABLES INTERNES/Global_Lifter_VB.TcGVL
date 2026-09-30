@@ -52,7 +52,7 @@
 	Decoupe_recente			:BOOL;
 	Retract_speed			:LREAL:=150;
 	Vitesse_approche_rapide	:LREAL:=100;
-	position_gain			:LREAL := 0.75;
+	position_gain			:LREAL := 0.5;
 	voltage_gain			:LREAL := 250;
 	Voltage_scale			:LREAL := 32767;
 	Arc_Voltage_Sample		:INT := 25;

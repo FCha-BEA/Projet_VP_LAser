@@ -19,8 +19,6 @@ VAR_INPUT
 	PTP_Accel_Deccel: LREAL;
 	JOG_Plus: BOOL;
 	JOG_Moins: BOOL;
-	selection_5D : BOOL;
-	Tool_Offset : lREAL;
 	asserv: BOOL := FALSE;
 	auto_kerf : BOOL := FALSE;
 	Distance_Buse: LREAL;
@@ -50,6 +48,7 @@ VAR_OUTPUT
 	Vitesse_Axe: LREAL;
 	Ref_ok : BOOL;
 	Axe_en_mode_esclave: BOOL;
+	Auto_Kerf_Active	:BOOL;
 END_VAR
 VAR
 	echantillon : ARRAY [1..100] OF LREAL;
@@ -105,12 +104,11 @@ VAR
 	Enable_SetPoint_Generator_5D, Enable_SetPoint_Generator_3D: BOOL := FALSE;
 	MC_ExtSetPointGenDisable_5D, MC_ExtSetPointGenDisable_3D: MC_ExtSetPointGenDisable;
 	Disable_SetPoint_Generator_5D, Disable_SetPoint_Generator_3D: BOOL := FALSE;
-	PID_Input_Volt: LREAL;
 	PID_Input_mm: LREAL;
 	FB_BasicPID_0: FB_BasicPID;
 	Reset_PID: BOOL := FALSE;
-	Integral_Time: LREAL := 0.08;
-	Derivate_Time: LREAL := 0.1;
+	Integral_Time: LREAL := 10;
+	Derivate_Time: LREAL := 0;
 	Derivate_Damping_Time: LREAL := 0;
 	consigne_Point_Gen: LREAL;
 	Memo_consigne_Point_Gen: LREAL;
@@ -437,7 +435,6 @@ IF Phase_asservissement<>0 THEN
 		
 		1:	(*init de la consigne*)	
 			Reset_PID := TRUE;
-			PID_Input_Volt := 0;
 			IF NOT TOF_auto_kerf.Q THEN 
 				Phase_asservissement :=2;
 			END_IF
@@ -507,7 +504,7 @@ END_IF
 	FE_TOF_auto_kerf(clk := auto_kerf);
 	//RE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
 	//FE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
-	Pos_Reel_Z_Laser; //206
+	Pos_Reel_Z_Laser; 
 	
 	IF RE_TOF_auto_kerf.Q THEN
 		Reset_PID := TRUE;
@@ -538,7 +535,7 @@ END_IF
 	// génération de la trajectoire corrigée
 		MC_ExtSetPointGenFeed(
 			Position := Pos_Reel_Z_Laser + consigne_Point_Gen,
-			Velocity := 330,//PTP_Vitesse,
+			Velocity := 100,
 			Acceleration := PTP_Accel_Deccel,
 			Direction := 1,
 			Axis := Axe_Z_Laser);
@@ -552,7 +549,9 @@ END_IF
 	// Désactivation de l'altération de la traj	
 		MC_ExtSetPointGenDisable_3D(
 			Axis := Axe_Z_Laser,
-			Execute := Disable_SetPoint_Generator_3D);]]></ST>
+			Execute := Disable_SetPoint_Generator_3D);
+			
+Auto_Kerf_Active:= auto_kerf;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

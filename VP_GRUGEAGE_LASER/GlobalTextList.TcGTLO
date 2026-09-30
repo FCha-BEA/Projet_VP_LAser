@@ -1370,10 +1370,35 @@ HHHHH : MM"</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"165"</v>
+              <v n="TextDefault">"Arret Machine"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"722"</v>
               <v n="TextDefault">"Augmenter
 Limiteur
 Pression"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2239"</v>
+              <v n="TextDefault">"Autorisation 
+ouverture"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"691"</v>
+              <v n="TextDefault">"Autorisation ouverture"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -1446,6 +1471,14 @@ Pression"</v>
             <o>
               <v n="TextID">"809"</v>
               <v n="TextDefault">"Cavity_Temp"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"2314"</v>
+              <v n="TextDefault">"Cmd Laser"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -3386,9 +3419,9 @@ Impulsion laser"</v>
             <v>eng</v>
             <v>FR</v>
           </l>
-          <v n="GuidInit">{93f5b646-61e8-4469-8221-6c2b52a500c9}</v>
-          <v n="GuidReInit">{6a26b67f-56a7-4f50-af36-f1c52e63e1a6}</v>
-          <v n="GuidExitX">{4e57a16e-c128-4542-a70e-35b4786d6747}</v>
+          <v n="GuidInit">{015364fd-5e4d-4743-97de-4d70658e7a0f}</v>
+          <v n="GuidReInit">{c2568b9f-ce04-473d-bfb2-d511589e4692}</v>
+          <v n="GuidExitX">{f204fc42-d3c8-4028-b4d0-487a9911e98d}</v>
         </o>
       </Data>
       <TypeList>

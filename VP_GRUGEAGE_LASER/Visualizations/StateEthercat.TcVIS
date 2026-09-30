@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"24"</v>
+          <v n="UniqueIdGenerator">"42"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -597,19 +597,19 @@
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value">685</v>
+                      <v n="Value">369</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
-                      <v n="Value">440</v>
+                      <v n="Value">328</v>
                     </o>
                     <o>
                       <v n="Id">550940142L</v>
-                      <v n="Value">434</v>
+                      <v n="Value">276</v>
                     </o>
                     <o>
                       <v n="Id">1473355128L</v>
-                      <v n="Value">834</v>
+                      <v n="Value">778</v>
                     </o>
                     <o>
                       <v n="Id">493260384L</v>
@@ -641,7 +641,7 @@
                     </o>
                     <o>
                       <v n="Id">3734058945L</v>
-                      <v n="Value">"'https://www.google.com/'"</v>
+                      <v n="Value">"'http://21.63.1.102/files/index.html#/dashboard/status'"</v>
                     </o>
                     <o>
                       <v n="Id">2179181546L</v>
@@ -866,17 +866,17 @@ END_VAR"</v>
               <v>0</v>
               <o>
                 <v n="Width">812</v>
-                <v n="Height">1054</v>
+                <v n="Height">942</v>
               </o>
               <v>1</v>
               <o>
                 <v n="Width">813</v>
-                <v n="Height">1054</v>
+                <v n="Height">942</v>
               </o>
               <v>2</v>
               <o>
                 <v n="Width">813</v>
-                <v n="Height">1054</v>
+                <v n="Height">942</v>
               </o>
             </d2>
             <v n="Version">2</v>

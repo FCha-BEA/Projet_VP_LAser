@@ -147,7 +147,10 @@ Id;Default;eng;FR
 372;Angle.y;;
 373;Angle.z;;
 391;Annulation defaut;;
+165;Arret Machine;;
 722;Augmenter$R$NLimiteur$R$NPression;;
+2239;Autorisation $R$Nouverture;;
+691;Autorisation ouverture;;
 830;BACK;;
 1150;Bars;;
 1257;Bot_1_Cover_Glass;;
@@ -157,6 +160,8 @@ Id;Default;eng;FR
 988;Capacitance_Calibration_OK;;
 811;Cavity_Pressure;;
 809;Cavity_Temp;;
+2314;Cmd Laser;;
+3104;Commande manu laser;;
 560;Couple$R$N$R$N;;
 378;Courant;;
 471;Courant$R$N(A);;
@@ -250,6 +255,8 @@ Id;Default;eng;FR
 1021;Protection inferieur 1 (Bot_1_Cover_Glass);;
 144;Protection superieur 1 (Top_1_Cover_Glass);;
 198;Protection superieur 1 Top_1_Cover_Glass;;
+557;Présence recette $R$Ndecoupe ? $R$N;;
+2999;Présence recette decoupe ? $R$N;;
 474;Puissance$R$N(kVA);;
 473;Puissance$R$N(kW);;
 384;Puissance kVA;;
@@ -258,6 +265,10 @@ Id;Default;eng;FR
 13;Quelle Face ? %s;;
 1093;Rayon parasite (stray beam);;
 114;Rearmement$R$NPorte;;
+1658;Recette decoupe;;
+1102;Recette decoupe pour $R$Nep driver;;
+1544;Recette decoupe pour ep driver;;
+1378;Recette marquage;;
 884;Repères;;
 746;Retour;;
 1063;RETOUR;;

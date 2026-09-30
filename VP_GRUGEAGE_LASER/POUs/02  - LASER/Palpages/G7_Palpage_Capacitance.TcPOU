@@ -2271,7 +2271,7 @@ Memo_X_Laser_Decal:=0;
     </Action>
     <Action Name="Step10_entry" Id="{ec80f881-c879-4eb0-b9db-b55a4c9ffcdd}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Z_Laser:= Pnc_axe_Z_Robot.Limite_Plus-EP_Aile-ep_secu;	
+        <ST><![CDATA[Pos_cible_Z_Laser:= Pnc_axe_Z_Robot.Limite_Plus-EP_Aile-30;	
 
 IF Vitesse_approche_rapide > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
@@ -2353,7 +2353,7 @@ IF FE_Detect_Piece.Q THEN
 	Prog_Start_Capacitance_Calibration:=TRUE;	//Lors du retrait de la buse, on enregistre la capacitance dans un tableau selon la distance buse
 END_IF
 
-Prog_Distance_Buse_Piece_mm:= Pos_ref_torche_Fe-Pos_Reel_Z_Laser;]]></ST>
+Prog_Distance_Buse_Piece_mm:= Pos_ref_torche_Fe - Pos_Reel_Z_Laser;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step31_entry" Id="{cca5c4e9-2974-426b-9f8c-b20bf5e377a2}">
@@ -2361,11 +2361,11 @@ Prog_Distance_Buse_Piece_mm:= Pos_ref_torche_Fe-Pos_Reel_Z_Laser;]]></ST>
         <ST><![CDATA[Pos_ref_torche := Pos_ref_torche_RE;
 //Pv_Z_Laser := TRUE;
 
-Pos_cible_Z_Laser:=Pos_Reel_Z_Laser - 110;
+Pos_cible_Z_Laser:=Pos_Reel_Z_Laser - 55;
 IF Vitesse_de_palpage > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 	Vitesse_Z_Laser_PTP:=Pnc_axe_Z_Robot.Vitesse_PTP;
 ELSE
-	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage/2.5;
+	Vitesse_Z_Laser_PTP:=Vitesse_de_palpage/3;
 END_IF
 En_pos_Z_Laser:=FALSE;
 Top_Z_Laser:=TRUE;
@@ -2487,7 +2487,7 @@ AND Step10.t>T#1S]]></ST>
     </Transition>
     <Transition Name="Trans20" Id="{b3433e34-56a0-482d-a145-cf017a5dc98e}">
       <Implementation>
-        <ST><![CDATA[Data01_Capacitance_Actual_Value < 2000000
+        <ST><![CDATA[Data01_Capacitance_Actual_Value < 1
 OR Axe_5.NcToPlc.PosDiff>=0.5
 
 ]]></ST>

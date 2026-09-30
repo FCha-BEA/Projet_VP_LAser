@@ -76,6 +76,7 @@ END_VAR]]></Declaration>
  	FOR j := 1 TO 500 DO
  		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
  			Index_Recette_Laser_Auto := j;
+			Gravage_Laser := (Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Type_Process =1);
  			EXIT;
  		END_IF
  	END_FOR 
@@ -84,10 +85,10 @@ END_VAR]]></Declaration>
  //En manu
  IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
  	FOR j := 1 TO 500 DO 
- 		IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
+ 		IF Ep_aile <> 0 AND Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
  			 Index_Recette_Marquage := J;
  		END_IF
- 		IF Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 0 THEN 
+ 		IF Ep_aile <> 0 AND Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 0 THEN 
  			 Index_Recette_Decoupe := J;
  		END_IF
  	END_FOR
@@ -102,9 +103,9 @@ END_VAR]]></Declaration>
 	 Tab_St_Recette_Laser[0].Type_Gaz:=1;
 	 Tab_St_Recette_Laser[0].Tb_Dec.Pression_Gaz:=1;
 	 Tab_St_Recette_Laser[0].Tb_Dec.Distance_Focale:=0;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Puissance_Laser:=900;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Duty_Cycle:=25;
- 	 Tab_St_Recette_Laser[0].Tb_Dec.Frequence_impulsion:=100;
+	 Tab_St_Recette_Laser[0].Tb_Dec.Puissance_Laser:=6000;
+	 Tab_St_Recette_Laser[0].Tb_Dec.Duty_Cycle:=20;
+ 	 Tab_St_Recette_Laser[0].Tb_Dec.Frequence_impulsion:=1000;
 	 Tab_St_Recette_Laser[0].Tb_Dec.Hauteur_Buse:=15;
  END_IF
  
@@ -166,7 +167,7 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Z := 746.23;
 
 //Gestion des gaz : Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars + Activ EV gaz O2, Air ou N2
- IF Start_Gaz OR Test_asserv THEN
+ IF (Start_Gaz AND Type_gaz = 0) OR Test_asserv THEN
  	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
  	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
  	Asserv_Pression.fKp:=P;
@@ -200,7 +201,7 @@ END_VAR]]></Declaration>
   Re_DmdVerrDeverr_Porte(clk:=Dmd_VerrDeverr_Porte);
   
  Autor_Ouverture_Porte:= Evac_Air_Cabine_ok;
- IF Re_DmdVerrDeverr_Porte.Q AND NOT Mem_Arus THEN Attente_Arret_Propre :=NOT Attente_Arret_Propre; END_IF //Demande d'ouverture porte : on attend de finir le cycle en cours
+ IF Re_DmdVerrDeverr_Porte.Q AND NOT Mem_Arus THEN Attente_Arret_Propre :=TRUE; END_IF //Demande d'ouverture porte : on attend de finir le cycle en cours
  IF Autor_Ouverture_Porte OR t_floppy1 THEN
  	IF Re_DmdVerrDeverr_Porte.Q AND Mem_Arus THEN 
 		K_VerrDeverr_PorteLaser:=TRUE; 
@@ -221,7 +222,7 @@ PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
 //Impulsion test laser
  IF Mode_Test_Tir AND Manu THEN  
- 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#1S);
+ 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#200mS);
  END_IF
 	
 	

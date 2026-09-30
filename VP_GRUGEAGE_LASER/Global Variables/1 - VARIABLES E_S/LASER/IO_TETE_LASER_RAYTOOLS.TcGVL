@@ -83,9 +83,9 @@ VAR_GLOBAL
 	Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens				: BOOL;
 	Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure			: BOOL;
 	Prog_Defaut_Tete												: BOOL;
-	TAB_Capacitance_Calibration										: ARRAY[0..1000] OF UDINT;
-	TAB_Capacitance_Segment_a										: ARRAY[0..1000] OF LREAL;
-	TAB_Capacitance_Segment_b										: ARRAY[0..1000] OF LREAL;
+	TAB_Capacitance_Calibration										: ARRAY[0..500] OF UDINT;
+	TAB_Capacitance_Segment_a										: ARRAY[0..500] OF LREAL;
+	TAB_Capacitance_Segment_b										: ARRAY[0..500] OF LREAL;
 	Prog_Tete_Laser_WcState											AT%I* : BOOL;
 	Prog_Tete_Laser_State											AT%I* : UINT;
 	

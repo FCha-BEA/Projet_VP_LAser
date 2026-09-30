@@ -16,13 +16,41 @@ OK - 6 : Faire sécu porte laser
 7  : voir comm fc pour faire divers
 OK - 8: mettre xml source
 OK - 9 : installer drive manager 1
-
 OK - 10 : Fleches + images sur visu temperature
 OK - 11 : Choix gaz de decoupe
+OK - 12 : Choix recette marquage si manu ou auto et val par defaut si pas de recette de marq
+OK - 13 : Modif Vitesse man X et Y pour laser lent si marquage
+
+14 : Si marquage, precision Z approche osef test de ne pas asservir
+	Si percage + decoupe, ... approchje rapide + asserv dans g7 perc ou dans gene ? Si decoupe dans corniere alors g7 perc ok mais si 
+	herve envoi une traj avec f10 alors approche + asserv dans gene, exec iso, M10 si besoin kerf, tir avec M12
+	Saut dans g7 perc si auto ? on garde approche plus asserv pour dec manu ? 
+OK - 15 : Test tir avec distances focale differentes pour verifier le point de focale.
+	Offset focale =0, pas besoin de modifier
+
+Test asser selon nbre echantillon jusqu a asserv stable
+Test tir poour marq : surveille val capa
+eprog cycle approche + tir
 
 
-12 : Choix recette marquage si manu ou auto et val par defaut si pas de recette de marq
-]]></ST>
+Tir avec test focale pour buse longue
+
+
+
+types de cycle : 
+
+1)Marquage = pos a hauteur, pas besoin d'asserv,
+2)dec avec phases perc dans matiere = pos a hauteur , phase de percage, asserv puis decoupe 
+3)dec sans phases perc car hors matiere = pos a hauteur de dec, bloq asserv, go out, tir, go in, reactive asserv
+
+4) Pour écretage, besoin de refaire palpage, prendre pos ref torche puis pos à hauteur ... car pos ref torche serait différente
+
+test modif : 
+	-approche rapide a hauteur +ep secu, enlever phase avec asserv et mettre une approche lente a la place, puis suite cycle
+
+Test cycle : 
+	-gravage manu voir tester avec recette au pif de perc pour tester les cycles 
+	-Cycle écretage après implantation modif 4)]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

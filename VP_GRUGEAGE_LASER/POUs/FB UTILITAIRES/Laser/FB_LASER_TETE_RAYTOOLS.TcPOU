@@ -64,9 +64,9 @@ VAR_IN_OUT
 	Demande_POM_Focal												: BOOL;
 
 	Start_Capacitance_Calibration										: BOOL;
-	TAB_Capacitance_Calibration										: ARRAY[0..1000] OF UDINT;
-	TAB_Capacitance_Segment_a										: ARRAY[0..1000] OF LREAL;
-	TAB_Capacitance_Segment_b										: ARRAY[0..1000] OF LREAL;
+	TAB_Capacitance_Calibration										: ARRAY[0..500] OF UDINT;
+	TAB_Capacitance_Segment_a										: ARRAY[0..500] OF LREAL;
+	TAB_Capacitance_Segment_b										: ARRAY[0..500] OF LREAL;
 
 END_VAR
 
@@ -312,7 +312,7 @@ END_VAR]]></Declaration>
 	 RE_Start_Capacitance_Calibration(clk := Start_Capacitance_Calibration);
 	 IF RE_Start_Capacitance_Calibration.Q THEN
 	 	Capacitance_Calibration_OK := FALSE;
-	 	FOR i := 0 TO 999 DO
+	 	FOR i := 0 TO 499 DO
 	 		TAB_Capacitance_Calibration[i] := 0;
 	 		TAB_Capacitance_Segment_a[i] := 0;
 	 		TAB_Capacitance_Segment_b[i] := 0;
@@ -322,7 +322,7 @@ END_VAR]]></Declaration>
 	 (* Calibration Capacitance *)
 	 IF Start_Capacitance_Calibration AND NOT Capacitance_Calibration_OK THEN
      
-	 	IF Distance_Buse_Piece_mm *10 >=0 AND Distance_Buse_Piece_mm *10 <1000 THEN
+	 	IF Distance_Buse_Piece_mm *10 >=0 AND Distance_Buse_Piece_mm *10 <500 THEN
 			IF TRUNC(Distance_Buse_Piece_mm *10) > 1 THEN
 				IF Data01_Capacitance_Actual_Value >= TAB_Capacitance_Calibration[(TRUNC(Distance_Buse_Piece_mm *10))-1] THEN
 					TAB_Capacitance_Calibration[TRUNC(Distance_Buse_Piece_mm *10)] := Data01_Capacitance_Actual_Value;
@@ -337,7 +337,7 @@ END_VAR]]></Declaration>
      
 	 	(* Si aucune valeur = Zero ==> Calibration OK *)
 	 	Capacitance_Calibration_OK := TRUE;
-	 	FOR i := 0 TO 999 DO
+	 	FOR i := 0 TO 499 DO
 	 		IF TAB_Capacitance_Calibration[i] = 0 THEN
 	 			Capacitance_Calibration_OK := FALSE;
 	 			EXIT;
@@ -347,11 +347,11 @@ END_VAR]]></Declaration>
 	 	IF Capacitance_Calibration_OK THEN
 	 		(* y1 = ax1 + b ; y2 = ax2 + b ==> a = (y2 - y1) / (x2 - x1) ==> b = y2 - ax2 *)
      
-	 		FOR i := 0 TO 999 DO
+	 		FOR i := 0 TO 499 DO
 	 			TAB_Capacitance_Segment_a[i] := ( TAB_Capacitance_Calibration[i+1] - TAB_Capacitance_Calibration[i] ) / ( 1 );
 	 		END_FOR
 	 	
-	 		FOR i := 0 TO 999 DO
+	 		FOR i := 0 TO 499 DO
 	 			TAB_Capacitance_Segment_b[i] := TAB_Capacitance_Calibration[i+1] - ( TAB_Capacitance_Segment_a[i] * ( i + 1 ) );
 	 		END_FOR
      
@@ -371,7 +371,7 @@ END_VAR]]></Declaration>
 	(************************************************* DEB CAPACITANCE ==> mm  ****************************************)
 	(******************************************************************************************************************************)
 	 IF NOT Start_Capacitance_Calibration AND Capacitance_Calibration_OK THEN
-	 	FOR i := 0 TO 999 DO
+	 	FOR i := 0 TO 499 DO
 	 		IF Data01_Capacitance_Actual_Value > TAB_Capacitance_Calibration[i] AND Data01_Capacitance_Actual_Value <= TAB_Capacitance_Calibration[i+1] THEN
 	 			Capacitance_Actual_Value_mm :=( ( Data01_Capacitance_Actual_Value - TAB_Capacitance_Segment_b[i] ) / TAB_Capacitance_Segment_a[i] ) / 10;
 	 			EXIT;
@@ -386,7 +386,7 @@ END_VAR]]></Declaration>
 	 		Shark := Shark;
 	 	END_IF;
 	
-		FOR k := 0 TO 998 BY 1 DO 
+		FOR k := 0 TO 498 BY 1 DO 
 			IF TAB_Capacitance_Calibration[k+1] = TAB_Capacitance_Calibration[k] THEN 
 				cpt := cpt+1;
 			ELSE 
