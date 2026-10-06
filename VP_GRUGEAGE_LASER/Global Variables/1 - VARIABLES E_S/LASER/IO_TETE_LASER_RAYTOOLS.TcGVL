@@ -92,6 +92,8 @@ VAR_GLOBAL
  (*Gaz et refroidissement*)
  //Gaz de decoupe	-	SOIT O2, AIR ou N2, pas de combinaison
   Consigne_ServoVanne		AT%Q*:UINT;	//Asservissement gaz decoupe : O2 uniquement
+  	Byte0_Convert,
+	Byte1_Convert			AT%Q*:BYTE;	//Pour convertisseur iolink => 4-20mA		
   Ev_GazLaser_Air			AT%Q*:BOOL; //Gaz de decoupe : Air comprime
   Ev_GazLaser_Azote			AT%Q*:BOOL; //Gaz de decoupe : Azote
   Ev_GazLaser_Oxygene		AT%Q*:BOOL; //Gaz de decoupe : Oxygène, à coupler avec la consigne servovanne

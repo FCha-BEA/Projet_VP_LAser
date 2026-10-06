@@ -22,6 +22,8 @@ VAR_INPUT
 	asserv: BOOL := FALSE;
 	auto_kerf : BOOL := FALSE;
 	Distance_Buse: LREAL;
+	Hauteur_Recette	:LREAL;
+	Sel_Asserv_Capa_Recette	:BOOL;	//Permet de switch entre asservissement selon recette (1) - ou valeur capacitance (0) si la le capteur ne peut pas fournir un signal conforme
 	ISO :BOOL;
 END_VAR
 VAR_IN_OUT
@@ -439,11 +441,14 @@ IF Phase_asservissement<>0 THEN
 				Phase_asservissement :=2;
 			END_IF
 
-		2:	(*memo de la tension + activation du SetPointGenerator*)
+		2:	(*Choix hauteur de consigne selon recette ou capteur + activation du SetPointGenerator*)
 			Reset_PID := FALSE;
-			//IF REAL_memo_Dist=0 THEN			
-				REAL_memo_Dist := Distance_Buse;
-			//end_if
+			IF Sel_Asserv_Capa_Recette THEN 
+				REAL_memo_Dist := Hauteur_Recette;	//On prend la hauteur de la recette - Utile pour prépos (phases de perçages par exemple)
+			ELSE
+				REAL_memo_Dist := Distance_Buse;	//On mémorise la valeur actuelle de la buse - 
+			END_IF
+			
 			
 			Enable_SetPoint_Generator_3D := TRUE;						
 			

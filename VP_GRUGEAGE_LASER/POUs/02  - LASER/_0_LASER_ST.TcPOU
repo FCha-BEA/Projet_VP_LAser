@@ -28,33 +28,7 @@ VAR
 	 Mode_Test_Tir: BOOL;
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// CHOIX DE LA FACE EN CYCLE AUTO   
- IF Auto AND G7_Palpage_Sommet_L.Init.x AND Sequence[Pt_Sequence].M<>0 THEN
- 	(*Decodage des fonctions dans la sequence en cours*)
- 	Fb_decode_real_Fct_M_(Valid:=TRUE,Real_Value:=Sequence[Pt_Sequence].M);
- 	Num_Unite_Cycle_Auto:=Fb_decode_real_Fct_M_.Cent_Milliers;
- 
- 	Num_operation_Cycle:=LREAL_TO_INT(Sequence[Pt_Sequence].P10);
- 	Decoupe := Num_operation_Cycle = 13;
- 	Ecretage := Num_operation_Cycle = 15;
- 
- 	CASE Num_Unite_Cycle_Auto OF
- 		1 : 	IF Decoupe THEN Face_Cible_Cycle := 1; END_IF;
- 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;	(* Normalement NON *)
- 		2 : 	IF Decoupe THEN Face_Cible_Cycle := 2; END_IF;
- 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;
- 	ELSE
- 		Face_Cible_Cycle := 0;
- 	END_CASE;
- 
- 	IF Face_Cible_Cycle <> 0 THEN
- 		Face_Cible 		:= Face_Cible_Cycle;
- 		Face_En_Pos 	:= FALSE;
- 		Top_Face 		:= TRUE;
- 	END_IF;
- END_IF;
-
-// Quelle face en cours ? 
+      <ST><![CDATA[// Quelle face en cours ? 
  IF		ABS(Pos_reel_A_Laser - 45)<0.1 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
  			Face_En_Cours := 1;
  ELSIF 	ABS(Pos_reel_A_Laser - (-45))<0.1 AND En_Pos_A_Laser AND NOT Top_A_Laser THEN
@@ -71,17 +45,6 @@ END_VAR]]></Declaration>
  END_IF;
  
 //Selection recette reçue du Driver
- //En auto
- IF Sequence[Pt_Sequence].M = 100 AND Sequence[Pt_Sequence].P10 <> 0 THEN	//P10 = ID recette driver
- 	FOR j := 1 TO 500 DO
- 		IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
- 			Index_Recette_Laser_Auto := j;
-			Gravage_Laser := (Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Type_Process =1);
- 			EXIT;
- 		END_IF
- 	END_FOR 
- END_IF
-  
  //En manu
  IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
  	FOR j := 1 TO 500 DO 
@@ -166,8 +129,8 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Y := 363.76;
  	Palp_R[3].R00.Z := 746.23;
 
-//Gestion des gaz : Consigne a la servo de 0-0x0FFF -> 0-4095-> 0-5Bars + Activ EV gaz O2, Air ou N2
- IF (Start_Gaz AND Type_gaz = 0) OR Test_asserv THEN
+//Gestion des gaz : Consigne a la servo de 0-27648-> 0-3Bars + Activ EV gaz O2, Air ou N2
+ IF Start_Gaz OR Test_asserv THEN  
  	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
  	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
  	Asserv_Pression.fKp:=P;
@@ -178,9 +141,10 @@ END_VAR]]></Declaration>
  	Asserv_Pression.bReset:=(Consigne_Pression_Gaz=0);
  	
  	Asserv_Pression();
- 	
- 	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 4095 / 5);
+ 	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 27648 / 3); 
  END_IF
+ Byte0_Convert := UINT_TO_BYTE(Consigne_ServoVanne);
+ Byte1_Convert := UINT_TO_BYTE(SHR(Consigne_ServoVanne,8));
  Ev_GazLaser_Oxygene:= Start_Gaz AND Type_gaz = 0;
  Ev_GazLaser_Azote:= Start_Gaz AND Type_gaz = 1;
  Ev_GazLaser_Air:= Start_Gaz AND Type_gaz = 2;

@@ -12,14 +12,15 @@ VAR_GLOBAL
 	Tmps_Ecart_Pression		:TIME;			//Temps au delà duquel on passe en défaut si la pression de gaz de la tête s'écarte trop - A ajuster
  Pos_XLaser_PomSecu,
  Pos_YLaser_PomSecu			:LREAL; 
+ Def_Abs_Recette			:BOOL;			//Si au lancement du cycle le plc n'arrive pas à trouver de recette pour le driver, ou alors l'ID recette du driver n'existe pas ?
 
 //Palpage pour calcul position sommet
 	Face_Cible_Cycle							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
 	Face_Cible_Palpage							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
 	Face_Cible									: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
 	Face_En_Cours								: INT := 0; (* 0 = ???; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
-	Top_Face									: BOOL;
 	Face_En_Pos									: BOOL;
+	Top_Face									: BOOL;
 
 	Top_Palpage_Face_1							: BOOL;
 	Top_Palpage_Face_2							: BOOL;                                                
@@ -65,14 +66,15 @@ VAR_GLOBAL
  	RE_Top_Laser					:R_TRIG;
  FE_Dec_Manu						:F_TRIG;	
  Offset_Origine_Y_Laser			:LREAL;		//Distance entre référence sommet cornière / laser quand Y laser =0	
- Cmd_Manu_Laser					:BOOL;	//OP teste de tirer avec le laser en manu
+ Cmd_Manu_Laser					:BOOL;		//OP teste de tirer avec le laser en manu
 
  
- ProcessID_Driver,Old_ProcessID	:LREAL;	//Process ID de la découpe laser reçu du Driver, selon recette
- Nv_ProcessID					:BOOL;	//Si ProcessID_Driver <> ProcessID_Source, Autorise le palpage en auto
- 
- Grugeage_laser					:BOOL;	// Usinage - grugeage avec début tir hors matière, Pos à hauteur de découpe puis asserv direct
- Gravage_Laser					:BOOL;	// Usinage - gravage dans la matière
+ //Types d'usinages laser
+ 	Grugeage_laser					:BOOL;	// Usinage - grugeage  avec début tir hors matière, Pos à hauteur de découpe puis asserv direct
+	Ecretage_Laser					:BOOL;	//écrétage avec début tir hors matière
+ 	Gravage_Laser					:BOOL;	// Usinage - gravage dans la matière
+	Decoupe							:BOOL;	// Usinage - Phases de perçages avant découpe 
+
 	
 //Pour ISO
  Repertoire_NC_Laser			:STRING:='';
@@ -94,12 +96,12 @@ VAR_GLOBAL
  ISO3D_en_cours					:BOOL:=FALSE;
  ISO3D_traj_en_cours			:BOOL:=FALSE;		//on execute la trajectoire, tout l'init est fait
  Status_Fb_exec_ISO_3D_init		:BOOL:=FALSE;
- F_M10							:BOOL;
- F_M11							:BOOL;
- F_M12							:BOOL;	//Tir laser depuis ISO
- F_M13							:BOOL;
- F_M14							:BOOL;	//STOP Tir laser depuis ISO
- F_M30							:BOOL;
+ F_M10							:BOOL;	//Blocage asservissement 		en BM autoreset - no HShake
+ F_M11							:BOOL;	//Tir laser depuis ISO			en BM Fast- no Hshake
+ F_M12							:BOOL;	//STOP Tir laser depuis ISO		en AM Fast - no HShake
+ F_M13							:BOOL;	
+ F_M14							:BOOL;	
+ F_M30							:BOOL;	//Fin Iso
  CodeM_50						:BOOL;
  Override_decoupe				:LREAL;
  Reprise_depuis_le_debut		:BOOL:=FALSE;

@@ -1724,7 +1724,7 @@ fail"</v>
                         <o>
                           <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"Step35"</v>
+                            <v n="Value">"StepSync"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">1167L</v>
@@ -2251,7 +2251,7 @@ G7_Master_Palpages"</v>
     </Implementation>
     <Transition Name="_tTrans0" Id="{fda42855-65ce-49b2-aebd-a27fb3b765b8}">
       <Implementation>
-        <ST><![CDATA[ RE_Fct_palpage_Etal.Q OR (auto AND G7_Master_Palpages.step34.x)
+        <ST><![CDATA[ RE_Fct_palpage_Etal.Q OR (auto AND G7_Master_Palpages.StepCapa.x)
 ]]></ST>
       </Implementation>
     </Transition>
@@ -2453,7 +2453,7 @@ END_IF]]></ST>
     </Action>
     <Action Name="Step34_entry" Id="{5c0f5f85-6f8c-4e71-a40d-b3dda79df7cf}">
       <Implementation>
-        <ST><![CDATA[IF auto THEN //A affiner, revoir quels décals faire ? que X, ou aussi Y ? 
+        <ST><![CDATA[IF auto THEN //A affiner, a investiguer quels décals faire ? que X, ou aussi Y ? 
 	// si auto, on decale en X
 	Memo_X_Laser_Decal:=Pos_Reel_X_Laser;
 	Pos_cible_X_Laser:=Pos_Reel_X_Laser +5;		
@@ -2564,7 +2564,7 @@ AND(NOT Top_X_Laser AND En_pos_X_Laser )		]]></ST>
     </Transition>
     <Transition Name="Trans35" Id="{c12af936-c4a5-468c-b35f-a6da67fcfdaa}">
       <Implementation>
-        <ST><![CDATA[not G7_Master_Palpages.step34.x]]></ST>
+        <ST><![CDATA[not G7_Master_Palpages.StepCapa.x or manu]]></ST>
       </Implementation>
     </Transition>
     <ObjectProperties>

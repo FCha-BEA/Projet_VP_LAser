@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="FB_Exec_ISO3_libTC3_V2" Id="{f36b66a2-a002-450e-95c2-f1f26497ec15}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Exec_ISO3_libTC3_V2
 VAR_INPUT	
@@ -117,7 +117,7 @@ IF Phase_Init_Groupe<>0 THEN
 			AND NOT ItpLoadProg_1.bErr THEN
 				IF CN_Etat=2  AND Top_Prepa_ISO THEN
 					Compteur_load_iso:=Compteur_load_iso+1;
-					Top_Prepa_ISO := FALSE;		(*Termine la phase de prépa de l'iso et signale au G7_cycle_plasma qu'il peut poursuivre son cycle : palpage, amorce, ...*)
+					Top_Prepa_ISO := FALSE;		(*Termine la phase de prépa de l'iso*)
 					Phase_Init_Groupe:=0;
 				ELSE
 					TON_fb_exec_iso_2(IN:=FALSE);
@@ -143,7 +143,7 @@ IF Phase_Init_Groupe<>0 THEN
 END_IF
 
 TP_RAZ(IN:=RAZ_groupe,pt:=t#10ms);
-TP_CfgBuild(IN:=Regroupage,pt:=t#10ms);
+TP_CfgBuild(IN:=Regroupage,pt:=T#10MS);
 
 CfgRead3DAxisIds_2.bExecute:=TP_RAZ.Q OR TP_CfgBuild.Q OR TP_RAZ_2.Q ;
 CfgRead3DAxisIds_2.nGroupId:=N_Gpe_Interp;
@@ -283,17 +283,5 @@ IF RE_Reset_memo.Q THEN
 END_IF
 ]]></ST>
     </Implementation>
-    <LineIds Name="FB_Exec_ISO3_libTC3_V2">
-      <LineId Id="369" Count="151" />
-      <LineId Id="522" Count="0" />
-      <LineId Id="651" Count="6" />
-      <LineId Id="660" Count="5" />
-      <LineId Id="536" Count="40" />
-      <LineId Id="648" Count="0" />
-      <LineId Id="578" Count="2" />
-      <LineId Id="649" Count="0" />
-      <LineId Id="581" Count="17" />
-      <LineId Id="9" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

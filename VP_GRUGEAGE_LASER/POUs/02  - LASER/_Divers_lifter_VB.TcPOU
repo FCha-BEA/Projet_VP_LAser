@@ -61,7 +61,7 @@ END_VAR]]></Declaration>
 	RE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
 	
 
-(*********************** Blocage torche si variation de tension **********************)
+(*********************** Blocage torche si variation de capacitance  **********************) // a investiguer, quid si variation ? blocage torche ou défaut ? + adapter pour capacitance 
  nbr_echantillon := 30;
 	IF Auto_kerf_active AND NOT Inhib_Auto_kerf_active THEN
 		//Recup Distance max et min sur 30 échantillons
@@ -145,78 +145,6 @@ END_VAR]]></Declaration>
 	END_IF
 
 
-(***********************Cycle de réponse indicielle du systeme plasma ******************************** test indiciel à false dans le dernier prog de Mag donc peut être pas utile ? 
-	RE_Lifter_VB_ok_pour_decoupe(clk:=Lifter_VB_ok_pour_decoupe);
-	RE_Test_reponse_indicielle(clk := Test_reponse_indicielle);
-	FE_Test_reponse_indicielle(clk := Test_reponse_indicielle);
-	RE_Start_ISO_5D(clk:=ISO5D_en_cours);
-	IF RE_Test_reponse_indicielle.Q THEN
-		// se débarrasse de toutes les fonctions pour avoir la vrai réponse indicielle du systeme
-		Memo_lissage_tension_arc_plasma := lissage_tension_arc_plasma;
-		Memo_fonction_ecrettage_corresction := fonction_ecrettage_corresction;
-		Inhib_Auto_kerf_active := TRUE;
-		lissage_tension_arc_plasma:= FALSE;
-		fonction_ecrettage_corresction := FALSE;
-	END_IF
-	
-	IF FE_Test_reponse_indicielle.Q THEN
-		// Reactive les fonction de traitement du signal une fois les tests terminés
-		lissage_tension_arc_plasma := Memo_lissage_tension_arc_plasma;
-		fonction_ecrettage_corresction := Memo_fonction_ecrettage_corresction;
-		Inhib_Auto_kerf_active := FALSE;
-	END_IF
-	
-	IF Mem_arus OR NOT Test_reponse_indicielle THEN
-		Ponderation_Uarc := 0;
-		Case_Ponderation_Uarc := 0;
-	END_IF
-	
-	IF Test_reponse_indicielle THEN
-		
-		TON_Ponderation_Uarc_step1(in := Case_Ponderation_Uarc=1, pt:= T#3S);
-		TON_Ponderation_Uarc_step2(in := Case_Ponderation_Uarc=2, pt:= T#1S);
-		TON_Ponderation_Uarc_step3(in := Case_Ponderation_Uarc=3, pt:= T#1.5S);
-		TON_Ponderation_Uarc_step4(in := Case_Ponderation_Uarc=4, pt:= T#1S);
-		TON_Ponderation_Uarc_step5(in := Case_Ponderation_Uarc=5, pt:= T#1S);
-		
-		IF (manu AND RE_Lifter_VB_ok_pour_decoupe.Q)
-			OR
-			(auto AND RE_Start_ISO_5D.Q) THEN
-			Case_Ponderation_Uarc := 1;
-		END_IF
-		
-		IF Case_Ponderation_Uarc<>0 THEN
-			CASE Case_Ponderation_Uarc OF 
-				1: // Début de la découpe : pas de pondération
-					Ponderation_Uarc := 0;
-					IF TON_Ponderation_Uarc_step1.Q THEN
-						Case_Ponderation_Uarc := 3;
-					END_IF
-				2: // première pondération : +1V ; +0.1mm
-					Ponderation_Uarc := -10;
-					IF TON_Ponderation_Uarc_step2.Q THEN
-						Case_Ponderation_Uarc := 3;
-					END_IF
-				3: // deuxième pondération : +10V ; +1mm
-					Ponderation_Uarc := -100;
-					IF TON_Ponderation_Uarc_step3.Q THEN
-						Case_Ponderation_Uarc := 5;
-					END_IF
-				4: // troisième pondération : +20V ; +2mm
-					Ponderation_Uarc := -200;
-					IF TON_Ponderation_Uarc_step4.Q THEN
-						Case_Ponderation_Uarc := 5;
-					END_IF
-				5: // Fin de coupe, retour à 0 pondération, puis arrêt de la découpe
-					Ponderation_Uarc := 0;
-					IF TON_Ponderation_Uarc_step5.Q THEN
-						Laser_Start := FALSE;
-						Case_Ponderation_Uarc := 0;
-					END_IF
-			END_CASE
-		END_IF
-		
-	END_IF*)
 
 (************************* Blocage torche pour grande vitesse ************************)
 	IF Pnc_decoupe[4] >= 6000 THEN

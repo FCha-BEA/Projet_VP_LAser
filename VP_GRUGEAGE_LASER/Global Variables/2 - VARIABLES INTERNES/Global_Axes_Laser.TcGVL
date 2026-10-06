@@ -102,6 +102,7 @@ VAR_GLOBAL
 	 Vitesse_Z_Laser_PTP							: LREAL;
 	 Kerf_Z											: BOOL;
 	 Recette_Hauteur_Buse							:LREAL;
+	 B_Asserv_PercDec								:BOOL;	// 1- Perç 0 Déc Asserv : consigne hauteur recette pour posi car perc ou consine val instant capa pour hauteur constante
 END_VAR
 ]]></Declaration>
   </GVL>

@@ -262,7 +262,10 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	Def_Calib_Presseurs:=FALSE;	
 	Pince_interdit_decoupe:=FALSE;
 	Defaut_General:=FALSE;
+	Def_Abs_Recette:=FALSE;
  END_IF
+ 
+ 
  
 (*--------------------- Bits pour Clignotants -------------------------------------------------------- ---*)
 	FW_GetSystemTime1();
@@ -400,12 +403,6 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		
   END_CASE
  Pom_OK:= Origines_Axes_ok AND Calib_Presseurs_OK AND DI05_Homing_finished AND Pom_Codeur_Secu_ok;
- 
-(*-------------------- Nouvelle recette donc nouvelle buse => Etalonnage capacitance -----*)
- IF ProcessID_Driver <> Old_ProcessID THEN	//Créer var old pour mémo si trop rapide mais normalement on reçoit ID driver et le tmps d'envoyer ID à la source l'ID reçut reste différent
-	Old_ProcessID := ProcessID_Driver;
-	Nv_ProcessID:=TRUE;
- END_IF
  
  
 (*------------------- RAZ des G7 --------------------------*)

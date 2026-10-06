@@ -25,16 +25,11 @@ END_VAR]]></Declaration>
  
  (****************************** Pnc_decoupe ******************************)
 
-	IF Sequence[Pt_sequence].M=50 AND Sequence[Pt_sequence].P1=0 THEN
-		Parametre_Outil.fParam[4]:=Pnc_decoupe[3]/2;	(*1/2 Epaisseur du trait de découpe. Nlle valeur prise en compte si "Start_Iso", voir ss-prog "Exec_ISO" -  A vérifier *)
-		Parametre_Outil.nToolNumber:=1;					(*Numéro d'outil pour éxécution G41 G42*)
-		Parametre_Outil.nToolType:=20;					(*Outil de type "Fraise"*)
-	END_IF
 	(*vitesse découpe*)Pnc_decoupe[4]:=Pnc_decoupe[4];			(*voir ci-dessous*)
 	(*réduction vitesse angles*)Pnc_decoupe[5]:=Pnc_decoupe[5];	(*voir ci-dessous*)	
 
-(*------Pnc_Decoupe-----------*)
- IF Face_En_Cours = 1 THEN		//Face réf, pas d'inversion 
+(*------Pnc_Decoupe-----------*) 
+ IF Face_En_Cours = 1 THEN		//Face réf, pas d'inversion  //vraiment utilse le r inversé ? a investiguer
   Param_R_CNC[5] := 1;
  ELSIF Face_En_Cours = 2 THEN	//Face opp réf, inversion
   Param_R_CNC[5] := -1;
@@ -52,18 +47,6 @@ END_VAR]]></Declaration>
  	END_IF
  	Param_R_CNC[0]:=Pnc_decoupe[4];								(*Découpe*)
  	Param_R_CNC[1]:=Pnc_decoupe[4]*(100-Pnc_decoupe[5])/100;	(*Découpe dans les angles*)
- END_IF
- 
- 		
- IF Write_param_R_CNC
- OR (NOT CodeM_50 AND NOT Memo_Write_param_VeloTrans_CNC_a_0) THEN		(*Pour éviter un défaut CN: une découpe (donc affectation VeloTrans<>0) suivie d'un fraisage ou d'un rayage: au fraisage et au rayage, on resterait avec une VeloTrans<>0 qui peut aboutir à un défaut CN si l'ISO du fraisage ou du rayage demande une vitesse inférieure à la VeloTrans*)
- 	Write_param_VeloTrans_CNC:=TRUE;
- 	Memo_Write_param_VeloTrans_CNC_a_0:=TRUE;
- ELSE
- 	Write_param_VeloTrans_CNC:=FALSE;
- END_IF
- IF CodeM_50 THEN
- 	Memo_Write_param_VeloTrans_CNC_a_0:=FALSE;
  END_IF
  
  (*--------Pnc_Free_String------------*)

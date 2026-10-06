@@ -6,7 +6,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*
+      <ST><![CDATA[(*	Si un bout de code doit etre revu, commenter 'a investiguer"
 1 : Inclure le cf après essais 
 OK - 2 : Inclure forçage Rép ethercat
 3 : vérifier défauts
@@ -27,15 +27,20 @@ OK - 13 : Modif Vitesse man X et Y pour laser lent si marquage
 	Saut dans g7 perc si auto ? on garde approche plus asserv pour dec manu ? 
 OK - 15 : Test tir avec distances focale differentes pour verifier le point de focale.
 	Offset focale =0, pas besoin de modifier
+	
+16 : Supr 14. 
+	cycle d'asserv plutôt qu'approche lente.  
+	Besoin d'une autre entrée FB Z pour avoir consigne hauteur buse de recette.
+		Si oui alors besoin de dissocier selon face écretage ou non. 
+16 bis : écrire B_Asserv_PercDec pendant g7 cycle perc et / ou géneral pour choisir entre asserv selon hauteur recette pour perçage ou selon val capa pour hauteur stable
+	+ ATTENTION si écretage, après calibration que vaut retour hauteur ? Si ok alors cycle comme grugeage, sinon besoin de posi selon pos ref torche 
+	
 
-Test asser selon nbre echantillon jusqu a asserv stable
-Test tir poour marq : surveille val capa
-eprog cycle approche + tir
+TEST FAIT - Test asser selon nbre echantillon jusqu a asserv stable
+A SURVEILLER / RETOUR RAYTOOLS => Test tir poour marq : surveille val capa
 
 
 Tir avec test focale pour buse longue
-
-
 
 types de cycle : 
 

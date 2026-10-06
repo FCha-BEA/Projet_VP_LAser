@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="0fe38036-6898-4647-a792-4a015553fb31">Global_Laser</Type>
+      <From>B_Marq_DecManu</From>
+      <To>Sel_DecMarq_Manu</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="e72f5ffe-2adf-4f12-b359-592dff2a5a24">IO_SOURCE_MAXPHOTONICS</Type>
+      <From>Prog_Secu_Source_OK</From>
+      <To>Secu_Source_OK</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="0fe38036-6898-4647-a792-4a015553fb31">Global_Laser</Type>
+      <From>Laser_Start</From>
+      <To>Tir_Laser</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="ad69e8d5-d28c-4935-a0bf-bfec9a41b1eb">Global_Chariot</Type>
+      <From>Pince_interdit_decoupe_manu</From>
+      <To>Pince_interdit_decoupe</To>
+    </RenamedSymbol>
+    <RenamedType>
+      <Type guid="57f85465-0fc2-4311-a246-45ba21b24c1c">STEP22_ACTIVE</Type>
+      <From>Step22_active</From>
+      <To>Step24_active</To>
+    </RenamedType>
+    <RenamedType>
+      <Type guid="e148cc42-f90f-44b1-aa74-1d75ffefd275">STEP22_ENTRY</Type>
+      <From>Step22_entry</From>
+      <To>Step24_entry</To>
+    </RenamedType>
+    <RenamedSymbol>
+      <Type guid="0fe38036-6898-4647-a792-4a015553fb31">Global_Laser</Type>
+      <From>Ecretage</From>
+      <To>Grugeage_Ecretage_laser</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="5f9f3406-b176-444b-8d98-626ce3907be7">G7_General</Type>
+      <From>Step20</From>
+      <To>StepPalp</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="7f42b02b-01ca-43ab-93fb-ff09daaa10ea">G7_Master_Palpages</Type>
+      <From>Step34</From>
+      <To>StepCapa</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="8bf53146-8e83-4680-baef-2f82619e572c">G7_Palpage_Capacitance</Type>
+      <From>Step35</From>
+      <To>StepSync</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="7f42b02b-01ca-43ab-93fb-ff09daaa10ea">G7_Master_Palpages</Type>
+      <From>Step60</From>
+      <To>StepSommet</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

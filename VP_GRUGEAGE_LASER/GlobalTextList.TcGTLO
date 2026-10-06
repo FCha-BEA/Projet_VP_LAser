@@ -8,10 +8,7 @@
             <o>
               <v n="TextID">"742"</v>
               <v n="TextDefault">""</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"747"</v>
@@ -64,10 +61,7 @@ Status_Free_Status_2_28
 Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1791"</v>
@@ -85,10 +79,7 @@ Prog_Marking_Mode
 
 Prog_Secu_OK		Laser_Ready
 Prog_Valid		Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"79"</v>
@@ -113,19 +104,13 @@ Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -
 Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
 Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
 Data30_Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"738"</v>
               <v n="TextDefault">"
 Convoyeur"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1617"</v>
@@ -154,10 +139,7 @@ Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -
 Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
 Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
 Data30_Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"805"</v>
@@ -186,10 +168,7 @@ Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -
 Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
 Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
 Data30_Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"543"</v>
@@ -211,10 +190,7 @@ Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
 Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
 
 Prog_Defaut_Tete"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"331"</v>
@@ -237,1312 +213,829 @@ Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
 Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
 
 Prog_Defaut_Tete"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"482"</v>
               <v n="TextDefault">" Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"40"</v>
               <v n="TextDefault">" Laser_Ready"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1692"</v>
               <v n="TextDefault">" Prog_Cutting_Mode	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2172"</v>
               <v n="TextDefault">" Prog_Frequency_0_20000Hz_Max : %sHz"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1140"</v>
               <v n="TextDefault">" Prog_Frequency_0_20000Hz_Target : %sHz"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1594"</v>
               <v n="TextDefault">" Prog_Marking_Mode"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1827"</v>
               <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Max : %s%"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"327"</v>
               <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2101"</v>
               <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s   %"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2391"</v>
               <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s %"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"790"</v>
               <v n="TextDefault">" Prog_Per_Cent_Of_Duty_Cycle_Target : %s%"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"457"</v>
               <v n="TextDefault">" Prog_Power_Watt_Max : %s 	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1338"</v>
               <v n="TextDefault">" Prog_Power_Watt_Max : %sW"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"145"</v>
               <v n="TextDefault">" Prog_Power_Watt_Target : %sW"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"409"</v>
               <v n="TextDefault">" Prog_Secu_OK		"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1763"</v>
               <v n="TextDefault">" Prog_Valid"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"996"</v>
               <v n="TextDefault">"%.0f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"737"</v>
               <v n="TextDefault">"%.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"890"</v>
               <v n="TextDefault">"%1.0f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"367"</v>
               <v n="TextDefault">"%4.2f mm"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"371"</v>
               <v n="TextDefault">"%4.2f °"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1123"</v>
               <v n="TextDefault">"%f1.0"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"311"</v>
               <v n="TextDefault">"%s"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1261"</v>
               <v n="TextDefault">"%s		Data01_Capacitance_Actual_Value"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"407"</v>
               <v n="TextDefault">"%s		Data02_Capacitance_HeartBeat_Accumulated_Value"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1600"</v>
               <v n="TextDefault">"%s		Data18_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2107"</v>
               <v n="TextDefault">"%s		Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1836"</v>
               <v n="TextDefault">"%s		Data20_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"335"</v>
               <v n="TextDefault">"%s		Data21_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"800"</v>
               <v n="TextDefault">"%s		Data22_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1312"</v>
               <v n="TextDefault">"%s		Data23_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"826"</v>
               <v n="TextDefault">"%s		Data24_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"151"</v>
               <v n="TextDefault">"%s		Data25_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1481"</v>
               <v n="TextDefault">"%s		Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"937"</v>
               <v n="TextDefault">"%s		Data27_Stray_Beam_Top_1_Cover_Glass 
 	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1707"</v>
               <v n="TextDefault">"%s		Data28_Stray_Beam_Focus_Lens 
 	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *) (* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"95"</v>
               <v n="TextDefault">"%s		Data29_Stray_Beam_Bottom_1_Cover_Glass 
 	(* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1522"</v>
               <v n="TextDefault">"%s		Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"983"</v>
               <v n="TextDefault">"%s	Data01_Capacitance_Actual_Value"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"401"</v>
               <v n="TextDefault">"%s	Data02_Capacitance_HeartBeat_Accumulated_Value"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1392"</v>
               <v n="TextDefault">"%s	Data03_Focus_Lens_Ambient_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"123"</v>
               <v n="TextDefault">"%s	Data04_Focus_Lens_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"791"</v>
               <v n="TextDefault">"%s	Data18_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1157"</v>
               <v n="TextDefault">"%s	Data18_Process_Monitor (* 0 - 12288 *)*"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1112"</v>
               <v n="TextDefault">"%s	Data19_Visible_Light_Pierce_Detect 	(* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"326"</v>
               <v n="TextDefault">"%s	Data20_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"404"</v>
               <v n="TextDefault">"%s	Data20_Process_Monitor(* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"779"</v>
               <v n="TextDefault">"%s	Data21_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"22"</v>
               <v n="TextDefault">"%s	Data22_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"786"</v>
               <v n="TextDefault">"%s	Data23_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1076"</v>
               <v n="TextDefault">"%s	Data24_Process_Monitor (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"406"</v>
               <v n="TextDefault">"%s	Data25_Visible_Light_Pierce_Detect (* 0 - 12288 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1813"</v>
               <v n="TextDefault">"%s	Data26_Stray_Beam_Reserved 	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"513"</v>
               <v n="TextDefault">"%s	Data27_Stray_Beam_Top_1_Cover_Glass 
 (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"235"</v>
               <v n="TextDefault">"%s	Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"636"</v>
               <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens 
 (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"776"</v>
               <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens 
 (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *) (* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"26"</v>
               <v n="TextDefault">"%s	Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1109"</v>
               <v n="TextDefault">"%s	Data29_Stray_Beam_Bottom_1_Cover_Glass 
 (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"358"</v>
               <v n="TextDefault">"%s	Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"637"</v>
               <v n="TextDefault">"%s	Prog_Distance_Focal_Reelle	(* mm *)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"544"</v>
               <v n="TextDefault">"%s	Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"383"</v>
               <v n="TextDefault">"%s
 (kVA)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"381"</v>
               <v n="TextDefault">"%s
 (kW)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"387"</v>
               <v n="TextDefault">"%s
 (RPM)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"393"</v>
               <v n="TextDefault">"%s
 HHHHH : MM"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"377"</v>
               <v n="TextDefault">"%s 
 (A)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"364"</v>
               <v n="TextDefault">"%s 
 (Bars)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"379"</v>
               <v n="TextDefault">"%s 
 (V)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"376"</v>
               <v n="TextDefault">"%s 
 (°C)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1762"</v>
               <v n="TextDefault">"%s Bars		Data12_Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"53"</v>
               <v n="TextDefault">"%s Bars	Data12_Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"792"</v>
               <v n="TextDefault">"%s Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"770"</v>
               <v n="TextDefault">"%s Prog_Frequency_0_20000Hz_Max"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1817"</v>
               <v n="TextDefault">"%s Prog_Frequency_0_20000Hz_Target"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1172"</v>
               <v n="TextDefault">"%s Prog_Per_Cent_Of_Duty_Cycle_Max"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"520"</v>
               <v n="TextDefault">"%s Prog_Per_Cent_Of_Duty_Cycle_Target"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"152"</v>
               <v n="TextDefault">"%s Prog_Power_Watt_Max	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2304"</v>
               <v n="TextDefault">"%s Prog_Power_Watt_Target"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"341"</v>
               <v n="TextDefault">"%s °C"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1926"</v>
               <v n="TextDefault">"%s%		Data15_Air_Humidity"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"993"</v>
               <v n="TextDefault">"%s%	Data15_Air_Humidity"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"671"</v>
               <v n="TextDefault">"%s% Data15_Air_Humidity"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"337"</v>
               <v n="TextDefault">"%sBars		Data12_Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1801"</v>
               <v n="TextDefault">"%sBars		Data14_Cutting_Gas_Pressure "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1305"</v>
               <v n="TextDefault">"%sBars	Data12_Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1506"</v>
               <v n="TextDefault">"%sBars	Data14_Cutting_Gas_Pressure "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"72"</v>
               <v n="TextDefault">"%sProg_Power_Watt_Max	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"481"</v>
               <v n="TextDefault">"%s°C"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1315"</v>
               <v n="TextDefault">"%s°C	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"978"</v>
               <v n="TextDefault">"%s°C		Data03_Focus_Lens_Ambient_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2064"</v>
               <v n="TextDefault">"%s°C		Data04_Focus_Lens_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2166"</v>
               <v n="TextDefault">"%s°C		Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"455"</v>
               <v n="TextDefault">"%s°C		Data08_Top_1_Cover_Glass_Temp "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1976"</v>
               <v n="TextDefault">"%s°C		Data09_Bottom_1_Cover_Glass_Ambient_Temp "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2255"</v>
               <v n="TextDefault">"%s°C		Data10_Bottom_1_Cover_Glasst_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1578"</v>
               <v n="TextDefault">"%s°C		Data11_Cavity_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2016"</v>
               <v n="TextDefault">"%s°C		Data13_Cutting_Gas_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1191"</v>
               <v n="TextDefault">"%s°C		Data16_Dew_Point_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"359"</v>
               <v n="TextDefault">"%s°C		Data17_TTA_Preamplifier_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"642"</v>
               <v n="TextDefault">"%s°C		Temperature difference"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1867"</v>
               <v n="TextDefault">"%s°C	Data03_Focus_Lens_Ambient_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"655"</v>
               <v n="TextDefault">"%s°C	Data04_Focus_Lens_Temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1679"</v>
               <v n="TextDefault">"%s°C	Data07_Top_1_Cover_Glass_Ambient_Temp  "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"247"</v>
               <v n="TextDefault">"%s°C	Data08_Top_1_Cover_Glass_Temp "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"402"</v>
               <v n="TextDefault">"%s°C	Data09_Bottom_1_Cover_Glass_Ambient_Temp "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"403"</v>
               <v n="TextDefault">"%s°C	Data10_Bottom_1_Cover_Glasst_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1826"</v>
               <v n="TextDefault">"%s°C	Data11_Cavity_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1583"</v>
               <v n="TextDefault">"%s°C	Data12_Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1543"</v>
               <v n="TextDefault">"%s°C	Data13_Cutting_Gas_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2007"</v>
               <v n="TextDefault">"%s°C	Data16_Dew_Point_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1138"</v>
               <v n="TextDefault">"%s°C	Data17_TTA_Preamplifier_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1591"</v>
               <v n="TextDefault">"%s°C	Temperature difference"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"540"</v>
               <v n="TextDefault">".linkState"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"400"</v>
               <v n="TextDefault">"0"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"563"</v>
               <v n="TextDefault">"0Min"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"398"</v>
               <v n="TextDefault">"1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"652"</v>
               <v n="TextDefault">"12345"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"433"</v>
               <v n="TextDefault">"1520-BE"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"469"</v>
               <v n="TextDefault">"1572-BS"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"392"</v>
               <v n="TextDefault">"30Min"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"904"</v>
               <v n="TextDefault">"420-Chariot entrée"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"466"</v>
               <v n="TextDefault">"475"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"564"</v>
               <v n="TextDefault">"60Min"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"143"</v>
               <v n="TextDefault">"820"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"592"</v>
               <v n="TextDefault">"820-Laser1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"396"</v>
               <v n="TextDefault">"821"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"332"</v>
               <v n="TextDefault">"821-Laser2"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"654"</v>
               <v n="TextDefault">"822-Laser3"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"678"</v>
               <v n="TextDefault">"822-MLaser3"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"449"</v>
               <v n="TextDefault">"961-Pupitre"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"480"</v>
               <v n="TextDefault">"A Laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"375"</v>
               <v n="TextDefault">"Aile Opp Ref"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"7"</v>
               <v n="TextDefault">"Aile Ref"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"374"</v>
               <v n="TextDefault">"Ame"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"370"</v>
               <v n="TextDefault">"Angle.x"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"372"</v>
               <v n="TextDefault">"Angle.y"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"373"</v>
               <v n="TextDefault">"Angle.z"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"391"</v>
               <v n="TextDefault">"Annulation defaut"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"165"</v>
               <v n="TextDefault">"Arret Machine"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"722"</v>
               <v n="TextDefault">"Augmenter
 Limiteur
 Pression"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2239"</v>
               <v n="TextDefault">"Autorisation 
 ouverture"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"691"</v>
               <v n="TextDefault">"Autorisation ouverture"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"830"</v>
               <v n="TextDefault">"BACK"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1150"</v>
               <v n="TextDefault">"Bars"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1257"</v>
               <v n="TextDefault">"Bot_1_Cover_Glass"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"976"</v>
               <v n="TextDefault">"Bot_1_Cover_Glass_Ambient_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"977"</v>
               <v n="TextDefault">"Bot_1_Cover_Glass_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2131"</v>
               <v n="TextDefault">"Calibration presseur OK"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"988"</v>
               <v n="TextDefault">"Capacitance_Calibration_OK"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"811"</v>
               <v n="TextDefault">"Cavity_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"809"</v>
               <v n="TextDefault">"Cavity_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2314"</v>
               <v n="TextDefault">"Cmd Laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"3104"</v>
               <v n="TextDefault">"Commande manu laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"560"</v>
               <v n="TextDefault">"Couple
 
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"378"</v>
               <v n="TextDefault">"Courant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"471"</v>
               <v n="TextDefault">"Courant
 (A)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"477"</v>
               <v n="TextDefault">"CPT Temps
 HHHHH : MM"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"812"</v>
               <v n="TextDefault">"Cutting_Gas_Pressure"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"810"</v>
               <v n="TextDefault">"Cutting_Gas_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"224"</v>
@@ -1576,10 +1069,7 @@ Data27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -
 Data28_Stray_Beam_Focus_Lens (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)		(* 0 - 4096 *)
 Data29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 &lt; SB -Alarme- SB &lt; 2500 -Défaut- *)	(* 0 - 4096 *)
 Data30_Reserved"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"798"</v>
@@ -1588,56 +1078,38 @@ Ouverture
 /
 Fermeture
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"214"</v>
               <v n="TextDefault">"Demande
 Ouverture
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"519"</v>
               <v n="TextDefault">"Demande
 uverture
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"167"</v>
               <v n="TextDefault">"Demande ouverture
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"772"</v>
               <v n="TextDefault">"Demande Ouverture
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"849"</v>
               <v n="TextDefault">"deviceState"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"223"</v>
@@ -1646,53 +1118,35 @@ DI02_Up_Limit
 DI03_Down_Limit
 DI04_Bottom_1_Cover_Glass_Ready
 DI05_Homing_finished"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1473"</v>
               <v n="TextDefault">"Différence de température entre Lentille / Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"723"</v>
               <v n="TextDefault">"Diminuer
 Limiteur
 Pression"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"419"</v>
               <v n="TextDefault">"Dist buse - Piece : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"476"</v>
               <v n="TextDefault">"Démarrage
 Pompe"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"816"</v>
               <v n="TextDefault">"ENTREE"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"860"</v>
@@ -1710,10 +1164,7 @@ Prog_Marking_Mode
 
 Prog_Secu_OK		Laser_Ready
 Prog_Valid		Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"408"</v>
@@ -1727,543 +1178,348 @@ Prog_Marking_Mode
 
 Prog_Secu_OK		Laser_Ready
 Prog_Valid		Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1217"</v>
               <v n="TextDefault">"Focus_Lens"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"972"</v>
               <v n="TextDefault">"Focus_Lens_Ambient_Temperature"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"973"</v>
               <v n="TextDefault">"Focus_Lens_Temperature"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"397"</v>
               <v n="TextDefault">"FORCAGE"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"754"</v>
               <v n="TextDefault">"Free, not used"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1914"</v>
               <v n="TextDefault">"Gestion Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1141"</v>
               <v n="TextDefault">"jj"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1085"</v>
               <v n="TextDefault">"Jog Ar"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"339"</v>
               <v n="TextDefault">"Jog Av"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2524"</v>
               <v n="TextDefault">"Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"758"</v>
               <v n="TextDefault">"Laser_Ready"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2076"</v>
               <v n="TextDefault">"Laser_Ready
 Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1177"</v>
               <v n="TextDefault">"Lens &lt;-&gt; Ambient 
  Temperature diference "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1243"</v>
               <v n="TextDefault">"Lens &lt;-&gt; Ambient 
  Temperature diiference "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"918"</v>
               <v n="TextDefault">"Lense &lt;-&gt; Ambient 
  Temperature diiference "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1313"</v>
               <v n="TextDefault">"Lentille			Température		Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"506"</v>
               <v n="TextDefault">"Lentille		&lt;	Température	&gt;	Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"150"</v>
               <v n="TextDefault">"Lentille		&lt;	Température	&gt;	Air ambiant
 v							v"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1089"</v>
               <v n="TextDefault">"Lentille		&lt;	Température	&gt;	Air ambiant
 v						v"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"357"</v>
               <v n="TextDefault">"Lentille		&lt;	Température	&gt;	Air ambiant
 v					v"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1516"</v>
               <v n="TextDefault">"Lentille		&lt;&gt;	Température		&lt;&gt;Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"505"</v>
               <v n="TextDefault">"Lentille		&lt;&gt;	Température	&lt;&gt;	Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1357"</v>
               <v n="TextDefault">"Lentille		Température		Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1482"</v>
               <v n="TextDefault">"Lentille		Température	Air ambiant"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"405"</v>
               <v n="TextDefault">"Lentille / Protection &lt;-&gt; Air ambian
  Diference de temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"434"</v>
               <v n="TextDefault">"Lentille / Protection &lt;-&gt; Air ambian
  Temperature diference "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"221"</v>
               <v n="TextDefault">"Lentille / Protection &lt;-&gt; Air ambiant	(Lens/Protection &lt;-&gt; Ambient air)
  Diference de temperature		(Temperature difference) "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"603"</v>
               <v n="TextDefault">"Lentille / Protection &lt;-&gt; Air ambiant	(Lens/Protection &lt;-&gt; Ambient air)
  Diference de temperature	(Temperature difference) "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"639"</v>
               <v n="TextDefault">"Lentille / Protection &lt;-&gt; Air ambiant
  Diference de temperature "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"935"</v>
               <v n="TextDefault">"Lentille de focalisation (Focus_Lens)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"366"</v>
               <v n="TextDefault">"M.x"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"368"</v>
               <v n="TextDefault">"M.y"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"369"</v>
               <v n="TextDefault">"M.z"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"478"</v>
               <v n="TextDefault">"Mode
 Reglage"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"395"</v>
               <v n="TextDefault">"Mode de reglage"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"390"</v>
               <v n="TextDefault">"Moteur"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1057"</v>
               <v n="TextDefault">"NOT Forcage_Rep.Forcage_a_1_Temp.18 and Not Forcage_Rep.Forcage_a_1[Forcage_Rep.Num_Rep_Selectionne_pr_Forcage].18"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"562"</v>
               <v n="TextDefault">"P
 I
 D"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"840"</v>
               <v n="TextDefault">"Pin 2
 0"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"848"</v>
               <v n="TextDefault">"Pin 2
 1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"817"</v>
               <v n="TextDefault">"Pin 4
 0"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"825"</v>
               <v n="TextDefault">"Pin 4
 1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1142"</v>
               <v n="TextDefault">"Pom secu OK "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"385"</v>
               <v n="TextDefault">"Pompe"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"565"</v>
               <v n="TextDefault">"POMPE_ATOS_ECRAN"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"832"</v>
               <v n="TextDefault">"Port 0"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"157"</v>
               <v n="TextDefault">"Port 1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"159"</v>
               <v n="TextDefault">"Port 2"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"160"</v>
               <v n="TextDefault">"Port 3"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"162"</v>
               <v n="TextDefault">"Port 4"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"163"</v>
               <v n="TextDefault">"Port 5"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"164"</v>
               <v n="TextDefault">"Port 6"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"578"</v>
               <v n="TextDefault">"Port 7"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1982"</v>
               <v n="TextDefault">"Pos A : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1023"</v>
               <v n="TextDefault">"Pos X : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"766"</v>
               <v n="TextDefault">"Pos X : %s"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"927"</v>
               <v n="TextDefault">"Pos Y : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2836"</v>
               <v n="TextDefault">"Pos Z : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2373"</v>
               <v n="TextDefault">"Power Feed Back OK ?"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"365"</v>
               <v n="TextDefault">"Pression"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"112"</v>
               <v n="TextDefault">"Pression
 (Bars)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"479"</v>
               <v n="TextDefault">"Pression
 OK"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"558"</v>
               <v n="TextDefault">"Pression OK"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"71"</v>
               <v n="TextDefault">"Prog_Cutting_Mode	"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"60"</v>
@@ -2286,18 +1542,12 @@ Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Lens
 Prog_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure
 
 Prog_Defaut_Tete"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"56"</v>
               <v n="TextDefault">"Prog_Marking_Mode"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"312"</v>
@@ -2315,265 +1565,169 @@ Prog_Marking_Mode
 
 Prog_Secu_OK		Laser_Ready
 Prog_Valid		Laser_ON"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"596"</v>
               <v n="TextDefault">"Prog_Secu_OK		"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"136"</v>
               <v n="TextDefault">"Prog_Valid"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1021"</v>
               <v n="TextDefault">"Protection inferieur 1 (Bot_1_Cover_Glass)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"144"</v>
               <v n="TextDefault">"Protection superieur 1 (Top_1_Cover_Glass)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"198"</v>
               <v n="TextDefault">"Protection superieur 1 Top_1_Cover_Glass"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"557"</v>
               <v n="TextDefault">"Présence recette 
 decoupe ? 
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2999"</v>
               <v n="TextDefault">"Présence recette decoupe ? 
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"474"</v>
               <v n="TextDefault">"Puissance
 (kVA)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"473"</v>
               <v n="TextDefault">"Puissance
 (kW)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"384"</v>
               <v n="TextDefault">"Puissance kVA"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"382"</v>
               <v n="TextDefault">"Puissance kW"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"783"</v>
               <v n="TextDefault">"Quelle Face ? "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"13"</v>
               <v n="TextDefault">"Quelle Face ? %s"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1093"</v>
               <v n="TextDefault">"Rayon parasite (stray beam)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"114"</v>
               <v n="TextDefault">"Rearmement
 Porte"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1658"</v>
               <v n="TextDefault">"Recette decoupe"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1102"</v>
               <v n="TextDefault">"Recette decoupe pour 
 ep driver"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1544"</v>
               <v n="TextDefault">"Recette decoupe pour ep driver"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1378"</v>
               <v n="TextDefault">"Recette marquage"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"884"</v>
               <v n="TextDefault">"Repères"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"746"</v>
               <v n="TextDefault">"Retour"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1063"</v>
               <v n="TextDefault">"RETOUR"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"399"</v>
               <v n="TextDefault">"Selection Commande Temporaire"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"442"</v>
               <v n="TextDefault">"Selection Face"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"211"</v>
               <v n="TextDefault">"Selection Rep"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"801"</v>
               <v n="TextDefault">"SORTIE"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"903"</v>
               <v n="TextDefault">"Source"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2566"</v>
               <v n="TextDefault">"Source laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"310"</v>
               <v n="TextDefault">"Source Laser MaxPhotonics"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"338"</v>
               <v n="TextDefault">"Start POM Secu ?"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"847"</v>
               <v n="TextDefault">"Status machine"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2191"</v>
@@ -2632,10 +1786,7 @@ Status_Free_Status_2_28
 Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2234"</v>
@@ -2716,10 +1867,7 @@ Status_Free_Status_2_28
 Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1889"</v>
@@ -2777,10 +1925,7 @@ Status_Free_Status_2_28
 Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"607"</v>
@@ -2839,10 +1984,7 @@ Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"462"</v>
@@ -2901,10 +2043,7 @@ Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1265"</v>
@@ -2949,10 +2088,7 @@ Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"756"</v>
@@ -2989,10 +2125,7 @@ Status_Free_Status_2_29
 Status_Free_Status_2_30
 Status_Free_Status_2_31
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1844"</v>
@@ -3029,10 +2162,7 @@ Status_Free_Status_4_28
 Status_Free_Status_4_29
 Status_Free_Status_4_30
 Status_Free_Status_4_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"115"</v>
@@ -3068,10 +2198,7 @@ Status_Free_Status_4_28
 Status_Free_Status_4_29
 Status_Free_Status_4_30
 Status_Free_Status_4_31"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"757"</v>
@@ -3107,318 +2234,201 @@ Status_FPGA_Loading_Failure_Alarm
 Status_FPGA_Handshake_Failure_Alarm
 Status_System_Clock_Failure_Alarm
 Status_Water_Cooling_Plate_Low_Temperature_Alarm"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"559"</v>
               <v n="TextDefault">"STO"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"815"</v>
               <v n="TextDefault">"Stray_Beam_Bottom_1_Cover_Glass"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"814"</v>
               <v n="TextDefault">"Stray_Beam_Focus_Lens"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"813"</v>
               <v n="TextDefault">"Stray_Beam_Top_1_Cover_Glass"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1018"</v>
               <v n="TextDefault">"Temperature air ambiant mesuré de :  Lentille / Protection 	(Ambient air temperature mesured from : Lens / Protection)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"363"</v>
               <v n="TextDefault">"Temperature huile"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"453"</v>
               <v n="TextDefault">"Temperature Lentille / Protection 	(Lens / Protection Temperature)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1070"</v>
               <v n="TextDefault">"Temperature Lentille / Protection 	(Lens/Protection Temperature)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"394"</v>
               <v n="TextDefault">"Temps"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1137"</v>
               <v n="TextDefault">"Température"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"113"</v>
               <v n="TextDefault">"Température
 (°C)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"380"</v>
               <v n="TextDefault">"Tension"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"472"</v>
               <v n="TextDefault">"Tension
 (V)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"197"</v>
               <v n="TextDefault">"Test"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"313"</v>
               <v n="TextDefault">"test"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1015"</v>
               <v n="TextDefault">"Test
 Impulsion laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"617"</v>
               <v n="TextDefault">"Tete laser 1"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"510"</v>
               <v n="TextDefault">"Tete laser 2"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1061"</v>
               <v n="TextDefault">"texte pour test"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"495"</v>
               <v n="TextDefault">"Top 1 Cover glass Ambient Temp °C"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"343"</v>
               <v n="TextDefault">"Top Chgt Face"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1081"</v>
               <v n="TextDefault">"Top_1_Cover_Glass"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"974"</v>
               <v n="TextDefault">"Top_1_Cover_Glass_Ambient_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"975"</v>
               <v n="TextDefault">"Top_1_Cover_Glass_Temp"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"360"</v>
               <v n="TextDefault">"Top_1_Cover_Glass_Temp difference"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"418"</v>
               <v n="TextDefault">"Tête Laser RayTools"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"561"</v>
               <v n="TextDefault">"Var OK
 
 "</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"386"</v>
               <v n="TextDefault">"Variateur Moteur"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"475"</v>
               <v n="TextDefault">"Vitesse
 (RPM)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v>Speed</v>
-                <v>Vitesse</v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"388"</v>
               <v n="TextDefault">"Vitesse ( RPM )"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"389"</v>
               <v n="TextDefault">"Vitesse ( RPM)"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"34"</v>
               <v n="TextDefault">"XY Laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2559"</v>
               <v n="TextDefault">"Y relatif F1 : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2145"</v>
               <v n="TextDefault">"Y relatif F2 : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"2828"</v>
               <v n="TextDefault">"Y relatif FEcret : %0.1f"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1403"</v>
               <v n="TextDefault">"Z Laser"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
               <v n="TextID">"1134"</v>
               <v n="TextDefault">"°C"</v>
-              <l n="LanguageTexts" t="ArrayList" cet="String">
-                <v></v>
-                <v></v>
-              </l>
+              <l n="LanguageTexts" t="ArrayList" />
             </o>
           </l>
-          <l n="Languages" t="ArrayList" cet="String">
-            <v>eng</v>
-            <v>FR</v>
-          </l>
+          <l n="Languages" t="ArrayList" />
           <v n="GuidInit">{015364fd-5e4d-4743-97de-4d70658e7a0f}</v>
           <v n="GuidReInit">{c2568b9f-ce04-473d-bfb2-d511589e4692}</v>
           <v n="GuidExitX">{f204fc42-d3c8-4028-b4d0-487a9911e98d}</v>

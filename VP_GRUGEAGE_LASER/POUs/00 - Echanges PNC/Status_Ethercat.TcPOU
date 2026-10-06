@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="Status_Ethercat" Id="{83bd81d5-b01c-4315-8550-6bc62452581e}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Status_ethercat	//Tu es là
+    <Declaration><![CDATA[PROGRAM Status_ethercat
 VAR
 	TON_Start_System				:TON;
 	TON_Scan_Reseaux_Ethercat		:TON;

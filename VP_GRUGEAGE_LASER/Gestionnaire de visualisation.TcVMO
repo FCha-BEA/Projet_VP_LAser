@@ -528,41 +528,91 @@
           <v n="UseUserMgmtInPlc">true</v>
           <n n="RemoteUserMgmtPath" />
           <o n="FontsConfig" t="LanguageFontsConfiguration">
-            <v n="DisplayedFontRows" t="Int16">-1</v>
+            <v n="DisplayedFontRows" t="Int16">1</v>
             <d2 n="Configuration" ckt="String" cvt="SingleLanguageFont">
               <v>de</v>
               <o>
                 <v n="Language">"de"</v>
                 <v n="Fontname">"Andale Mono"</v>
-                <n n="AdditionalFonts" />
+                <l2 n="AdditionalFonts" cet="String">
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                </l2>
                 <v n="SizeFactor" t="Single">1</v>
               </o>
               <v>en</v>
               <o>
                 <v n="Language">"en"</v>
                 <v n="Fontname">"Andale Mono"</v>
-                <n n="AdditionalFonts" />
+                <l2 n="AdditionalFonts" cet="String">
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                </l2>
                 <v n="SizeFactor" t="Single">1</v>
               </o>
               <v>EN</v>
               <o>
                 <v n="Language">"EN"</v>
                 <n n="Fontname" />
-                <n n="AdditionalFonts" />
+                <l2 n="AdditionalFonts" cet="String">
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                </l2>
                 <v n="SizeFactor" t="Single">1</v>
               </o>
               <v>eng</v>
               <o>
                 <v n="Language">"eng"</v>
                 <v n="Fontname">"Andale Mono"</v>
-                <n n="AdditionalFonts" />
+                <l2 n="AdditionalFonts" cet="String">
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                </l2>
                 <v n="SizeFactor" t="Single">1</v>
               </o>
               <v>FR</v>
               <o>
                 <v n="Language">"FR"</v>
                 <v n="Fontname">"Arial"</v>
-                <n n="AdditionalFonts" />
+                <l2 n="AdditionalFonts" cet="String">
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                  <v></v>
+                </l2>
                 <v n="SizeFactor" t="Single">1</v>
               </o>
             </d2>

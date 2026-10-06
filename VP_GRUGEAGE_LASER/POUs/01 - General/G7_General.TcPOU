@@ -7,13 +7,13 @@ VAR
 	Memo_X_Precedent	:LREAL;	//Si plusieurs usinages au même X, pas besoin d'ouvrir et dég à chaque fois 
 	Top_Cycles_Palp_Laser	:BOOL; //Lance le G7 des palpages buse et sommet du laser
 	Fb_decode_real_Fct_M_: Fb_decode_real;
-	Num_Unite_Cycle_Auto: INT;
 	Num_operation_Cycle: INT;
 	
 	FE_Prepa_ISO_3D, FE_ISO_en_cours: F_trig;
 	TON_ISO_en_cours, TON_Fin_Decoupe	:Ton;
 	
 
+	j: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -112,7 +112,7 @@ END_VAR
                         <o>
                           <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">""</v>
+                            <v n="Value">"Init_active"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">15L</v>
@@ -737,7 +737,7 @@ Si X Diff
                             <o n="ElementList" t="SFCElementList">
                               <l2 n="InnerList">
                                 <o t="SFCTransition">
-                                  <v n="VariableName">"Branch0__Step10__to__Step20"</v>
+                                  <v n="VariableName">"Branch0__Step10__to__StepPalp"</v>
                                   <n n="EmbeddedTransition" />
                                   <l2 n="EmbeddedTransitionProperties" />
                                   <l2 n="Attributes" cet="SFCAttribute">
@@ -817,7 +817,7 @@ Si X Diff
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Step20"</v>
+                                        <v n="Value">"StepPalp"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">1204L</v>
@@ -920,7 +920,7 @@ Si X Diff
                                   <v n="IdParent">446L</v>
                                 </o>
                                 <o t="SFCTransition">
-                                  <v n="VariableName">"Step20__to__Step200"</v>
+                                  <v n="VariableName">"StepPalp__to__Step200"</v>
                                   <n n="EmbeddedTransition" />
                                   <l2 n="EmbeddedTransitionProperties" />
                                   <l2 n="Attributes" cet="SFCAttribute">
@@ -3750,25 +3750,61 @@ Pointeur"</v>
         </XmlArchive>
       </ObjectProperties>
     </Transition>
+    <Action Name="Init_active" Id="{0c94b825-44f7-4ecc-88d2-7a0aface5f64}">
+      <Implementation>
+        <ST><![CDATA[Grugeage_laser:=Ecretage_Laser:=FALSE;
+Top_Cycles_Palp_Laser:=FALSE;
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Step10_entry" Id="{bb8ddf34-7b46-4d2a-bb0f-9493f70d6a20}">
       <Implementation>
-        <ST><![CDATA[IF Memo_X_Precedent <> Sequence[PT_Sequence].X THEN
- //Desserage presseur
-  Presseur_Amont_K11.Dem_Desserrage:=
-  Presseur_Aval_L12.Dem_Desserrage:=TRUE;
-  Presseur_Amont_K11.Dem_Serrage:=
-  Presseur_Aval_L12.Dem_Serrage:=FALSE;
- 
- //Deg Z laser - Code M à voir
-  IF Sequence[Pt_sequence].M<>50
-  AND Sequence[Pt_sequence].M<>92
-  AND Sequence[Pt_sequence].M<>93
-  AND Sequence[Pt_sequence].M<>94
-  AND NOT Deg_Laser_full_ok THEN
-  	Top_deg_Laser_full:=TRUE; 
-  END_IF
-END_IF
- 
+        <ST><![CDATA[// Choix de la face et idnetification usinage seq en cours  
+ IF Sequence[Pt_Sequence].M=100 THEN	//m=100-laser
+	
+ 	Grugeage_laser:=Sequence[Pt_Sequence].P6=1;
+ 	Face_Cible_Cycle:=LREAL_TO_INT(Sequence[Pt_Sequence].P9); //Vaut 1-2-3
+	
+	Ecretage_Laser:=Grugeage_laser AND Face_Cible_Cycle=3;
+  
+ 	IF Face_Cible_Cycle <> 0 THEN
+ 		Face_Cible 		:= Face_Cible_Cycle;
+ 		Face_En_Pos 	:= FALSE;
+ 		Top_Face 		:= TRUE;
+ 	END_IF;
+ ELSE
+	Grugeage_laser:=Ecretage_Laser:=FALSE;
+ END_IF;
+
+//Desser presseur au pas chariot <> du précédant 
+ IF Memo_X_Precedent <> Sequence[PT_Sequence].X THEN
+ 	//Desserage presseur
+ 	Presseur_Amont_K11.Dem_Desserrage:=
+ 	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
+ 	Presseur_Amont_K11.Dem_Serrage:=
+ 	Presseur_Aval_L12.Dem_Serrage:=FALSE;
+ 	
+ 	//Deg Z laser - Code M à voir
+ 	IF (*Sequence[Pt_sequence].M<>100	a investiguer si degage tout le temps ou non
+ 	AND*) NOT Deg_Laser_full_ok THEN
+ 		Top_deg_Laser_full:=TRUE; 
+ 	END_IF
+ END_IF
+
+//Recherche recette 
+ IF Sequence[Pt_Sequence].M = 100 THEN	//P10 = ID recette driver
+	IF  Sequence[Pt_Sequence].P10 <> 0 THEN 
+ 		FOR j := 1 TO 500 DO
+ 			IF Tab_St_Recette_Laser[j].Id_Driver = Sequence[Pt_Sequence].P10 THEN 
+ 				Index_Recette_Laser_Auto := j;
+ 				Gravage_Laser := (Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Type_Process =1);
+ 				EXIT;
+ 			END_IF
+ 		END_FOR 
+	END_IF
+ 	IF Index_Recette_Laser_Auto=0 OR Sequence[Pt_Sequence].P10=0 THEN Def_Abs_Recette :=TRUE; END_IF
+ END_IF
+
 // Contrôle palpage sommet
  IF Opt_Palp_Sommet_Tjs THEN	//On palpe tout le temps
  	Palpage_OK_Face_1 := Palpage_OK_Face_2 := FALSE;
@@ -3783,27 +3819,9 @@ END_IF
  	Palpage_OK_Face_1 := Palpage_OK_Face_2 := TRUE;
  END_IF
 
-// Choix de la face d'usinage  
- IF Auto AND G7_Palpage_Sommet_L.Init.x THEN
- 
- 	(*Decodage des fonctions dans la sequence en cours*)
- 	Fb_decode_real_Fct_M_(Valid:=TRUE,Real_Value:=Sequence[Pt_Sequence].M);
- 	Num_Unite_Cycle_Auto:=Fb_decode_real_Fct_M_.Cent_Milliers;
- 
- 	Num_operation_Cycle:=LREAL_TO_INT(Sequence[Pt_Sequence].P10);
- 	Decoupe := Num_operation_Cycle = 13;
- 	Ecretage := Num_operation_Cycle = 15;
- 
- 	CASE Num_Unite_Cycle_Auto OF
- 		1 : 	IF Decoupe THEN Face_Cible_Cycle := 1; END_IF;
- 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;	(* Normalement NON *)
- 		2 : 	IF Decoupe THEN Face_Cible_Cycle := 2; END_IF;
- 			IF Ecretage THEN Face_Cible_Cycle := 3; END_IF;
- 	ELSE
- 		Face_Cible_Cycle := 0;
- 	END_CASE;
-	
- END_IF;
+
+
+
 
 ]]></ST>
       </Implementation>
@@ -3829,7 +3847,12 @@ END_IF
     </Action>
     <Action Name="Step20_entry" Id="{9dbf7d81-53b6-4ac1-8a2a-dd36ba0e5023}">
       <Implementation>
-        <ST><![CDATA[Top_Cycles_Palp_Laser:=true;]]></ST>
+        <ST><![CDATA[IF (NOT Prog_Capacitance_Calibration_OK 
+OR Ecretage_Laser )
+OR NOT Palpage_OK_Face_1
+OR NOT Palpage_OK_Face_2 THEN
+	Top_Cycles_Palp_Laser:=TRUE;
+END_IF]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step200_Action" Id="{a514a9cd-791b-4703-b1a6-01074b7c77f3}">
@@ -3945,10 +3968,8 @@ IF TON_Ecart_Pression_Gaz.Q THEN Defaut_pression_gaz :=TRUE; END_IF
     </Action>
     <Action Name="Step220_entry" Id="{7aaf9abd-0999-45c6-83be-75d8967a2d85}">
       <Implementation>
-        <ST><![CDATA[(*Allumage torche*)
-IF NOT Simul_decoupe AND NOT Bit_demo THEN
-	Allumage_tete_laser:=TRUE;
-END_IF		
+        <ST><![CDATA[(*Allumage torche - Top cycle position puis perçages torches*)
+Allumage_tete_laser:=TRUE;
 
 ]]></ST>
       </Implementation>
@@ -4143,10 +4164,13 @@ and Presseur_Aval_L12.Presseur_Haut]]></ST>
     </Transition>
     <Transition Name="Trans10a" Id="{bdd53c74-e5db-49fd-8d60-cb7893b310fb}">
       <Implementation>
-        <ST><![CDATA[(Deg_Laser_full_ok
-AND Presseur_Amont_K11.Presseur_Haut
-AND Presseur_Aval_L12.Presseur_Haut) OR Memo_X_Precedent = Sequence[PT_Sequence].X
-AND Decoupe OR Ecretage]]></ST>
+        <ST><![CDATA[Sequence[Pt_Sequence].M = 100
+AND Deg_Laser_full_ok
+AND G7_Sel_Face.init.x
+AND
+((Presseur_Amont_K11.Presseur_Haut
+AND Presseur_Aval_L12.Presseur_Haut) OR Memo_X_Precedent = Sequence[PT_Sequence].X)
+]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans10b" Id="{38c658e5-2377-4d01-9006-11a08ea633aa}">
@@ -4165,8 +4189,8 @@ OR Sequence[Pt_Sequence].M =2]]></ST>
     </Transition>
     <Transition Name="Trans20" Id="{fab8237b-cf37-4cd7-87be-419e62b023dc}">
       <Implementation>
-        <ST><![CDATA[G7_Master_Palpages.Init.x
-AND (NOT Nv_ProcessID AND Prog_Capacitance_Calibration_OK)
+        <ST><![CDATA[G7_Master_Palpages.stepSync.x
+AND Prog_Capacitance_Calibration_OK
 AND (Palpage_OK_Face_1 AND Palpage_OK_Face_2)]]></ST>
       </Implementation>
     </Transition>
@@ -4192,7 +4216,6 @@ AND step200.t>T#20MS ]]></ST>
       <Implementation>
         <ST><![CDATA[FE_Prepa_ISO_3D.Q 
 AND Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[1].Puissance_Laser <>0 // La 1ère phase de perçage existe, donc il y a bien au moins une phase de perçage
-AND NOT Reprise_decoupe
 ]]></ST>
       </Implementation>
       <ObjectProperties>
