@@ -2706,7 +2706,7 @@ TON_ZEnPos_b(in:=FALSE);
     </Action>
     <Action Name="Step10_entry" Id="{2bb15733-e641-464d-bd4e-45156e223342}">
       <Implementation>
-        <ST><![CDATA[IF NOT Grugeage_Ecretage_laser THEN //Découpe avec plusieurs phase de perçage ou simple gravage
+        <ST><![CDATA[IF NOT Grugeage_laser AND NOT Ecretage_Laser AND NOT Gravage_Laser THEN //Découpe avec plusieurs phase de perçage 
 	IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0  THEN  
 		Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Pression_Gaz; //Découpe 
 		PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Puissance_Laser);
@@ -2719,7 +2719,6 @@ TON_ZEnPos_b(in:=FALSE);
 		PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
 		PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
 		Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
-
 	END_IF
 ELSE 
 	Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz;	
@@ -2804,14 +2803,15 @@ END_IF]]></ST>
     </Action>
     <Action Name="Step30_entry" Id="{2eec282b-42d8-4ea9-b3c5-46a1f9bd35a4}">
       <Implementation>
-        <ST><![CDATA[IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 
-and NOT Grugeage_laser AND NOT Gravage_Laser THEN //Go to pos + envoi datas découpe après perçage
-	Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz; 
-	PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Puissance_Laser);
-	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
-	PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
-	Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
+        <ST><![CDATA[//Envois Datas pour phase découpe
+Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz; 
+PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Puissance_Laser);
+PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
+PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
+Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
 
+IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 
+AND NOT Grugeage_laser AND NOT Gravage_Laser AND NOT Ecretage_Laser AND NOT Reprise_decoupe THEN //Go to pos + envoi datas découpe après perçage
 	Pos_cible_Z_Laser:= Pos_Reel_Z_Laser + 
 		(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse 
 			- Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse);
@@ -2844,7 +2844,7 @@ IF auto THEN
 	IF NOT Grugeage_laser AND NOT Gravage_Laser AND NOT Ecretage_Laser and not Reprise_decoupe THEN	//Découpe - Pas en reprise, sinon pas besoin des phases de perçages
 		Pos_cible_Z_Laser		:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Hauteur_Buse-Ep_secu;
 		Recette_Hauteur_Buse 	:= Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[Phase_perc_encours].Hauteur_Buse;
-	ELSE //Gravage ou grugeage - On utilise directement les données de découpe
+	ELSE //Gravage ou grugeage ou reprise découpe - On utilise directement les données de découpe
 		Pos_cible_Z_Laser		:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Dec.Hauteur_Buse-Ep_secu; 
 		Recette_Hauteur_Buse 	:= Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Dec.Hauteur_Buse;
 	END_IF
@@ -2889,7 +2889,7 @@ B_Asserv_PercDec:=TRUE;
     </Action>
     <Action Name="Step6_exit" Id="{d137011a-8115-4307-bca8-87cb75e64d0f}">
       <Implementation>
-        <ST><![CDATA[if not Grugeage_Ecretage_laser then Asserv_Torche_On:=false; end_if 	//On doit garder l'asserv car si Deb_Tir_HorsMatiere, on se met en pos et on exec l'iso]]></ST>
+        <ST><![CDATA[if not Grugeage_laser then Asserv_Torche_On:=false; end_if 	//On doit garder l'asserv car si Deb_Tir_HorsMatiere, on se met en pos et on exec l'iso]]></ST>
       </Implementation>
     </Action>
     <Transition Name="Trans0" Id="{450c4bfc-326d-455e-addf-44241f17a440}">
@@ -2928,8 +2928,9 @@ AND En_pos_Z_Laser
       <Implementation>
         <ST><![CDATA[TON_Percage.Q
 AND
-(Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 
-Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours+1].Puissance_Laser=0	//Pas de phase suivante ?]]></ST>
+(Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 1
+	OR
+Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours+1].Puissance_Laser=0)	//Pas de phase suivante ?]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans20b" Id="{b951d7ca-07cf-42fc-8dd1-666bd3dbd5bd}">
@@ -2961,16 +2962,15 @@ OR (FE_Dec_Manu.Q)]]></ST>
     </Transition>
     <Transition Name="Trans6" Id="{cea0e719-a375-40ba-9731-83a32c5f1b90}">
       <Implementation>
-        <ST><![CDATA[NOT Grugeage_Ecretage_laser 
+        <ST><![CDATA[NOT Grugeage_laser 
+AND NOT Ecretage_Laser
+AND NOT Reprise_decoupe
 AND 
 Step6.t>T#20MS AND 
 En_pos_Z_Laser AND NOT Top_Z_Laser and TON_ZEnPos_b.Q
 AND 
-( (Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 AND 
-	ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse) <Tolerence_Capa)
-  OR (Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 1 AND 
-  	ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse)<Tolerence_Capa)
-)
+(ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse)
+	<Tolerence_Capa)
 
 
 ]]></ST>
@@ -2978,11 +2978,15 @@ AND
     </Transition>
     <Transition Name="Trans6b" Id="{b89cfb88-6451-44d4-bdbd-3df2da931b8f}">
       <Implementation>
-        <ST><![CDATA[Grugeage_laser OR Ecretage_Laser 
+        <ST><![CDATA[Grugeage_laser 
+OR Ecretage_Laser 
+OR Reprise_decoupe 
 AND 
+Step6.t>T#20MS AND 
 En_pos_Z_Laser AND NOT Top_Z_Laser AND TON_ZEnPos_b.Q
 AND
-ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse)<Tolerence_Capa
+(ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse))
+	<Tolerence_Capa
 ]]></ST>
       </Implementation>
     </Transition>

@@ -685,7 +685,7 @@
         <Data>
           <o xml:space="preserve" t="TargetVisualizationObject">
             <o n="ViewSettings" t="TargetVisualizationViewSettings">
-              <v n="StartVisu">"Chgt_Reperes"</v>
+              <v n="StartVisu">"MenuPrincipal"</v>
               <n n="HtmFileName" />
               <v n="UpdateRate">200</v>
               <v n="CommBufferSize">50000</v>

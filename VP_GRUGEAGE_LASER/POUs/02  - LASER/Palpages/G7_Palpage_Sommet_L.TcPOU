@@ -3494,7 +3494,7 @@ END_IF
       <Implementation>
         <ST><![CDATA[(Auto OR test_PalpSommet)
 AND (NOT Palpage_OK_Face_1 OR NOT Palpage_OK_Face_2)
-AND Prog_Capacitance_Calibration_OK AND NOT Nv_ProcessID		
+AND Prog_Capacitance_Calibration_OK 		
 AND Top_Palpage_Sommet	
 ]]></ST>
       </Implementation>
