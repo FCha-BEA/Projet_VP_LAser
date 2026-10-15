@@ -37,7 +37,6 @@ VAR_GLOBAL
 	 Mem_Arus									:BOOL:=TRUE;
 	 	RE_Mem_Arus								:R_TRIG;
 	 	FE_Mem_arus								:F_TRIG;
-	 Mem_Arus_BP								:BOOL:=FALSE;	(* Pour distinguer un arus volontaire *)
 	 RE_Bp_Annul_Defauts						:R_TRIG;
 	 Start_ready								:BOOL:=FALSE;(*Pret pour start programme*)
 	 
@@ -94,7 +93,7 @@ VAR_GLOBAL
 	Mot_Status_106				:DWORD;
 
 (*Controle du Grafcet*)
-	 SFCInit						:BOOL;(*Pour reset du Grafcet*)
+	 G7_SFCInit						:BOOL:=TRUE;(*Pour reset du Grafcet*)
 	 SFCPause					:BOOL;(*Pour Figer le Grafcet*)
 	 G7_1_step					:STRING:='';
 	 G7_2_step					:STRING:='';

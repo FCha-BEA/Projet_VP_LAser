@@ -2,15 +2,15 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="G7_Cycle_Percages_Laser" Id="{16171f1d-ee12-450b-884e-b1e87b3287ba}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM G7_Cycle_Percages_Laser	//Phases de perçages laser 
-VAR_INPUT	SFCInit:BOOL;	END_VAR
+VAR_INPUT	
+	SFCInit:BOOL;
+END_VAR
 VAR
 	TON_Percage	:TON;	//Signal quand on a percé pendant Tps_phase_perc = phase de perçage finie, on peut continuer
 	Index_Recette_Choisie	:INT;
 	Tolerence_Capa	:real;	//Capacitance soumise a des perturbations qui augmente avec la distance. DIstance typique : Perc / decoupe = env 2mm, perturbation quasi nulle - Marquage = env15mm ecart type de 0.6mm  
 	StepTest	:INT;	//Pour test en pas à pas
 	TON_ZEnPos	:TON;	//Pour qttendre le Z laser
-	TON_ZEnPos_b	:TON;	//Pour qttendre le Z laser
-
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -476,7 +476,7 @@ END_VAR
                         <o>
                           <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"Step6_active"</v>
+                            <v n="Value">""</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">518L</v>
@@ -1096,9 +1096,9 @@ END_VAR
                         <l2 n="InnerList" cet="SFCSegment">
                           <o>
                             <o n="ElementList" t="SFCElementList">
-                              <l2 n="InnerList" cet="SFCTransition">
-                                <o>
-                                  <v n="VariableName">"Branch0__Step20__to__Step30"</v>
+                              <l2 n="InnerList">
+                                <o t="SFCTransition">
+                                  <v n="VariableName">"Branch0__Step20__to__Step21"</v>
                                   <n n="EmbeddedTransition" />
                                   <l2 n="EmbeddedTransitionProperties" />
                                   <l2 n="Attributes" cet="SFCAttribute">
@@ -1162,6 +1162,373 @@ END_VAR
                                     </o>
                                   </l2>
                                   <v n="Id">61L</v>
+                                  <v n="IdParent">111L</v>
+                                </o>
+                                <o t="SFCStep">
+                                  <n n="EmbeddedMainAction" />
+                                  <n n="EmbeddedEntryAction" />
+                                  <n n="EmbeddedExitAction" />
+                                  <l2 n="EmbeddedMainActionProperties" />
+                                  <l2 n="EmbeddedEntryActionProperties" />
+                                  <l2 n="EmbeddedExitActionProperties" />
+                                  <o n="ElementList" t="SFCElementList">
+                                    <l2 n="InnerList" />
+                                  </o>
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step21"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">541L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Perc OK 
+Go pos dec"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">542L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">543L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">544L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{6844a48e-46c2-4cc8-a185-a478f3b99cc0}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">545L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">546L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{cacf1a68-236e-47c2-b7b1-1cf9199718cb}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">547L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{b693554c-1b01-4a8d-afde-9e3a46f7465d}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">548L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step21_active"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">549L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a6b08bd8-b696-47e3-9cbf-7408b61c9ff8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step21_entry"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">550L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a2621e18-7de3-4ea6-ae6d-89e9e0b7befd}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">551L</v>
+                                      <v n="IdParent">540L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">540L</v>
+                                  <v n="IdParent">111L</v>
+                                </o>
+                                <o t="SFCTransition">
+                                  <v n="VariableName">"Step21__to__Step23"</v>
+                                  <n n="EmbeddedTransition" />
+                                  <l2 n="EmbeddedTransitionProperties" />
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Trans21"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">553L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">554L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">555L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">556L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">557L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{8294df19-5962-4dee-a874-1051dabb0e3e}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{6ecff51c-9b8f-4338-aab0-67c2b31b07e9}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">558L</v>
+                                      <v n="IdParent">552L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">552L</v>
+                                  <v n="IdParent">111L</v>
+                                </o>
+                                <o t="SFCStep">
+                                  <n n="EmbeddedMainAction" />
+                                  <n n="EmbeddedEntryAction" />
+                                  <n n="EmbeddedExitAction" />
+                                  <l2 n="EmbeddedMainActionProperties" />
+                                  <l2 n="EmbeddedEntryActionProperties" />
+                                  <l2 n="EmbeddedExitActionProperties" />
+                                  <o n="ElementList" t="SFCElementList">
+                                    <l2 n="InnerList" />
+                                  </o>
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step23"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">560L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">561L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">562L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">563L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{6844a48e-46c2-4cc8-a185-a478f3b99cc0}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">564L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">565L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{cacf1a68-236e-47c2-b7b1-1cf9199718cb}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">566L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{b693554c-1b01-4a8d-afde-9e3a46f7465d}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">567L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">568L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a6b08bd8-b696-47e3-9cbf-7408b61c9ff8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step23_entry"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">569L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a2621e18-7de3-4ea6-ae6d-89e9e0b7befd}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">570L</v>
+                                      <v n="IdParent">559L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">559L</v>
+                                  <v n="IdParent">111L</v>
+                                </o>
+                                <o t="SFCTransition">
+                                  <v n="VariableName">"Step23__to__Step30"</v>
+                                  <n n="EmbeddedTransition" />
+                                  <l2 n="EmbeddedTransitionProperties" />
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Trans23"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">572L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">573L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">574L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">575L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">576L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{8294df19-5962-4dee-a874-1051dabb0e3e}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{6ecff51c-9b8f-4338-aab0-67c2b31b07e9}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">577L</v>
+                                      <v n="IdParent">571L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">571L</v>
                                   <v n="IdParent">111L</v>
                                 </o>
                               </l2>
@@ -1575,7 +1942,7 @@ END_VAR
                                         <o n="ElementList" t="SFCElementList">
                                           <l2 n="InnerList" cet="SFCTransition">
                                             <o>
-                                              <v n="VariableName">"Branch1_0__Step24__to__Step30"</v>
+                                              <v n="VariableName">"Branch1_0__Step24__to__Step21"</v>
                                               <n n="EmbeddedTransition" />
                                               <l2 n="EmbeddedTransitionProperties" />
                                               <l2 n="Attributes" cet="SFCAttribute">
@@ -1860,7 +2227,7 @@ END_VAR
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Step30"</v>
+                                        <v n="Value">"Step21"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">146L</v>
@@ -2699,8 +3066,6 @@ Laser_ok_pour_decoupe:=FALSE;
 Phase_perc_encours:=1;
 
 TON_ZEnPos(in:=FALSE);
-TON_ZEnPos_b(in:=FALSE);
-
 ]]></ST>
       </Implementation>
     </Action>
@@ -2728,7 +3093,7 @@ ELSE
 	Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
 END_IF
 
-
+Asserv_Torche_On:=FALSE;
 ]]></ST>
       </Implementation>
     </Action>
@@ -2760,10 +3125,37 @@ END_IF
 TON_Percage(in:=FALSE);]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Step21_active" Id="{d0110854-23c6-4a18-86f8-9163fcf85844}">
+      <Implementation>
+        <ST><![CDATA[TON_ZEnPos(IN:=En_pos_Z_Laser, pt:=t#20ms);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Step21_entry" Id="{d0c4c7e0-8dd0-4f2e-a9f0-8bc9ec5cb92c}">
+      <Implementation>
+        <ST><![CDATA[Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz; 
+PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Puissance_Laser);
+PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
+PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
+Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
+
+Pos_cible_Z_Laser		:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse-Ep_secu; 
+Recette_Hauteur_Buse 	:= Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse;
+En_pos_Z_Laser:=FALSE;
+Top_Z_Laser:=TRUE;
+B_Asserv_PercDec:=TRUE;
+TON_ZEnPos(in:=FALSE);
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Step22_entry" Id="{98f1b82f-7e8c-4e49-9883-f80a2df9b35d}">
       <Implementation>
         <ST><![CDATA[Phase_perc_encours := Phase_perc_encours+1;
 TON_Percage(in:=FALSE);]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Step23_entry" Id="{824ec7bc-4a2c-44f6-8d53-75593d60fc11}">
+      <Implementation>
+        <ST><![CDATA[Asserv_Torche_On:=true;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_active" Id="{57f85465-0fc2-4311-a246-45ba21b24c1c}">
@@ -2796,31 +3188,34 @@ AND (Tir_en_Cours OR (Grugeage_laser OR Ecretage_Laser)) THEN
 	Laser_ok_pour_decoupe:=TRUE;
 END_IF
 
-IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 THEN (*A investiguer : cas de la reprise - depuis le début de la traj déjà commencée, une saignée est déjà présente. Asserv des le début ou besoin d'enregistrer des poistions au dela dessquels on eprends l'asserv ? *)
-	Asserv_Torche_On:=TRUE;
-END_IF]]></ST>
+
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step30_entry" Id="{2eec282b-42d8-4ea9-b3c5-46a1f9bd35a4}">
       <Implementation>
         <ST><![CDATA[//Envois Datas pour phase découpe
-Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz; 
-PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Puissance_Laser);
-PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
-PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
-Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
+IF Grugeage_laser OR Gravage_Laser OR Ecretage_Laser THEN
+	Consigne_Pression_Gaz						:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Pression_Gaz; 
+	PLC_Prog_Power_Watt_Target					:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Puissance_Laser);
+	PLC_Prog_Per_Cent_Of_Duty_Cycle_Target		:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Duty_Cycle);
+	PLC_Prog_Frequency_0_20000Hz_Target			:=	LREAL_TO_UDINT(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Frequence_impulsion);
+	Prog_Distance_Focal_Demandee 				:=	Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Distance_Focale;
+END_IF
 
-IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 
+(*IF Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 
 AND NOT Grugeage_laser AND NOT Gravage_Laser AND NOT Ecretage_Laser AND NOT Reprise_decoupe THEN //Go to pos + envoi datas découpe après perçage
-	Pos_cible_Z_Laser:= Pos_Reel_Z_Laser + 
+	Pos_cible_Z_Laser:=Pos_ref_torche - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse-Ep_secu; 				
+	(*Pos_Reel_Z_Laser + 
 		(Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse 
-			- Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse);
+			- Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse);*)
 	En_pos_Z_Laser:=FALSE;
 	Top_Z_Laser:=TRUE;
-END_IF
+END_IF*)
 
 IF Reprise_decoupe THEN Tir_Laser:=TRUE; END_IF
 
+TON_ZEnPos(in:=FALSE);
 
 ]]></ST>
       </Implementation>
@@ -2877,12 +3272,7 @@ B_Asserv_PercDec:=TRUE;
 ]]></ST>
       </Implementation>
     </Action>
-    <Action Name="Step6_active" Id="{8557ea5b-a488-4e4f-9682-4ed029c02015}">
-      <Implementation>
-        <ST><![CDATA[TON_ZEnPos_b(IN:= En_pos_Z_Laser,pt:=t#20ms);]]></ST>
-      </Implementation>
-    </Action>
-    <Action Name="Step6_entry" Id="{5c88b588-334d-408b-82c2-0d809f0bd1d2}">
+    <Action Name="Step6_entry" Id="{de00e173-2278-4ad7-b4af-983ff5c17ee8}">
       <Implementation>
         <ST><![CDATA[Asserv_Torche_On:=true;]]></ST>
       </Implementation>
@@ -2906,15 +3296,13 @@ AND DI05_Homing_finished
       <Implementation>
         <ST><![CDATA[( (Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Gaz <> 0 )
 OR  
-	ABS((Data14_Cutting_Gas_Pressure/100)-Consigne_Pression_Gaz)<0.5 
+	ABS((INT_TO_REAL(Data14_Cutting_Gas_Pressure)/100)-Consigne_Pression_Gaz)<0.5 
 )		
 //AND ABS(_1_LASER.Feedback_Laser_Power_Watts-PLC_Prog_Power_Watt_Target)<100			
 //AND ABS(_1_LASER.Feedback_Laser_Duty-PLC_Prog_Per_Cent_Of_Duty_Cycle_Target)<1 	
 //AND	ABS(_1_LASER.Feedback_Laser_Freq-PLC_Prog_Frequency_0_20000Hz_Target)<2 	
 AND	ABS(Prog_Distance_Focal_Reelle-Prog_Distance_Focal_Demandee)<0.05 			
 AND G7_Cycle_Percages_Laser.Step10.t>T#200MS
-AND NOT Top_Z_Laser
-AND En_pos_Z_Laser
 ]]></ST>
       </Implementation>
     </Transition>
@@ -2939,9 +3327,19 @@ Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours+1].Puissa
 AND Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours+1].Puissance_Laser>0;]]></ST>
       </Implementation>
     </Transition>
+    <Transition Name="Trans21" Id="{42c9bc04-b4e0-4ece-b874-35b5e86a76ca}">
+      <Implementation>
+        <ST><![CDATA[TON_ZEnPos.Q]]></ST>
+      </Implementation>
+    </Transition>
     <Transition Name="Trans22" Id="{9442298e-54e8-4d1f-a70c-3f6ee6437db0}">
       <Implementation>
         <ST><![CDATA[true;]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans23" Id="{38bbbe50-9b0a-4216-93f3-30e684e987ae}">
+      <Implementation>
+        <ST><![CDATA[ABS(Prog_Capacitance_Actual_Value_mm-Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse)<Tolerence_Capa]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans30" Id="{4e42bc20-327c-43d3-b2c1-6afeece3986d}">
@@ -2966,12 +3364,16 @@ OR (FE_Dec_Manu.Q)]]></ST>
 AND NOT Ecretage_Laser
 AND NOT Reprise_decoupe
 AND 
-Step6.t>T#20MS AND 
-En_pos_Z_Laser AND NOT Top_Z_Laser and TON_ZEnPos_b.Q
+Step6.t>T#20MS  
 AND 
-(ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse)
+(	(Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 0 AND 
+	ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Perc[Phase_perc_encours].Hauteur_Buse)
 	<Tolerence_Capa)
-
+	OR 
+	(Tab_St_Recette_Laser[Index_Recette_Choisie].Type_Process = 1 AND 
+	ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse)
+	<Tolerence_Capa)
+)
 
 ]]></ST>
       </Implementation>
@@ -2982,8 +3384,7 @@ AND
 OR Ecretage_Laser 
 OR Reprise_decoupe 
 AND 
-Step6.t>T#20MS AND 
-En_pos_Z_Laser AND NOT Top_Z_Laser AND TON_ZEnPos_b.Q
+Step6.t>T#20MS  
 AND
 (ABS(Prog_Capacitance_Actual_Value_mm - Tab_St_Recette_Laser[Index_Recette_Choisie].Tb_Dec.Hauteur_Buse))
 	<Tolerence_Capa

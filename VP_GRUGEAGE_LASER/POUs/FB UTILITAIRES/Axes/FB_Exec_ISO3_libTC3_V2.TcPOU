@@ -182,7 +182,7 @@ IF Phase_ReInit_Groupe<>0 AND Phase_exec=0 THEN (*attente arret de l'interpreteu
 		1:	(*reset de l'interpreteur, arret des axes*)
 			Reset_Fin_Exec:=TRUE;
 			IF ItpReset_2.bExecute AND NOT ItpReset_2.bBusy AND NOT ItpReset_2.bErr
-			AND  X_no_move THEN
+			AND  No_Move_X_Laser AND No_Move_Y_Laser THEN
 				Reset_Fin_Exec:=FALSE;
 				Phase_ReInit_Groupe:=2;
 			END_IF

@@ -9,8 +9,8 @@ VAR
 	 Num_operation_Cycle 				: INT;
 	//Asservissement pression
 	 Asserv_Pression				:FB_BasicPID;
-	  P							:LREAL;	//Pour essais lors du test asservissement
-	  I							:LREAL;	//Pour essais lors du test asservissement
+	  P							:LREAL:=0.6;	//Pour essais lors du test asservissement
+	  I							:LREAL:=1;	//Pour essais lors du test asservissement
 	  D							:LREAL;	//Pour essais lors du test asservissement
 	  Td						:LREAL;	//Pour essais lors du test asservissement   
 	  Test_asserv				:BOOL;
@@ -47,7 +47,7 @@ END_VAR]]></Declaration>
 //Selection recette reçue du Driver
  //En manu
  IF Manu THEN 	// Que en manu pour eviter de parcourir les tableaux pour rien
- 	FOR j := 1 TO 500 DO 
+ 	FOR j := 0 TO 500 DO 
  		IF Ep_aile <> 0 AND Tab_St_Recette_Laser[j].Epaisseur = Ep_aile AND Tab_St_Recette_Laser[j].Type_Process = 1 THEN 
  			 Index_Recette_Marquage := J;
  		END_IF
@@ -57,22 +57,61 @@ END_VAR]]></Declaration>
  	END_FOR
  END_IF
   
- IF Index_Recette_Decoupe = 0 THEN Sel_DecMarq_Manu := TRUE; END_IF	//Pas de recette de découpe, on force le marquage
- IF Index_Recette_Marquage = 0 THEN	//Forcage d'une recette de marquage, données vient du fichier de recette crée/actualisé par BEM
-	 Tab_St_Recette_Laser[0].Epaisseur := Ep_aile;
-	 Tab_St_Recette_Laser[0].Nb_Etape_Perc:=0;
-	 Tab_St_Recette_Laser[0].Type_Process:=1;
-	 Tab_St_Recette_Laser[0].Taille_Buse:=1.2;
-	 Tab_St_Recette_Laser[0].Type_Gaz:=1;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Pression_Gaz:=1;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Distance_Focale:=0;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Puissance_Laser:=6000;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Duty_Cycle:=20;
- 	 Tab_St_Recette_Laser[0].Tb_Dec.Frequence_impulsion:=1000;
-	 Tab_St_Recette_Laser[0].Tb_Dec.Hauteur_Buse:=15;
- END_IF
+IF Tab_St_Recette_Laser[Index_Recette_Decoupe].Tb_Dec.Puissance_Laser = 0 THEN Sel_DecMarq_Manu:=TRUE; END_IF //Pas de recette de découpe, on force le marquage
+IF Index_Recette_Marquage = 0 OR Tab_St_Recette_Laser[499].Tb_Dec.Puissance_Laser=0 THEN	//Forcage d'une recette de marquage, données vient du fichier de recette crée/actualisé par BEM
+	Index_Recette_Marquage:=499;
+	 Tab_St_Recette_Laser[499].Epaisseur := Ep_aile;
+	 Tab_St_Recette_Laser[499].Nb_Etape_Perc:=0;
+	 Tab_St_Recette_Laser[499].Type_Process:=1;
+	 Tab_St_Recette_Laser[499].Taille_Buse:=1.2;
+	 Tab_St_Recette_Laser[499].Type_Gaz:=1; 
+	 Tab_St_Recette_Laser[499].Tb_Dec.Pression_Gaz:=2;
+	 Tab_St_Recette_Laser[499].Tb_Dec.Distance_Focale:=0;
+	 Tab_St_Recette_Laser[499].Tb_Dec.Puissance_Laser:=600;
+	 Tab_St_Recette_Laser[499].Tb_Dec.Duty_Cycle:=20;
+ 	 Tab_St_Recette_Laser[499].Tb_Dec.Frequence_impulsion:=1000;
+	 Tab_St_Recette_Laser[499].Tb_Dec.Hauteur_Buse:=15;
+END_IF
  
- 
+//Raz du tableau de recettes
+ //Recette pour raz
+  Recette_LaserNULL.Angle:=0;
+  Recette_LaserNULL.Epaisseur:=0;
+  Recette_LaserNULL.Id_Driver:=0;
+  Recette_LaserNULL.Nb_Etape_Perc:=0;
+  Recette_LaserNULL.Perp_Chanfrein:=0;
+  Recette_LaserNULL.Prof_Marq:=0;
+  Recette_LaserNULL.Prof_Marq:=0;
+  Recette_LaserNULL.Saignee:=0;
+  Recette_LaserNULL.Taille_Buse:=0;
+  Recette_LaserNULL.Type_Buse:=0;
+  Recette_LaserNULL.Type_Gaz:=0;
+  Recette_LaserNULL.Type_Matiere:=0;
+  Recette_LaserNULL.Type_Process:=0;
+  Recette_LaserNULL.Tb_Dec.Distance_Focale:=0;
+  Recette_LaserNULL.Tb_Dec.Duty_Cycle:=0;
+  Recette_LaserNULL.Tb_Dec.Frequence_impulsion:=0;
+  Recette_LaserNULL.Tb_Dec.Hauteur_Buse:=0;
+  Recette_LaserNULL.Tb_Dec.Pression_Gaz:=0;
+  Recette_LaserNULL.Tb_Dec.Puissance_Laser:=0;
+  Recette_LaserNULL.Tb_Dec.Tps_phase_perc:=0;
+  Recette_LaserNULL.Tb_Dec.Vitesse_Decoupe:=0;
+  FOR j :=1 TO 5 DO 
+  	Recette_LaserNULL.Tb_Perc[j].Distance_Focale:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Duty_Cycle:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Frequence_impulsion:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Hauteur_Buse:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Pression_Gaz:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Puissance_Laser:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Tps_phase_perc:=0;
+  	Recette_LaserNULL.Tb_Perc[j].Vitesse_Decoupe:=0;
+  END_FOR
+
+ IF B_RazRecettes THEN 
+	FOR j := 0 TO 500 DO 
+		Tab_St_Recette_Laser[j]:= Recette_LaserNULL;
+	END_FOR
+ END_IF 
  
 
 //Palpage sommet
@@ -129,7 +168,7 @@ END_VAR]]></Declaration>
  	Palp_R[3].R00.Y := 363.76;
  	Palp_R[3].R00.Z := 746.23;
 
-//Gestion des gaz : Consigne a la servo de 0-27648-> 0-3Bars + Activ EV gaz O2, Air ou N2
+//Gestion des gaz : Consigne a la servo de 0-27648-> 0-30Bars + Activ EV gaz O2, Air ou N2
  IF Start_Gaz OR Test_asserv THEN  
  	Asserv_Pression.fSetpointValue:=Consigne_Pression_Gaz;
  	Asserv_Pression.fActualValue:=(INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100);
@@ -141,10 +180,16 @@ END_VAR]]></Declaration>
  	Asserv_Pression.bReset:=(Consigne_Pression_Gaz=0);
  	
  	Asserv_Pression();
- 	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 27648 / 3); 
+ 	Consigne_ServoVanne:=LREAL_TO_UINT ((Consigne_Pression_Gaz + Asserv_Pression.fCtrlOutput) * 27648 / 30); 
+	
+	Byte1_Convert := UINT_TO_BYTE(Consigne_ServoVanne);
+ 	Byte0_Convert := UINT_TO_BYTE(SHR(Consigne_ServoVanne,8));
+ ELSE
+ 	Byte1_Convert := 
+ 	Byte0_Convert := 0;	
+
  END_IF
- Byte0_Convert := UINT_TO_BYTE(Consigne_ServoVanne);
- Byte1_Convert := UINT_TO_BYTE(SHR(Consigne_ServoVanne,8));
+
  Ev_GazLaser_Oxygene:= Start_Gaz AND Type_gaz = 0;
  Ev_GazLaser_Azote:= Start_Gaz AND Type_gaz = 1;
  Ev_GazLaser_Air:= Start_Gaz AND Type_gaz = 2;
@@ -186,7 +231,7 @@ PasswordDisplay :=UDINT_TO_UINT(SHR(Source_MaxPhotonics.PROGRAM_NUMBER_IN,16));
 	
 //Impulsion test laser
  IF Mode_Test_Tir AND Manu THEN  
- 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#200mS);
+ 	Pulse_Tir(in:=Dmd_Test_Tir,PT:=T#50MS);
  END_IF
 	
 	

@@ -2,13 +2,11 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="_Divers_lifter_VB" Id="{b9f1caf5-6bd8-4dc6-a3ff-74b2510711ca}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM _Divers_lifter_VB
-VAR	RE_Mem_arus,	RE_Fin_programme:R_TRIG;	
-	FE_Mem_arus,	FE_Laser_Start:F_TRIG;
+VAR	RE_Fin_programme:R_TRIG;	
+	FE_Laser_Start:F_TRIG;
 	FE_Top_deg_torche_VB_full, FE_Top_deg_torche_VB_partiel: F_trig;
 	nbr_echantillon, i, nbr_U_cumul: INT;
-	velo_Z_Plasma, U_cumul, Dist_Max, Dist_Min : LREAL;
 	echantillon : ARRAY[1..100] OF LREAL;
-	RE_contact_ohmique, RE_Top_deg_torche_VB_partiel: R_trig;
 	FE_Breakaway_Plasma_ok: F_trig;
 	Ep_retract_partiel_torche_temp: LREAL;
 	TON_NOT_Kjellberg_contact_ohmique:TON;
@@ -22,8 +20,8 @@ VAR	RE_Mem_arus,	RE_Fin_programme:R_TRIG;
 	TON_Case_102, TON_Case_105: Ton;
 	RE_Top_cycle_controle_geometrie_torche : R_trig;
 	TON_Start_axe: Ton;
-	TP_blocage_torche_grande_variation_tension: TP;
-	time_autoKerf: TIME;
+	TON_blocage_asserv_GdeVari_Capa: TON;
+	time_autoKerf:TIME:=T#12MS;
 	ecart_u_arc:LREAL;
 	Rdy_to_retract : bool;
 	RE_Rdy_to_retract: R_trig;
@@ -38,113 +36,54 @@ VAR	RE_Mem_arus,	RE_Fin_programme:R_TRIG;
 	memo_Fin_decoupe: bool := false;
 	memo_contact_torche_tole: BOOL;
 	TON_contact_torche_tole: Ton;
-	RE_Test_reponse_indicielle, RE_Laser_Start: R_trig;
-	FE_Test_reponse_indicielle: F_trig;
-	Memo_lissage_tension_arc_plasma, Memo_fonction_ecrettage_corresction : BOOL;
-	Ponderation_Uarc : INT := 0;
-	TON_Ponderation_Uarc_step1, TON_Ponderation_Uarc_step2, TON_Ponderation_Uarc_step3, TON_Ponderation_Uarc_step4, TON_Ponderation_Uarc_step5: Ton;
-	Case_Ponderation_Uarc: INT;
 	TON_anti_scintillement_collision_Laser: Ton;
 	RE_Lifter_VB_ok_pour_decoupe: R_trig;
 	RE_Start_ISO_5D: R_trig;
+	RE_Asser	:R_TRIG;
+	
+	TON_ActivAsserv	:TON;	//On laisse le temps a l'axe de faire l'asservissement - Oui 2s c'est enorme, non ca ne met pas autant de temps
+		Ecart_Max	:LREAL:=0.1;
+		R_Memo_Z	:R_TRIG;
+	Memo_Z_autokerf	:LREAL;	//Memorise la pos Z pour bloquer l'asserv si trop gde variation
+	Memo_DistBuse_autokerf	:LREAL;
+	
+	F_Iso	:F_TRIG;
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*********************** Front et tempo **********************)
-	RE_Mem_arus(clk:=Mem_arus);			FE_Mem_arus(clk:=Mem_arus);
 	FE_Laser_Start(clk:= Tir_Laser); //tempo Pour attendre FE_jog avant de demander un retract
-	RE_Laser_Start(clk:= Tir_Laser); //pour detecter le début d'une coupe manuelle
 	FE_TOF_Laser_Start(clk:= TOF_Laser_Start.Q);
 	TOF_Laser_Start(in:=Tir_Laser,PT:=T#0.5S);
 	FE_Top_deg_torche_VB_full(clk:=Top_deg_Laser_full);
 	FE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
-	RE_Fin_programme(clk:=Sequence[Pt_sequence].M=0);
-	RE_Top_deg_torche_VB_partiel(clk:=Top_deg_Laser_partiel);
-	
+	RE_Fin_programme(clk:=Sequence[Pt_sequence].M=0);	
+	F_Iso(clk:=ISO_en_cours);
 
-(*********************** Blocage torche si variation de capacitance  **********************) // a investiguer, quid si variation ? blocage torche ou défaut ? + adapter pour capacitance 
- nbr_echantillon := 30;
-	IF Auto_kerf_active AND NOT Inhib_Auto_kerf_active THEN
-		//Recup Distance max et min sur 30 échantillons
-			Dist_Max := -1;
-			Dist_Min := 32767;
-			U_cumul :=0;
-			nbr_U_cumul :=0;
-			echantillon[1] := Prog_Capacitance_Actual_Value_mm;
-			FOR i:=1 TO nbr_echantillon DO
-				IF echantillon[i]>0 THEN
-					nbr_U_cumul := nbr_U_cumul+1;
-					IF echantillon[i] > Dist_Max THEN
-						Dist_Max := echantillon[i];
-						id_Dist_max := i; 
-					ELSIF echantillon[i] < Dist_Min THEN
-						Dist_Min := echantillon[i];
-						id_Dist_min := i; 
-					END_IF						
-				END_IF
-			END_FOR
+(*********************** Blocage torche si variation de capacitance (Hors Traj avec M10) **********************) // a investiguer, quid si variation ? blocage torche ou défaut ? + adapter pour capacitance 
+	 TON_ActivAsserv(in:=Axe_42_Z_Laser.ZLaser.asserv AND NOT F_M10, pt:=T#1S);	//On detecte l'asserv, estimation du temps de mise en place ?
+			
+	 R_Memo_Z(Clk:=TON_ActivAsserv.Q);	//Asserv etabli, que vaut Z ?
+	 IF R_Memo_Z.Q THEN
+		 Memo_Z_autokerf:=Pos_Reel_Z_Laser+0.1;	//Pour etre sur que c'est l'asserv qui fait depasser la valeur et pas une oscillation
+		 Memo_DistBuse_autokerf:=Prog_Capacitance_Actual_Value_mm;
+	 END_IF
+	 
+	TON_blocage_asserv_GdeVari_Capa(		
+		in:= Memo_Z_autokerf <>0 
+			AND (Pos_Reel_Z_Laser>Memo_Z_autokerf)	//La buse est plus avancee qu'au debut
+			AND	((Prog_Capacitance_Actual_Value_mm-Memo_DistBuse_autokerf)>=Ecart_Max),	//Un ecart important est constate - A investiguer : Valeur capa bouge pendant tir ? 
+		PT := time_autoKerf);										//Mesure de l'ecart entre buse et piece pour detecter un trou ou brod de corniere - Si la torche s'avance trop
+		
+	inhib_autokerf:= NOT TON_ActivAsserv.Q OR F_M10;	//On desactive la fonction autokerf si asserv pas encore etablit ou si demande de l ISO -Pour ne pas avoir de conflit- 
 	
-			FOR i:= nbr_echantillon-1 TO 1 BY -1 DO
-				echantillon[i+1] :=  echantillon[i];
-			END_FOR
-		(*	Calcul largeur pont pour traversée saignée, de ce que j'ai compris
-			IF Ep_tole_Driver >= 40 THEN
-				Largeur_pont_Chain_Cut := 28+2*Pnc_plasma_1[35];
-			ELSIF Ep_tole_Driver >=26 THEN
-				Largeur_pont_Chain_Cut := 25+2*Pnc_plasma_1[35];
-			ELSIF Ep_tole_Driver>= 21 THEN
-				Largeur_pont_Chain_Cut := 20+2*Pnc_plasma_1[35];
-			ELSIF Ep_tole_Driver >= 16 THEN
-				Largeur_pont_Chain_Cut := 18+2*Pnc_plasma_1[35];
-			ELSIF Ep_tole_Driver >= 10 THEN
-				Largeur_pont_Chain_Cut := 16+2*Pnc_plasma_1[35];
-			ELSE
-				Largeur_pont_Chain_Cut := 12+2*Pnc_plasma_1[35];
-			END_IF	*)
-	
-		ecart_u_arc := Dist_Max-Dist_Min;
-		//Calcul tmps pour autokerf
-		IF Pnc_Laser[34]<>0 THEN
-			// conversiont du temps en ms, d'où le "60*1000"
-			time_autoKerf := LREAL_TO_TIME(60*1000*Largeur_pont_Chain_Cut/ Pnc_Laser[34]);	// tableau de largeur des pont de CCC (valaeurs renseignée dans lantek) + 2 fois la saignée.
-			//time_autoKerf := LREAL_TO_TIME(2*60*1000*Pnc_plasma_1[35]/ Pnc_plasma_1[34]); 		// deux fois la valeur de la saignés pour etre sur d'avoir depassé la saignée
-		END_IF
-		TP_blocage_torche_grande_variation_tension(
-				in := nbr_U_cumul<>0 
-					AND id_Dist_max < id_Dist_min
-					AND ABS(Dist_Max-Dist_Min)>(11-Auto_kerf_sensitivity)*Auto_kerf_treshhold,
-				pt := time_autoKerf);
-		// inhib de l'autokerf si la tension est troujours trop élevé après le blocage.
-		// permet à la torche de redescendre normalement
-		RE_autokerf(clk:= TP_blocage_torche_grande_variation_tension.Q);
-		FE_autokerf(clk:= TP_blocage_torche_grande_variation_tension.Q);		
-		
-		IF RE_autokerf.Q THEN
-			Memo_Dist_av_autokerf := LREAL_TO_INT(Prog_Capacitance_Actual_Value_mm);
-		END_IF
-		IF FE_autokerf.Q THEN
-			Memo_Dist_ap_autokerf := LREAL_TO_INT(Prog_Capacitance_Actual_Value_mm);
-			IF Memo_Dist_ap_autokerf-Memo_Dist_av_autokerf> Auto_kerf_treshhold THEN
-				inhib_autokerf := TRUE;
-			END_IF
-		END_IF
-		
-		TP_inhib_autokerf(in := inhib_autokerf , pt:=T#1S);
-		FE_inhib_autokerf(clk := TP_inhib_autokerf.Q);
-		IF FE_inhib_autokerf.Q THEN
-			inhib_autokerf := FALSE;
-		END_IF
-		
-		blocage_asserv_gde_variation := TP_blocage_torche_grande_variation_tension.Q
-				AND NOT inhib_autokerf;			
-
+ 	IF NOT TON_ActivAsserv.Q THEN 	//Raz du memo si pas d'asserv
+		Memo_Z_autokerf:=0;
 	END_IF
 	
-		IF NOT Lifter_VB_Ok_pour_Decoupe THEN
-		Memo_Dist_ap_autokerf:=0;
-		Memo_Dist_av_autokerf:=0;
-	END_IF
-
-
+	blocage_asserv_gde_variation := TON_blocage_asserv_GdeVari_Capa.Q AND NOT inhib_autokerf; 
+	TON_Gde_Variation_Capa(in:=blocage_asserv_gde_variation,PT:=T#2S);  		
+	IF blocage_asserv_gde_variation THEN Def_Gde_Variation_Capa:=TRUE; END_IF
 
 (************************* Blocage torche pour grande vitesse ************************)
 	IF Pnc_decoupe[4] >= 6000 THEN
@@ -300,7 +239,12 @@ END_VAR]]></Declaration>
  THEN
  	Defaut_contact_torche_tole:= TRUE;										(* a tester : risque de contacts parasites avec les gerbes de plasma*)
  END_IF
-]]></ST>
+
+ IF F_ISO.Q THEN 				
+	 Asserv_Torche_On_test:=
+	 Asserv_Torche_On:=
+	 Start_ISO3D:=FALSE;
+ END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

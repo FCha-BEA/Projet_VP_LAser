@@ -7,8 +7,6 @@
 		full_retract_torche : BOOL ;
 		Ep_retract_partiel_torche : LREAL ;
 	// init axe
-		// in
-			reset_Z_plasma: BOOL;
 		// out	
 			Axe_Z_Plasma_enable: BOOL;
 	// settings	
@@ -31,7 +29,8 @@
 			Monter_Torche: BOOL;
 	// asserv
 		// in
-			Asserv_Torche_On: BOOL;
+			Asserv_Torche_On :BOOL;
+				Asserv_Torche_On_test :BOOL;
 	// defauts
 		//out
 			Z_Plasma_en_defaut: BOOL;

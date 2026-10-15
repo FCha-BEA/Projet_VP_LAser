@@ -134,9 +134,7 @@ VAR
 	cpt	:INT;	//A partir de quelle distance la variation de capacitance est quasi inexistante ?	
 	k: INT;
 	Nbre_Echantillon	:INT:=10;	
-	Memo_Signal			:LREAL;
 	Echantillon 		:ARRAY [1..80] OF LREAL;
-	R_Reset				:R_TRIG;
 	Max_Capa, Min_Capa	:LREAL;
 	Capacitance_Filtree	:LREAL;
 	Tab_Capa_Filtree	:ARRAY [1..80] OF LREAL;
@@ -310,23 +308,14 @@ END_VAR]]></Declaration>
 	(*************************************** FIN FOCUS CALCULATION FORMULA **************************************)
 	(******************************************************************************************************************************)
 
-	(************************************** Filtrage valeur capacitance ************************************************)
-	 R_reset(clk:=Top_Z_Laser);   
-	 IF R_reset.Q THEN 
-	 	Memo_Signal:=0;
-	 END_IF
-	 
+	(************************************** Filtrage valeur capacitance ************************************************)	 
 	 //Creation tableau de valeur de capacitance
 	  FOR i:= Nbre_Echantillon-1 TO 1 BY -1 DO	
 	  	echantillon[i+1] :=  echantillon[i];
 	  END_FOR
 	 
-	 //Set 1e échantillon selon asservissement 
-	  IF Kerf_Z THEN	
-	  	echantillon[1]:=Memo_Signal;
-	  ELSE
+	 //Set 1e échantillon  
 	  	echantillon[1]:=Data01_Capacitance_Actual_Value;
-	  END_IF
 	 
 	 //Set valeurs initiales 
 	  erreur_cumul:= nbr_erreur_cumul :=0;
@@ -342,21 +331,6 @@ END_VAR]]></Declaration>
 	  	END_IF
 	  END_FOR
 	 	 Capacitance_Filtree := (Max_Capa + Min_Capa)/2;
-
-	 (*// Création tableau de médiane glissante			
-	  FOR i:= Nbre_Echantillon-1 TO 1 BY -1 DO
-	  	Tab_Capa_Filtree[i+1] :=  Tab_Capa_Filtree[i];
-	  END_FOR
-	  Tab_Capa_Filtree[1]:=Capacitance_Filtree;
-     
-	 //Somme puis moyenne des médianes glissantes
-	  FOR i:=1 TO Nbre_Echantillon DO
-	  	nbr_erreur_cumul := nbr_erreur_cumul+1;
-	  	erreur_cumul := erreur_cumul + Tab_Capa_Filtree[i];
-	  END_FOR
-	  IF nbr_erreur_cumul <>0 THEN
-	  	Capacitance_Filtree := erreur_cumul/nbr_erreur_cumul;
-	  END_IF	*)
 
 	(******************************************************************************************************************************)
 	(******************************************** DEB CAPACITANCE CALIBRATION **************************************)

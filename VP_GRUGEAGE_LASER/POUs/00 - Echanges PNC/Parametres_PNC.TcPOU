@@ -35,7 +35,7 @@ END_VAR]]></Declaration>
   Param_R_CNC[5] := -1;
  END_IF
  
- IF Sequence[Pt_Sequence].P1=0 THEN
+ (*IF Sequence[Pt_Sequence].P1=0 THEN
  	IF LREAL_TO_INT(Param_R_CNC[0])<>LREAL_TO_INT(Pnc_decoupe[4])	//[4] vitesse de découpe
  	OR LREAL_TO_INT(Param_R_CNC[1])<>LREAL_TO_INT(Pnc_decoupe[4]*(100-Pnc_decoupe[5])/100)	//[5] % reduction vitesse dans angle
 	OR (Exec_iso.R5_FromNciToPlc<>1 AND Face_En_Cours=1)	
@@ -47,7 +47,7 @@ END_VAR]]></Declaration>
  	END_IF
  	Param_R_CNC[0]:=Pnc_decoupe[4];								(*Découpe*)
  	Param_R_CNC[1]:=Pnc_decoupe[4]*(100-Pnc_decoupe[5])/100;	(*Découpe dans les angles*)
- END_IF
+ END_IF investiguer *)
  
  (*--------Pnc_Free_String------------*)
  Repertoire_NC_Laser:=CONCAT(Pnc_free_string[1],'\');		(*découpe*)

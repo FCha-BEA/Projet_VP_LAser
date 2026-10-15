@@ -227,7 +227,7 @@ END_VAR]]></Declaration>
                           <o n="Value" t="StringValue">
                             <v n="Value">"
 										Recul Z
-Posi Y = 675.00
+Posi Y = 540
 									"</v>
                             <v n="DefaultValue">""</v>
                           </o>
@@ -1074,7 +1074,7 @@ Ecretage ( + 90° )
     </Action>
     <Action Name="Step1_Entry" Id="{ada27c39-3dc0-49b1-ad30-6a2eec0f2efa}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := 675;
+        <ST><![CDATA[Pos_cible_Y_Laser := 540;
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;
 

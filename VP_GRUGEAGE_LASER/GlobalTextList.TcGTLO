@@ -931,6 +931,11 @@ HHHHH : MM"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"2243"</v>
+              <v n="TextDefault">"Asserv_Torche_On_test"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"722"</v>
               <v n="TextDefault">"Augmenter
 Limiteur
@@ -1628,6 +1633,11 @@ decoupe ?
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1711"</v>
+              <v n="TextDefault">"Pulse tir"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"783"</v>
               <v n="TextDefault">"Quelle Face ? "</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -1640,6 +1650,16 @@ decoupe ?
             <o>
               <v n="TextID">"1093"</v>
               <v n="TextDefault">"Rayon parasite (stray beam)"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"912"</v>
+              <v n="TextDefault">"RAZ Recettes "</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1619"</v>
+              <v n="TextDefault">"RAZ Recettes ? "</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -2320,6 +2340,21 @@ Impulsion laser"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"415"</v>
+              <v n="TextDefault">"Test Kerf"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"3056"</v>
+              <v n="TextDefault">"Test_asserv"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"2356"</v>
+              <v n="TextDefault">"Test_gaz"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"617"</v>
               <v n="TextDefault">"Tete laser 1"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -2420,6 +2455,11 @@ Impulsion laser"</v>
             <o>
               <v n="TextID">"1403"</v>
               <v n="TextDefault">"Z Laser"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"2041"</v>
+              <v n="TextDefault">"_0_LASER_ST."</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

@@ -3480,8 +3480,7 @@ Asserv_Torche_On:=false;
       <Implementation>
         <ST><![CDATA[TON_fin_decoupe(in:=TRUE,pt:=T#500MS);
 
-IF (Simul_decoupe OR Bit_demo) 
-AND No_Move_Z_Laser AND NOT Z_Laser_en_mode_esclave
+IF No_Move_Z_Laser AND NOT Z_Laser_en_mode_esclave
 AND TON_fin_decoupe.Q AND NOT Top_deg_Laser_full THEN
 	Top_deg_Laser_full:=TRUE;
 END_IF
@@ -3492,6 +3491,7 @@ END_IF
       <Implementation>
         <ST><![CDATA[TON_fin_decoupe(in:=FALSE);
 Allumage_tete_laser:=FALSE;
+Asserv_Torche_On:=FALSE;
 Tir_laser:=FALSE;
 Start_ISO3D:=FALSE;
 Start_Gaz:=FALSE;

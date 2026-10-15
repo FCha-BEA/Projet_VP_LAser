@@ -2,9 +2,9 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="Divers_Decoupe" Id="{06b7cd77-1635-4118-b8ba-da5919c5d02c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Divers_Decoupe
-VAR	RE_Mem_arus,	RE_G7_General_step1000:R_TRIG;
+VAR	RE_G7_General_step1000:R_TRIG;
 	RE_Top_memo_pos_X_Y_arus,	RE_Bp_cde_manu:R_TRIG;
-	FE_Mem_arus,	FE_Ev_principale_spray_plasma:F_TRIG;
+	FE_Ev_principale_spray_plasma:F_TRIG;
 	ADSRead_Nc_Line_1:ADSREAD;
 	Top_lecture_ligne_nc_en_cours:TON;
 	TON_Defaut_Fc_haut_rouleau_plasma_amont,	TON_Defaut_Fc_haut_rouleau_plasma_aval:TON;
@@ -22,9 +22,7 @@ VAR	RE_Mem_arus,	RE_G7_General_step1000:R_TRIG;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[// Fronts et autres tempos
- RE_Mem_arus(clk:=Mem_arus);
  RE_Bp_cde_manu(clk:=Bp_Cde_Operation);
- FE_Mem_arus(clk:=Mem_arus);
 
 
 IF NOT Top_perc_laser THEN
@@ -94,8 +92,8 @@ CodeM_50:=Sequence[Pt_sequence].M=50;
  END_IF
  
  Vitesse_reelle_axes:=
- 	SQRT(Axe_3.NcToPlc.ActVelo*Axe_3.NcToPlc.ActVelo
- 		+Axe_4.NcToPlc.ActVelo*Axe_4.NcToPlc.ActVelo);
+ 	SQRT(Axe_40.NcToPlc.ActVelo*Axe_40.NcToPlc.ActVelo
+ 		+Axe_41.NcToPlc.ActVelo*Axe_41.NcToPlc.ActVelo);
  
  IF ISO_en_cours THEN
  	IF Top_Memo_Vmin_decoupe AND Vitesse_reelle_axes<Memo_Vmin_decoupe THEN

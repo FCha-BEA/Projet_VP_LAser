@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="Axe_06_A" Id="{a446512a-96b4-4e5c-99bc-e9ea8dad01a1}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Axe_06_A	//Rotation angulaire laser
+  <POU Name="Axe_43_A" Id="{a446512a-96b4-4e5c-99bc-e9ea8dad01a1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Axe_43_A	//Rotation angulaire laser
 VAR
 	ALaser	:FB_Axe_A_Ethercat_V1_1;
 	test1: BOOL;
@@ -1270,7 +1270,7 @@ END_VAR
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
                             <v n="Operand">"Axe_6"</v>
-                            <v n="Type">"AXIS_REF"</v>
+                            <v n="Type">"AXIS_REF[REF]"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>
@@ -2406,7 +2406,7 @@ END_VAR
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Axe_6"</v>
+                            <v n="Operand">"Axe_43"</v>
                             <v n="Type">"AXIS_REF"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>

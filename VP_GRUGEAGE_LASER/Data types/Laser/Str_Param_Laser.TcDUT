@@ -3,12 +3,12 @@
   <DUT Name="Str_Param_Laser" Id="{cd6f0aea-21d0-4ce3-8d98-1d6908ecc835}">
     <Declaration><![CDATA[TYPE Str_Param_Laser :
 STRUCT
+	Puissance_Laser        	:LREAL;							//Puissance en % du laser - Pour Source
+	Frequence_impulsion    	:LREAL;							//Pour source
+	Duty_Cycle             	:LREAL;							//Période en % où on envoie la puissance à la fréquence d'impulsion - Pour source
+	Pression_Gaz           	:LREAL;							//Pour servo vanne	
 	Hauteur_Buse           	:LREAL;							//Distance entre pièce et buse - Pour Z laser
 	Distance_Focale        	:LREAL;							//Distance de focale - Pour lentille 
-	Pression_Gaz           	:LREAL;							//Pour servo vanne	
-	Puissance_Laser        	:LREAL;							//Puissance en % du laser - Pour Source
-	Duty_Cycle             	:LREAL;							//Période en % où on envoie la puissance à la fréquence d'impulsion - Pour source
-	Frequence_impulsion    	:LREAL;							//Pour source
 	Tps_phase_perc 			:LREAL;							//Temps de la phase de percage - Pour G7 phase laser 
 	Vitesse_Decoupe			:LREAL;							//Vitesse des axes pour découpe
 	Reserve1				:LREAL;

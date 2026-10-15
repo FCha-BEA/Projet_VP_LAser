@@ -13,7 +13,10 @@ VAR_GLOBAL
  Pos_XLaser_PomSecu,
  Pos_YLaser_PomSecu			:LREAL; 
  Def_Abs_Recette			:BOOL;			//Si au lancement du cycle le plc n'arrive pas à trouver de recette pour le driver, ou alors l'ID recette du driver n'existe pas ?
-
+ TON_Gde_Variation_Capa		:TON;			//On a mesure une gde variation de capac pendant trop longtemps, attention on tire peut etre dans le vide, le temps devrait masquer les variations courtes (type obstacle)
+ 	Def_Gde_Variation_Capa		:BOOL;			//Pendant l'asserv, grande variation de capcitance detectee = soit on passe dans un trou, soit on sors de la corniere. Ne devrait pas monter si exec iso avec M10
+ B_RazRecettes				:BOOL;			//Depuis IHM pour RAZ les recettes si on veut nettoyer ou tester l'envoi des recettes par driver
+ 
 //Palpage pour calcul position sommet
 	Face_Cible_Cycle							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
 	Face_Cible_Palpage							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
@@ -67,6 +70,8 @@ VAR_GLOBAL
  FE_Dec_Manu						:F_TRIG;	
  Offset_Origine_Y_Laser			:LREAL;		//Distance entre référence sommet cornière / laser quand Y laser =0	
  Cmd_Manu_Laser					:BOOL;		//OP teste de tirer avec le laser en manu
+ TestCycleComplet				:BOOL;		//Pour ancer un cycle perçage + iso - ATTENTION à avoir préparer l'iso avant
+
 
  
  //Types d'usinages laser

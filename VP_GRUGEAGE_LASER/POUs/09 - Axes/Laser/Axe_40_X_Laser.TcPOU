@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="Axe_03_X_Laser" Id="{9c0050db-ead0-409e-89a1-77ba75ec6eca}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Axe_03_X_Laser	
+  <POU Name="Axe_40_X_Laser" Id="{9c0050db-ead0-409e-89a1-77ba75ec6eca}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Axe_40_X_Laser	
 VAR	XLaser:FB_Axe_Ethercat_V3;		B_Reset_Y1:BOOL;		TP_not_machine_en_service: TP;
 	ACompleter_X_decoupe_en_cours: BOOL;
 END_VAR]]></Declaration>
@@ -1531,7 +1531,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"3"</v>
+                            <v n="Operand">"40"</v>
                             <v n="Type">"INT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1626,7 +1626,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Axe_3"</v>
+                            <v n="Operand">"Axe_40"</v>
                             <v n="Type">"AXIS_REF"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">"***************************** Variables Axe3---Y1 *****************************"</v>

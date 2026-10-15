@@ -82,10 +82,6 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		Attente_Arret_Propre:=FALSE;
 	END_IF
 	
-	IF NOT Mem_Arus_BP AND Fe_arus.Q THEN
-		Mem_Arus_BP:=TRUE;
-	END_IF
-	
 	(*Reset de L'Arret Usinage=Init*)
 	IF Img_Mem_arus
 	AND NOT Defaut_General
@@ -93,7 +89,6 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	AND TP_Ok_Valid_Secu.Q
 	AND (NOT Pnc_Blocage_PLC OR Inhib_Pnc_blocage_PLC) THEN
 		Mem_arus:=FALSE;
-		Mem_Arus_BP:=FALSE;
 	END_IF
 	
 	Img_Mem_Arus:=Mem_Arus;
@@ -263,6 +258,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	Pince_interdit_decoupe:=FALSE;
 	Defaut_General:=FALSE;
 	Def_Abs_Recette:=FALSE;
+	Def_Gde_Variation_Capa:=FALSE;
  END_IF
  
  
@@ -406,16 +402,16 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  
  
 (*------------------- RAZ des G7 --------------------------*)
- G7_Palpage_Capacitance.SFCInit:=Top_deg_Laser_full OR SFCInit;
- G7_Cycle_Percages_Laser.SFCInit := FE_Dec_Manu.Q OR SFCInit;
+ G7_Palpage_Capacitance.SFCInit:=Top_deg_Laser_full OR G7_SFCInit;
+ G7_Cycle_Percages_Laser.SFCInit := FE_Dec_Manu.Q OR G7_SFCInit;
 
  
  
  IF	RE_Mem_arus.Q THEN
-	SFCInit:=TRUE;
+	G7_SFCInit:=TRUE;
   END_IF
  IF FE_Mem_arus.Q THEN
- 	SFCInit:=FALSE;
+ 	G7_SFCInit:=FALSE;
  END_IF
 
  (*SFCInit*)
@@ -423,9 +419,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  :=G7_Master_Palpages.SFCInit
  :=G7_Palpage_Sommet_L.SFCInit
  :=G7_Sel_Face.SFCInit
- :=SFCInit;
- G7_Cycle_Percages_Laser.SFCinit:=
-	SFCInit;
+ :=G7_SFCInit;
  
 (*---------------------- Si passage en ARUS ---------------------*)
  IF RE_Mem_arus.Q THEN

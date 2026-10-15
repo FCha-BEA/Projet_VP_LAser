@@ -505,10 +505,9 @@ END_IF
 		fTv := Derivate_Time,	//A adapter 
 		fTd := Derivate_Damping_Time);	//A adapter 
 
-	RE_TOF_auto_kerf(clk := auto_kerf);
-	FE_TOF_auto_kerf(clk := auto_kerf);
-	//RE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
-	//FE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+	RE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+	FE_TOF_auto_kerf(clk := TOF_auto_kerf.Q);
+
 	Pos_Reel_Z_Laser; 
 	
 	IF RE_TOF_auto_kerf.Q THEN
@@ -521,7 +520,6 @@ END_IF
 //		MC_ExtSetPoint Generator					//
 //////////////////////////////////////////////////////		
 	// maintient de la consigne constante si blocage torche
-	//	IF TOF_auto_kerf.Q THEN
 		IF auto_kerf OR Reset_PID THEN
 			consigne_Point_Gen := consigne_Point_Gen;
 		ELSE

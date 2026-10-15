@@ -48,11 +48,12 @@ END_VAR]]></Declaration>
 	Maintien              	:= Ok_pour_operation AND NOT Chariot_Sous_Presseur AND NOT Desserrage;           												
 	Desserrage				:= Dem_Desserrage OR (Chariot_Sous_Presseur AND Stop_Chariot);
 	
-	Cde_SerrDesser := (Serrage AND NOT Maintien) OR Desserrage ;
-	Cde_Maintien := Maintien;
-	Cde_SerrMaint := Serrage OR Maintien;
-	Cde_Desserrage := Desserrage;
-	
+	IF NOT maintenance THEN 
+		Cde_SerrDesser := (Serrage AND NOT Maintien) OR Desserrage ;
+		Cde_Maintien := Maintien;
+		Cde_SerrMaint := Serrage OR Maintien;
+		Cde_Desserrage := Desserrage;
+	END_IF
 END_IF;]]></ST>
     </Implementation>
   </POU>

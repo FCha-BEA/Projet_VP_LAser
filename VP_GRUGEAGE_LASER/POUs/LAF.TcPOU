@@ -21,31 +21,19 @@ OK - 11 : Choix gaz de decoupe
 OK - 12 : Choix recette marquage si manu ou auto et val par defaut si pas de recette de marq
 OK - 13 : Modif Vitesse man X et Y pour laser lent si marquage
 
-14 : Si marquage, precision Z approche osef test de ne pas asservir
-	Si percage + decoupe, ... approchje rapide + asserv dans g7 perc ou dans gene ? Si decoupe dans corniere alors g7 perc ok mais si 
-	herve envoi une traj avec f10 alors approche + asserv dans gene, exec iso, M10 si besoin kerf, tir avec M12
-	Saut dans g7 perc si auto ? on garde approche plus asserv pour dec manu ? 
 OK - 15 : Test tir avec distances focale differentes pour verifier le point de focale.
 	Offset focale =0, pas besoin de modifier
-	
 16 : Supr 14. 
 	cycle d'asserv plutôt qu'approche lente.  
 	Besoin d'une autre entrée FB Z pour avoir consigne hauteur buse de recette.
 		Si oui alors besoin de dissocier selon face écretage ou non. 
-16 bis : écrire B_Asserv_PercDec pendant g7 cycle perc et / ou géneral pour choisir entre asserv selon hauteur recette pour perçage ou selon val capa pour hauteur stable
+A TEST 16 bis : écrire B_Asserv_PercDec pendant g7 cycle perc et / ou géneral pour choisir entre asserv selon hauteur recette pour perçage ou selon val capa pour hauteur stable
 	+ ATTENTION si écretage, après calibration que vaut retour hauteur ? Si ok alors cycle comme grugeage, sinon besoin de posi selon pos ref torche 
-	
-
-TEST FAIT - Test asser selon nbre echantillon jusqu a asserv stable
-A SURVEILLER / RETOUR RAYTOOLS => Test tir poour marq : surveille val capa
-
-
-Tir avec test focale pour buse longue
 
 types de cycle : 
 
 1)Marquage = pos a hauteur, pas besoin d'asserv,
-2)dec avec phases perc dans matiere = pos a hauteur , phase de percage, asserv puis decoupe 
+2)dec avec phases perc dans matiere = pos a hauteur , phases de percage, asserv puis decoupe 
 3)dec sans phases perc car hors matiere = pos a hauteur de dec, bloq asserv, go out, tir, go in, reactive asserv
 
 4) Pour écretage, besoin de refaire palpage, prendre pos ref torche puis pos à hauteur ... car pos ref torche serait différente
@@ -55,7 +43,15 @@ test modif :
 
 Test cycle : 
 	-gravage manu voir tester avec recette au pif de perc pour tester les cycles 
-	-Cycle écretage après implantation modif 4)]]></ST>
+	-Cycle écretage après implantation modif 4)
+	
+A faire 09/10 :
+1.OK - Verif asserv == Verif val capa < 1600000 et pas 0 .
+2.OK - Autokerf si val capa varie trop - Sans M10, bloc asserv puis debloc asserv (debloc se fait automatiquement)
+
+3.EC - Test iso grugeage - EC=Test simple avec un carre sans code M - Test avec code M
+
+4. OK - check dimension corniere L80*80*10]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
