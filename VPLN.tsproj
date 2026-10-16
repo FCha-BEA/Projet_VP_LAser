@@ -2028,7 +2028,7 @@ resolution 3/2exp20
 				<Axis Id="40" CreateSymbols="true" AxisType="1" GroupId="3">
 					<Name>Axe 40 (X - Laser)</Name>
 					<AxisPara>
-						<Dynamic Acceleration="8000" Deceleration="8000" Jerk="85533"/>
+						<Dynamic Acceleration="10000" Deceleration="10000" Jerk="85533"/>
 						<Velo SlowManual="3.2" FastManual="50"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2169,7 +2169,7 @@ resolution 3/2exp20
 				<Axis Id="41" CreateSymbols="true" AxisType="1" GroupId="4">
 					<Name>Axe 41 (Y - Laser)</Name>
 					<AxisPara>
-						<Dynamic Acceleration="8000" Deceleration="8000" Jerk="156000"/>
+						<Dynamic Acceleration="10000" Deceleration="10000" Jerk="156000"/>
 						<Velo SlowManual="10" FastManual="100"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2659,7 +2659,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{8C0E7C85-57F7-B420-313D-FA148D7E9D0D}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C2650132-35DD-BE5F-A344-98A8A965F6B9}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2682,6 +2682,26 @@ resolution 3/2exp20
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
+							<Name>.Presseur_Amont_K11.EV_Serrage</Name>
+							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Amont_K11.EV_Desserrage</Name>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Aval_L12.EV_Serrage</Name>
+							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Aval_L12.EV_Desserrage</Name>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>Global_Lifter_VB.list_axe_MCS[1].PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
@@ -2700,46 +2720,6 @@ resolution 3/2exp20
 						<Var>
 							<Name>Global_Lifter_VB.list_axe_MCS[5].PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_SerrDesser</Name>
-							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_Maintien</Name>
-							<Comment><![CDATA[Maintien seulement]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_SerrMaint</Name>
-							<Comment><![CDATA[Serrage ou maintien]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulemen]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_SerrDesser</Name>
-							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_Maintien</Name>
-							<Comment><![CDATA[Maintien seulement]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_SerrMaint</Name>
-							<Comment><![CDATA[Serrage ou maintien]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulemen]]></Comment>
-							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.B1520_Rep_Be.Link_OUT</Name>
