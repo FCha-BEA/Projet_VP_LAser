@@ -16,9 +16,7 @@ STRUCT
 	Presseur_EnPlace		:BOOL;	//Serrage ok sur matière
 	Presseur_Haut			:BOOL;	//Presseur assez remonte
 	
-	EV_SerrDesser	AT%Q*:BOOL;	//Serrage ou desserrage	
-	EV_Maintien		AT%Q*:BOOL; 	//Maintien seulement
-	EV_SerrMaint	AT%Q*:BOOL;	//Serrage ou maintien
+	EV_Serrage	AT%Q*:BOOL;	//Serrage ou desserrage	
 	EV_Desserrage	AT%Q*:BOOL;	//Desserrage seulemen
 END_STRUCT
 END_TYPE

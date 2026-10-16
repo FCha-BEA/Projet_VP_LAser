@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="e3c51da0-1fb5-4658-a798-bc2a448a40ff">Str_Presseur_Laser</Type>
+      <From>EV_SerrDesser</From>
+      <To>EV_Serrage</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

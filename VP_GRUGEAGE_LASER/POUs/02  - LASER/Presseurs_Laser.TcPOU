@@ -1081,7 +1081,7 @@ END_VAR
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">380L</v>
+                        <v n="Id">408L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -1135,7 +1135,7 @@ END_VAR
                             <v n="Id">376L</v>
                           </o>
                           <o>
-                            <v n="Operand">"Presseur_Amont_K11.EV_SerrDesser"</v>
+                            <v n="Operand">"Presseur_Amont_K11.EV_Serrage"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1148,39 +1148,7 @@ END_VAR
                             <v n="LValue">true</v>
                             <v n="Boolean">false</v>
                             <v n="IsInstance">false</v>
-                            <v n="Id">382L</v>
-                          </o>
-                          <o>
-                            <v n="Operand">"Presseur_Amont_K11.EV_Maintien"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">true</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">383L</v>
-                          </o>
-                          <o>
-                            <v n="Operand">"Presseur_Amont_K11.EV_SerrMaint"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">true</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">384L</v>
+                            <v n="Id">410L</v>
                           </o>
                           <o>
                             <v n="Operand">"Presseur_Amont_K11.EV_Desserrage"</v>
@@ -1215,25 +1183,6 @@ END_VAR
                             <v n="Extensible">false</v>
                           </o>
                           <v n="Id">219L</v>
-                        </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"Auto"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">221L</v>
-                          </o>
-                          <v n="Id">220L</v>
                         </o>
                         <o t="BoxTreeBox">
                           <v n="BoxType">"OR"</v>
@@ -1500,7 +1449,6 @@ END_VAR
                       <o n="InputParam" t="ParamList">
                         <l2 n="Names" cet="String">
                           <v>IN</v>
-                          <v>Auto</v>
                           <v>Dem_Serrage</v>
                           <v>Dem_Desserrage</v>
                           <v>Pos_Reelle_Presseur_D</v>
@@ -1510,7 +1458,6 @@ END_VAR
                           <v>Dist_Annul_X_Presseur</v>
                         </l2>
                         <l2 n="Types" cet="String">
-                          <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
@@ -1527,14 +1474,10 @@ END_VAR
                           <v>Stop_Chariot</v>
                           <v>Ok_pour_operation</v>
                           <v>Presseur_Desserre</v>
-                          <v>Cde_SerrDesser</v>
-                          <v>Cde_Maintien</v>
-                          <v>Cde_SerrMaint</v>
+                          <v>Cde_Serrage</v>
                           <v>Cde_Desserrage</v>
                         </l2>
                         <l2 n="Types" cet="String">
-                          <v>BOOL</v>
-                          <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
@@ -1549,7 +1492,7 @@ END_VAR
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">381L</v>
+                      <v n="Id">409L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />
@@ -1581,7 +1524,7 @@ END_VAR
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">386L</v>
+                        <v n="Id">411L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -1635,7 +1578,7 @@ END_VAR
                             <v n="Id">379L</v>
                           </o>
                           <o>
-                            <v n="Operand">"Presseur_Aval_L12.EV_SerrDesser"</v>
+                            <v n="Operand">"Presseur_Aval_L12.EV_Serrage"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1648,39 +1591,7 @@ END_VAR
                             <v n="LValue">true</v>
                             <v n="Boolean">false</v>
                             <v n="IsInstance">false</v>
-                            <v n="Id">388L</v>
-                          </o>
-                          <o>
-                            <v n="Operand">"Presseur_Aval_L12.EV_Maintien"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">true</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">389L</v>
-                          </o>
-                          <o>
-                            <v n="Operand">"Presseur_Aval_L12.EV_SerrMaint"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">true</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">390L</v>
+                            <v n="Id">413L</v>
                           </o>
                           <o>
                             <v n="Operand">"Presseur_Aval_L12.EV_Desserrage"</v>
@@ -1715,25 +1626,6 @@ END_VAR
                             <v n="Extensible">false</v>
                           </o>
                           <v n="Id">145L</v>
-                        </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"Auto"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">false</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">147L</v>
-                          </o>
-                          <v n="Id">146L</v>
                         </o>
                         <o t="BoxTreeBox">
                           <v n="BoxType">"OR"</v>
@@ -2000,7 +1892,6 @@ END_VAR
                       <o n="InputParam" t="ParamList">
                         <l2 n="Names" cet="String">
                           <v>IN</v>
-                          <v>Auto</v>
                           <v>Dem_Serrage</v>
                           <v>Dem_Desserrage</v>
                           <v>Pos_Reelle_Presseur_D</v>
@@ -2010,7 +1901,6 @@ END_VAR
                           <v>Dist_Annul_X_Presseur</v>
                         </l2>
                         <l2 n="Types" cet="String">
-                          <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
@@ -2027,14 +1917,10 @@ END_VAR
                           <v>Stop_Chariot</v>
                           <v>Ok_pour_operation</v>
                           <v>Presseur_Desserre</v>
-                          <v>Cde_SerrDesser</v>
-                          <v>Cde_Maintien</v>
-                          <v>Cde_SerrMaint</v>
+                          <v>Cde_Serrage</v>
                           <v>Cde_Desserrage</v>
                         </l2>
                         <l2 n="Types" cet="String">
-                          <v>BOOL</v>
-                          <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
                           <v>BOOL</v>
@@ -2049,7 +1935,7 @@ END_VAR
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">387L</v>
+                      <v n="Id">412L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />
