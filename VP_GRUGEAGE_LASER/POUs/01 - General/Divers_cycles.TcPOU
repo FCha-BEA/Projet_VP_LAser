@@ -152,6 +152,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		Memo_Recul_Mesure_Barre := FALSE;
 		Palpage_OK_Face_1:=Palpage_OK_Face_2:=FALSE;
 		Dem_Relevage_auto:=FALSE;
+		Top_Face:=FALSE;
 	END_IF
 	
 	IF Manu THEN

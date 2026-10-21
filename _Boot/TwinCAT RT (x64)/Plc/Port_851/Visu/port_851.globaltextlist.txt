@@ -163,6 +163,7 @@ Id;Default
 809;Cavity_Temp
 2314;Cmd Laser
 3104;Commande manu laser
+3071;Commande presseur
 560;Couple$R$N$R$N
 378;Courant
 471;Courant$R$N(A)
@@ -175,6 +176,7 @@ Id;Default
 519;Demande$R$Nuverture$R$NPorte
 167;Demande ouverture$R$NPorte
 772;Demande Ouverture$R$NPorte
+3319;Desserr Amont
 849;deviceState
 223;DI01_Collision$R$NDI02_Up_Limit$R$NDI03_Down_Limit$R$NDI04_Bottom_1_Cover_Glass_Ready$R$NDI05_Homing_finished
 1473;Différence de température entre Lentille / Air ambiant
@@ -188,6 +190,7 @@ Id;Default
 972;Focus_Lens_Ambient_Temperature
 973;Focus_Lens_Temperature
 397;FORCAGE
+1851;Forcage tir
 754;Free, not used
 1914;Gestion Porte
 1141;jj
@@ -279,6 +282,8 @@ Id;Default
 399;Selection Commande Temporaire
 442;Selection Face
 211;Selection Rep
+155;Serr Amont
+3164;Serr Aval
 801;SORTIE
 903;Source
 2566;Source laser

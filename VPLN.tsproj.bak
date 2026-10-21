@@ -2028,7 +2028,7 @@ resolution 3/2exp20
 				<Axis Id="40" CreateSymbols="true" AxisType="1" GroupId="3">
 					<Name>Axe 40 (X - Laser)</Name>
 					<AxisPara>
-						<Dynamic Acceleration="8000" Deceleration="8000" Jerk="85533"/>
+						<Dynamic Acceleration="10000" Deceleration="10000" Jerk="85533"/>
 						<Velo SlowManual="3.2" FastManual="50"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2169,7 +2169,7 @@ resolution 3/2exp20
 				<Axis Id="41" CreateSymbols="true" AxisType="1" GroupId="4">
 					<Name>Axe 41 (Y - Laser)</Name>
 					<AxisPara>
-						<Dynamic Acceleration="8000" Deceleration="8000" Jerk="156000"/>
+						<Dynamic Acceleration="10000" Deceleration="10000" Jerk="156000"/>
 						<Velo SlowManual="10" FastManual="100"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
@@ -2315,7 +2315,9 @@ resolution 3/2exp20
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="4.76837158203125e-06" Offset="70.4" MaxCount="#xffffffff" ReferenceSystem="1"/>
+						<EncPara ScaleFactorNumerator="4.76837158203125e-06" Offset="70.4" MaxCount="#xffffffff" ReferenceSystem="1">
+							<SoftEndMaxControl Range="30"/>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Entrées</Name>
 							<Var>
@@ -2659,116 +2661,11 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C2650132-35DD-BE5F-A344-98A8A965F6B9}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{649D6D6D-8BB1-67F4-1028-6C277AEEDC1B}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>Standard Outputs</Name>
-						<Var>
-							<Name>.XYL_NciChannelFromPlc</Name>
-							<Comment><![CDATA[Pour lecture etat Canal exec ISO X/Y Laser]]></Comment>
-							<Type GUID="{48415C2A-E750-483B-A619-8655B2BEA4B8}" Namespace="MC">PLCTONC_NCICHANNEL_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_0.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_1.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_2.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_Serrage</Name>
-							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Amont_K11.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulemen]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_Serrage</Name>
-							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Presseur_Aval_L12.EV_Desserrage</Name>
-							<Comment><![CDATA[Desserrage seulemen]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[1].PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[2].PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[3].PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[4].PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[5].PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.B1520_Rep_Be.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B420_Rep_ChaBe.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B820_Rep1_Laser.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B821_Rep2_Laser.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B822_Rep3_Laser.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.OUT_Byte1</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.OUT_Byte2</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.B1572_Rep_Bs.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B961_Rep_Console.Link_OUT</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Verrine_Console.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Verrine_Console.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Verrine_Console.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
 						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -2806,65 +2703,28 @@ resolution 3/2exp20
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Net_WordIn1</Name>
-							<Comment><![CDATA[OUTPUT	]]></Comment>
-							<Type>UINT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Operation_Mode</Name>
-							<Type>SINT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Set_Speed_Value</Name>
-							<Type>INT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy4.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Set_Torque_Value</Name>
-							<Type>INT</Type>
+							<Name>Axe_43_A.ALaser.dummy2.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Accel_time</Name>
-							<Type>UINT</Type>
+							<Name>Axe_43_A.ALaser.dummy3.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Decel_time</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Pompe_Centrale_BM.Control_word</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Pompe_Centrale_BM.V_Max_Tr_Min</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Target_Torque_Motec_Pompe</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Accel_Time_1_Motec_Pompe</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Decel_Time_1_Motec_Pompe</Name>
-							<Type>UINT</Type>
+							<Name>Axe_43_A.ALaser.dummy4.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>.limite_couple_negatif_axe_Z_Laser</Name>
@@ -3061,46 +2921,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Axe_40.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_41.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_42.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_43.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy2.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy3.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy4.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy4.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
-						<Var>
 							<Name>.Source_MaxPhotonics.CONTROL_0</Name>
 							<Type>UDINT</Type>
 						</Var>
@@ -3161,46 +2981,195 @@ Sécurité/Réarmement]]></Comment>
 							<Name>.Verr_Lum_Machine_Rouge</Name>
 							<Type>BOOL</Type>
 						</Var>
+						<Var>
+							<Name>.Presseur_Amont_K11.EV_Serrage</Name>
+							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Amont_K11.EV_Desserrage</Name>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Aval_L12.EV_Serrage</Name>
+							<Comment><![CDATA[Serrage ou desserrage	]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Presseur_Aval_L12.EV_Desserrage</Name>
+							<Comment><![CDATA[Desserrage seulemen]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[1].PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[2].PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[3].PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[4].PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[5].PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.XYL_NciChannelFromPlc</Name>
+							<Comment><![CDATA[Pour lecture etat Canal exec ISO X/Y Laser]]></Comment>
+							<Type GUID="{48415C2A-E750-483B-A619-8655B2BEA4B8}" Namespace="MC">PLCTONC_NCICHANNEL_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_0.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_1.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_2.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_40.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_41.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_42.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_43.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.B1520_Rep_Be.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B420_Rep_ChaBe.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B820_Rep1_Laser.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B821_Rep2_Laser.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B822_Rep3_Laser.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.OUT_Byte1</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.OUT_Byte2</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.B1572_Rep_Bs.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B961_Rep_Console.Link_OUT</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Verrine_Console.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Verrine_Console.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Verrine_Console.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Net_WordIn1</Name>
+							<Comment><![CDATA[OUTPUT	]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Operation_Mode</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Set_Speed_Value</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Set_Torque_Value</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Accel_time</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Decel_time</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Control_word</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.V_Max_Tr_Min</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Target_Torque_Motec_Pompe</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Accel_Time_1_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Decel_Time_1_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>Standard Inputs</Name>
-						<Var>
-							<Name>.XYL_NciChannelToplc</Name>
-							<Comment><![CDATA[Pour lecture etat Canal exec ISO X/Y Laser]]></Comment>
-							<Type GUID="{56354211-98EF-4057-9322-975DEAD0E29D}" Namespace="MC">NCTOPLC_NCICHANNEL_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_0.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_1.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_2.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[1].NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[2].NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[3].NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[4].NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Global_Lifter_VB.list_axe_MCS[5].NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
 						<Var>
 							<Name>OK_Repartiteurs_Laser.Mesure_Presseur_Aval_Ref.Byte0</Name>
 							<Type>USINT</Type>
@@ -3266,174 +3235,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>.Detect_Pression_Huile.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Pression_Huile.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.B1520_Rep_Be.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B420_Rep_ChaBe.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B820_Rep1_Laser.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B821_Rep2_Laser.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B822_Rep3_Laser.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE4</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE5</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE6</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE7</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Niv_Temp_Huile.BYTE8</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_Ref.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_Ref.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_Ref.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_Ref.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_Ref.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_Ref.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_Ref.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_Ref.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.IN_Byte1</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.IN_Byte2</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.IN_Byte3</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.ServoVanne_Tete_Laser.IN_Byte4</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
-							<Name>.B1572_Rep_Bs.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.B961_Rep_Console.Link_IN</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Joystick_Console.BYTE0</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Joystick_Console.BYTE1</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Joystick_Console.BYTE2</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
-							<Name>.Joystick_Console.BYTE3</Name>
-							<Type>USINT</Type>
-						</Var>
-						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.NcToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
@@ -3470,65 +3271,28 @@ Sécurité/Réarmement]]></Comment>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Status_Word</Name>
-							<Comment><![CDATA[INPUT	]]></Comment>
-							<Type>UINT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy2.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Active_Operation_Mode</Name>
-							<Type>SINT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy3.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Actual_Speed</Name>
-							<Type>INT</Type>
+							<Name>Axe_41_Y_Laser.YLaser.dummy4.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Apparent_current</Name>
-							<Type>INT</Type>
+							<Name>Axe_43_A.ALaser.dummy2.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Error_Code</Name>
-							<Type>UINT</Type>
+							<Name>Axe_43_A.ALaser.dummy3.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>.Pompe_Centrale_BM.Rated_Current</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Pompe_Centrale_BM.Defect_Number</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Motor_Current_Motec_Pompe</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Error_Code_Motec_Pompe</Name>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Motor_Voltage_Var_Pompe</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Effective_Power_Var_Pompe</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Apparent_Power_Var_Pompe</Name>
-							<Type>DINT</Type>
+							<Name>Axe_43_A.ALaser.dummy4.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 						<Var>
 							<Name>.DevState_Ethercat</Name>
@@ -3905,46 +3669,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Axe_40.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_41.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_42.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>.Axe_43.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy2.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy3.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_43_A.ALaser.dummy4.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy2.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy3.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy4.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
-						<Var>
 							<Name>.Source_MaxPhotonics.STATUS_0</Name>
 							<Type>UDINT</Type>
 						</Var>
@@ -3983,6 +3707,292 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Source_MaxPhotonics.LASER_NUMBER_IN</Name>
 							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[1].NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[2].NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[3].NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[4].NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>Global_Lifter_VB.list_axe_MCS[5].NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.XYL_NciChannelToplc</Name>
+							<Comment><![CDATA[Pour lecture etat Canal exec ISO X/Y Laser]]></Comment>
+							<Type GUID="{56354211-98EF-4057-9322-975DEAD0E29D}" Namespace="MC">NCTOPLC_NCICHANNEL_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_0.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_1.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_2.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_40.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_41.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_42.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.Axe_43.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>.B1520_Rep_Be.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B420_Rep_ChaBe.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B820_Rep1_Laser.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B821_Rep2_Laser.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B822_Rep3_Laser.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE4</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE5</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE6</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE7</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Niv_Temp_Huile.BYTE8</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Pression_Huile.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Pression_Huile.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_Ref.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_Ref.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_Ref.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_Ref.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Aval_OppRef.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_Ref.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_Ref.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_Ref.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_Ref.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Detect_Dist_Press_Amont_OppRef.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.IN_Byte1</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.IN_Byte2</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.IN_Byte3</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.ServoVanne_Tete_Laser.IN_Byte4</Name>
+							<Type>BYTE</Type>
+						</Var>
+						<Var>
+							<Name>.B1572_Rep_Bs.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.B961_Rep_Console.Link_IN</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Joystick_Console.BYTE0</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Joystick_Console.BYTE1</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Joystick_Console.BYTE2</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Joystick_Console.BYTE3</Name>
+							<Type>USINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Status_Word</Name>
+							<Comment><![CDATA[INPUT	]]></Comment>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Active_Operation_Mode</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Actual_Speed</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Apparent_current</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Error_Code</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Rated_Current</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Pompe_Centrale_BM.Defect_Number</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Motor_Current_Motec_Pompe</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Error_Code_Motec_Pompe</Name>
+							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Motor_Voltage_Var_Pompe</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Effective_Power_Var_Pompe</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Apparent_Power_Var_Pompe</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<Contexts>

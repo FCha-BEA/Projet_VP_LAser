@@ -123,6 +123,10 @@ VAR
 	Accel_asserv: LREAL := 500;
 	velo_asserv: LREAL := 20;
 	Testfloppy: LREAL;
+	AxisToRead	:Axis_ref;
+	(*MC_READZ:MC_ReadParameter;
+	MC_WriteZ:MC_WriteParameter;*)
+
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -554,7 +558,20 @@ END_IF
 			Axis := Axe_Z_Laser,
 			Execute := Disable_SetPoint_Generator_3D);
 			
-Auto_Kerf_Active:= auto_kerf;]]></ST>
+Auto_Kerf_Active:= auto_kerf;
+
+(*AxisToRead:= axe_z_laser;
+
+MC_READZ(Enable:=clignotant_t_lent,
+			axis:= axe_z_laser,
+			ParameterNumber:=MC_AxisParameter.SwLimitPos,
+			ReadMode:=1);
+Mc_writez(axis:=axe_z_laser,
+		Execute:=clignotant_tt_lent,
+		ParameterNumber:=MC_AxisParameter.SWLimitPos,
+		value:=30);*)
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

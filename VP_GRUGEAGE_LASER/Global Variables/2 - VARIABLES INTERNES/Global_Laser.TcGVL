@@ -32,14 +32,21 @@ VAR_GLOBAL
 	Top_Palpage_Sommet							: BOOL;
 		FE_Top_Palpage_Sommet					:F_TRIG;
 	
-	Memo_Face_1_Y_1								: LREAL;
-	Memo_Face_1_Y_2								: LREAL;
-	Memo_Face_1_Z_1								: LREAL;
-	Memo_Face_1_Z_2								: LREAL;
-	Memo_Face_2_Y_1								: LREAL;
-	Memo_Face_2_Y_2								: LREAL;
-	Memo_Face_2_Z_1								: LREAL;
-	Memo_Face_2_Z_2								: LREAL;
+	
+	a1,a2										:LREAL;	//Pente droites des paires de points mesurés face 1/2
+	b1,b2										:LREAL;	// Ordonnée à l'origine des droites des points mesurés face 1/2
+	Memo_Face_1_Y_1								:LREAL;
+	Memo_Face_1_Y_2								:LREAL;
+	Memo_Face_1_Z_1								:LREAL;
+	Memo_Face_1_Z_2								:LREAL;
+	Memo_Face_2_Y_1								:LREAL;
+	Memo_Face_2_Y_2								:LREAL;
+	Memo_Face_2_Z_1								:LREAL;
+	Memo_Face_2_Z_2								:LREAL;
+	Y_Sommet_Pour_Aile_OPP_REF,
+	Y_Sommet_Pour_Aile_REF,
+	Alpha1,
+	Alpha2						:LREAL;
 	
 //Palpage sommet - Pnc_Presseurs2 - L'une OU l'autre, pas les 2                  	
 	Opt_Palp_Sommet_Tjs					:BOOL:=FALSE; //Option pour palpage sommet : à chaque usinage

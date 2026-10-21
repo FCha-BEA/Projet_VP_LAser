@@ -1009,6 +1009,11 @@ ouverture"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"3071"</v>
+              <v n="TextDefault">"Commande presseur"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"560"</v>
               <v n="TextDefault">"Couple
 
@@ -1112,6 +1117,11 @@ Porte"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"3319"</v>
+              <v n="TextDefault">"Desserr Amont"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"849"</v>
               <v n="TextDefault">"deviceState"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -1203,6 +1213,11 @@ Prog_Valid		Laser_ON"</v>
             <o>
               <v n="TextID">"397"</v>
               <v n="TextDefault">"FORCAGE"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1851"</v>
+              <v n="TextDefault">"Forcage tir"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -1717,6 +1732,16 @@ ep driver"</v>
             <o>
               <v n="TextID">"211"</v>
               <v n="TextDefault">"Selection Rep"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"155"</v>
+              <v n="TextDefault">"Serr Amont"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"3164"</v>
+              <v n="TextDefault">"Serr Aval"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

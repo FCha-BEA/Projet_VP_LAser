@@ -155,7 +155,7 @@ END_VAR]]></Declaration>
 	
 	IF Top_deg_Laser_full THEN
 		//retract Z
-		Pos_cible_Z_Laser:= 0 ;	
+		Pos_cible_Z_Laser:= Pnc_axe_Z_Robot.Limite_Moins+1; //On peut se permettre de remonter completement car Z est rapide et pas bcp dde course		
 		IF Retract_speed > Pnc_axe_Z_Robot.Vitesse_PTP THEN
 			Vitesse_Z_Laser_PTP:= Pnc_axe_Z_Robot.Vitesse_PTP;
 		ELSE
@@ -167,7 +167,7 @@ END_VAR]]></Declaration>
 	
 	END_IF
 	
-	Deg_Laser_full_ok:=	Pos_Reel_Z_Laser<2;		(*<2 car 1.7 mm d'inertie*)
+	Deg_Laser_full_ok:=	Pos_Reel_Z_Laser<Pnc_axe_Z_Robot.Limite_Moins+5; //Degagement complet, torche remontee a fond
 	
 	IF Deg_Laser_full_ok			(**)
 	OR Bp_Arret_Usinage THEN						(*"Bp_arus" pour arrêter le deg si on rappuie sur Arus*)

@@ -5,10 +5,9 @@
 VAR_INPUT	SFCInit:BOOL;	END_VAR
 VAR
 
-	a1: LREAL;
-	b1: LREAL;
 	test_PalpSommet:BOOL;
-	memo_Face	:INT;	//Quelle face avant cycle palpage ? 
+	memo_Face	:INT;	//Quelle face avant cycle palpage ?
+	TON_Z_EnPos :TON;
 END_VAR]]></Declaration>
     <Implementation>
       <SFC>
@@ -331,7 +330,7 @@ END_VAR]]></Declaration>
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans11"</v>
+                                        <v n="Value">"Trans1a"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">36L</v>
@@ -452,7 +451,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">""</v>
+                                        <v n="Value">"Step11_active"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">44L</v>
@@ -517,7 +516,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans12"</v>
+                                        <v n="Value">"Trans11"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">48L</v>
@@ -700,7 +699,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans13"</v>
+                                        <v n="Value">"Trans12"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">60L</v>
@@ -883,7 +882,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans14"</v>
+                                        <v n="Value">"Trans13"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">72L</v>
@@ -1066,7 +1065,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans15"</v>
+                                        <v n="Value">"Trans14"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">84L</v>
@@ -1170,7 +1169,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans21"</v>
+                                        <v n="Value">"Trans1b"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">90L</v>
@@ -1291,7 +1290,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">""</v>
+                                        <v n="Value">"Step21_active"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">98L</v>
@@ -1356,7 +1355,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans22"</v>
+                                        <v n="Value">"Trans21"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">102L</v>
@@ -1539,7 +1538,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans23"</v>
+                                        <v n="Value">"Trans22"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">114L</v>
@@ -1722,7 +1721,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans24"</v>
+                                        <v n="Value">"Trans23"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">126L</v>
@@ -1905,7 +1904,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans25"</v>
+                                        <v n="Value">"Trans24"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">138L</v>
@@ -2171,7 +2170,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans2"</v>
+                                        <v n="Value">"Trans30a"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">157L</v>
@@ -2275,7 +2274,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans4"</v>
+                                        <v n="Value">"Trans30b"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">163L</v>
@@ -2458,7 +2457,7 @@ POSI Y &amp; Z
                                     <o>
                                       <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Trans5"</v>
+                                        <v n="Value">"Trans32"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">175L</v>
@@ -2752,7 +2751,7 @@ POSI Y &amp; Z
                         <o>
                           <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"Trans3"</v>
+                            <v n="Value">"Trans31"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">190L</v>
@@ -2935,7 +2934,7 @@ POSI Y &amp; Z
                         <o>
                           <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"Trans26"</v>
+                            <v n="Value">"TransSync"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">319L</v>
@@ -3397,35 +3396,43 @@ END_IF;
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Step11_active" Id="{20c46390-6170-4199-8540-2c71cd7b99dd}">
+      <Implementation>
+        <ST><![CDATA[TON_Z_EnPos(in:=En_pos_Z_Laser,pt:=T#100MS);
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Step11_Entry" Id="{d3e4a425-4f75-4489-ab57-2fd9e3ea4b31}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_REF + Hauteur_Aile - Ep_Ame - 5;
+        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_REF + Hauteur_Aile - Ep_Ame - 20;	//20 du bord car a partir de 20, la capacitance commence a detecter le vide 
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;
 
-Pos_cible_Z_Laser := Offset_Z_Laser_REF - Global_Divers.EP_Aile - 10;	//10 sécu arbitraire, à peut être adapter selon test
+Pos_cible_Z_Laser := Offset_Z_Laser_REF - EP_Aile - 10;	//10 sécu arbitraire, à peut être adapter selon test
 En_pos_Z_Laser :=FALSE;
 Top_Z_Laser := TRUE;
+
+TON_Z_EnPos(in:=FALSE);
 ]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step12_Entry" Id="{1a9c9888-7660-4a28-968f-965e7f79d8db}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_1_Y_1 := Hauteur_Aile - Ep_Ame - 5;
-Memo_Face_1_Z_1 := Global_Divers.EP_Aile + Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_1_Y_1 := Hauteur_Aile - 20;// Pk -Ep_Ame; ? On se pos pour etre a 20 mm du bord
+Memo_Face_1_Z_1 := EP_Aile + 10-Prog_Capacitance_Actual_Value_mm; 	//Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step13_Entry" Id="{87608582-0c6a-4296-9e6b-8a19c4719899}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_REF;
+        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_REF+15-Ep_Ame;
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step14_Entry" Id="{42c18ed7-64e5-42eb-b781-a99e44c17d35}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_1_Y_2 := Ep_Ame;
-Memo_Face_1_Z_2 := Global_Divers.EP_Aile + Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_1_Y_2 := 15;//Ep_Ame;
+Memo_Face_1_Z_2 := Ep_Aile +10-Prog_Capacitance_Actual_Value_mm; //Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step14_exit" Id="{6cd4c35c-4470-4750-ac9a-bcadc656f321}">
@@ -3433,35 +3440,44 @@ Memo_Face_1_Z_2 := Global_Divers.EP_Aile + Prog_Capacitance_Actual_Value_mm - 10
         <ST><![CDATA[Palpage_OK_Face_1:=true;]]></ST>
       </Implementation>
     </Action>
+    <Action Name="Step21_active" Id="{3db0aec2-4f8e-4da8-abde-7b8ec3036591}">
+      <Implementation>
+        <ST><![CDATA[TON_Z_EnPos(in:=En_pos_Z_Laser,pt:=T#100MS);
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="Step21_Entry" Id="{ae89a6af-92b1-4b55-a8c4-f4503c7fda92}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF - Largeur_Ame + Global_Divers.EP_Aile + 5;
+        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF - Largeur_Ame + EP_Aile + 20; //20 du bord car a partir de 20, la capacitance commence a detecter le vide
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;
 
 Pos_cible_Z_Laser := Offset_Z_Laser_OPP_REF - Ep_Ame - 10;
 En_pos_Z_Laser :=FALSE;
 Top_Z_Laser := TRUE;
+
+TON_Z_EnPos(in:=false);
+
 ]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step22_Entry" Id="{a69176f2-99f9-47d0-9c84-d9bf2b24368c}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_2_Y_1 := Largeur_Ame - Global_Divers.EP_Aile - 5;
-Memo_Face_2_Z_1 := Ep_Ame + Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_2_Y_1 :=Largeur_Ame - 20; 	//Pk - EP_Aile; on est a 20 mm du bord
+Memo_Face_2_Z_1 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm;	//Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step23_Entry" Id="{91dac981-640f-4fc0-ad59-4055b62b771d}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF;
+        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF-(15-Ep_Aile);
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_Entry" Id="{a1635e56-47da-4a25-9fe5-7547e605c28f}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_2_Y_1 := Global_Divers.EP_Aile;
-Memo_Face_2_Z_1 := Ep_Ame + Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_2_Y_2 := 15;//On se place a 15 mm EP_Aile;
+Memo_Face_2_Z_2 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm; //Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_exit" Id="{51760de6-a85d-4f4c-90b9-7a83d918e0a1}">
@@ -3471,22 +3487,34 @@ Memo_Face_2_Z_1 := Ep_Ame + Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
     </Action>
     <Action Name="Step31_Entry" Id="{ca6bbbd1-dac4-4bb0-8155-620b7ec06320}">
       <Implementation>
-        <ST><![CDATA[(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
-a1 := (Memo_Face_1_Y_1 - Memo_Face_1_Y_2) / (Memo_Face_1_Z_1 / Memo_Face_1_Z_2);
+        <ST><![CDATA[IF Memo_Face_1_Z_1 <> 0 AND Memo_Face_1_Z_2 <>0 
+	AND Memo_Face_2_Z_1 <> 0 AND Memo_Face_2_Z_2 <> 0 THEN
 
-(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-b1 := Memo_Face_1_Y_1 - (a1 * Memo_Face_1_Z_1);
+	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
+	a1 := (Memo_Face_1_Y_1 - Memo_Face_1_Y_2) / (Memo_Face_1_Z_1 - Memo_Face_1_Z_2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b1 := Memo_Face_1_Y_1 - (a1 * Memo_Face_1_Z_1);
+	
+	
+	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
+	a2 := (Memo_Face_2_Y_1 - Memo_Face_2_Y_2) / (Memo_Face_2_Z_1 - Memo_Face_2_Z_2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b2 := Memo_Face_2_Y_1 - (a2 * Memo_Face_2_Z_1);
+
+	Y_Sommet_Pour_Aile_OPP_REF := (b2 - b1) / (a1-a2);
+	Y_Sommet_Pour_Aile_REF := a1 * Y_Sommet_Pour_Aile_OPP_REF + b1;
+
+	(* Calcul de l'angle de la Droite 1 Aile REF *)
+	Alpha1 := ATAN(a1);
+
+	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
+	Alpha2 := ATAN(a2);
+
+END_IF;
 
 
-SHARK := SHARK;
-
-Top_Palpage_Sommet:=FALSE;
-
-IF memo_Face<>Face_En_Cours THEN 
-	Face_En_Pos:= FALSE;
-	Face_Cible:=memo_Face;
-	Top_Face:=TRUE;
-END_IF
 ]]></ST>
       </Implementation>
     </Action>
@@ -3499,7 +3527,31 @@ AND Top_Palpage_Sommet
 ]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans11" Id="{4b2b88a7-263f-4999-8453-23c5bb86f589}">
+    <Transition Name="Trans11" Id="{dd96ba56-a463-4e8d-8bc1-db0be054d307}">
+      <Implementation>
+        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser AND En_pos_Z_Laser AND NOT Top_Z_Laser
+AND TON_Z_EnPos.Q
+
+]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans12" Id="{0a503bde-9d7a-4d5e-8c20-4cf716968d74}">
+      <Implementation>
+        <ST><![CDATA[step12.t>t#20ms]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans13" Id="{d46613e4-a492-434d-80a4-b37edf5a2690}">
+      <Implementation>
+        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser
+and step13.t>t#100ms]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans14" Id="{571755b3-da75-4ed7-b8e8-9c33b04d02f6}">
+      <Implementation>
+        <ST><![CDATA[Memo_Face_1_Y_2<>0]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans1a" Id="{4b2b88a7-263f-4999-8453-23c5bb86f589}">
       <Implementation>
         <ST><![CDATA[NOT Top_Face 				AND
 Face_En_Pos 				AND
@@ -3510,34 +3562,7 @@ Top_Palpage_Face_1			AND
 Face_En_Cours = 1]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans12" Id="{dd96ba56-a463-4e8d-8bc1-db0be054d307}">
-      <Implementation>
-        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser AND En_pos_Z_Laser AND NOT Top_Z_Laser
-]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans13" Id="{0a503bde-9d7a-4d5e-8c20-4cf716968d74}">
-      <Implementation>
-        <ST><![CDATA[step12.t>t#20ms]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans14" Id="{d46613e4-a492-434d-80a4-b37edf5a2690}">
-      <Implementation>
-        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans15" Id="{571755b3-da75-4ed7-b8e8-9c33b04d02f6}">
-      <Implementation>
-        <ST><![CDATA[TRUE]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans2" Id="{22133bc6-87a4-49c1-9b48-fd6632a76d97}">
-      <Implementation>
-        <ST><![CDATA[(Palpage_OK_Face_1 AND Palpage_OK_Face_2)
-]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans21" Id="{961c6e79-3498-4ff5-9c7e-bf5244c7e419}">
+    <Transition Name="Trans1b" Id="{961c6e79-3498-4ff5-9c7e-bf5244c7e419}">
       <Implementation>
         <ST><![CDATA[NOT Top_Face 				AND
 Face_En_Pos 				AND
@@ -3548,47 +3573,55 @@ Top_Palpage_Face_2			AND
 Face_En_Cours = 2]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans22" Id="{15be584b-9cf0-43d0-ab68-d8219ed8afb7}">
+    <Transition Name="Trans21" Id="{15be584b-9cf0-43d0-ab68-d8219ed8afb7}">
       <Implementation>
         <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser AND En_pos_Z_Laser AND NOT Top_Z_Laser
+AND TON_Z_EnPos.Q
 ]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans23" Id="{874a2cf8-452e-45d7-81cc-fd2c96616461}">
+    <Transition Name="Trans22" Id="{874a2cf8-452e-45d7-81cc-fd2c96616461}">
       <Implementation>
         <ST><![CDATA[TRUE]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans24" Id="{7388a26f-2a30-4ead-a7cb-6c21a53d0276}">
+    <Transition Name="Trans23" Id="{7388a26f-2a30-4ead-a7cb-6c21a53d0276}">
       <Implementation>
-        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser]]></ST>
+        <ST><![CDATA[En_pos_Y_Laser AND NOT Top_Y_Laser
+and step23.t>t#100ms]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans25" Id="{479b1516-9e2f-4e68-8c5e-c777dfb4c7c6}">
+    <Transition Name="Trans24" Id="{479b1516-9e2f-4e68-8c5e-c777dfb4c7c6}">
       <Implementation>
-        <ST><![CDATA[TRUE]]></ST>
+        <ST><![CDATA[Memo_Face_2_Y_2<>0]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans26" Id="{d6102116-e9ab-426c-9ccd-df6639d0c5a8}">
+    <Transition Name="Trans30a" Id="{22133bc6-87a4-49c1-9b48-fd6632a76d97}">
       <Implementation>
-        <ST><![CDATA[not G7_Master_Palpages.stepSommet.x or manu]]></ST>
+        <ST><![CDATA[(Palpage_OK_Face_1 AND Palpage_OK_Face_2)
+]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans3" Id="{afe05620-b5de-4189-8241-76272c74888a}">
+    <Transition Name="Trans30b" Id="{a8b0fe86-2c25-4573-97d9-54fc8e6d3e38}">
+      <Implementation>
+        <ST><![CDATA[(NOT Palpage_OK_Face_1 OR NOT Palpage_OK_Face_2)]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans31" Id="{afe05620-b5de-4189-8241-76272c74888a}">
       <Implementation>
         <ST><![CDATA[NOT Top_Palpage_Sommet 
 AND Palpage_OK_Face_1 
 and Palpage_OK_Face_2]]></ST>
       </Implementation>
     </Transition>
-    <Transition Name="Trans4" Id="{a8b0fe86-2c25-4573-97d9-54fc8e6d3e38}">
-      <Implementation>
-        <ST><![CDATA[(NOT Palpage_OK_Face_1 OR NOT Palpage_OK_Face_2)]]></ST>
-      </Implementation>
-    </Transition>
-    <Transition Name="Trans5" Id="{b162ef49-608c-43f3-8b07-8f91e84fe19e}">
+    <Transition Name="Trans32" Id="{b162ef49-608c-43f3-8b07-8f91e84fe19e}">
       <Implementation>
         <ST><![CDATA[TRUE]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="TransSync" Id="{d6102116-e9ab-426c-9ccd-df6639d0c5a8}">
+      <Implementation>
+        <ST><![CDATA[not G7_Master_Palpages.stepSommet.x or manu]]></ST>
       </Implementation>
     </Transition>
     <ObjectProperties>

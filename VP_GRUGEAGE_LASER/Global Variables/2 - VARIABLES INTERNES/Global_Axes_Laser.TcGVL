@@ -49,9 +49,9 @@ VAR_GLOBAL
 	 Vitesse_Reelle_X_Laser							: LREAL;
 	 Vitesse_Manu_X_Laser							:LREAL;
 (* Axe Y *)
-	 Offset_Y_Laser_REF								: LREAL := 617;
+	 Offset_Y_Laser_REF								: LREAL := 616;
 	 	Pos_Y_RelaFaceRef							:LREAL;
-	 Offset_Y_Laser_OPP_REF							: LREAL := 153;
+	 Offset_Y_Laser_OPP_REF							: LREAL := 149;
 	 	 Pos_Y_RelaFaceOppRef						:LREAL;
 	 Offset_Y_Laser_ECRETAGE						: LREAL := 52;
 	 	 Pos_Y_RelaFaceEcret						:LREAL;

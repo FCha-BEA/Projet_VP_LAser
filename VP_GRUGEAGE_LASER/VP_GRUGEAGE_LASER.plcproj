@@ -259,13 +259,10 @@
     <Compile Include="POUs\Brouillon.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_A_Ethercat_V1_1.TcPOU">
+    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_A_Ethercat_V1.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_Ethercat_V2.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_A_Ethercat_V1.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\FB UTILITAIRES\Axes\FB_Axe_Ethercat_V3.TcPOU">

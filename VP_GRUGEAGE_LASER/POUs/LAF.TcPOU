@@ -51,7 +51,17 @@ A faire 09/10 :
 
 3.EC - Test iso grugeage - EC=Test simple avec un carre sans code M - Test avec code M
 
-4. OK - check dimension corniere L80*80*10]]></ST>
+4. OK - check dimension corniere L80*80*10
+
+OK - FB Axe A MAJ
+
+Test Palpage sommet			====> test copie colle pour inverser systweme coordonne : x<=>Y  (qverc Y axe et Z axe)
+
+Re ecrire G7 Gene popur cycle avec chariot voir one note 
+
+OK - FAIT - Pos parking z = lim -, check torche deg full  < lim- +5
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

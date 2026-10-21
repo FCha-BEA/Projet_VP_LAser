@@ -1,26 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="FB_Axe_A_Ethercat_V1" Id="{a15318c6-49b8-4bae-baea-55f1de563807}" SpecialFunc="None">
+  <POU Name="FB_Axe_A_Ethercat_V1" Id="{61d965c7-5e06-4fe3-87b3-bb09eb927b6d}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Axe_A_Ethercat_V1
-VAR_INPUT	IN:BOOL;		Id_axe:UINT;
-	En_service,	Reset,	Arus,	Jog_plus,	Jog_moins,	Fc_plus,	Fc_moins,	Fc_origine,	Dem_gv,		Dem_pv,		Dem_V_nulle,	Palpage, bit_POM_ok:BOOL;
-	Pos_origine, Offset_axe,	Butee_soft_plus,	Butee_soft_moins,	Zone_PV_devant_limites,	Vitesse_man,	PTP_Pos_cible,	PTP_Vitesse,	PTP_Accel_decel:LREAL;
-	Override:REAL;	Esclave:BOOL;	Id_axe_maitre:UINT;	Pos_externe_forcage:LREAL;	ISO:BOOL;	END_VAR
-VAR_IN_OUT	PTP_Start,	Demande_ref:BOOL;	Axis,Axis_Maitre:AXIS_REF;
-	Forcage_flag_ref:BOOL;	Forcage_pos:BOOL;	END_VAR
-VAR_OUTPUT	Validation_variateur,	Axe_enable,	Defaut_axe:BOOL;
-	Numero_defaut:UDINT;	Defaut_Top_et_V_nulle,	Defaut_var_18000,		Defaut_poursuite_17744:BOOL;
-	Pos_axe:LREAL;	Ref_ok:BOOL;	PTP_Axe_en_pos,	Axe_no_move,	Axe_no_job,	Limite_atteinte,	Axe_en_mode_esclave:BOOL;	Vitesse_axe:LREAL;
-	Defaut_var_AX5000:BOOL;	Diag_number_AX5000:UDINT;	Diag_Mess_AX5000:STRING;	END_VAR
-VAR	Bit_de_cde_axe:UDINT;	MC_GearIn_1:MC_GearIn; MC_GearInMultiMaster_1:MC_GearInMultiMaster;	MC_GearOut_1:MC_GearOut;	MC_Home_1,	MC_Home_forcage: MC_Home;	MC_SetPosition_1: MC_SetPosition;
-	MC_MoveAbsolute_1,MC_MoveAbsolute_2:MC_MoveAbsolute;	MC_Stop_1:MC_Stop;	MC_reset_1:MC_Reset;	MC_Jog_1:MC_Jog;
-	RE_En_service,	RE_Demande_ref,		RE_Defaut_Axe,	RE_Axe_Enable,	RE_Reset,	RE_Arus: R_TRIG;		FE_En_service,	FE_Reset: F_TRIG;
-	TON_En_pos,	TON_Valid_ok,	TON_Top_et_V_nulle:TON;		TOF_Axe_enable:TOF;
-	Bit_petite_vitesse,		Memo_Demande_ref,	Top_Chgt_Vitesse_PTP,	Read_status_Ax5000:BOOL;
-	Memo_PTP_Vitesse:LREAL;
-	RE_Ref_ok:R_TRIG;
-	FB_Reset_VarAX5000:FB_SoEReset;	
-	FB_Read_Diag_VarAX5000:FB_SoEReadDiagMessage;	
+VAR_INPUT	
+	IN:BOOL;	Id_axe:UINT;
+	En_service,	Reset, Arus, Jog_plus, Jog_moins,	
+	Fc_plus, Fc_moins, Fc_origine, Dem_gv, Dem_pv,		
+	Dem_V_nulle, Palpage, bit_POM_ok:BOOL;
+	Pos_origine, Offset_axe, Butee_soft_plus, Butee_soft_moins,	
+	Zone_PV_devant_limites,	Vitesse_man, PTP_Pos_cible,	PTP_Vitesse, PTP_Accel_decel:LREAL;
+	Override:REAL;	Esclave:BOOL;	Id_axe_maitre:UINT;	Pos_externe_forcage:LREAL;	ISO:BOOL;	
+END_VAR
+
+VAR_IN_OUT	
+	PTP_Start, Demande_ref:BOOL;	Axis,Axis_Maitre:AXIS_REF;
+	Forcage_flag_ref, Forcage_pos:BOOL;	
+END_VAR
+
+VAR_OUTPUT	
+	Validation_variateur, Axe_enable, Defaut_axe:BOOL;
+	Numero_defaut:UDINT;	Defaut_Top_et_V_nulle, Defaut_var_18000, Defaut_poursuite_17744:BOOL;
+	Pos_axe:LREAL;	Ref_ok:BOOL;	
+	PTP_Axe_en_pos,	Axe_no_move, Axe_no_job, Limite_atteinte, Axe_en_mode_esclave:BOOL;	
+	Vitesse_axe:LREAL;	Defaut_var_AX5000:BOOL;	Diag_number_AX5000:UDINT;	Diag_Mess_AX5000:STRING;	
+END_VAR
+VAR	
+	Bit_de_cde_axe:UDINT;	MC_GearIn_1:MC_GearIn;	MC_GearInMultiMaster_1:MC_GearInMultiMaster;	
+	MC_GearOut_1:MC_GearOut;	MC_Home_1, MC_Home_forcage: MC_Home;	MC_SetPosition_1: MC_SetPosition;
+	MC_MoveAbsolute_1, MC_MoveAbsolute_2:MC_MoveAbsolute;	MC_Stop_1,MC_Stop_Jog:MC_Stop;	
+	FB_Jog1, FB_Jog2	:MC_MoveVelocity;
+	Memo_Vit_Manu	:LREAL;	
+	R_ChgtVit	:R_TRIG;
+	Sens_Mvt	:MC_Direction;
+	Choix_FBJog1, Choix_FBJog2, bPermut_FBJog :BOOL;	
+	R_Jog	:R_TRIG;	F_Jog	:F_TRIG;
+	Csg_Vit	:LREAL;
+	MC_reset_1:MC_Reset;	MC_Jog_1:MC_Jog;
+	RE_En_service, RE_Demande_ref, RE_Defaut_Axe, RE_Axe_Enable, RE_Reset, RE_Arus: R_TRIG;		
+	FE_En_service, FE_Reset: F_TRIG;	TON_En_pos, TON_Valid_ok, TON_Top_et_V_nulle:TON;	TOF_Axe_enable:TOF;
+	Bit_petite_vitesse, Memo_Demande_ref, Top_Chgt_Vitesse_PTP, Read_status_Ax5000:BOOL;
+	Memo_PTP_Vitesse:LREAL;		RE_Ref_ok:R_TRIG;	FB_Reset_VarAX5000:FB_SoEReset;		FB_Read_Diag_VarAX5000:FB_SoEReadDiagMessage;	
 	FB_Read_Diag_Number_VarAX5000:FB_SoEReadDiagNumber;	
 	Diag_message_VarAX5000:ST_SoE_String;
 	Stop_Axe: BOOL;
@@ -247,15 +266,53 @@ RE_Arus(clk:=Arus);
 //////////////////////////////////////////////////
 //					J.O.G						//
 //////////////////////////////////////////////////
-	MC_Jog_1.Mode:=MC_JOGMODE_CONTINOUS;
-	MC_Jog_1.JogForward:=Jog_plus AND Fc_plus AND (Pos_axe<Butee_soft_plus OR NOT Ref_ok);
-	MC_Jog_1.JogBackwards:=Jog_moins AND Fc_moins AND (Pos_axe>Butee_soft_moins OR NOT Ref_ok);
-	MC_Jog_1.Velocity:=Vitesse_man; 
-	MC_Jog_1.Acceleration:=MC_Jog_1.Deceleration:=PTP_Accel_decel;
-	IF Vitesse_man<>0 THEN
-		MC_Jog_1.Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/Vitesse_man;
+
+	R_ChgtVit(clk:=((Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins AND pos_Axe > Butee_soft_moins))
+		AND Csg_Vit <> Memo_Vit_Manu);	//Detect chgt vitesse manu
+	IF Jog_plus THEN Sens_Mvt := MC_Positive_Direction; ELSIF Jog_moins THEN Sens_Mvt := MC_Negative_Direction; END_IF
+	R_Jog(clk:=(Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins AND pos_Axe > Butee_soft_moins));
+	F_Jog(clk:=(Jog_plus AND Pos_Axe < Butee_soft_plus) OR (Jog_moins AND pos_Axe > Butee_soft_moins));
+	
+	IF R_Jog.Q THEN
+		bPermut_FBJog := NOT bPermut_FBJog;
+		IF bPermut_FBJog THEN Choix_FBJog1 := TRUE; Choix_FBJog2 :=FALSE;
+		ELSE Choix_FBJog1 := FALSE; Choix_FBJog2 :=TRUE;
+		END_IF
 	END_IF
-	MC_Jog_1(Axis:=Axis);
+	
+	IF R_ChgtVit.Q THEN 
+		bPermut_FBJog := NOT bPermut_FBJog;
+		IF bPermut_FBJog THEN Choix_FBJog1 := TRUE; Choix_FBJog2 :=FALSE;
+		ELSE Choix_FBJog1 := FALSE; Choix_FBJog2 :=TRUE;
+		END_IF
+	END_IF
+
+IF Vitesse_man <> 0 THEN
+	FB_Jog1(
+		Axis:=Axis,
+		Execute:= Choix_FBJog1,
+		Velocity:= Csg_Vit,
+		Acceleration:=PTP_Accel_decel,
+		Deceleration:=PTP_Accel_decel,
+		Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/Vitesse_man,
+		Direction:=Sens_Mvt,
+		BufferMode:=MC_Aborting);
+	
+	FB_Jog2(
+		Axis:=Axis,
+		Execute:= Choix_FBJog2,
+		Velocity:= Csg_Vit,
+		Acceleration:=PTP_Accel_decel,
+		Deceleration:=PTP_Accel_decel,
+		Jerk:=(PTP_Accel_Decel*PTP_Accel_Decel)/Vitesse_man,
+		Direction:=Sens_Mvt,
+		BufferMode:=MC_Aborting);
+END_IF
+		
+	Memo_Vit_Manu:= Csg_Vit; 
+	
+	MC_Stop_Jog(Axis:=Axis);
+	MC_Stop_Jog.Execute:=	F_Jog.Q;
 	
 //////////////////////////////////////////////////
 //					Override					//
@@ -271,22 +328,19 @@ RE_Arus(clk:=Arus);
 		OR NOT Dem_gv AND Manu	AND (Jog_plus OR Jog_moins);
 
 	IF NOT Reset AND NOT Dem_V_nulle AND Override<>0 THEN
-		IF Palpage THEN
-			Axis.PlcToNc.Override:=50000;(*5%*)
-		ELSIF Bit_petite_vitesse  THEN
-				IF ABS(Vitesse_axe) >=1 AND ((Ref_ok //1Deg/s
+		IF Bit_petite_vitesse  THEN
+				IF ((Ref_ok //1Deg/s
 				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
 					OR ((Pos_axe>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))) THEN
-						Axis.PlcToNc.Override:= 2000000 /REAL_TO_DWORD(Vitesse_Man); (*on limite la vitesse à 2Deg/s *)
+						Csg_Vit:=1; (*on limite la vitesse à 2Deg/s *)
 				ELSE
-						Axis.PlcToNc.Override:=300000;(*30%*)
+						Csg_Vit := Vitesse_man/2;
 
 				END_IF
 		ELSIF Manu AND Dem_gv THEN
-			Axis.PlcToNc.Override:=1000000;(*100%*)
-		ELSE
-			Axis.PlcToNc.Override:=REAL_TO_DWORD(Override)*10000;
+			Csg_Vit := Vitesse_man;
 		END_IF
+		Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 	ELSE
 		Axis.PlcToNc.Override:=0;(*Vitesse Nulle*)
 	END_IF

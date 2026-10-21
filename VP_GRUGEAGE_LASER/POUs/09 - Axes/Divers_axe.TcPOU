@@ -8,6 +8,18 @@ VAR
 	ZChariot_Interdit	:BOOL;
 	//Relevage/abaissement pince
 	 Pos_Parking_ZChariot	:LREAL;
+	 
+	 F1Y1,F1Z1,F1Y2,F1Z2,
+	 F2Y1,F2Z1,F2Y2,F2Z2	:LREAL;
+	 
+	a1b: LREAL;
+	b1b: LREAL;
+	a2b: LREAL;
+	b2b: LREAL;
+	Y_Sommet_Pour_Aile_OPP_REFb: LREAL;
+	Y_Sommet_Pour_Aile_REFb: LREAL;
+	Alpha1b: LREAL;
+	Alpha2b: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -23,7 +35,7 @@ END_VAR
  XYL_Interdit := Manu AND (Offset_Z_Laser_REF-Pos_Reel_Z_Laser < 2* Global_Divers.EP_Aile) AND NOT Selection_DecManu_Laser;
 //Limite Z laser 
  IF Prog_Capacitance_Calibration_OK AND G7_Palpage_Capacitance.Init.x THEN
- 	Limite_PLus_Z_Laser := pos_ref_torche;
+ 	Limite_PLus_Z_Laser := pos_ref_torche-0.2;
  ELSE
  	Limite_PLus_Z_Laser := Pnc_axe_Z_Robot.Limite_Plus;
  END_IF
@@ -56,9 +68,9 @@ Origines_Axes_ok :=
  END_IF
  
 // Pos Y relative a la corniere - Si offset Y Face 1/2/ecr OK seulement !
-	Pos_Y_RelaFaceRef:=(Pos_Reel_Y_Laser - Offset_Y_Laser_REF)+Ep_Aile;
-	Pos_Y_RelaFaceOppRef:=(Pos_Reel_Y_Laser - Offset_Y_Laser_OPP_REF)+EP_Ame;
-	Pos_Y_RelaFaceEcret:= Offset_Y_Laser_ECRETAGE - Pos_Reel_Y_Laser;
+	Pos_Y_RelaFaceRef:=(Pos_Reel_Y_Laser - Offset_Y_Laser_REF)+Ep_Ame;
+	Pos_Y_RelaFaceOppRef:=(Offset_Y_Laser_OPP_REF-Pos_Reel_Y_Laser)+EP_Aile;
+	Pos_Y_RelaFaceEcret:= Pos_Reel_Y_Laser-Offset_Y_Laser_ECRETAGE;
 
 //Gestion vitesses Manu Axes 
 	IF Selection_DecManu_Laser THEN 
@@ -69,8 +81,67 @@ Origines_Axes_ok :=
 		Vitesse_Manu_Y_Laser := Pnc_axe_Y_Robot.Vitesse_MAN;
 	END_IF
 
+
+
+
+	
+IF Memo_Face_1_Z_1 <> 0 AND Memo_Face_1_Z_2 <>0 
+	AND Memo_Face_2_Z_1 <> 0 AND Memo_Face_2_Z_2 <> 0 THEN
+
+	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
+	a1 := (Memo_Face_1_Z_1 - Memo_Face_1_Z_2)/(Memo_Face_1_Y_1 - Memo_Face_1_Y_2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b1 := Memo_Face_1_Z_1 - (a1 *Memo_Face_1_Y_1);
 	
 	
+	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
+	a2 := (Memo_Face_2_Z_1 - Memo_Face_2_Z_2) / (Memo_Face_2_Y_1 - Memo_Face_2_Y_2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b2 := Memo_Face_2_Z_1 - (a2 * Memo_Face_2_Y_1);
+
+	Y_Sommet_Pour_Aile_OPP_REF := (b2 - b1) / (a1-a2);
+	Y_Sommet_Pour_Aile_REF := a1 * Y_Sommet_Pour_Aile_OPP_REF + b1;
+
+	(* Calcul de l'angle de la Droite 1 Aile REF *)
+	Alpha1 := ATAN(a1);
+
+	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
+	Alpha2 := ATAN(a2);
+
+END_IF
+
+	
+IF F1Z1 <> 0 AND F1Z2 <>0 
+	AND F2Z1 <> 0 AND F2Z2 <> 0 THEN
+
+	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
+	a1b := (F1Z1 - F1Z2)/(F1Y1 - F1Y2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b1b := F1Z1 - (a1b * F1Y1 );
+	
+	
+	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
+	a2b := (F2Z1 - F2Z2)/(F2Y1 - F2Y2);
+
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b2b := F2Z1 - (a2b * F2Y1);
+	IF (a1b-a2b)<> 0 THEN
+		Y_Sommet_Pour_Aile_OPP_REFb := (b2b - b1b) / (a1b-a2b);
+	END_IF
+	Y_Sommet_Pour_Aile_REFb := a1b * Y_Sommet_Pour_Aile_OPP_REFb + b1b;
+
+	(* Calcul de l'angle de la Droite 1 Aile REF *)
+	Alpha1b := ATAN(a1b);
+
+	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
+	Alpha2b := ATAN(a2b);
+
+
+
+END_IF;
 
 
 ]]></ST>
