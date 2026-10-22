@@ -1867,7 +1867,7 @@ External Setpoint Generation:
 		</System>
 		<Motion>
 			<NC>
-				<SafTask Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" SafTaskInfo="256">
+				<SafTask Disabled="true" Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" SafTaskInfo="256">
 					<Name>NC-Task 1 SAF</Name>
 					<Vars VarGrpType="1" InsertType="1">
 						<Name>Entrées</Name>
@@ -2661,11 +2661,15 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{B657D31B-5050-C1F2-76D0-C3C3A7ABEDC1}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{3D65DA73-75D0-2C27-95FC-5F295E423783}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
 						<Name>Standard Outputs</Name>
+						<Var>
+							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.PlcToNc</Name>
+							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
 						<Var>
 							<Name>Axe_01_X.XChariot.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
@@ -2703,11 +2707,11 @@ resolution 3/2exp20
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
+							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
+							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -3163,13 +3167,13 @@ Sécurité/Réarmement]]></Comment>
 							<Name>.Lenze_Decel_Time_1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
-						<Var>
-							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.PlcToNc</Name>
-							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
-						</Var>
 					</Vars>
 					<Vars VarGrpType="1">
 						<Name>Standard Inputs</Name>
+						<Var>
+							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.NcToPlc</Name>
+							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
 						<Var>
 							<Name>OK_Repartiteurs_Laser.Mesure_Presseur_Aval_Ref.Byte0</Name>
 							<Type>USINT</Type>
@@ -3990,10 +3994,6 @@ Sécurité/Réarmement]]></Comment>
 							<Name>.Lenze_Apparent_Power_Var_Pompe</Name>
 							<Type>DINT</Type>
 						</Var>
-						<Var>
-							<Name>Axe_42_Z_Laser.ZLaser.AxisToRead.NcToPlc</Name>
-							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
-						</Var>
 					</Vars>
 					<Contexts>
 						<Context>
@@ -4024,7 +4024,7 @@ Sécurité/Réarmement]]></Comment>
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="21.63.21.63.2.1" RemoteName="Périphérique 1 (EtherCAT)" InfoImageId="4">
+			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="21.63.21.63.2.1" RemoteName="Périphérique 1 (EtherCAT)" InfoImageId="4">
 				<Name>Périphérique 1 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
@@ -4035,9 +4035,6 @@ Sécurité/Réarmement]]></Comment>
 				</AddressInfo>
 				<Image Id="2" AddrType="9" ImageType="3">
 					<Name>Image</Name>
-				</Image>
-				<Image Id="3" AddrType="10" ImageType="3">
-					<Name>Image-2</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>Armoire-A (EK1100)</Name>
@@ -11344,11 +11341,6 @@ Sécurité/Réarmement]]></Comment>
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500831000403}" Id="#x02030040"/>
-		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
-		<MappingInfo Identifier="{00000000-0040-0304-1000-040342000403}" Id="#x02030030"/>
-		<MappingInfo Identifier="{08502001-0020-0304-0020-500820000403}" Id="#x02030020" Watchdog="00000000000000000000000000000000"/>
-		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axe 40 (X - Laser)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-811A1 Var X/A Laser (AX5203-0000-0216)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT 1^Following distance"/>

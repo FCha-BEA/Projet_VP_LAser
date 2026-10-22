@@ -3418,8 +3418,12 @@ TON_Z_EnPos(in:=FALSE);
     </Action>
     <Action Name="Step12_Entry" Id="{1a9c9888-7660-4a28-968f-965e7f79d8db}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_1_Y_1 := Hauteur_Aile - 20;// Pk -Ep_Ame; ? On se pos pour etre a 20 mm du bord
-Memo_Face_1_Z_1 := EP_Aile + 10-Prog_Capacitance_Actual_Value_mm; 	//Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_1_Y_1 := Hauteur_Aile - 20-EP_ame;// Pk -Ep_Ame ? On se pos pour etre a 20 mm du bord mais il faut quand même retirer ep ame car la coordonnée Y dépend de Ep ame
+Memo_Face_1_Z_1 := EP_Aile + 10-Prog_Capacitance_Actual_Value_mm; 	//Prog_Capacitance_Actual_Value_mm - 10;
+
+F1P1.X :=Memo_Face_1_Y_1;
+F1P1.Y :=Memo_Face_1_Z_1;
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step13_Entry" Id="{87608582-0c6a-4296-9e6b-8a19c4719899}">
@@ -3431,8 +3435,11 @@ Top_Y_Laser := TRUE;]]></ST>
     </Action>
     <Action Name="Step14_Entry" Id="{42c18ed7-64e5-42eb-b781-a99e44c17d35}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_1_Y_2 := 15;//Ep_Ame;
-Memo_Face_1_Z_2 := Ep_Aile +10-Prog_Capacitance_Actual_Value_mm; //Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_1_Y_2 := 15-Ep_Ame;
+Memo_Face_1_Z_2 := Ep_Aile +10-Prog_Capacitance_Actual_Value_mm; 
+
+F1P2.X :=Memo_Face_1_Y_2;
+F1P2.Y :=Memo_Face_1_Z_2;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step14_exit" Id="{6cd4c35c-4470-4750-ac9a-bcadc656f321}">
@@ -3463,21 +3470,27 @@ TON_Z_EnPos(in:=false);
     </Action>
     <Action Name="Step22_Entry" Id="{a69176f2-99f9-47d0-9c84-d9bf2b24368c}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_2_Y_1 :=Largeur_Ame - 20; 	//Pk - EP_Aile; on est a 20 mm du bord
-Memo_Face_2_Z_1 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm;	//Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_2_Y_1 :=-(Largeur_Ame - 20-Ep_aile); 	//Pk - EP_Aile ? on est a 20 mm du bord mais on s'est posi par rapport à ep aile et on est face 2 donc en 'négatif', 20mm du bord se retrouvera toujours derrière le sommet
+Memo_Face_2_Z_1 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm;	//Prog_Capacitance_Actual_Value_mm - 10;
+ 
+F2P1.X :=-Memo_Face_2_Z_1;	//rotation de +90° pour revenir repère f1, X=Y' et Y=-X'
+F2P1.Y :=Memo_Face_2_Y_1;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step23_Entry" Id="{91dac981-640f-4fc0-ad59-4055b62b771d}">
       <Implementation>
-        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF-(15-Ep_Aile);
+        <ST><![CDATA[Pos_cible_Y_Laser := Offset_Y_Laser_OPP_REF+Ep_Aile-15;
 En_pos_Y_Laser :=FALSE;
 Top_Y_Laser := TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_Entry" Id="{a1635e56-47da-4a25-9fe5-7547e605c28f}">
       <Implementation>
-        <ST><![CDATA[Memo_Face_2_Y_2 := 15;//On se place a 15 mm EP_Aile;
-Memo_Face_2_Z_2 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm; //Prog_Capacitance_Actual_Value_mm - 10;]]></ST>
+        <ST><![CDATA[Memo_Face_2_Y_2 := EP_Aile-15;	//la cote peut être négative comme positiive
+Memo_Face_2_Z_2 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm;
+
+F2P2.X :=Memo_Face_2_Z_2;	//rotation de +90° pour revenir repère f1
+F2P2.Y :=-Memo_Face_2_Y_2;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_exit" Id="{51760de6-a85d-4f4c-90b9-7a83d918e0a1}">
@@ -3487,33 +3500,55 @@ Memo_Face_2_Z_2 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm; //Prog_Capacita
     </Action>
     <Action Name="Step31_Entry" Id="{ca6bbbd1-dac4-4bb0-8155-620b7ec06320}">
       <Implementation>
-        <ST><![CDATA[IF Memo_Face_1_Z_1 <> 0 AND Memo_Face_1_Z_2 <>0 
+        <ST><![CDATA[(*IF Memo_Face_1_Z_1 <> 0 AND Memo_Face_1_Z_2 <>0 		
 	AND Memo_Face_2_Z_1 <> 0 AND Memo_Face_2_Z_2 <> 0 THEN
-
 	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
 	a1 := (Memo_Face_1_Y_1 - Memo_Face_1_Y_2) / (Memo_Face_1_Z_1 - Memo_Face_1_Z_2);
-
 	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
 	b1 := Memo_Face_1_Y_1 - (a1 * Memo_Face_1_Z_1);
-	
-	
 	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
 	a2 := (Memo_Face_2_Y_1 - Memo_Face_2_Y_2) / (Memo_Face_2_Z_1 - Memo_Face_2_Z_2);
-
 	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
 	b2 := Memo_Face_2_Y_1 - (a2 * Memo_Face_2_Z_1);
-
 	Y_Sommet_Pour_Aile_OPP_REF := (b2 - b1) / (a1-a2);
 	Y_Sommet_Pour_Aile_REF := a1 * Y_Sommet_Pour_Aile_OPP_REF + b1;
+	(* Calcul de l'angle de la Droite 1 Aile REF *)
+	Alpha1 := ATAN(a1);
+	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
+	Alpha2 := ATAN(a2);
+END_IF;*)
+
+//Si X repère = Y axe et Y repère = Z axe - Avec FxPx	Pour plus de facilité à la visu, + ajout sécurité pour éviter des divisions /0
+IF F1P1.Y <> 0 AND F1P2.Y <>0 		
+	AND F2P1.Y <> 0 AND F2P2.Y <> 0 THEN
+
+	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
+	IF F1P1.X - F1P2.X<>0 THEN
+		a1 := (F1P1.Y - F1P2.Y)/(F1P1.X - F1P2.X);	//P1 plus loin sur l'axe X que P2
+	END_IF
+	//Si cornière parfaite, bien posée sur le bati machine, alors F1P1.Y - F1P2.Y =0. Si c'est le cas, la droite Y1(x)=b1 avec b1 = F1P1.Y ou F1P2.Y qui sont égaux
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b1 := F1P1.Y - (a1 *F1P1.X);
+	
+	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
+	IF F2P1.X - F2P2.X<>0 THEN
+		a2 := (F2P1.Y - F2P2.Y) / (F2P1.X - F2P2.X);
+	END_IF
+	//Si cornière parfaite, bien posée sur le bati machine, alors F2P1.X - F2P2.X =0. la droite Y2(x)= F2P1.X ou F2P2.X qui sont égaux
+	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+	b2 := F2P1.Y - (a2 * F2P1.X);
+	
+	IF a1-a2 <> 0 THEN
+		Y_Sommet_Pour_Aile_REF := (b2 - b1) / (a1-a2);
+	END_IF
+	Y_Sommet_Pour_Aile_Opp_REF := a1 * Y_Sommet_Pour_Aile_REF + b1;	//Correspond 
 
 	(* Calcul de l'angle de la Droite 1 Aile REF *)
 	Alpha1 := ATAN(a1);
-
 	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
 	Alpha2 := ATAN(a2);
 
-END_IF;
-
+END_IF
 
 ]]></ST>
       </Implementation>
