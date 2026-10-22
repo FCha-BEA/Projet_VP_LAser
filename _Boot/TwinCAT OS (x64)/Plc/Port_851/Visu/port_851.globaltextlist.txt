@@ -1,129 +1,343 @@
-Id;Default;eng;FR
-367;%4.2f mm;;
-371;%4.2f °;;
-311;%s;;
-383;%s$R$N(kVA);;
-381;%s$R$N(kW);;
-387;%s$R$N(RPM);;
-393;%s$R$NHHHHH : MM;;
-377;%s $R$N(A);;
-364;%s $R$N(Bars);;
-379;%s $R$N(V);;
-376;%s $R$N(°C);;
-540;.linkState;;
-400;0;;
-563;0Min;;
-398;1;;
-433;1520-BE;;
-469;1572-BS;;
-392;30Min;;
-904;420-Chariot entrée;;
-466;475;;
-564;60Min;;
-143;820;;
-592;820-Laser1;;
-396;821;;
-332;821-Laser2;;
-654;822-Laser3;;
-678;822-MLaser3;;
-449;961-Pupitre;;
-375;Aile Opp Ref;;
-7;Aile Ref;;
-374;Ame;;
-370;Angle.x;;
-372;Angle.y;;
-373;Angle.z;;
-391;Annulation defaut;;
-722;Augmenter$R$NLimiteur$R$NPression;;
-830;BACK;;
-976;Bot_1_Cover_Glass_Ambient_Temp;;
-977;Bot_1_Cover_Glass_Temp;;
-811;Cavity_Pressure;;
-809;Cavity_Temp;;
-560;Couple$R$N$R$N;;
-378;Courant;;
-471;Courant$R$N(A);;
-477;CPT Temps$R$NHHHHH : MM;;
-812;Cutting_Gas_Pressure;;
-810;Cutting_Gas_Temp;;
-224;Data01_Capacitance_Actual_Value$R$NData02_Capacitance_HeartBeat_Accumulated_Value$R$NData03_Focus_Lens_Ambient_Temperature $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData04_Focus_Lens_Temperature $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData05_Reserved$T$T$T$T$T$T$T$T$T(* 0.01 °C *)$R$NData06_Reserved$T$T$T$T$T$T$T$T$T(* 0.01 °C *)$R$NData07_Top_1_Cover_Glass_Ambient_Temp  $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData08_Top_1_Cover_Glass_Temp $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)$T$T(* 0.01 °C *)$R$NData11_Cavity_Temp$T$T(* 0.01 °C *)$R$NData12_Cavity_Pressure$T$T(* 0.1 Bar *)$R$NData13_Cutting_Gas_Temp$T$T(* 0.01 °C *)$R$NData14_Cutting_Gas_Pressure $T(* 0.01 Bar *)$R$NData15_Per_10000_Humidity$R$NData16_Dew_Point_Temp $T$T(* Température du point de rosée *) (* 0.01 °C *)$R$NData17_TTA_Preamplifier_Temp $T(* 0.01 °C *)$R$NData18_Process_Monitor$T$T(* 0 - 12288 *)$R$NData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData20_Process_Monitor $T$T(* 0 - 12288 *)$R$NData21_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData22_Process_Monitor $T$T(* 0 - 12288 *)$R$NData23_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData24_Process_Monitor $T$T(* 0 - 12288 *)$R$NData25_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData26_Stray_Beam_Reserved $T(* 0 - 4096 *)$R$NData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)$R$NData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData30_Reserved;;
-798;Demande$R$NOuverture$R$N/$R$NFermeture$R$NPorte;;
-214;Demande$R$NOuverture$R$NPorte;;
-519;Demande$R$Nuverture$R$NPorte;;
-167;Demande ouverture$R$NPorte;;
-772;Demande Ouverture$R$NPorte;;
-849;deviceState;;
-223;DI01_Collision$R$NDI02_Up_Limit$R$NDI03_Down_Limit$R$NDI04_Bottom_1_Cover_Glass_Ready$R$NDI05_Homing_finished;;
-723;Diminuer$R$NLimiteur$R$NPression;;
-476;Démarrage$R$NPompe;;
-816;ENTREE;;
-972;Focus_Lens_Ambient_Temperature;;
-973;Focus_Lens_Temperature;;
-397;FORCAGE;;
-1085;Jog Ar;;
-339;Jog Av;;
-366;M.x;;
-368;M.y;;
-369;M.z;;
-478;Mode$R$NReglage;;
-395;Mode de reglage;;
-390;Moteur;;
-1057;NOT Forcage_Rep.Forcage_a_1_Temp.18 and Not Forcage_Rep.Forcage_a_1[Forcage_Rep.Num_Rep_Selectionne_pr_Forcage].18;;
-562;P$R$NI$R$ND;;
-840;Pin 2$R$N0;;
-848;Pin 2$R$N1;;
-817;Pin 4$R$N0;;
-825;Pin 4$R$N1;;
-385;Pompe;;
-565;POMPE_ATOS_ECRAN;;
-832;Port 0;;
-157;Port 1;;
-159;Port 2;;
-160;Port 3;;
-162;Port 4;;
-163;Port 5;;
-164;Port 6;;
-578;Port 7;;
-365;Pression;;
-112;Pression$R$N(Bars);;
-479;Pression$R$NOK;;
-558;Pression OK;;
-60;Prog_Distance_Focal_Reelle$T(* mm *)$R$NProg_Distance_Focal_OK$R$N$R$NProg_Capacitance_Actual_Value_mm$R$NProg_Capacitance_Calibration_OK$R$N$R$NProg_Tete_Prete_Pour_Decoupe$R$N$R$NProg_Defaut_Collision$R$NProg_Defaut_Limite_Atteinte$R$NProg_Defaut_Temperature_Lens$R$NProg_Defaut_Temperature_Lamelle_Verre_Superieure$R$NProg_Defaut_Temperature_Lamelle_Verre_Inferieure$R$NProg_Defaut_Temperature_Point_de_Rosee$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Lens$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure$R$N$R$NProg_Defaut_Tete;;
-312;Prog_Power_Watt_Max$TFeed Back$R$NProg_Power_Watt_Target$R$N$R$NProg_Per_Cent_Of_Duty_Cycle_Max$R$NProg_Per_Cent_Of_Duty_Cycle_Target$R$N$R$NProg_Frequency_0_20000Hz_Max$R$NProg_Frequency_0_20000Hz_Target$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON;;
-474;Puissance$R$N(kVA);;
-473;Puissance$R$N(kW);;
-384;Puissance kVA;;
-382;Puissance kW;;
-114;Rearmement$R$NPorte;;
-884;Repères;;
-746;Retour;;
-1063;RETOUR;;
-211;Selection Rep;;
-801;SORTIE;;
-903;Source;;
-310;Source Laser MaxPhotonics;;
-756;Status_Extrernal_Ctrl$R$NStatus_Laser_Output_Light_ON$R$NStatus_Main_Power_Start_ON$R$NStatus_Start_Switch_ON$R$NStatus_Alarm$R$NStatus_Dewing_Alarm$R$NStatus_Encryption_Started$R$NStatus_Encrypted$R$NStatus_Device_Forward_Light_Locked$R$NStatus_External_CTRL_EN_Connected$R$NStatus_External_CTRL_PWM_Connected$R$NStatus_External_CTRL_0_10V_Connected$R$NStatus_External_CTRL_Connected$R$NStatus_QBH_Temperature_Locked$R$NStatus_Reflection_Locked$R$NStatus_Factory_Locked$R$NStatus_Air_Conditioning_Connected$R$NStatus_SD_Card_Installed$R$NStatus_Water_Cooling_Connected$R$NStatus_RTC_Incorrect_Encrypted_Data$R$NStatus_Interlock_1_Connected$R$NStatus_Interlock_2_Connected$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31$R$N;;
-115;Status_Fiber_Burning_Risk_Alarm$R$NStatus_PD_SD1_Light_On_Alarm$R$NStatus_PD_SD1_Light_Off_Alarm$R$NStatus_PD1_Light_On_Alarm$R$NStatus_PD1_Light_Off_Alarm$R$NStatus_PD2_Light_On_Alarm$R$NStatus_PD2_Light_Off_Alarm$R$NStatus_Abnormal_Power_Supply_Of_Pump$R$NStatus_Abnormal_Current_Of_First_Level_MOS_Tube$R$NStatus_Abnormal_Current_Of_Second_Level_MOS_Tube$R$NStatus_Power_Attenuation_Alarm$R$NStatus_Abnormal_Power_Supply_Alarm$R$NStatus_Abnormal_Control_Signal$R$NStatus_Optical_Module_Alarm$R$NStatus_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm$R$NStatus_Optical_Module_Condensation_Alarm$R$NStatus_Electrical_Module_Condensation_Alarm$R$NStatus_Free_Status_4_17$R$NStatus_Free_Status_4_18$R$NStatus_Free_Status_4_19$R$NStatus_Free_Status_4_20$R$NStatus_Free_Status_4_21$R$NStatus_Free_Status_4_22$R$NStatus_Free_Status_4_23$R$NStatus_Free_Status_4_24$R$NStatus_Free_Status_4_25$R$NStatus_Free_Status_4_26$R$NStatus_Free_Status_4_27$R$NStatus_Free_Status_4_28$R$NStatus_Free_Status_4_29$R$NStatus_Free_Status_4_30$R$NStatus_Free_Status_4_31;;
-757;Status_OverVoltage_Alarm$R$NStatus_UnderVoltage_Alarm$R$NStatus_Water_Flow_Alarm$R$NStatus_Emergency_Stop_Alarm$R$NStatus_QBH_Installation_Alarm$R$NStatus_QBH_Temperature_Alarm$R$NStatus_Electric_Water_Cooling_Plate_Temperature_Alarm$R$NStatus_Abnormal_Light_Output_Alarm$R$NStatus_Pump_Source_OverCurrent_Alarm$R$NStatus_Pump_Source_Temperature_Alarm$R$NStatus_PD_SD1_Forward_Light_Detection_Of_Seed_Source_1_Alarm$R$NStatus_PD_SD2_Forward_Light_Detection_Of_Seed_Source_2_Alarm$R$NStatus_Optical_Module_Temperature_Alarm$R$NStatus_Optical_Module_Humidity_Alarm$R$NStatus_Red_Beam_Current_Alarm$R$NStatus_Stripper_1_Temperature_Alarm$R$NStatus_Stripper_2_Temperature_Alarm$R$NStatus_Optical_Water_Cooling_Plate_1_Temperature_Alarm$R$NStatus_Optical_Water_Cooling_Plate_2_Temperature_Alarm$R$NStatus_Electrical_Module_Temperature_Alarm$R$NStatus_Electrical_Module_Humidity_Alarm$R$NStatus_Power_AC_Alarm$R$NStatus_Power_DC_Alarm$R$NStatus_PD2_Secondary_Amplification_Forward_Light_Alarm$R$NStatus_PD4_Super_Strong_Back_Reflection_Alarm$R$NStatus_PD5_Normal_Back_Reflection_Alarm$R$NStatus_PD6_Back_Reflection_Alarm$R$NStatus_Combiner_Temperature_Alarm$R$NStatus_FPGA_Loading_Failure_Alarm$R$NStatus_FPGA_Handshake_Failure_Alarm$R$NStatus_System_Clock_Failure_Alarm$R$NStatus_Water_Cooling_Plate_Low_Temperature_Alarm;;
-559;STO;;
-815;Stray_Beam_Bottom_1_Cover_Glass;;
-814;Stray_Beam_Focus_Lens;;
-813;Stray_Beam_Top_1_Cover_Glass;;
-363;Temperature huile;;
-394;Temps;;
-113;Température$R$N(°C);;
-380;Tension;;
-472;Tension$R$N(V);;
-197;Test;;
-313;test;;
-617;Tete laser 1;;
-510;Tete laser 2;;
-1061;texte pour test;;
-974;Top_1_Cover_Glass_Ambient_Temp;;
-975;Top_1_Cover_Glass_Temp;;
-418;Tête Laser RayTools;;
-561;Var OK$R$N$R$N;;
-386;Variateur Moteur;;
-475;Vitesse$R$N(RPM);Speed;Vitesse
-388;Vitesse ( RPM );;
-389;Vitesse ( RPM);;
+Id;Default
+742;
+747;$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$N$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31
+1791;$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON
+79;$R$NData11_Cavity_Temp$T$T(* 0.01 °C *)$R$NData12_Cavity_Pressure$T$T(* 0.1 Bar *)$R$NData13_Cutting_Gas_Temp$T$T(* 0.01 °C *)$R$NData14_Cutting_Gas_Pressure $T(* 0.01 Bar *)$R$NData15_Per_10000_Humidity$R$NData16_Dew_Point_Temp $T$T(* Température du point de rosée *) (* 0.01 °C *)$R$NData17_TTA_Preamplifier_Temp $T(* 0.01 °C *)$R$NData18_Process_Monitor (* 0 - 12288 *)$R$NData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData20_Process_Monitor $T$T(* 0 - 12288 *)$R$NData21_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData22_Process_Monitor $T$T(* 0 - 12288 *)$R$NData23_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData24_Process_Monitor $T$T(* 0 - 12288 *)$R$NData25_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData26_Stray_Beam_Reserved $T(* 0 - 4096 *)$R$NData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)$R$NData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData30_Reserved
+738;$R$NConvoyeur
+1617;$R$NData07_Top_1_Cover_Glass_Ambient_Temp  $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData08_Top_1_Cover_Glass_Temp $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)$T$T(* 0.01 °C *)$R$NData11_Cavity_Temp$T$T(* 0.01 °C *)$R$NData12_Cavity_Pressure$T$T(* 0.1 Bar *)$R$NData13_Cutting_Gas_Temp$T$T(* 0.01 °C *)$R$NData14_Cutting_Gas_Pressure $T(* 0.01 Bar *)$R$NData15_Per_10000_Humidity$R$NData16_Dew_Point_Temp $T$T(* Température du point de rosée *) (* 0.01 °C *)$R$NData17_TTA_Preamplifier_Temp $T(* 0.01 °C *)$R$NData18_Process_Monitor$T$T(* 0 - 12288 *)$R$NData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData20_Process_Monitor $T$T(* 0 - 12288 *)$R$NData21_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData22_Process_Monitor $T$T(* 0 - 12288 *)$R$NData23_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData24_Process_Monitor $T$T(* 0 - 12288 *)$R$NData25_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData26_Stray_Beam_Reserved $T(* 0 - 4096 *)$R$NData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)$R$NData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData30_Reserved
+805;$R$NData07_Top_1_Cover_Glass_Ambient_Temp  $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData08_Top_1_Cover_Glass_Temp $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)$T$T(* 0.01 °C *)$R$NData11_Cavity_Temp$T$T(* 0.01 °C *)$R$NData12_Cavity_Pressure$T$T(* 0.1 Bar *)$R$NData13_Cutting_Gas_Temp$T$T(* 0.01 °C *)$R$NData14_Cutting_Gas_Pressure $T(* 0.01 Bar *)$R$NData15_Per_10000_Humidity$R$NData16_Dew_Point_Temp $T$T(* Température du point de rosée *) (* 0.01 °C *)$R$NData17_TTA_Preamplifier_Temp $T(* 0.01 °C *)$R$NData18_Process_Monitor (* 0 - 12288 *)$R$NData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData20_Process_Monitor $T$T(* 0 - 12288 *)$R$NData21_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData22_Process_Monitor $T$T(* 0 - 12288 *)$R$NData23_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData24_Process_Monitor $T$T(* 0 - 12288 *)$R$NData25_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData26_Stray_Beam_Reserved $T(* 0 - 4096 *)$R$NData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)$R$NData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData30_Reserved
+543;$R$NProg_Distance_Focal_OK$R$N$R$NProg_Capacitance_Actual_Value_mm$R$NProg_Capacitance_Calibration_OK$R$N$R$NProg_Tete_Prete_Pour_Decoupe$R$N$R$NProg_Defaut_Collision$R$NProg_Defaut_Limite_Atteinte$R$N$R$N$R$NProg_Defaut_Temperature_Point_de_Rosee$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Lens$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure$R$N$R$NProg_Defaut_Tete
+331;$R$NProg_Distance_Focal_OK$R$N$R$NProg_Capacitance_Actual_Value_mm$R$NProg_Capacitance_Calibration_OK$R$N$R$NProg_Tete_Prete_Pour_Decoupe$R$N$R$NProg_Defaut_Collision$R$NProg_Defaut_Limite_Atteinte$R$NProg_Defaut_Temperature_Lens$R$NProg_Defaut_Temperature_Lamelle_Verre_Superieure$R$NProg_Defaut_Temperature_Lamelle_Verre_Inferieure$R$NProg_Defaut_Temperature_Point_de_Rosee$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Lens$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure$R$N$R$NProg_Defaut_Tete
+482; Laser_ON
+40; Laser_Ready
+1692; Prog_Cutting_Mode$T
+2172; Prog_Frequency_0_20000Hz_Max : %sHz
+1140; Prog_Frequency_0_20000Hz_Target : %sHz
+1594; Prog_Marking_Mode
+1827; Prog_Per_Cent_Of_Duty_Cycle_Max : %s%
+327; Prog_Per_Cent_Of_Duty_Cycle_Target : %s
+2101; Prog_Per_Cent_Of_Duty_Cycle_Target : %s   %
+2391; Prog_Per_Cent_Of_Duty_Cycle_Target : %s %
+790; Prog_Per_Cent_Of_Duty_Cycle_Target : %s%
+457; Prog_Power_Watt_Max : %s $T
+1338; Prog_Power_Watt_Max : %sW
+145; Prog_Power_Watt_Target : %sW
+409; Prog_Secu_OK$T$T
+1763; Prog_Valid
+996;%.0f
+737;%.1f
+890;%1.0f
+367;%4.2f mm
+371;%4.2f °
+1123;%f1.0
+311;%s
+1261;%s$T$TData01_Capacitance_Actual_Value
+407;%s$T$TData02_Capacitance_HeartBeat_Accumulated_Value
+1600;%s$T$TData18_Process_Monitor (* 0 - 12288 *)
+2107;%s$T$TData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)
+1836;%s$T$TData20_Process_Monitor (* 0 - 12288 *)
+335;%s$T$TData21_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+800;%s$T$TData22_Process_Monitor (* 0 - 12288 *)
+1312;%s$T$TData23_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+826;%s$T$TData24_Process_Monitor (* 0 - 12288 *)
+151;%s$T$TData25_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+1481;%s$T$TData26_Stray_Beam_Reserved $T(* 0 - 4096 *)
+937;%s$T$TData27_Stray_Beam_Top_1_Cover_Glass $R$N$T(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+1707;%s$T$TData28_Stray_Beam_Focus_Lens $R$N$T(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *) (* 0 - 4096 *)
+95;%s$T$TData29_Stray_Beam_Bottom_1_Cover_Glass $R$N$T(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+1522;%s$T$TReserved
+983;%s$TData01_Capacitance_Actual_Value
+401;%s$TData02_Capacitance_HeartBeat_Accumulated_Value
+1392;%s$TData03_Focus_Lens_Ambient_Temperature 
+123;%s$TData04_Focus_Lens_Temperature 
+791;%s$TData18_Process_Monitor (* 0 - 12288 *)
+1157;%s$TData18_Process_Monitor (* 0 - 12288 *)*
+1112;%s$TData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)
+326;%s$TData20_Process_Monitor (* 0 - 12288 *)
+404;%s$TData20_Process_Monitor(* 0 - 12288 *)
+779;%s$TData21_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+22;%s$TData22_Process_Monitor (* 0 - 12288 *)
+786;%s$TData23_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+1076;%s$TData24_Process_Monitor (* 0 - 12288 *)
+406;%s$TData25_Visible_Light_Pierce_Detect (* 0 - 12288 *)
+1813;%s$TData26_Stray_Beam_Reserved $T(* 0 - 4096 *)
+513;%s$TData27_Stray_Beam_Top_1_Cover_Glass $R$N(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+235;%s$TData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+636;%s$TData28_Stray_Beam_Focus_Lens $R$N(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)
+776;%s$TData28_Stray_Beam_Focus_Lens $R$N(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *) (* 0 - 4096 *)
+26;%s$TData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)
+1109;%s$TData29_Stray_Beam_Bottom_1_Cover_Glass $R$N(* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+358;%s$TData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)
+637;%s$TProg_Distance_Focal_Reelle$T(* mm *)
+544;%s$TReserved
+383;%s$R$N(kVA)
+381;%s$R$N(kW)
+387;%s$R$N(RPM)
+393;%s$R$NHHHHH : MM
+377;%s $R$N(A)
+364;%s $R$N(Bars)
+379;%s $R$N(V)
+376;%s $R$N(°C)
+1762;%s Bars$T$TData12_Cavity_Pressure
+53;%s Bars$TData12_Cavity_Pressure
+792;%s Data07_Top_1_Cover_Glass_Ambient_Temp  
+770;%s Prog_Frequency_0_20000Hz_Max
+1817;%s Prog_Frequency_0_20000Hz_Target
+1172;%s Prog_Per_Cent_Of_Duty_Cycle_Max
+520;%s Prog_Per_Cent_Of_Duty_Cycle_Target
+152;%s Prog_Power_Watt_Max$T
+2304;%s Prog_Power_Watt_Target
+341;%s °C
+1926;%s%$T$TData15_Air_Humidity
+993;%s%$TData15_Air_Humidity
+671;%s% Data15_Air_Humidity
+337;%sBars$T$TData12_Cavity_Pressure
+1801;%sBars$T$TData14_Cutting_Gas_Pressure 
+1305;%sBars$TData12_Cavity_Pressure
+1506;%sBars$TData14_Cutting_Gas_Pressure 
+72;%sProg_Power_Watt_Max$T
+481;%s°C
+1315;%s°C$T
+978;%s°C$T$TData03_Focus_Lens_Ambient_Temperature 
+2064;%s°C$T$TData04_Focus_Lens_Temperature 
+2166;%s°C$T$TData07_Top_1_Cover_Glass_Ambient_Temp  
+455;%s°C$T$TData08_Top_1_Cover_Glass_Temp 
+1976;%s°C$T$TData09_Bottom_1_Cover_Glass_Ambient_Temp 
+2255;%s°C$T$TData10_Bottom_1_Cover_Glasst_Temp
+1578;%s°C$T$TData11_Cavity_Temp
+2016;%s°C$T$TData13_Cutting_Gas_Temp
+1191;%s°C$T$TData16_Dew_Point_Temp
+359;%s°C$T$TData17_TTA_Preamplifier_Temp
+642;%s°C$T$TTemperature difference
+1867;%s°C$TData03_Focus_Lens_Ambient_Temperature 
+655;%s°C$TData04_Focus_Lens_Temperature 
+1679;%s°C$TData07_Top_1_Cover_Glass_Ambient_Temp  
+247;%s°C$TData08_Top_1_Cover_Glass_Temp 
+402;%s°C$TData09_Bottom_1_Cover_Glass_Ambient_Temp 
+403;%s°C$TData10_Bottom_1_Cover_Glasst_Temp
+1826;%s°C$TData11_Cavity_Temp
+1583;%s°C$TData12_Cavity_Pressure
+1543;%s°C$TData13_Cutting_Gas_Temp
+2007;%s°C$TData16_Dew_Point_Temp
+1138;%s°C$TData17_TTA_Preamplifier_Temp
+1591;%s°C$TTemperature difference
+540;.linkState
+400;0
+563;0Min
+398;1
+652;12345
+433;1520-BE
+469;1572-BS
+392;30Min
+904;420-Chariot entrée
+466;475
+564;60Min
+143;820
+592;820-Laser1
+396;821
+332;821-Laser2
+654;822-Laser3
+678;822-MLaser3
+449;961-Pupitre
+480;A Laser
+375;Aile Opp Ref
+7;Aile Ref
+374;Ame
+370;Angle.x
+372;Angle.y
+373;Angle.z
+391;Annulation defaut
+165;Arret Machine
+2243;Asserv_Torche_On_test
+722;Augmenter$R$NLimiteur$R$NPression
+2239;Autorisation $R$Nouverture
+691;Autorisation ouverture
+830;BACK
+1150;Bars
+1257;Bot_1_Cover_Glass
+976;Bot_1_Cover_Glass_Ambient_Temp
+977;Bot_1_Cover_Glass_Temp
+2131;Calibration presseur OK
+988;Capacitance_Calibration_OK
+811;Cavity_Pressure
+809;Cavity_Temp
+2314;Cmd Laser
+3104;Commande manu laser
+3071;Commande presseur
+560;Couple$R$N$R$N
+378;Courant
+471;Courant$R$N(A)
+477;CPT Temps$R$NHHHHH : MM
+812;Cutting_Gas_Pressure
+810;Cutting_Gas_Temp
+224;Data01_Capacitance_Actual_Value$R$NData02_Capacitance_HeartBeat_Accumulated_Value$R$NData03_Focus_Lens_Ambient_Temperature $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData04_Focus_Lens_Temperature $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData05_Reserved$T$T$T$T$T$T$T$T$T(* 0.01 °C *)$R$NData06_Reserved$T$T$T$T$T$T$T$T$T(* 0.01 °C *)$R$NData07_Top_1_Cover_Glass_Ambient_Temp  $T(* - 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData08_Top_1_Cover_Glass_Temp $T$T(* - 5000 < T -Alarme- T < 5500 -Défaut- *)$T(* 0.01 °C *)$R$NData09_Bottom_1_Cover_Glass_Ambient_Temp (* -OK- 1400 < T -Alarme- T < 2000 -Défaut- *)$T(* 0.01 °C *)$R$NData10_Bottom_1_Cover_Glasst_Temp(* -OK- 5000 < T -Alarme- T < 5500 -Défaut- *)$T$T(* 0.01 °C *)$R$NData11_Cavity_Temp$T$T(* 0.01 °C *)$R$NData12_Cavity_Pressure$T$T(* 0.1 Bar *)$R$NData13_Cutting_Gas_Temp$T$T(* 0.01 °C *)$R$NData14_Cutting_Gas_Pressure $T(* 0.01 Bar *)$R$NData15_Per_10000_Humidity$R$NData16_Dew_Point_Temp $T$T(* Température du point de rosée *) (* 0.01 °C *)$R$NData17_TTA_Preamplifier_Temp $T(* 0.01 °C *)$R$NData18_Process_Monitor$T$T(* 0 - 12288 *)$R$NData19_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData20_Process_Monitor $T$T(* 0 - 12288 *)$R$NData21_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData22_Process_Monitor $T$T(* 0 - 12288 *)$R$NData23_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData24_Process_Monitor $T$T(* 0 - 12288 *)$R$NData25_Visible_Light_Pierce_Detect $T(* 0 - 12288 *)$R$NData26_Stray_Beam_Reserved $T(* 0 - 4096 *)$R$NData27_Stray_Beam_Top_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData28_Stray_Beam_Focus_Lens (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T$T(* 0 - 4096 *)$R$NData29_Stray_Beam_Bottom_1_Cover_Glass (* -OK- 2300 < SB -Alarme- SB < 2500 -Défaut- *)$T(* 0 - 4096 *)$R$NData30_Reserved
+798;Demande$R$NOuverture$R$N/$R$NFermeture$R$NPorte
+214;Demande$R$NOuverture$R$NPorte
+519;Demande$R$Nuverture$R$NPorte
+167;Demande ouverture$R$NPorte
+772;Demande Ouverture$R$NPorte
+3319;Desserr Amont
+849;deviceState
+223;DI01_Collision$R$NDI02_Up_Limit$R$NDI03_Down_Limit$R$NDI04_Bottom_1_Cover_Glass_Ready$R$NDI05_Homing_finished
+1473;Différence de température entre Lentille / Air ambiant
+723;Diminuer$R$NLimiteur$R$NPression
+419;Dist buse - Piece : %0.1f
+476;Démarrage$R$NPompe
+816;ENTREE
+860;Feed Back$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON
+408;Feed Back$R$N$R$N$R$N$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON
+1217;Focus_Lens
+972;Focus_Lens_Ambient_Temperature
+973;Focus_Lens_Temperature
+397;FORCAGE
+1851;Forcage tir
+754;Free, not used
+1914;Gestion Porte
+1141;jj
+1085;Jog Ar
+339;Jog Av
+2524;Laser_ON
+758;Laser_Ready
+2076;Laser_Ready$R$NLaser_ON
+1177;Lens <-> Ambient $R$N Temperature diference 
+1243;Lens <-> Ambient $R$N Temperature diiference 
+918;Lense <-> Ambient $R$N Temperature diiference 
+1313;Lentille$T$T$TTempérature$T$TAir ambiant
+506;Lentille$T$T<$TTempérature$T>$TAir ambiant
+150;Lentille$T$T<$TTempérature$T>$TAir ambiant$R$Nv$T$T$T$T$T$T$Tv
+1089;Lentille$T$T<$TTempérature$T>$TAir ambiant$R$Nv$T$T$T$T$T$Tv
+357;Lentille$T$T<$TTempérature$T>$TAir ambiant$R$Nv$T$T$T$T$Tv
+1516;Lentille$T$T<>$TTempérature$T$T<>Air ambiant
+505;Lentille$T$T<>$TTempérature$T<>$TAir ambiant
+1357;Lentille$T$TTempérature$T$TAir ambiant
+1482;Lentille$T$TTempérature$TAir ambiant
+405;Lentille / Protection <-> Air ambian$R$N Diference de temperature 
+434;Lentille / Protection <-> Air ambian$R$N Temperature diference 
+221;Lentille / Protection <-> Air ambiant$T(Lens/Protection <-> Ambient air)$R$N Diference de temperature$T$T(Temperature difference) 
+603;Lentille / Protection <-> Air ambiant$T(Lens/Protection <-> Ambient air)$R$N Diference de temperature$T(Temperature difference) 
+639;Lentille / Protection <-> Air ambiant$R$N Diference de temperature 
+935;Lentille de focalisation (Focus_Lens)
+366;M.x
+368;M.y
+369;M.z
+478;Mode$R$NReglage
+395;Mode de reglage
+390;Moteur
+1057;NOT Forcage_Rep.Forcage_a_1_Temp.18 and Not Forcage_Rep.Forcage_a_1[Forcage_Rep.Num_Rep_Selectionne_pr_Forcage].18
+562;P$R$NI$R$ND
+840;Pin 2$R$N0
+848;Pin 2$R$N1
+817;Pin 4$R$N0
+825;Pin 4$R$N1
+1142;Pom secu OK 
+385;Pompe
+565;POMPE_ATOS_ECRAN
+832;Port 0
+157;Port 1
+159;Port 2
+160;Port 3
+162;Port 4
+163;Port 5
+164;Port 6
+578;Port 7
+1982;Pos A : %0.1f
+1023;Pos X : %0.1f
+766;Pos X : %s
+927;Pos Y : %0.1f
+2836;Pos Z : %0.1f
+2373;Power Feed Back OK ?
+365;Pression
+112;Pression$R$N(Bars)
+479;Pression$R$NOK
+558;Pression OK
+71;Prog_Cutting_Mode$T
+60;Prog_Distance_Focal_Reelle$T(* mm *)$R$NProg_Distance_Focal_OK$R$N$R$NProg_Capacitance_Actual_Value_mm$R$NProg_Capacitance_Calibration_OK$R$N$R$NProg_Tete_Prete_Pour_Decoupe$R$N$R$NProg_Defaut_Collision$R$NProg_Defaut_Limite_Atteinte$R$NProg_Defaut_Temperature_Lens$R$NProg_Defaut_Temperature_Lamelle_Verre_Superieure$R$NProg_Defaut_Temperature_Lamelle_Verre_Inferieure$R$NProg_Defaut_Temperature_Point_de_Rosee$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Superieure$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Lens$R$NProg_Defaut_Faisceau_parasite_Lamelle_Verre_Inferieure$R$N$R$NProg_Defaut_Tete
+56;Prog_Marking_Mode
+312;Prog_Power_Watt_Max$TFeed Back$R$NProg_Power_Watt_Target$R$N$R$NProg_Per_Cent_Of_Duty_Cycle_Max$R$NProg_Per_Cent_Of_Duty_Cycle_Target$R$N$R$NProg_Frequency_0_20000Hz_Max$R$NProg_Frequency_0_20000Hz_Target$R$N$R$NProg_Cutting_Mode$T$R$NProg_Marking_Mode$R$N$R$NProg_Secu_OK$T$TLaser_Ready$R$NProg_Valid$T$TLaser_ON
+596;Prog_Secu_OK$T$T
+136;Prog_Valid
+1021;Protection inferieur 1 (Bot_1_Cover_Glass)
+144;Protection superieur 1 (Top_1_Cover_Glass)
+198;Protection superieur 1 Top_1_Cover_Glass
+557;Présence recette $R$Ndecoupe ? $R$N
+2999;Présence recette decoupe ? $R$N
+474;Puissance$R$N(kVA)
+473;Puissance$R$N(kW)
+384;Puissance kVA
+382;Puissance kW
+1711;Pulse tir
+783;Quelle Face ? 
+13;Quelle Face ? %s
+1093;Rayon parasite (stray beam)
+912;RAZ Recettes 
+1619;RAZ Recettes ? 
+114;Rearmement$R$NPorte
+1658;Recette decoupe
+1102;Recette decoupe pour $R$Nep driver
+1544;Recette decoupe pour ep driver
+1378;Recette marquage
+884;Repères
+746;Retour
+1063;RETOUR
+399;Selection Commande Temporaire
+442;Selection Face
+211;Selection Rep
+155;Serr Amont
+3164;Serr Aval
+801;SORTIE
+903;Source
+2566;Source laser
+310;Source Laser MaxPhotonics
+338;Start POM Secu ?
+847;Status machine
+2191;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$N$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31
+2234;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$N$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31
+1889;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31
+607;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31$R$N
+462;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$N$R$NStatus_External_CTRL_EN_Connected$R$N$R$NStatus_External_CTRL_PWM_Connected$R$N$R$NStatus_External_CTRL_0_10V_Connected$R$N$R$NStatus_External_CTRL_Connected$R$N$R$NStatus_QBH_Temperature_Locked$R$N$R$NStatus_Reflection_Locked$R$N$R$NStatus_Factory_Locked$R$N$R$NStatus_Air_Conditioning_Connected$R$N$R$NStatus_SD_Card_Installed$R$N$R$NStatus_Water_Cooling_Connected$R$N$R$NStatus_RTC_Incorrect_Encrypted_Data$R$N$R$NStatus_Interlock_1_Connected$R$N$R$NStatus_Interlock_2_Connected$R$N$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31$R$N
+1265;Status_Extrernal_Ctrl$R$N$R$NStatus_Laser_Output_Light_ON$R$N$R$NStatus_Main_Power_Start_ON$R$N$R$NStatus_Start_Switch_ON$R$N$R$NStatus_Alarm$R$N$R$NStatus_Dewing_Alarm$R$N$R$NStatus_Encryption_Started$R$N$R$NStatus_Encrypted$R$N$R$NStatus_Device_Forward_Light_Locked$R$NStatus_External_CTRL_EN_Connected$R$NStatus_External_CTRL_PWM_Connected$R$NStatus_External_CTRL_0_10V_Connected$R$NStatus_External_CTRL_Connected$R$NStatus_QBH_Temperature_Locked$R$NStatus_Reflection_Locked$R$NStatus_Factory_Locked$R$NStatus_Air_Conditioning_Connected$R$NStatus_SD_Card_Installed$R$NStatus_Water_Cooling_Connected$R$NStatus_RTC_Incorrect_Encrypted_Data$R$NStatus_Interlock_1_Connected$R$NStatus_Interlock_2_Connected$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31$R$N
+756;Status_Extrernal_Ctrl$R$NStatus_Laser_Output_Light_ON$R$NStatus_Main_Power_Start_ON$R$NStatus_Start_Switch_ON$R$NStatus_Alarm$R$NStatus_Dewing_Alarm$R$NStatus_Encryption_Started$R$NStatus_Encrypted$R$NStatus_Device_Forward_Light_Locked$R$NStatus_External_CTRL_EN_Connected$R$NStatus_External_CTRL_PWM_Connected$R$NStatus_External_CTRL_0_10V_Connected$R$NStatus_External_CTRL_Connected$R$NStatus_QBH_Temperature_Locked$R$NStatus_Reflection_Locked$R$NStatus_Factory_Locked$R$NStatus_Air_Conditioning_Connected$R$NStatus_SD_Card_Installed$R$NStatus_Water_Cooling_Connected$R$NStatus_RTC_Incorrect_Encrypted_Data$R$NStatus_Interlock_1_Connected$R$NStatus_Interlock_2_Connected$R$NStatus_Free_Status_2_22$R$NStatus_Free_Status_2_23$R$NStatus_Free_Status_2_24$R$NStatus_Free_Status_2_25$R$NStatus_Free_Status_2_26$R$NStatus_Free_Status_2_27$R$NStatus_Free_Status_2_28$R$NStatus_Free_Status_2_29$R$NStatus_Free_Status_2_30$R$NStatus_Free_Status_2_31$R$N
+1844;Status_Fiber_Burning_Risk_Alarm$R$N$R$NStatus_PD_SD1_Light_On_Alarm$R$NStatus_PD_SD1_Light_Off_Alarm$R$NStatus_PD1_Light_On_Alarm$R$NStatus_PD1_Light_Off_Alarm$R$NStatus_PD2_Light_On_Alarm$R$NStatus_PD2_Light_Off_Alarm$R$NStatus_Abnormal_Power_Supply_Of_Pump$R$NStatus_Abnormal_Current_Of_First_Level_MOS_Tube$R$NStatus_Abnormal_Current_Of_Second_Level_MOS_Tube$R$NStatus_Power_Attenuation_Alarm$R$NStatus_Abnormal_Power_Supply_Alarm$R$NStatus_Abnormal_Control_Signal$R$NStatus_Optical_Module_Alarm$R$NStatus_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm$R$NStatus_Optical_Module_Condensation_Alarm$R$NStatus_Electrical_Module_Condensation_Alarm$R$NStatus_Free_Status_4_17$R$NStatus_Free_Status_4_18$R$NStatus_Free_Status_4_19$R$NStatus_Free_Status_4_20$R$NStatus_Free_Status_4_21$R$NStatus_Free_Status_4_22$R$NStatus_Free_Status_4_23$R$NStatus_Free_Status_4_24$R$NStatus_Free_Status_4_25$R$NStatus_Free_Status_4_26$R$NStatus_Free_Status_4_27$R$NStatus_Free_Status_4_28$R$NStatus_Free_Status_4_29$R$NStatus_Free_Status_4_30$R$NStatus_Free_Status_4_31
+115;Status_Fiber_Burning_Risk_Alarm$R$NStatus_PD_SD1_Light_On_Alarm$R$NStatus_PD_SD1_Light_Off_Alarm$R$NStatus_PD1_Light_On_Alarm$R$NStatus_PD1_Light_Off_Alarm$R$NStatus_PD2_Light_On_Alarm$R$NStatus_PD2_Light_Off_Alarm$R$NStatus_Abnormal_Power_Supply_Of_Pump$R$NStatus_Abnormal_Current_Of_First_Level_MOS_Tube$R$NStatus_Abnormal_Current_Of_Second_Level_MOS_Tube$R$NStatus_Power_Attenuation_Alarm$R$NStatus_Abnormal_Power_Supply_Alarm$R$NStatus_Abnormal_Control_Signal$R$NStatus_Optical_Module_Alarm$R$NStatus_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm$R$NStatus_Optical_Module_Condensation_Alarm$R$NStatus_Electrical_Module_Condensation_Alarm$R$NStatus_Free_Status_4_17$R$NStatus_Free_Status_4_18$R$NStatus_Free_Status_4_19$R$NStatus_Free_Status_4_20$R$NStatus_Free_Status_4_21$R$NStatus_Free_Status_4_22$R$NStatus_Free_Status_4_23$R$NStatus_Free_Status_4_24$R$NStatus_Free_Status_4_25$R$NStatus_Free_Status_4_26$R$NStatus_Free_Status_4_27$R$NStatus_Free_Status_4_28$R$NStatus_Free_Status_4_29$R$NStatus_Free_Status_4_30$R$NStatus_Free_Status_4_31
+757;Status_OverVoltage_Alarm$R$NStatus_UnderVoltage_Alarm$R$NStatus_Water_Flow_Alarm$R$NStatus_Emergency_Stop_Alarm$R$NStatus_QBH_Installation_Alarm$R$NStatus_QBH_Temperature_Alarm$R$NStatus_Electric_Water_Cooling_Plate_Temperature_Alarm$R$NStatus_Abnormal_Light_Output_Alarm$R$NStatus_Pump_Source_OverCurrent_Alarm$R$NStatus_Pump_Source_Temperature_Alarm$R$NStatus_PD_SD1_Forward_Light_Detection_Of_Seed_Source_1_Alarm$R$NStatus_PD_SD2_Forward_Light_Detection_Of_Seed_Source_2_Alarm$R$NStatus_Optical_Module_Temperature_Alarm$R$NStatus_Optical_Module_Humidity_Alarm$R$NStatus_Red_Beam_Current_Alarm$R$NStatus_Stripper_1_Temperature_Alarm$R$NStatus_Stripper_2_Temperature_Alarm$R$NStatus_Optical_Water_Cooling_Plate_1_Temperature_Alarm$R$NStatus_Optical_Water_Cooling_Plate_2_Temperature_Alarm$R$NStatus_Electrical_Module_Temperature_Alarm$R$NStatus_Electrical_Module_Humidity_Alarm$R$NStatus_Power_AC_Alarm$R$NStatus_Power_DC_Alarm$R$NStatus_PD2_Secondary_Amplification_Forward_Light_Alarm$R$NStatus_PD4_Super_Strong_Back_Reflection_Alarm$R$NStatus_PD5_Normal_Back_Reflection_Alarm$R$NStatus_PD6_Back_Reflection_Alarm$R$NStatus_Combiner_Temperature_Alarm$R$NStatus_FPGA_Loading_Failure_Alarm$R$NStatus_FPGA_Handshake_Failure_Alarm$R$NStatus_System_Clock_Failure_Alarm$R$NStatus_Water_Cooling_Plate_Low_Temperature_Alarm
+559;STO
+815;Stray_Beam_Bottom_1_Cover_Glass
+814;Stray_Beam_Focus_Lens
+813;Stray_Beam_Top_1_Cover_Glass
+1018;Temperature air ambiant mesuré de :  Lentille / Protection $T(Ambient air temperature mesured from : Lens / Protection)
+363;Temperature huile
+453;Temperature Lentille / Protection $T(Lens / Protection Temperature)
+1070;Temperature Lentille / Protection $T(Lens/Protection Temperature)
+394;Temps
+1137;Température
+113;Température$R$N(°C)
+380;Tension
+472;Tension$R$N(V)
+197;Test
+313;test
+1015;Test$R$NImpulsion laser
+415;Test Kerf
+3056;Test_asserv
+2356;Test_gaz
+617;Tete laser 1
+510;Tete laser 2
+1061;texte pour test
+495;Top 1 Cover glass Ambient Temp °C
+343;Top Chgt Face
+1081;Top_1_Cover_Glass
+974;Top_1_Cover_Glass_Ambient_Temp
+975;Top_1_Cover_Glass_Temp
+360;Top_1_Cover_Glass_Temp difference
+418;Tête Laser RayTools
+561;Var OK$R$N$R$N
+386;Variateur Moteur
+475;Vitesse$R$N(RPM)
+388;Vitesse ( RPM )
+389;Vitesse ( RPM)
+34;XY Laser
+2559;Y relatif F1 : %0.1f
+2145;Y relatif F2 : %0.1f
+2828;Y relatif FEcret : %0.1f
+1403;Z Laser
+2041;_0_LASER_ST.
+1134;°C

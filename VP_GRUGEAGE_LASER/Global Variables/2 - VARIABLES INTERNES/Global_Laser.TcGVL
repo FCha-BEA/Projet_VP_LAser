@@ -48,6 +48,14 @@ VAR_GLOBAL
 	Alpha1,
 	Alpha2						:LREAL;
 	
+	F1P1, F1P2,
+	F2P1, F2P2					:Coordonnees;
+	
+	F1P1P, F1P2P,
+	F2P1P, F2P2P					:Coordonnees;
+	
+	
+	
 //Palpage sommet - Pnc_Presseurs2 - L'une OU l'autre, pas les 2                  	
 	Opt_Palp_Sommet_Tjs					:BOOL:=FALSE; //Option pour palpage sommet : à chaque usinage
 	Opt_Palp_Sommet_1Clamp				:BOOL:=FALSE; //Option pour palpage sommet : début et fin barre uniquement

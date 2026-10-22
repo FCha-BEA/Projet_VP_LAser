@@ -49,6 +49,20 @@ VAR	RE_Fin_programme:R_TRIG;
 	
 	F_Iso	:F_TRIG;
 	
+// pour calcul position sommet théorique	
+	F1X1,	F1Y1,
+	F1X2,	F1Y2,
+	F2X1,	F2Y1,
+	F2X2,	F2Y2	:LREAL;
+	a1s: LREAL;
+	b1s: LREAL;
+	a2s: LREAL;
+	b2s: LREAL;
+	Alpha1s: LREAL;
+	Alpha2s: LREAL;
+	Y_Sommet_Pour_Aile_OPP_REFs: LREAL;
+	Y_Sommet_Pour_Aile_REFs: LREAL;
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*********************** Front et tempo **********************)
@@ -244,7 +258,57 @@ END_VAR]]></Declaration>
 	 Asserv_Torche_On_test:=
 	 Asserv_Torche_On:=
 	 Start_ISO3D:=FALSE;
- END_IF]]></ST>
+ END_IF
+ 
+//Calcul position sommet théorique pour cornière en cours - Hypothèses : épaisseurs correcte et cornière posée parfaitement sur bati
+	F1X1:=Hauteur_aile-20-Ep_ame;	
+	F1X2:=15-Ep_ame;
+	F1Y1:=F1Y2:= Ep_aile;
+	F2X1:=F2X2:=-Ep_ame;				//rotation de -90°	X=-Y' Y=X'
+	F2Y1:= -(Largeur_ame-Ep_aile-20);	//.. coordonnées des points "Derrière le sommet" donc en -
+	F2Y2:= (Ep_aile-15);	;			//..
+
+IF F1Y1 <> 0 AND F1Y2 <>0 		
+	AND F2Y1 <> 0 AND F2Y2 <> 0 THEN
+
+	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
+	IF F1X1 - F1X2<>0 THEN
+		a1s := (F1Y1 - F1Y2)/(F1X1 - F1X2);
+		(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+		b1s := F1Y1 - (a1s *F1X1);
+	ELSE
+	//Si cornière parfaite, bien posée sur le bati machine, alors F1P1.Y - F1P2.Y =0. Si c'est le cas, la droite Y1(x)=b1 avec B1 = F1P1.Y ou F1P2.Y qui sont égaux
+		b1s:= F1Y1;
+	END_IF
+	
+	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
+	IF F2X1 - F2X2<>0 THEN //Si cornière parfaite, bien posée sur le bati machine, alors F2P1.X - F2P2.X =0. la droite Y2(x)= F2P1.X ou F2P2.X qui sont égaux
+		a2s := (F2Y1 - F2Y2) / (F2X1 - F2X2);
+		(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+		b2s := F2Y1 - (a2s * F2X1);
+	END_IF
+	
+	IF a1s-a2s <> 0 THEN
+		Y_Sommet_Pour_Aile_REFs := (b2s - b1s) / (a1s-a2s);
+		Y_Sommet_Pour_Aile_Opp_REFs := a1s * Y_Sommet_Pour_Aile_REFs + b1s;	//Correspond 
+	ELSE //Cornière parfaite, posée sur bati sans problème
+		Y_Sommet_Pour_Aile_REFs :=F2X1;
+		Y_Sommet_Pour_Aile_Opp_REFs := -(a1s * Y_Sommet_Pour_Aile_REFs + b1s);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refair une rotation mais négative cette fois 
+	END_IF
+
+	(* Calcul de l'angle de la Droite 1 Aile REF *)
+	Alpha1s := ATAN(a1s);
+	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
+	Alpha2s := ATAN(a2s);
+
+END_IF
+
+
+
+
+
+
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
