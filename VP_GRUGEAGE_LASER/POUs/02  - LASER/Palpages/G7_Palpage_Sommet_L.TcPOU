@@ -3518,30 +3518,33 @@ F2P2.Y :=-Memo_Face_2_Y_2;]]></ST>
 	Alpha2 := ATAN(a2);
 END_IF;*)
 
-//Si X repère = Y axe et Y repère = Z axe - Avec FxPx	Pour plus de facilité à la visu, + ajout sécurité pour éviter des divisions /0
 IF F1P1.Y <> 0 AND F1P2.Y <>0 		
 	AND F2P1.Y <> 0 AND F2P2.Y <> 0 THEN
 
 	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
 	IF F1P1.X - F1P2.X<>0 THEN
-		a1 := (F1P1.Y - F1P2.Y)/(F1P1.X - F1P2.X);	//P1 plus loin sur l'axe X que P2
+		a1 := (F1P1.Y - F1P2.Y)/(F1P1.X - F1P2.X);
+		(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+		b1 := F1P1.Y - (a1 *F1P1.X);
+	ELSE
+	//Si cornière parfaite, bien posée sur le bati machine, alors F1P1.Y - F1P2.Y =0. Si c'est le cas, la droite Y1(x)=b1 avec B1 = F1P1.Y ou F1P2.Y qui sont égaux
+		b1 := F1P1.Y;
 	END_IF
-	//Si cornière parfaite, bien posée sur le bati machine, alors F1P1.Y - F1P2.Y =0. Si c'est le cas, la droite Y1(x)=b1 avec b1 = F1P1.Y ou F1P2.Y qui sont égaux
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b1 := F1P1.Y - (a1 *F1P1.X);
 	
 	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
-	IF F2P1.X - F2P2.X<>0 THEN
-		a2 := (F2P1.Y - F2P2.Y) / (F2P1.X - F2P2.X);
+	IF F2P1.X - F2P2.X<>0 THEN //Si cornière parfaite, bien posée sur le bati machine, alors F2P1.X - F2P2.X =0. la droite Y2(x)= F2P1.X ou F2P2.X qui sont égaux
+		a2 := (F2P1.Y - F2P2.Y) / (F2P1.X - F2P2.Y);
+		(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
+		b2 := F2P1.Y - (a2 * F2P1.X);
 	END_IF
-	//Si cornière parfaite, bien posée sur le bati machine, alors F2P1.X - F2P2.X =0. la droite Y2(x)= F2P1.X ou F2P2.X qui sont égaux
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b2 := F2P1.Y - (a2 * F2P1.X);
 	
 	IF a1-a2 <> 0 THEN
 		Y_Sommet_Pour_Aile_REF := (b2 - b1) / (a1-a2);
+		Y_Sommet_Pour_Aile_Opp_REF := a1 * Y_Sommet_Pour_Aile_REF + b1;	//Correspond 
+	ELSE //Cornière parfaite, posée sur bati sans problème
+		Y_Sommet_Pour_Aile_REF :=F2P1.X;
+		Y_Sommet_Pour_Aile_Opp_REF := -(a1 * Y_Sommet_Pour_Aile_REF + b1);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refaire une rotation mais négative cette fois 
 	END_IF
-	Y_Sommet_Pour_Aile_Opp_REF := a1 * Y_Sommet_Pour_Aile_REF + b1;	//Correspond 
 
 	(* Calcul de l'angle de la Droite 1 Aile REF *)
 	Alpha1 := ATAN(a1);

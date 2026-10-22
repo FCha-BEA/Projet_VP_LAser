@@ -293,13 +293,13 @@ IF F1Y1 <> 0 AND F1Y2 <>0
 		Y_Sommet_Pour_Aile_Opp_REFs := a1s * Y_Sommet_Pour_Aile_REFs + b1s;	//Correspond 
 	ELSE //Cornière parfaite, posée sur bati sans problème
 		Y_Sommet_Pour_Aile_REFs :=F2X1;
-		Y_Sommet_Pour_Aile_Opp_REFs := a1s * Y_Sommet_Pour_Aile_REFs + b1s;	//a1 = 0 donc c'est comme si Y=b1
+		Y_Sommet_Pour_Aile_Opp_REFs := -(a1s * Y_Sommet_Pour_Aile_REFs + b1s);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refair une rotation mais négative cette fois 
 	END_IF
 
 	(* Calcul de l'angle de la Droite 1 Aile REF *)
-	Alpha1 := ATAN(a1s);
+	Alpha1s := ATAN(a1s);
 	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
-	Alpha2 := ATAN(a2s);
+	Alpha2s := ATAN(a2s);
 
 END_IF
 
