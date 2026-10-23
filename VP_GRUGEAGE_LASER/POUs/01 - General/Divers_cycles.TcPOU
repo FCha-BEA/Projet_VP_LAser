@@ -150,9 +150,11 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 		Start_mesure_Barre:=FALSE;
 		Phase_MB:=0;
 		Memo_Recul_Mesure_Barre := FALSE;
-		Palpage_OK_Face_1:=Palpage_OK_Face_2:=FALSE;
+		//Palpage_OK_Face_1:=Palpage_OK_Face_2:=FALSE;	Investiguer - Vraiment mettre a false ?  
 		Dem_Relevage_auto:=FALSE;
 		Top_Face:=FALSE;
+		Memo_X_Precedent:=0;
+		
 	END_IF
 	
 	IF Manu THEN
@@ -235,7 +237,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	IF Start_mesure_Barre AND NOT mem_arus AND NOT Recul_X_MesBarre AND NOT Avance_X_MesBarre
 	AND((Fonction_Embrayage_Pince AND Detect_Pince_embrayee) OR NOT Fonction_Embrayage_Pince) THEN
 		Pos_Cible_X:=X_Cell_Mesure_Barre;
-		Vitesse_Chariot:=Vitesse_ES_Machine_auto/2;		(*Overide =20% avec le bit start mesure barre*)
+		Vitesse_Chariot:=Vitesse_ES_Machine/2;		(*Overide =20% avec le bit start mesure barre*)
 		Top_X:=TRUE;
 	END_IF
 

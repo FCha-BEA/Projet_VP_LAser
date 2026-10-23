@@ -48,6 +48,7 @@ VAR_GLOBAL
 	 X_Suivant_Idem								:BOOL:=FALSE;
 	 M_Suivant_Idem								:BOOL:=FALSE;
 	 X_Precedent_Idem							:BOOL:=FALSE;
+	 Memo_X_Precedent							:LREAL;	//presque Comme X precedent_idem, mais remis a 0 si arus pour eviter mauvaise manip de OP
 	 X_Deja_En_pos								:BOOL:=FALSE;
 	 Mise_En_service_Vars						:BOOL:=FALSE;(*Alimentation en Puissance*)
 	 Ok_pour_Validation_Axes					:BOOL:=FALSE;

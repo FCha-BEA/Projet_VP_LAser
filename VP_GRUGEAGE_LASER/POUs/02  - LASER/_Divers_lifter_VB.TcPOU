@@ -60,8 +60,8 @@ VAR	RE_Fin_programme:R_TRIG;
 	b2s: LREAL;
 	Alpha1s: LREAL;
 	Alpha2s: LREAL;
-	Y_Sommet_Pour_Aile_OPP_REFs: LREAL;
-	Y_Sommet_Pour_Aile_REFs: LREAL;
+	Y_Sommet_Pour_Aile_OPP_REF_TH: LREAL;
+	Y_Sommet_Pour_Aile_REF_TH: LREAL;
 	
 END_VAR]]></Declaration>
     <Implementation>
@@ -289,22 +289,24 @@ IF F1Y1 <> 0 AND F1Y2 <>0
 	END_IF
 	
 	IF a1s-a2s <> 0 THEN
-		Y_Sommet_Pour_Aile_REFs := (b2s - b1s) / (a1s-a2s);
-		Y_Sommet_Pour_Aile_Opp_REFs := a1s * Y_Sommet_Pour_Aile_REFs + b1s;	//Correspond 
+		Y_Sommet_Pour_Aile_REF_TH := (b2s - b1s) / (a1s-a2s);
+		Y_Sommet_Pour_Aile_OPP_REF_TH := a1s * Y_Sommet_Pour_Aile_REF_TH + b1s;	//Correspond 
 	ELSE //Cornière parfaite, posée sur bati sans problème
-		Y_Sommet_Pour_Aile_REFs :=F2X1;
-		Y_Sommet_Pour_Aile_Opp_REFs := -(a1s * Y_Sommet_Pour_Aile_REFs + b1s);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refair une rotation mais négative cette fois 
+		Y_Sommet_Pour_Aile_REF_TH :=F2X1;
+		Y_Sommet_Pour_Aile_OPP_REF_TH := -(a1s * Y_Sommet_Pour_Aile_REF_TH + b1s);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refair une rotation mais négative cette fois 
 	END_IF
 
 	(* Calcul de l'angle de la Droite 1 Aile REF *)
 	Alpha1s := ATAN(a1s);
 	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
 	Alpha2s := ATAN(a2s);
-
 END_IF
 
+IF Palpage_OK_Face_1 AND Palpage_OK_Face_2 AND 	Y_Sommet_Pour_Aile_REF <>0 AND 	Y_Sommet_Pour_Aile_Opp_REF <>0 THEN
+ CorrectionY_Ref:= (Y_Sommet_Pour_Aile_REF - Y_Sommet_Pour_Aile_REF_TH);	
+ CorrectionY_OppRef:= (Y_Sommet_Pour_Aile_Opp_REF - Y_Sommet_Pour_Aile_OPP_REF_TH);	
 
-
+END_IF
 
 
 

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="365b77cc-3d02-45c5-8b24-5a05e4da76ae">Global_Axes_Chariot</Type>
+      <From>Vitesse_ES_Machine_auto</From>
+      <To>Vitesse_ES_Machine</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

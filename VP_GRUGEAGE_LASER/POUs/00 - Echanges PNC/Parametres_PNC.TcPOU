@@ -17,7 +17,7 @@ END_VAR]]></Declaration>
   Override_ES_Machine:=pnc_chariot[4];
   Override_Mesure_Barre:=pnc_chariot[6];
   Override_POM_Non_Faite:=pnc_chariot[7];
-  Vitesse_ES_Machine_auto:=pnc_chariot[19];
+  Vitesse_ES_Machine:=pnc_chariot[19];
 
 (*---- Pnc_Cycle/2/3 --------*)
  Longueur_Barre:=Pnc_Cycle[1];

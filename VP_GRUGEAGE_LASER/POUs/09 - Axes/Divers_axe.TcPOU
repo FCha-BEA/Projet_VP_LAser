@@ -8,9 +8,6 @@ XYL_Interdit	:BOOL;
 ZChariot_Interdit	:BOOL;
 //Relevage/abaissement pince
  Pos_Parking_ZChariot	:LREAL;
- 
-
-
 
 END_VAR
 ]]></Declaration>
@@ -46,17 +43,19 @@ Origines_Axes_ok :=
  AND Ref_Ok_A_Laser
  ;
 
-//Vitesse X chariot : selection Opanel + override / A voir - corriger par vitesse si besoin
- Vitesse_Chariot_Manu :=PNC_Axe_Chariot.Vitesse_MAN ;
- IF Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot 
-	 THEN
-	 Override_Chariot:=0;
- ELSIF Auto THEN
-	 Override_Chariot:=100 * (Pnc_Modulation_Vitesse/9);
+//Vitesse X chariot : selection Opanel + override / A investiguer - corriger par vitesse si besoin
+ Override_Chariot:=100;
+ IF Jog_Plus_X OR Ev_Serrage_Pince AND (Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot) THEN  
+	 	Vitesse_Chariot_Auto:= 
+		Vitesse_Chariot_Manu:= 
+		Override_Chariot:=0;
+ ELSIF Pos_Reel_X >= Pos_X_Mesure_Barre THEN
+ 	Vitesse_Chariot_Auto:=
+	Vitesse_Chariot_Manu:=Vitesse_ES_Machine * (Pnc_Modulation_Vitesse/9);
  ELSIF Manu AND Joystick_Bt_Valid THEN
-	 Override_Chariot:=100;
- ELSE
-	 Override_Chariot:=80 * (Pnc_Modulation_Vitesse/9);
+	  Vitesse_Chariot_Manu :=PNC_Axe_Chariot.Vitesse_MAN;
+ ELSIF manu THEN
+ 	  Vitesse_Chariot_Manu :=(PNC_Axe_Chariot.Vitesse_MAN) * (Pnc_Modulation_Vitesse/9) ;
  END_IF
  
 // Pos Y relative a la corniere - Si offset Y Face 1/2/ecr OK seulement !

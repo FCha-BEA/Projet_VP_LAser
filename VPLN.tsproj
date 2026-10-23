@@ -1867,7 +1867,7 @@ External Setpoint Generation:
 		</System>
 		<Motion>
 			<NC>
-				<SafTask Disabled="true" Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" SafTaskInfo="256">
+				<SafTask Priority="4" CycleTime="20000" AmsPort="501" IoAtBegin="true" SafTaskInfo="256">
 					<Name>NC-Task 1 SAF</Name>
 					<Vars VarGrpType="1" InsertType="1">
 						<Name>Entrées</Name>
@@ -1889,13 +1889,13 @@ Vmax 3000/min
 Accel 2ms²
 resolution=23.558070219046912mm/2exp20]]></Comment>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0"/>
+						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0" Jerk="1125"/>
 						<PositionAreaControl Range="1"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.2" Time="0.1"/>
 					</AxisPara>
 					<Encoder Name="Axis 1_Enc" EncType="8">
-						<EncPara MaxCount="#xffffffff" ReferenceSystem="1">
+						<EncPara ScaleFactorNumerator="2.28884559559097e-05" Offset="1829.90605238901" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1">
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
 						</EncPara>
 						<Vars VarGrpType="1">
@@ -1914,8 +1914,8 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 						</Vars>
 					</Encoder>
 					<Drive Name="Axis 1_Drive" DrvType="9">
-						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
+						<DrvPara Inverse="true" MaxCount="#xffffffff" DriveControlDWord="#x00030100">
+							<Analog VeloReferenz="2000" VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -1961,12 +1961,13 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 resolution 3/2exp20
 2m/s2]]></Comment>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0"/>
+						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0" Acceleration="1000" Deceleration="1000" Jerk="10000"/>
+						<Velo Maximum="100"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.1" Time="0.05"/>
 					</AxisPara>
 					<Encoder Name="Axis 2_Enc" EncType="8">
-						<EncPara MaxCount="#xffffffff" ReferenceSystem="1">
+						<EncPara ScaleFactorNumerator="4.76837158203125e-06" MaxCount="#xffffffff" ReferenceSystem="1">
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
 						</EncPara>
 						<Vars VarGrpType="1">
@@ -1986,7 +1987,7 @@ resolution 3/2exp20
 					</Encoder>
 					<Drive Name="Axis 2_Drive" DrvType="9">
 						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
-							<Analog VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
+							<Analog VeloReferenz="100" VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2661,7 +2662,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{3D65DA73-75D0-2C27-95FC-5F295E423783}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{016E2A89-9C83-243D-309A-9744335CFBC4}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2707,11 +2708,11 @@ resolution 3/2exp20
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
+							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
-							<Name>Axe_41_Y_Laser.YLaser.dummy2.PlcToNc</Name>
+							<Name>Axe_41_Y_Laser.YLaser.dummy3.PlcToNc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 						<Var>
@@ -4024,7 +4025,7 @@ Sécurité/Réarmement]]></Comment>
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="21.63.21.63.2.1" RemoteName="Périphérique 1 (EtherCAT)" InfoImageId="4">
+			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="21.63.21.63.2.1" RemoteName="Périphérique 1 (EtherCAT)" InfoImageId="4">
 				<Name>Périphérique 1 (EtherCAT)</Name>
 				<AddressInfo>
 					<Pnp>
@@ -4035,6 +4036,9 @@ Sécurité/Réarmement]]></Comment>
 				</AddressInfo>
 				<Image Id="2" AddrType="9" ImageType="3">
 					<Name>Image</Name>
+				</Image>
+				<Image Id="3" AddrType="10" ImageType="3">
+					<Name>Image-2</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>Armoire-A (EK1100)</Name>
@@ -5159,7 +5163,6 @@ Sécurité/Réarmement]]></Comment>
 								<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340020000000000d0075473637963202d20436f6d6d206379636c652074696d6500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000000e000000000000000000000000000000000000000000000003402000000000000b004f7065726174696f6e206d6f646500</MBoxUserCmdData>
 								<MBoxUserCmdData>004005000a0000001e0000000000000000000000000000000000000000000000034030810000000001005265706f727420646961676e6f737469637320696e666f726d6174696f6e00</MBoxUserCmdData>
-								<MBoxUserCmdData>02000500ec0000000f00000000000000000000000000000000000000000000000340968000000000e000e00003000000454b4d33362d304b4630413053313600000000000000000000000000000000000000000000000000000000000e0000000000000005000e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000e000000000012000c000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000960096007d0000000000000000000000000000000000000000000000466565646261636b2031207479706500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001700000000000000000000000000000000000000000000000340d6800000000003004443206c696e6b20636f6e6e656374696f6e206d6f646500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001800000000000000000000000000000000000000000000000340d087000000000300436f6e6669677572656420736166657479206f7074696f6e00</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001300000000000000000000000000000000000000000000000340d88000000000c4224d6178204443206c696e6b20766f6c7461676500</MBoxUserCmdData>
@@ -5201,6 +5204,7 @@ Sécurité/Réarmement]]></Comment>
 								<MBoxUserCmdData>020005000a0000002900000000000000000000000000000000000000000000000340ff8100000000960056656c6f636974792066696c74657220313a204c6f7720706173732074696d6520636f6e7374616e7400</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000c0000001f00000000000000000000000000000000000000000000000340640000000000dd08000056656c6f63697479206c6f6f702070726f706f7274696f6e616c206761696e00</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000002200000000000000000000000000000000000000000000000340650000000000500056656c6f63697479206c6f6f7020696e74656772616c20616374696f6e2074696d6500</MBoxUserCmdData>
+								<MBoxUserCmdData>02000500ec0000000f00000000000000000000000000000000000000000000000340968000000000e000e00003000000454b4d33362d304b4630413053313600000000000000000000000000000000000000000000000000000000000e0000000000000005000e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000e000000000012000c000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000960096007d0000000000000000000000000000000000000000000000466565646261636b2031207479706500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005001800000011000000000000000000000000000000000000000000000003400282000000000c000c0001000000f401e803bc02000056656c6f63697479206f6273657276657200</MBoxUserCmdData>
 								<Pdo Name="AT" Index="#x0010" Flags="#x0001" SyncMan="3">
 									<Entry Name="Drive status word" BitLen="16" Index="#x0087" Flags="#x00000800">
@@ -5602,116 +5606,116 @@ Sécurité/Réarmement]]></Comment>
 										<InitCmd DriveNo="0" IDN="33282" MotorDataLevel="1" DisableMode="0"/>
 									</InitCmds>
 									<StatusBar>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>135</Index>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>390</Index>
 											<Width>85</Width>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>95</Index>
 											<Width>100</Width>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>32821</Index>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>32973</Index>
 											<SubItem>Bit0</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>32973</Index>
 											<SubItem>Bit3</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>384</Index>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>135</Index>
 											<SubItem>ActualOperationMode</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33080</Index>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>32865</Index>
 											<SubItem>MotorBrakeUnlocked</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>380</Index>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>381</Index>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>32831</Index>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>Active</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>ReadyToEnable</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>IGreaterThanInom</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>IPeakLimitReached</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>IreductionActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>UmaxReached</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33221</Index>
 											<SubItem>FieldWeakeningActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>Active</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>ReadyToEnable</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>PosDirectionEnabled</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>NegDirectionEnabled</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>AccDecLimitationActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0" SubIdx="0">
+										<Element option="1" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>vLimitationActive</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>vZeroReached</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>CmdMovPositive</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>33271</Index>
 											<SubItem>CmdMovNegative</SubItem>
 										</Element>
-										<Element option="0" SortOder="0" SubIdx="0">
+										<Element option="0" SortOder="0">
 											<Index>32983</Index>
 										</Element>
 									</StatusBar>
@@ -5766,7 +5770,7 @@ Sécurité/Réarmement]]></Comment>
 								<MBoxUserCmdData>020005001400000015000000000000000000000000000000000000000000000003404780000000000800080060010000000000004d656368616e6963616c206d6f746f72206461746100</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001900000000000000000000000000000000000000000000000340c90000000000b0044d6f746f72207761726e696e672074656d706572617475726500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001b00000000000000000000000000000000000000000000000340cc000000000078054d6f746f72207368757420646f776e2074656d706572617475726500</MBoxUserCmdData>
-								<MBoxUserCmdData>020005000a0000000b000000000000000000000000000000000000000000000003403c800000000001004d6f746f72206272616b6500</MBoxUserCmdData>
+								<MBoxUserCmdData>020005000a0000000b000000000000000000000000000000000000000000000003403c800000000011004d6f746f72206272616b6500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a00000024000000000000000000000000000000000000000000000003403b80000000000e014d6f746f72206272616b652063757272656e74206d6f6e69746f72696e67206c6576656c00</MBoxUserCmdData>
 								<MBoxUserCmdData>02000500120000001000000000000000000000000000000000000000000000000340488000000000060006008403000000004d6f746f72206272616b65206461746100</MBoxUserCmdData>
 								<MBoxUserCmdData>020005000a0000001300000000000000000000000000000000000000000000000340ce000000000050004472697665206f6e2064656c61792074696d6500</MBoxUserCmdData>
@@ -5787,6 +5791,7 @@ Sécurité/Réarmement]]></Comment>
 								<MBoxUserCmdData>020005000a0000002200000000000000000000000000000000000000000000000340650000000000500056656c6f63697479206c6f6f7020696e74656772616c20616374696f6e2074696d6500</MBoxUserCmdData>
 								<MBoxUserCmdData>02000500ec0000000f00000000000000000000000000000000000000000000000340968000000000e000e00003000000454b4d33362d304b4630423053323500000000000000000000000000000000000000000000000000000000000e0000000000000005000e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007000e000000000012000c000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000960096007d0000000000000000000000000000000000000000000000466565646261636b2031207479706500</MBoxUserCmdData>
 								<MBoxUserCmdData>020005001800000011000000000000000000000000000000000000000000000003400282000000000c000c0001000000f401e803bc02000056656c6f63697479206f6273657276657200</MBoxUserCmdData>
+								<MBoxUserCmdData>020005001c00000019000000000000000000000000000000000000000000000003400682000000001000100001000000e92631000a0000000000000056656c6f63697479206572726f72206d6f6e69746f72696e6700</MBoxUserCmdData>
 								<Pdo Name="AT" Index="#x0010" Flags="#x0001" SyncMan="3">
 									<Entry Name="Drive status word" BitLen="16" Index="#x0087" Flags="#x00000800">
 										<Type>UINT</Type>
@@ -11341,6 +11346,11 @@ Sécurité/Réarmement]]></Comment>
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500831000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-0040-0304-1000-040342000403}" Id="#x02030040"/>
+		<MappingInfo Identifier="{08502001-0020-0304-0020-500820000403}" Id="#x02030020" Watchdog="00000000000000000000000000000000"/>
+		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030050" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axe 40 (X - Laser)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-82SW1 (CU1128)^Hub B-82SW1_2 (CU1128-B)^B-811A1 Var X/A Laser (AX5203-0000-0216)">
 				<Link VarA="Drive^Inputs^In^nDataIn1" VarB="AT 1^Following distance"/>
@@ -11682,6 +11692,14 @@ Sécurité/Réarmement]]></Comment>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axe 43 (A - Laser)">
 				<Link VarA="Standard Inputs^.Axe_43.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="Standard Outputs^.Axe_43.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1 (X-Chariot)">
+				<Link VarA="Standard Inputs^.Axe_1.NcToPlc" VarB="Outputs^Axis 1_ToPlc"/>
+				<Link VarA="Standard Outputs^.Axe_1.PlcToNc" VarB="Inputs^Axis 1_FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 2 (Z - Chariot)">
+				<Link VarA="Standard Inputs^.Axe_2.NcToPlc" VarB="Outputs^Axis 2_ToPlc"/>
+				<Link VarA="Standard Outputs^.Axe_2.PlcToNc" VarB="Inputs^Axis 2_FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^CNC Laser">
 				<Link VarA="Standard Inputs^.XYL_NciChannelToplc" VarB="Outputs^ToPlc"/>

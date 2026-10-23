@@ -27,15 +27,19 @@ END_VAR
 
 VAR
 	Chariot_Sous_Presseur	:BOOL;
+	Barre_Sous_Presseur		:BOOL;
 	Fenetre_SerrPresseur	:LREAL:=7;	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF IN THEN
 
 	Chariot_Sous_Presseur	:=	(Pos_Reel_X > Pos_X_Presseur - Dist_Annul_X_Presseur);
+	Barre_Sous_Presseur		:=	(Pos_Reel_X + Longueur_Barre_en_Pince) >= (Pos_X_Presseur - Dist_Annul_X_Presseur);
 
-	Stop_Chariot 			:= (Pos_Reelle_Presseur_D < Pos_Presseur_Desserre) OR  (Pos_Reelle_Presseur_G < Pos_Presseur_Desserre);
-	Presseur_Desserre		:=	NOT Stop_Chariot;
+	Stop_Chariot 			:= ((Pos_Reelle_Presseur_D < Pos_Presseur_Desserre) 
+									OR  (Pos_Reelle_Presseur_G < Pos_Presseur_Desserre)) 
+								AND (Chariot_Sous_Presseur OR Barre_Sous_Presseur) ;
+	Presseur_Desserre		:=	(Pos_Reelle_Presseur_D >= Pos_Presseur_Desserre) AND (Pos_Reelle_Presseur_G >= Pos_Presseur_Desserre);
 
 	Ok_pour_operation 		:= Divers_cycles.Calib_Presseurs_OK (*AND Dem_Serrage*) 
 								AND (((Pos_Reelle_Presseur_D <EP_Aile+Fenetre_SerrPresseur) 

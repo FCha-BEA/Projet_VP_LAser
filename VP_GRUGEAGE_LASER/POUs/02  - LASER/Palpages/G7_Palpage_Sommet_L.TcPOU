@@ -3489,8 +3489,8 @@ Top_Y_Laser := TRUE;]]></ST>
         <ST><![CDATA[Memo_Face_2_Y_2 := EP_Aile-15;	//la cote peut être négative comme positiive
 Memo_Face_2_Z_2 := Ep_Ame + 10-Prog_Capacitance_Actual_Value_mm;
 
-F2P2.X :=Memo_Face_2_Z_2;	//rotation de +90° pour revenir repère f1
-F2P2.Y :=-Memo_Face_2_Y_2;]]></ST>
+F2P2.X :=-Memo_Face_2_Z_2;	//rotation de +90° pour revenir repère f1
+F2P2.Y :=Memo_Face_2_Y_2;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step24_exit" Id="{51760de6-a85d-4f4c-90b9-7a83d918e0a1}">
@@ -3540,7 +3540,7 @@ IF F1P1.Y <> 0 AND F1P2.Y <>0
 	
 	IF a1-a2 <> 0 THEN
 		Y_Sommet_Pour_Aile_REF := (b2 - b1) / (a1-a2);
-		Y_Sommet_Pour_Aile_Opp_REF := a1 * Y_Sommet_Pour_Aile_REF + b1;	//Correspond 
+		Y_Sommet_Pour_Aile_Opp_REF := -(a1 * Y_Sommet_Pour_Aile_REF + b1);	//pour utiliser ça comme Y face 2 - opp réf on doit refaire une rotation mais négative cette fois 
 	ELSE //Cornière parfaite, posée sur bati sans problème
 		Y_Sommet_Pour_Aile_REF :=F2P1.X;
 		Y_Sommet_Pour_Aile_Opp_REF := -(a1 * Y_Sommet_Pour_Aile_REF + b1);	//a1 = 0 donc c'est comme si Y=b1, et pour utiliser ça comme Y face 2 - opp réf on doit refaire une rotation mais négative cette fois 

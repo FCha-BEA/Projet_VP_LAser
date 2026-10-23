@@ -39,7 +39,7 @@ VAR_GLOBAL
 	Vitesse_Chariot					:LREAL;
 	Vitesse_Chariot_Manu			:LREAL;
 	Vitesse_Chariot_Auto			:LREAL;
-	Vitesse_ES_Machine_auto			:LREAL;
+	Vitesse_ES_Machine			:LREAL;
 	Bit_Chariot_en_zone_PV			:BOOL;
 	Bit_PV_en_Auto					:BOOL;
 	TON_Simulation_Fc_Origine_X_Chariot:TON;

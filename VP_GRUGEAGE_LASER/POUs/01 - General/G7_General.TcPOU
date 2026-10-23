@@ -4,7 +4,6 @@
     <Declaration><![CDATA[PROGRAM G7_General
 VAR_INPUT	SFCInit:BOOL;	END_VAR
 VAR
-	Memo_X_Precedent	:LREAL;	//Si plusieurs usinages au même X, pas besoin d'ouvrir et dég à chaque fois 
 	Top_Cycles_Palp_Laser	:BOOL; //Lance le G7 des palpages buse et sommet du laser
 	Fb_decode_real_Fct_M_: Fb_decode_real;
 	Num_operation_Cycle: INT;
@@ -3221,7 +3220,7 @@ Top_Cycles_Palp_Laser:=FALSE;
  END_IF;
 
 //Desser presseur au pas chariot <> du précédant 
- IF Memo_X_Precedent <> Sequence[PT_Sequence].X THEN
+ IF Memo_X_Precedent <> Sequence[PT_Sequence].X THEN	
  	//Desserage presseur
  	Presseur_Amont_K11.Dem_Desserrage:=
  	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
@@ -3278,6 +3277,10 @@ Top_Cycles_Palp_Laser:=FALSE;
  Presseur_Amont_K11.Dem_Serrage:=
  Presseur_Aval_L12.Dem_Serrage:=FALSE;
 END_IF
+
+Memo_X_Precedent:= Sequence[Pt_Sequence].X;
+
+
 
 ]]></ST>
       </Implementation>
