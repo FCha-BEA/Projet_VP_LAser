@@ -32,13 +32,13 @@ G7_Palpage_Capacitance();
 G7_Palpage_Sommet_L();
 Presseurs_Laser();
 Gestion_Pince();
+Divers_axe();
 Axe_01_X();
 Axe_02_ZChariot();
 Axe_40_X_Laser();
 Axe_41_Y_Laser();
 Axe_42_Z_Laser();
 Axe_43_A();
-Divers_axe();
 Exec_ISO();
 
 Forcage_Rep();

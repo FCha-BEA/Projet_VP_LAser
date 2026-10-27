@@ -3218,9 +3218,25 @@ Top_Cycles_Palp_Laser:=FALSE;
  ELSE
 	Grugeage_laser:=Ecretage_Laser:=FALSE;
  END_IF;
-
-//Desser presseur au pas chariot <> du précédant 
- IF Memo_X_Precedent <> Sequence[PT_Sequence].X THEN	
+ 
+ // Contrôle palpage sommet
+  IF Opt_Palp_Sommet_Tjs THEN	//On palpe tout le temps
+  	Palpage_OK_Face_1 := Palpage_OK_Face_2 := FALSE;
+  ELSIF Opt_Palp_Sommet_1Clamp THEN	// si début barre - donc seule la 1ere clamp dépassée - ou fin de barre - Fd de pince entre les 2 clamps - 
+  	IF Sequence[Pt_sequence].X + Longueur_Barre_en_Pince <= Presseur_Aval_L12.Position_X
+  		OR (Sequence[Pt_sequence].X >= Presseur_Amont_K11.Position_X AND Sequence[Pt_sequence].X < Presseur_Aval_L12.Position_X) THEN
+  		Palpage_OK_Face_1 := Palpage_OK_Face_2 := FALSE;
+  	ELSE
+  		Palpage_OK_Face_1 := Palpage_OK_Face_2 := TRUE;
+  	END_IF
+  ELSE	//Si aucune des options de palpage, alors on ne palpe jamais
+  	Palpage_OK_Face_1 := Palpage_OK_Face_2 := TRUE;
+  END_IF
+ 
+//Desser presseur au pas chariot <> du précédant ou si besoin palpage
+ IF (Memo_X_Precedent <> Sequence[PT_Sequence].X )
+	OR NOT Palpage_OK_Face_1 
+	OR NOT Palpage_OK_Face_2 THEN	
  	//Desserage presseur
  	Presseur_Amont_K11.Dem_Desserrage:=
  	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
@@ -3248,19 +3264,7 @@ Top_Cycles_Palp_Laser:=FALSE;
  	IF Index_Recette_Laser_Auto=0 OR Sequence[Pt_Sequence].P10=0 THEN Def_Abs_Recette :=TRUE; END_IF
  END_IF
 
-// Contrôle palpage sommet
- IF Opt_Palp_Sommet_Tjs THEN	//On palpe tout le temps
- 	Palpage_OK_Face_1 := Palpage_OK_Face_2 := FALSE;
- ELSIF Opt_Palp_Sommet_1Clamp THEN	// si début barre - donc seule la 1ere clamp dépassée - ou fin de barre - Fd de pince entre les 2 clamps - 
- 	IF Sequence[Pt_sequence].X + Longueur_Barre_en_Pince <= Presseur_Aval_L12.Position_X
- 		OR (Sequence[Pt_sequence].X >= Presseur_Amont_K11.Position_X AND Sequence[Pt_sequence].X < Presseur_Aval_L12.Position_X) THEN
- 		Palpage_OK_Face_1 := Palpage_OK_Face_2 := FALSE;
- 	ELSE
- 		Palpage_OK_Face_1 := Palpage_OK_Face_2 := TRUE;
- 	END_IF
- ELSE	//Si aucune des options de palpage, alors on ne palpe jamais
- 	Palpage_OK_Face_1 := Palpage_OK_Face_2 := TRUE;
- END_IF
+
 
 
 

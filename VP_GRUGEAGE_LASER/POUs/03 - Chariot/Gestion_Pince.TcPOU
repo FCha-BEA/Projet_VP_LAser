@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Gestion_Pince" Id="{3f09525e-3e4a-4260-96db-91c3e1010bd1}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Gestion_Pince
 VAR
@@ -10,6 +10,7 @@ VAR
 	
 	Re_Cde_Serrage_Desserrage	:R_TRIG;
 	Desserrage_Pince_Ok		:TON;
+	FE_Embrayage			:F_trig;
 	
 
 END_VAR
@@ -23,6 +24,7 @@ END_VAR]]></Declaration>
   RE_Bit_Relevage_pince(clk:=Bit_Relevage_pince OR Dem_Relevage_auto); 
   Re_Cde_Serrage_Desserrage(clk:=Cde_Serrage_Desserrage);
   Desserrage_Pince_Ok(IN:=Ev_Desserrage_Pince,pt:=T#4S);
+  FE_Embrayage(clk:=Detect_Pince_embrayee);
  
  (*Secu Pince*)
   Pince_dans_Machine:=NOT ref_ok_X OR (Ref_Ok_X AND Pos_Reel_X > X_Cell_Mesure_Barre);
@@ -50,7 +52,14 @@ END_VAR]]></Declaration>
 
 (*Gestion pince*)
 //Embrayage
-  Ev_Embrayage_Pince := (Manu AND Bp_Annul_Defauts) OR Detect_Pince_embrayee;
+ IF Machine_en_Service THEN
+ 	IF FE_Embrayage.Q THEN
+ 		Ev_Embrayage_Pince:=FALSE;
+ 	END_IF
+ 	IF Manu AND Bp_Annul_Defauts THEN
+ 		Ev_Embrayage_Pince:=TRUE;
+ 	END_IF
+ END_IF
   
 //Serrage desserage pince 
   IF Machine_en_Service THEN
@@ -71,33 +80,5 @@ END_VAR]]></Declaration>
 
 ]]></ST>
     </Implementation>
-    <LineIds Name="Gestion_Pince">
-      <LineId Id="82" Count="0" />
-      <LineId Id="64" Count="1" />
-      <LineId Id="68" Count="0" />
-      <LineId Id="115" Count="0" />
-      <LineId Id="119" Count="0" />
-      <LineId Id="66" Count="0" />
-      <LineId Id="22" Count="3" />
-      <LineId Id="29" Count="1" />
-      <LineId Id="33" Count="2" />
-      <LineId Id="38" Count="2" />
-      <LineId Id="42" Count="5" />
-      <LineId Id="69" Count="1" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="50" Count="1" />
-      <LineId Id="85" Count="0" />
-      <LineId Id="83" Count="0" />
-      <LineId Id="86" Count="0" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="88" Count="1" />
-      <LineId Id="100" Count="9" />
-      <LineId Id="114" Count="0" />
-      <LineId Id="97" Count="0" />
-      <LineId Id="99" Count="0" />
-      <LineId Id="116" Count="1" />
-      <LineId Id="96" Count="0" />
-      <LineId Id="94" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

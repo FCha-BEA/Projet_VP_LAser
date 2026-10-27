@@ -1882,20 +1882,21 @@ External Setpoint Generation:
 				<SvbTask Priority="8" CycleTime="100000" AmsPort="511">
 					<Name>NC-Task 1 SVB</Name>
 				</SvbTask>
-				<Axis Id="1" AxisType="1">
+				<Axis Id="1111" AxisType="1" GroupId="1">
 					<Name>Axis 1 (X-Chariot)</Name>
 					<Comment><![CDATA[1 tour mot = 23.558070219046912mmm
 Vmax 3000/min
 Accel 2ms²
 resolution=23.558070219046912mm/2exp20]]></Comment>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0" Jerk="1125"/>
+						<Dynamic AccelerationMaximum="4000" DecelerationMaximum="4000" Acceleration="800" Deceleration="800" Jerk="800"/>
 						<PositionAreaControl Range="1"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.2" Time="0.1"/>
 					</AxisPara>
-					<Encoder Name="Axis 1_Enc" EncType="8">
+					<Encoder Name="Axis -447755184_Enc" EncId="-447755184" EncType="8">
 						<EncPara ScaleFactorNumerator="2.28884559559097e-05" Offset="1829.90605238901" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1">
+							<SoftEndMinControl Range="1000"/>
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
 						</EncPara>
 						<Vars VarGrpType="1">
@@ -1913,7 +1914,7 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 							</Var>
 						</Vars>
 					</Encoder>
-					<Drive Name="Axis 1_Drive" DrvType="9">
+					<Drive Name="Axis -447755184_Drive" DrvId="-447755184" DrvType="9">
 						<DrvPara Inverse="true" MaxCount="#xffffffff" DriveControlDWord="#x00030100">
 							<Analog VeloReferenz="2000" VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
 							<TimeComp TaskDelayCycles="1"/>
@@ -1933,7 +1934,7 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 							</Var>
 						</Vars>
 					</Drive>
-					<Controller Name="Axis 1_Ctrl" CtrType="1">
+					<Controller Name="Axis -447755184_Ctrl" CtrId="-447755184" CtrType="1">
 						<CtrPara PriorControlFactor="1">
 							<PosDiffControl Range="20"/>
 							<PID PosKp="0.1" PosExtKp="0.01" VeloKp="0.01"/>
@@ -1943,14 +1944,14 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 					<Vars VarGrpType="1" InsertType="1">
 						<Name>Inputs</Name>
 						<Var>
-							<Name>Axis 1_FromPlc</Name>
+							<Name>Axis 1111_FromPlc</Name>
 							<Type GUID="{96B75FEB-2D84-43BE-A3EC-D9A681F27D52}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" InsertType="1">
 						<Name>Outputs</Name>
 						<Var>
-							<Name>Axis 1_ToPlc</Name>
+							<Name>Axis 1111_ToPlc</Name>
 							<Type GUID="{25521FAA-EA5F-4C7F-8864-BBCCDACD2E98}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -2662,7 +2663,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{016E2A89-9C83-243D-309A-9744335CFBC4}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{57C49E9A-7048-E71A-CC5C-50AB34BF6B81}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2736,13 +2737,13 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO02_Home_Start</Name>
@@ -2773,13 +2774,13 @@ resolution 3/2exp20
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Byte0_Convert</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
 							<Name>.Consigne_ServoVanne</Name>
 							<Comment><![CDATA[Asservissement gaz decoupe : O2 uniquement]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Byte0_Convert</Name>
+							<Type>BYTE</Type>
 						</Var>
 						<Var>
 							<Name>.Byte1_Convert</Name>
@@ -3141,16 +3142,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
@@ -3304,18 +3305,14 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>.Servo_Error</Name>
-							<Comment><![CDATA[Echange avec tête]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Actual_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DI01_Collision</Name>
 							<Comment><![CDATA[Entrées TOR]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Servo_Error</Name>
+							<Comment><![CDATA[Echange avec tête]]></Comment>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI02_Up_Limit</Name>
@@ -3324,6 +3321,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.DI03_Down_Limit</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Actual_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -3346,6 +3347,11 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
+							<Comment><![CDATA[ 0.01 °C ]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>.Data01_Capacitance_Actual_Value</Name>
 							<Comment><![CDATA[Datas input]]></Comment>
 							<Type>UDINT</Type>
@@ -3353,11 +3359,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Data02_Capacitance_HeartBeat_Accumulated_Value</Name>
 							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
-							<Comment><![CDATA[ 0.01 °C ]]></Comment>
-							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.Data04_Focus_Lens_Temperature</Name>
@@ -3935,10 +3936,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>.Pompe_Centrale_BM.Status_Word</Name>
 							<Comment><![CDATA[INPUT	]]></Comment>
 							<Type>UINT</Type>
@@ -3970,6 +3967,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>
@@ -11420,18 +11421,18 @@ Sécurité/Réarmement]]></Comment>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1 (X-Chariot)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_2 (CU1128-B)^B-411A1 - Var X Chariot (AX5112-0000-0216)">
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nDataIn1" VarB="AT^Following distance"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState2" VarB="AT^Drive status word"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^WcState"/>
-				<Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
-				<Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nDataOut1" VarB="MDT^Position command value"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nDataIn1" VarB="AT^Position feedback 1 value"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nDcInputTime" VarB="InfoData^DcInputShift"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nDataIn1" VarB="AT^Following distance"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState2" VarB="AT^Drive status word"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Axis -447755184_Drive^Outputs^Axis 1_Drive_Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
+				<Link VarA="Axis -447755184_Drive^Outputs^Axis 1_Drive_Out^nDataOut1" VarB="MDT^Position command value"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nDataIn1" VarB="AT^Position feedback 1 value"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nDcInputTime" VarB="InfoData^DcInputShift"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^WcState"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 2 (Z - Chariot)">
@@ -11520,6 +11521,10 @@ Sécurité/Réarmement]]></Comment>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Armoire-A (EK1100)^B-127PWM1 (EL2502)">
 				<Link VarA="Standard Outputs^.OUT_Freq_PWM" VarB="PWM Outputs Channel 1^PWM period 1Hz"/>
 				<Link VarA="Standard Outputs^.OUT_Perc_Duty_PWM" VarB="PWM Outputs Channel 1^PWM output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_2 (CU1128-B)^B-420 REP1 Chariot (54632)">
+				<Link VarA="Standard Inputs^.B420_Rep_ChaBe.Link_IN" VarB="TxPDO Mapping of Digital Inputs^PD (I/Q Pin2 + C/Q Pin4)"/>
+				<Link VarA="Standard Outputs^.B420_Rep_ChaBe.Link_OUT" VarB="RxPDO Mapping of Digital Outputs^PD (I/Q Pin2 + C/Q Pin4)"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_3 (CU1128-C)^Tete Laser (BS08KE-Deluxe-v2.1)">
 				<Link VarA="Standard Inputs^.DI01_Collision" VarB=" DI Status^DI01"/>
@@ -11694,8 +11699,8 @@ Sécurité/Réarmement]]></Comment>
 				<Link VarA="Standard Outputs^.Axe_43.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1 (X-Chariot)">
-				<Link VarA="Standard Inputs^.Axe_1.NcToPlc" VarB="Outputs^Axis 1_ToPlc"/>
-				<Link VarA="Standard Outputs^.Axe_1.PlcToNc" VarB="Inputs^Axis 1_FromPlc"/>
+				<Link VarA="Standard Inputs^.Axe_1.NcToPlc" VarB="Outputs^Axis 1111_ToPlc"/>
+				<Link VarA="Standard Outputs^.Axe_1.PlcToNc" VarB="Inputs^Axis 1111_FromPlc"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 2 (Z - Chariot)">
 				<Link VarA="Standard Inputs^.Axe_2.NcToPlc" VarB="Outputs^Axis 2_ToPlc"/>

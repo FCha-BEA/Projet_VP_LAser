@@ -39,12 +39,12 @@ VAR_GLOBAL
 	Vitesse_Chariot					:LREAL;
 	Vitesse_Chariot_Manu			:LREAL;
 	Vitesse_Chariot_Auto			:LREAL;
-	Vitesse_ES_Machine			:LREAL;
+	Vitesse_ES_Machine				:LREAL;
+	Accel_Decel_XChariot			:LREAL;	//Acceleration/Deceleration du X chariot - Depends du poids de la barre si pince fermee.
+	Zone_Decel_XChariot				:LREAL;	//Distance pour pouvoir decelerer en tenant compte de la vitesse ET de l'accel, plus fidele qu'une valeur brute
+		Zone_Decel_XChariot_Mini	:LREAL; 
+		//Distance MINI pour brider la decel, pour eviter le cas : zone franchie-> Decelere->Vit baisse-> zone baisse-> on est en dehors donc Vit augmente-> Zone augmente-> etc
 	Bit_Chariot_en_zone_PV			:BOOL;
-	Bit_PV_en_Auto					:BOOL;
-	TON_Simulation_Fc_Origine_X_Chariot:TON;
-	TP_Simulation_Fc_Origine_X_Chariot:TP;
-	Stop_chariot_collision_perceuses  :BOOL;
 
 (*Axe Z Chariot*)
 	Pos_cible_Z_Chariot				:LREAL:=0;

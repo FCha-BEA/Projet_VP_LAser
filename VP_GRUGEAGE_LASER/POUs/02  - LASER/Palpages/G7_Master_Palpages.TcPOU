@@ -665,7 +665,7 @@ Capacitance
                                     <o>
                                       <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">""</v>
+                                        <v n="Value">"StepCapa_active"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">472L</v>
@@ -2321,7 +2321,7 @@ Top_Y_laser:=TRUE;
     </Action>
     <Action Name="Step40_entry" Id="{f0538d28-f1a7-4c33-9400-718c62f895c2}">
       <Implementation>
-        <ST><![CDATA[IF  G7_General.Memo_X_Precedent <> Sequence[Pt_Sequence].X THEN
+        <ST><![CDATA[IF  Memo_X_Precedent <> Sequence[Pt_Sequence].X THEN
  Pos_Cible_X := Sequence[Pt_Sequence].X;
  En_pos_X:=FALSE;
  Top_x:=TRUE;
@@ -2350,12 +2350,28 @@ END_IF]]></ST>
       <Implementation>
         <ST><![CDATA[IF Palpage_OK_Face_1 AND Palpage_OK_Face_2 THEN
 	Top_Palpage_Sommet:=FALSE;
-END_IF]]></ST>
+	Presseur_Amont_K11.Dem_Serrage:=
+	Presseur_Aval_L12.Dem_Serrage:=FALSE;	
+	Presseur_Amont_K11.Dem_Desserrage:=
+	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
+END_IF
+
+]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step60_entry" Id="{afb8e265-b6eb-41a4-9c99-2e759c226308}">
       <Implementation>
         <ST><![CDATA[Top_Palpage_Sommet:=true;]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="StepCapa_active" Id="{6e7c6251-5e04-4099-8fc0-ad08efb71979}">
+      <Implementation>
+        <ST><![CDATA[IF Prog_Capacitance_Calibration_OK THEN
+	Presseur_Amont_K11.Dem_Serrage:=
+	Presseur_Aval_L12.Dem_Serrage:=FALSE;	
+	Presseur_Amont_K11.Dem_Desserrage:=
+	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
+END_IF]]></ST>
       </Implementation>
     </Action>
     <Transition Name="Trans20a" Id="{01fa4212-2f4b-40ba-878d-8f4dcbb8d001}">
@@ -2375,6 +2391,8 @@ AND (NOT Prog_Capacitance_Calibration_OK OR Ecretage_Laser)
       <Implementation>
         <ST><![CDATA[G7_Palpage_Capacitance.StepSync.x
 AND Prog_Capacitance_Calibration_OK
+AND Presseur_Amont_K11.Presseur_Haut
+AND Presseur_Aval_L12.Presseur_Haut
 AND (NOT Palpage_OK_Face_1
 OR NOT Palpage_OK_Face_2)
 ]]></ST>
@@ -2384,6 +2402,8 @@ OR NOT Palpage_OK_Face_2)
       <Implementation>
         <ST><![CDATA[G7_Palpage_Capacitance.StepSync.x
 AND Prog_Capacitance_Calibration_OK
+AND Presseur_Amont_K11.Presseur_Haut
+AND Presseur_Aval_L12.Presseur_Haut
 AND ( Palpage_OK_Face_1
 AND Palpage_OK_Face_2)]]></ST>
       </Implementation>
@@ -2424,6 +2444,8 @@ OR (Palpage_OK_Face_1 AND Palpage_OK_Face_2)]]></ST>
       <Implementation>
         <ST><![CDATA[StepSommet.t>T#20MS
 AND NOT Top_Palpage_Sommet
+AND Presseur_Amont_K11.Presseur_Haut
+AND Presseur_Aval_L12.Presseur_Haut
 AND Palpage_OK_Face_1 AND Palpage_OK_Face_2
 AND Prog_Capacitance_Calibration_OK ]]></ST>
       </Implementation>

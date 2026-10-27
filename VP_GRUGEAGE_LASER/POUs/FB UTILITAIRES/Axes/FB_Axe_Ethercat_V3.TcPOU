@@ -341,15 +341,15 @@ END_IF
 				IF ((Ref_ok
 				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
 					OR ((Pos_axe>Butee_soft_plus-Zone_PV_devant_limites) AND Jog_plus))) THEN
-						IF Vitesse_man > 20 THEN Csg_Vit := 20; ELSE Csg_Vit := Vitesse_man/2; END_IF
+						Csg_Vit := 20;
 				ELSE
 						Csg_Vit := Vitesse_man/2;
-
+						Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 				END_IF
 		ELSIF Manu AND Dem_gv THEN
 			Csg_Vit := Vitesse_man;
+			Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 		END_IF
-		Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 	ELSE
 		Axis.PlcToNc.Override:=0;(*Vitesse Nulle*)
 	END_IF

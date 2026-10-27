@@ -43,20 +43,31 @@ Origines_Axes_ok :=
  AND Ref_Ok_A_Laser
  ;
 
-//Vitesse X chariot : selection Opanel + override / A investiguer - corriger par vitesse si besoin
+//Vitesse X chariot : selection Opanel + override / A investiguer
  Override_Chariot:=100;
- IF Jog_Plus_X OR Ev_Serrage_Pince AND (Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot) THEN  
+ IF (Jog_Plus_X OR Ev_Serrage_Pince) AND (Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot) THEN  
 	 	Vitesse_Chariot_Auto:= 
-		Vitesse_Chariot_Manu:= 
+		Vitesse_Chariot_Manu:= 0;
 		Override_Chariot:=0;
  ELSIF Pos_Reel_X >= Pos_X_Mesure_Barre THEN
  	Vitesse_Chariot_Auto:=
-	Vitesse_Chariot_Manu:=Vitesse_ES_Machine * (Pnc_Modulation_Vitesse/9);
- ELSIF Manu AND Joystick_Bt_Valid THEN
-	  Vitesse_Chariot_Manu :=PNC_Axe_Chariot.Vitesse_MAN;
- ELSIF manu THEN
- 	  Vitesse_Chariot_Manu :=(PNC_Axe_Chariot.Vitesse_MAN) * (Pnc_Modulation_Vitesse/9) ;
+	Vitesse_Chariot_Manu:=(Vitesse_ES_Machine * Pnc_Modulation_Vitesse)/9;
+ ELSIF Manu THEN
+ 	  Vitesse_Chariot_Manu :=(PNC_Axe_Chariot.Vitesse_MAN*Pnc_Modulation_Vitesse)/9 ;
  END_IF
+ 
+//X Chariot : Determination zone de decel selon accel - investiguer => Calcul accel selon poids corniere
+ IF auto AND Accel_Decel_XChariot<>0 THEN 
+	 Zone_Decel_XChariot:= (Vitesse_Chariot_Auto*Vitesse_Chariot_Auto) / Accel_Decel_XChariot;	//(mm/s)2 / mm/s-2 => mm 
+ END_IF
+ 
+ IF Manu AND Accel_Decel_XChariot<>0 AND Vitesse_Chariot_Manu <>0 THEN
+		 Zone_Decel_XChariot:= (Vitesse_Chariot_Manu*Vitesse_Chariot_Manu) / Accel_Decel_XChariot;	//(mm/s)2 / mm/s-2 => mm  
+ END_IF
+ 
+//Accel_Decel_XChariot;	investiguer, calcul selon poids, voir ce qu a fait hubert
+ 
+ 
  
 // Pos Y relative a la corniere - Si offset Y Face 1/2/ecr OK seulement !
 	Pos_Y_RelaFaceRef:=(Pos_Reel_Y_Laser - Offset_Y_Laser_REF)+Ep_Ame;

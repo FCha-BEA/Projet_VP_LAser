@@ -1889,15 +1889,15 @@ Vmax 3000/min
 Accel 2ms²
 resolution=23.558070219046912mm/2exp20]]></Comment>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0" Jerk="1125"/>
+						<Dynamic AccelerationMaximum="4000" DecelerationMaximum="4000" Acceleration="800" Deceleration="800" Jerk="800"/>
 						<PositionAreaControl Range="1"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.2" Time="0.1"/>
 					</AxisPara>
 					<Encoder Name="Axis 1_Enc" EncType="8">
 						<EncPara ScaleFactorNumerator="2.28884559559097e-05" Offset="1829.90605238901" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1">
+							<SoftEndMinControl Range="1000"/>
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
-							<ParameterChanged>7</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -2663,7 +2663,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{016E2A89-9C83-243D-309A-9744335CFBC4}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{57C49E9A-7048-E71A-CC5C-50AB34BF6B81}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2737,13 +2737,13 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO02_Home_Start</Name>
@@ -2774,13 +2774,13 @@ resolution 3/2exp20
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Byte0_Convert</Name>
-							<Type>BYTE</Type>
-						</Var>
-						<Var>
 							<Name>.Consigne_ServoVanne</Name>
 							<Comment><![CDATA[Asservissement gaz decoupe : O2 uniquement]]></Comment>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Byte0_Convert</Name>
+							<Type>BYTE</Type>
 						</Var>
 						<Var>
 							<Name>.Byte1_Convert</Name>
@@ -3142,16 +3142,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
@@ -3305,18 +3305,14 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
-							<Name>.Servo_Error</Name>
-							<Comment><![CDATA[Echange avec tête]]></Comment>
-							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Actual_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DI01_Collision</Name>
 							<Comment><![CDATA[Entrées TOR]]></Comment>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Servo_Error</Name>
+							<Comment><![CDATA[Echange avec tête]]></Comment>
+							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI02_Up_Limit</Name>
@@ -3325,6 +3321,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.DI03_Down_Limit</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Actual_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -3347,6 +3347,11 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
+							<Comment><![CDATA[ 0.01 °C ]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
 							<Name>.Data01_Capacitance_Actual_Value</Name>
 							<Comment><![CDATA[Datas input]]></Comment>
 							<Type>UDINT</Type>
@@ -3354,11 +3359,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Data02_Capacitance_HeartBeat_Accumulated_Value</Name>
 							<Type>UDINT</Type>
-						</Var>
-						<Var>
-							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
-							<Comment><![CDATA[ 0.01 °C ]]></Comment>
-							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.Data04_Focus_Lens_Temperature</Name>
@@ -3936,10 +3936,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>.Pompe_Centrale_BM.Status_Word</Name>
 							<Comment><![CDATA[INPUT	]]></Comment>
 							<Type>UINT</Type>
@@ -3971,6 +3967,10 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>
@@ -11521,6 +11521,10 @@ Sécurité/Réarmement]]></Comment>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Armoire-A (EK1100)^B-127PWM1 (EL2502)">
 				<Link VarA="Standard Outputs^.OUT_Freq_PWM" VarB="PWM Outputs Channel 1^PWM period 1Hz"/>
 				<Link VarA="Standard Outputs^.OUT_Perc_Duty_PWM" VarB="PWM Outputs Channel 1^PWM output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_2 (CU1128-B)^B-420 REP1 Chariot (54632)">
+				<Link VarA="Standard Inputs^.B420_Rep_ChaBe.Link_IN" VarB="TxPDO Mapping of Digital Inputs^PD (I/Q Pin2 + C/Q Pin4)"/>
+				<Link VarA="Standard Outputs^.B420_Rep_ChaBe.Link_OUT" VarB="RxPDO Mapping of Digital Outputs^PD (I/Q Pin2 + C/Q Pin4)"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_3 (CU1128-C)^Tete Laser (BS08KE-Deluxe-v2.1)">
 				<Link VarA="Standard Inputs^.DI01_Collision" VarB=" DI Status^DI01"/>

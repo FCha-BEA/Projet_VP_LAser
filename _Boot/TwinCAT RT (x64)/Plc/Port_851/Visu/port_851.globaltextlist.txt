@@ -243,8 +243,11 @@ Id;Default
 1982;Pos A : %0.1f
 1023;Pos X : %0.1f
 766;Pos X : %s
+2743;Pos XL : %0.1f
 927;Pos Y : %0.1f
+2367;Pos YL : %0.1f
 2836;Pos Z : %0.1f
+1961;Pos ZL : %0.1f
 2373;Power Feed Back OK ?
 365;Pression
 112;Pression$R$N(Bars)
@@ -334,10 +337,12 @@ Id;Default
 475;Vitesse$R$N(RPM)
 388;Vitesse ( RPM )
 389;Vitesse ( RPM)
+802;X Chariot
 34;XY Laser
 2559;Y relatif F1 : %0.1f
 2145;Y relatif F2 : %0.1f
 2828;Y relatif FEcret : %0.1f
+997;Z Chariot
 1403;Z Laser
 2041;_0_LASER_ST.
 1134;°C
