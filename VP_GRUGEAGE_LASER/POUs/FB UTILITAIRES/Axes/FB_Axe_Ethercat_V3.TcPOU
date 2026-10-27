@@ -59,9 +59,15 @@ VAR
 	Memo_Numero_defaut:UDINT;	Memo_defaut_valid:BOOL;		TON_POM_ok:TON;
 	RE_Execute_PTP_1,RE_Execute_PTP_2: R_trig;
 	TP_Stop_Axe: Tp;
-	MemoVitesse_Man	:REAL;
-	MC_Jog_1: INT;
-	Mode: INT;
+	
+	//Ecriture / Lecture Limites soft dans TSM - Penser à activer ou non l'option soft positin limit monitoring
+	Memo_LimM,	Memo_LimP	:LREAL;	//Dernière valeurs de limites enregistrées, détecte un changement et lance l'écriture dans le tsm
+	Start_Write_PosLim		:BOOL;	//Pour lancer l'écriture des limites softs.
+	FB_ReadAxisData	:MC_ReadParameter;
+	FB_WriteAxisData	:MC_WriteParameter;
+	test_RW_SWLm		:BOOL;	//Pour test, est à 0, permet de voir pour écrire
+	
+	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Détection des fronts*)
@@ -169,7 +175,35 @@ RE_Arus(clk:=Arus);
 		Limite_atteinte:=TRUE;
 		PTP_Start:=FALSE;
 	END_IF
-
+	
+	//Lecture - Ecriture des limites softs
+IF test_RW_SWLm THEN
+	 FB_ReadAxisData(Enable:=clignotant_t_lent,
+	 		axis:= Axis,
+	 		ParameterNumber:=MC_AxisParameter.SwLimitPos,
+	 		ReadMode:=1);
+	 Memo_LimP:= FB_ReadAxisData.Value;
+	 FB_ReadAxisData(Enable:=NOT clignotant_t_lent,
+	 		axis:= Axis,
+	 		ParameterNumber:=MC_AxisParameter.SWLimitNeg,
+	 		ReadMode:=1);
+	 Memo_LimM:= FB_ReadAxisData.Value;
+	 IF Memo_LimM <> Butee_soft_moins THEN
+	 	FB_WriteAxisData(axis:=Axis,
+	 		Execute:=TRUE,
+	 		ParameterNumber:=MC_AxisParameter.SWLimitNeg,
+	 		value:=Butee_soft_moins);
+	 ELSIF Memo_LimP <> Butee_soft_plus THEN 
+	 	FB_WriteAxisData(axis:=Axis,
+	 		Execute:=TRUE,
+	 		ParameterNumber:=MC_AxisParameter.SWLimitPos,
+	 		value:=Butee_soft_Plus);
+	 ELSE
+	 	FB_WriteAxisData(axis:=Axis,Execute:=FALSE);
+	 END_IF
+END_IF
+	//
+	
 	IF Reset
 	OR
 	((Pos_axe>Butee_soft_moins AND Fc_moins)
