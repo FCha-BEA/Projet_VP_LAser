@@ -3,7 +3,7 @@
   <POU Name="Divers_Decoupe" Id="{06b7cd77-1635-4118-b8ba-da5919c5d02c}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Divers_Decoupe
 VAR	RE_G7_General_step1000:R_TRIG;
-	RE_Top_memo_pos_X_Y_arus,	RE_Bp_cde_manu:R_TRIG;
+	RE_Top_memo_pos_X_Y_arus	:R_TRIG;
 	FE_Ev_principale_spray_plasma:F_TRIG;
 	ADSRead_Nc_Line_1:ADSREAD;
 	Top_lecture_ligne_nc_en_cours:TON;
@@ -21,11 +21,7 @@ VAR	RE_G7_General_step1000:R_TRIG;
 	
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[// Fronts et autres tempos
- RE_Bp_cde_manu(clk:=Bp_Cde_Operation);
-
-
-IF NOT Top_perc_laser THEN
+      <ST><![CDATA[IF NOT Top_perc_laser THEN
 	Lifter_VB_ok_pour_decoupe:=FALSE;
 END_IF
 

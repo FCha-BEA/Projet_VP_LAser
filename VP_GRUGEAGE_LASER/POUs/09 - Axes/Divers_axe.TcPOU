@@ -5,7 +5,6 @@
 //Gestion override axes et autres
 VAR
 XYL_Interdit	:BOOL;
-ZChariot_Interdit	:BOOL;
 //Relevage/abaissement pince
  Pos_Parking_ZChariot	:LREAL;
 
@@ -30,7 +29,7 @@ END_VAR
  END_IF
 	 
 //Interdit Z chariot si pince serrée ou dans machine
- ZChariot_Interdit:= Ev_Serrage_pince OR Detecteur_Fond_De_Pince OR Pos_Reel_X>= X_Cell_Mesure_Barre;
+ ZChariot_Interdit:= Ev_Serrage_pince OR Detecteur_Fond_De_Pince OR (Pos_Reel_X>= X_Cell_Mesure_Barre-1000); //1000 distance arbitraire, car moteur A present
 
 Pos_Parking_ZChariot:= Pnc_axe_Z_Chariot.Limite_Plus-20 ;
 
@@ -45,11 +44,19 @@ Origines_Axes_ok :=
 
 //Vitesse X chariot : selection Opanel + override / A investiguer
  Override_Chariot:=100;
+ IF manu THEN
+	 IF NOT Gestion_Pince.Pos_Z_Pince_en_Bas THEN 
+		 Limite_Plus_X:=X_Cell_Mesure_Barre-1000;
+	 ELSE 
+		 Limite_Plus_X:=Pnc_axe_Chariot.Limite_Plus;
+	 END_IF	 
+ END_IF
  IF (Jog_Plus_X OR Ev_Serrage_Pince) AND (Presseur_Amont_K11.Stop_Chariot OR Presseur_Aval_L12.Stop_Chariot) THEN  
 	 	Vitesse_Chariot_Auto:= 
 		Vitesse_Chariot_Manu:= 0;
 		Override_Chariot:=0;
- ELSIF Pos_Reel_X >= Pos_X_Mesure_Barre THEN
+ ELSIF Pos_Reel_X >= X_Cell_Mesure_Barre 
+	OR (Ev_Serrage_Pince AND (Pos_Reel_X+Longueur_Barre_en_Pince) >= X_Cell_Mesure_Barre)  THEN
  	Vitesse_Chariot_Auto:=
 	Vitesse_Chariot_Manu:=(Vitesse_ES_Machine * Pnc_Modulation_Vitesse)/9;
  ELSIF Manu THEN
@@ -62,7 +69,7 @@ Origines_Axes_ok :=
  END_IF
  
  IF Manu AND Accel_Decel_XChariot<>0 AND Vitesse_Chariot_Manu <>0 THEN
-		 Zone_Decel_XChariot:= (Vitesse_Chariot_Manu*Vitesse_Chariot_Manu) / Accel_Decel_XChariot;	//(mm/s)2 / mm/s-2 => mm  
+	Zone_Decel_XChariot:= (Vitesse_Chariot_Manu*Vitesse_Chariot_Manu) / Accel_Decel_XChariot;	//(mm/s)2 / mm/s-2 => mm  
  END_IF
  
 //Accel_Decel_XChariot;	investiguer, calcul selon poids, voir ce qu a fait hubert
@@ -75,7 +82,7 @@ Origines_Axes_ok :=
 	Pos_Y_RelaFaceEcret:= Pos_Reel_Y_Laser-Offset_Y_Laser_ECRETAGE;
 
 //Gestion vitesses Manu Axes 
-	IF Selection_DecManu_Laser THEN 
+	IF Selection_DecManu_Laser THEN //Investiguer - vitesse selon recette de decoupe en manu
 		Vitesse_Manu_X_Laser := 50;
 		Vitesse_Manu_Y_Laser := 50;
 	ELSE
@@ -83,100 +90,6 @@ Origines_Axes_ok :=
 		Vitesse_Manu_Y_Laser := Pnc_axe_Y_Robot.Vitesse_MAN;
 	END_IF
 
-(*
-(*			calcul live des vals pour palpage sommet						*)
-
-//Si X repère = Y axe et Y repère = Z axe - Avec FxPx
-IF F1P1.Y <> 0 AND F1P2.Y <>0 		
-	AND F2P1.Y <> 0 AND F2P2.Y <> 0 THEN
-
-	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
-	IF F1P1.X - F1P2.X<>0 THEN
-		a1s := (F1P1.Y - F1P2.Y)/(F1P1.X - F1P2.X);
-	END_IF
-	//Si cornière parfaite, bien posée sur le bati machine, alors F1P1.Y - F1P2.Y =0. Si c'est le cas, la droite Y1(x)=b1 avec B1 = F1P1.Y ou F1P2.Y qui sont égaux
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b1s := F1P1.Y - (a1s *F1P1.X);
-	
-	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
-	IF F2P1.X - F2P2.X<>0 THEN
-		a2s := (F2P1.Y - F2P2.Y) / (F2P1.X - F2P2.X);
-	END_IF
-	//Si cornière parfaite, bien posée sur le bati machine, alors F2P1.X - F2P2.X =0. la droite Y2(x)= F2P1.X ou F2P2.X qui sont égaux
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b2s := F2P1.Y - (a2s * F2P1.X);
-	
-	IF a1s-a2s <> 0 THEN
-		Y_Sommet_Pour_Aile_OPP_REFs := (b2s - b1s) / (a1s-a2s);
-	END_IF
-	Y_Sommet_Pour_Aile_REFs := a1s * Y_Sommet_Pour_Aile_OPP_REFs + b1s;
-
-	(* Calcul de l'angle de la Droite 1 Aile REF *)
-	Alpha1s := ATAN(a1s);
-	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
-	Alpha2s := ATAN(a2s);
-
-END_IF
-
-
-//Si X repère = Z axe et Y repère = Y axe - Avec FxPxP - inversion X et Y
-IF F1P1P.Y <> 0 AND F1P2P.Y <>0 		
-	AND F2P1P.Y <> 0 AND F2P2P.Y <> 0 THEN
-	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
-	IF F1P1P.X - F1P2P.X <> 0 THEN
-		a1sS := (F1P1P.Y - F1P2P.Y)/(F1P1P.X - F1P2P.X);
-	END_IF
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b1sS := F1P1P.Y - (a1ss *F1P1P.X);
-	
-	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
-	IF F2P1P.X - F2P2P.X <> 0 THEN
-		a2sS := (F2P1P.Y - F2P2P.Y) / (F2P1P.X - F2P2P.X);
-	END_IF
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b2sS := F2P1P.Y - (a2ss * F2P1P.X);
-	IF a1ss-a2ss <> 0 THEN
-		Y_Sommet_Pour_Aile_OPP_REFss := (b2ss - b1ss) / (a1ss-a2ss);
-	END_IF
-	Y_Sommet_Pour_Aile_REFss := a1ss * Y_Sommet_Pour_Aile_OPP_REFss + b1ss;
-
-	(* Calcul de l'angle de la Droite 1 Aile REF *)
-	Alpha1ss := ATAN(a1ss);
-	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
-	Alpha2ss := ATAN(a2ss);
-
-END_IF
-	
-IF F1Z1 <> 0 AND F1Z2 <>0 
-	AND F2Z1 <> 0 AND F2Z2 <> 0 THEN
-
-	(* Calcul a1 du coefficient Directeur de la Droite Coté Aile REF *)
-	IF (F1Y1 - F1Y2) <> 0 THEN 
-		a1b := (F1Z1 - F1Z2)/(F1Y1 - F1Y2);
-	END_IF
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b1b := F1Z1 - (a1b * F1Y1 );
-	
-	
-	(* Calcul a2 du coefficient Directeur de la Droite Coté Aile OPP REF *)
-	IF F2Y1 - F2Y2 <> 0 THEN
-		a2b := (F2Z1 - F2Z2)/(F2Y1 - F2Y2);
-	END_IF
-	(* Calcul de l'Ordonnée à l'Origine b1 de la Droite Coté Aile REF *)
-	b2b := F2Z1 - (a2b * F2Y1);
-	
-	IF (a1b-a2b)<> 0 THEN
-		Y_Sommet_Pour_Aile_OPP_REFb := (b2b - b1b) / (a1b-a2b);
-	END_IF
-	Y_Sommet_Pour_Aile_REFb := a1b * Y_Sommet_Pour_Aile_OPP_REFb + b1b;
-
-	(* Calcul de l'angle de la Droite 1 Aile REF *)
-	Alpha1b := ATAN(a1b);
-	(* Calcul de l'angle de la Droite 2 Aile OPP REF *)
-	Alpha2b := ATAN(a2b);
-	
-END_IF;
-*)
 
 ]]></ST>
     </Implementation>

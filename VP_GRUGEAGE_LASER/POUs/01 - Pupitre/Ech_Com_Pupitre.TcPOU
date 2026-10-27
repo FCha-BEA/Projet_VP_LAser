@@ -56,7 +56,7 @@ Pnc_Focus_sur_Opanel:=Pnc_Sync_Pupitre[5]=0;
 Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
 
 (*Selections pupitre*)
-(*	FC - Enelever comm quand fcts OPanel complètes
+(*	Investiguer - Enelever comm quand fcts OPanel complètes
 	Selection_X:= Selection_Unite_Pup=010101 ;
 	Selection_ZChariot := Selection_Unite_Pup=010102;
 	Selection_XYLaser:=Selection_Unite_Pup=010201;
@@ -64,11 +64,6 @@ Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
 	Selection_A:=Selection_Unite_Pup=010203;
 	Selection_DecManu_Laser:=Selection_Unite_Pup=010204;
 	Selection_Presseurs_Laser := Selection_Unite_Pup=010301;*)
-	Selection_XYLaser;
-	Selection_ZLaser;
-	Selection_A;
-	Selection_DecManu_Laser;
-	Selection_Presseurs_Laser ;
 	//*)
 	
 	Joystick:= Joystick_Cmd_Bas OR Joystick_Cmd_Haut OR Joystick_Cmd_Gauche OR Joystick_Cmd_Droite;
@@ -84,9 +79,10 @@ Pnc_Reset_table_Fct_Pupitre:=Pnc_Sync_Pupitre[6]=1;
  	Dem_Desserrage_Presseur_Aval_Laser_Auto	:=FALSE;
  END_IF
 
- (*-------------------- Relevage / Abaissement pince --------------------------*)
+ (*--------------------  Pince --------------------------*)
   	Bit_Relevage_pince := Selection_X AND Joystick_Cmd_Haut AND NOT Pince_dans_Machine AND Fin_Desserage_Pince AND NOT Mem_Arus;
 	Bit_Abaissement_pince:= Selection_X AND Joystick_Cmd_Bas AND NOT Mem_Arus;
+	Cde_Serrage_Desserrage:=  Selection_X AND Bp_Cde_Operation;
 	
 (*---------------------- Découpe laser en manu ---------------------------------*)
 Cmd_Manu_Laser := Manu AND Selection_DecManu_Laser AND Joystick;

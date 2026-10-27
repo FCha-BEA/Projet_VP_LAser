@@ -303,7 +303,7 @@ IF F1Y1 <> 0 AND F1Y2 <>0
 END_IF
 
 IF Palpage_OK_Face_1 AND Palpage_OK_Face_2 AND 	Y_Sommet_Pour_Aile_REF <>0 AND 	Y_Sommet_Pour_Aile_Opp_REF <>0 THEN
- CorrectionY_Ref:= (Y_Sommet_Pour_Aile_REF - Y_Sommet_Pour_Aile_REF_TH);	
+ CorrectionY_Ref:= (Y_Sommet_Pour_Aile_REF - Y_Sommet_Pour_Aile_REF_TH);	//Investiguer - Inclure angle pour correction
  CorrectionY_OppRef:= (Y_Sommet_Pour_Aile_Opp_REF - Y_Sommet_Pour_Aile_OPP_REF_TH);	
 
 END_IF

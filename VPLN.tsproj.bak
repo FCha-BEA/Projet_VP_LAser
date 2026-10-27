@@ -1889,14 +1889,15 @@ Vmax 3000/min
 Accel 2ms²
 resolution=23.558070219046912mm/2exp20]]></Comment>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="4000" DecelerationMaximum="4000" Acceleration="800" Deceleration="800" Jerk="800"/>
+						<Dynamic AccelerationMaximum="4000" DecelerationMaximum="4000" Jerk="800"/>
 						<PositionAreaControl Range="1"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.2" Time="0.1"/>
 					</AxisPara>
-					<Encoder Name="Axis 1_Enc" EncType="8">
+					<Encoder Name="Axis -447755184_Enc" EncType="8">
 						<EncPara ScaleFactorNumerator="2.28884559559097e-05" Offset="1829.90605238901" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1">
-							<SoftEndMinControl Range="1000"/>
+							<SoftEndMinControl Enable="true" Range="1000"/>
+							<SoftEndMaxControl Enable="true"/>
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
 						</EncPara>
 						<Vars VarGrpType="1">
@@ -1914,7 +1915,7 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 							</Var>
 						</Vars>
 					</Encoder>
-					<Drive Name="Axis 1_Drive" DrvType="9">
+					<Drive Name="Axis -447755184_Drive" DrvType="9">
 						<DrvPara Inverse="true" MaxCount="#xffffffff" DriveControlDWord="#x00030100">
 							<Analog VeloReferenz="2000" VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
 							<TimeComp TaskDelayCycles="1"/>
@@ -1934,7 +1935,7 @@ resolution=23.558070219046912mm/2exp20]]></Comment>
 							</Var>
 						</Vars>
 					</Drive>
-					<Controller Name="Axis 1_Ctrl" CtrType="1">
+					<Controller Name="Axis -447755184_Ctrl" CtrType="1">
 						<CtrPara PriorControlFactor="1">
 							<PosDiffControl Range="20"/>
 							<PID PosKp="0.1" PosExtKp="0.01" VeloKp="0.01"/>
@@ -1963,13 +1964,16 @@ resolution 3/2exp20
 2m/s2]]></Comment>
 					<AxisPara>
 						<Dynamic AccelerationMaximum="0" DecelerationMaximum="0" Acceleration="1000" Deceleration="1000" Jerk="10000"/>
-						<Velo Maximum="100"/>
+						<Velo SlowManual="1" FastManual="30" Maximum="100"/>
 						<MotionControl Range="0" Time="0.1"/>
 						<TargetPosControl Range="0.1" Time="0.05"/>
 					</AxisPara>
 					<Encoder Name="Axis 2_Enc" EncType="8">
-						<EncPara ScaleFactorNumerator="4.76837158203125e-06" MaxCount="#xffffffff" ReferenceSystem="1">
+						<EncPara ScaleFactorNumerator="4.76837158203125e-06" Offset="-210.699825286865" Inverse="true" MaxCount="#xffffffff" ReferenceSystem="1">
+							<SoftEndMinControl Enable="true"/>
+							<SoftEndMaxControl Enable="true"/>
 							<Inc RefSearchInverse="true" RefSyncInverse="false"/>
+							<ParameterChanged>7</ParameterChanged>
 						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -1987,7 +1991,7 @@ resolution 3/2exp20
 						</Vars>
 					</Encoder>
 					<Drive Name="Axis 2_Drive" DrvType="9">
-						<DrvPara MaxCount="#xffffffff" DriveControlDWord="#x00030100">
+						<DrvPara Inverse="true" MaxCount="#xffffffff" DriveControlDWord="#x00030100">
 							<Analog VeloReferenz="100" VeloScale="1.02400649589962" SmoothingFilterOrder="0" SmoothingFilterTime="0"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
@@ -2663,7 +2667,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{57C49E9A-7048-E71A-CC5C-50AB34BF6B81}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{41725FEE-16BB-6073-7D3D-E68E4B4DBB1A}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -5607,116 +5611,116 @@ Sécurité/Réarmement]]></Comment>
 										<InitCmd DriveNo="0" IDN="33282" MotorDataLevel="1" DisableMode="0"/>
 									</InitCmds>
 									<StatusBar>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>135</Index>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>390</Index>
 											<Width>85</Width>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>95</Index>
 											<Width>100</Width>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>32821</Index>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>32973</Index>
 											<SubItem>Bit0</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>32973</Index>
 											<SubItem>Bit3</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>384</Index>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>135</Index>
 											<SubItem>ActualOperationMode</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33080</Index>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>32865</Index>
 											<SubItem>MotorBrakeUnlocked</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>380</Index>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>381</Index>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>32831</Index>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>Active</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>ReadyToEnable</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>IGreaterThanInom</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>IPeakLimitReached</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>IreductionActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>UmaxReached</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33221</Index>
 											<SubItem>FieldWeakeningActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>Active</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>ReadyToEnable</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>PosDirectionEnabled</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>NegDirectionEnabled</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>AccDecLimitationActive</SubItem>
 										</Element>
-										<Element option="1" SortOder="0">
+										<Element option="1" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>vLimitationActive</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>vZeroReached</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>CmdMovPositive</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>33271</Index>
 											<SubItem>CmdMovNegative</SubItem>
 										</Element>
-										<Element option="0" SortOder="0">
+										<Element option="0" SortOder="0" SubIdx="0">
 											<Index>32983</Index>
 										</Element>
 									</StatusBar>
@@ -11421,18 +11425,18 @@ Sécurité/Réarmement]]></Comment>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 1 (X-Chariot)">
 			<OwnerB Name="TIID^Device 1 (EtherCAT)^Hub B-81SW1 (CU1128)^Hub B-81SW1_2 (CU1128-B)^B-411A1 - Var X Chariot (AX5112-0000-0216)">
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nDataIn1" VarB="AT^Following distance"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState2" VarB="AT^Drive status word"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^WcState"/>
-				<Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
-				<Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nDataOut1" VarB="MDT^Position command value"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nDataIn1" VarB="AT^Position feedback 1 value"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nDcInputTime" VarB="InfoData^DcInputShift"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
-				<Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nDataIn1" VarB="AT^Following distance"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState1" VarB="AT^Drive status word" Size="8" OffsB="8"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState2" VarB="AT^Drive status word"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Axis -447755184_Drive^Inputs^Axis 1_Drive_In^nState4" VarB="WcState^WcState"/>
+				<Link VarA="Axis -447755184_Drive^Outputs^Axis 1_Drive_Out^nCtrl1" VarB="MDT^Master control word" Size="8" OffsB="8"/>
+				<Link VarA="Axis -447755184_Drive^Outputs^Axis 1_Drive_Out^nDataOut1" VarB="MDT^Position command value"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nDataIn1" VarB="AT^Position feedback 1 value"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nDcInputTime" VarB="InfoData^DcInputShift"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^InputToggle" Size="1" OffsA="1"/>
+				<Link VarA="Axis -447755184_Enc^Inputs^Axis 1_Enc_In^nState4" VarB="WcState^WcState"/>
 			</OwnerB>
 		</OwnerA>
 		<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis 2 (Z - Chariot)">

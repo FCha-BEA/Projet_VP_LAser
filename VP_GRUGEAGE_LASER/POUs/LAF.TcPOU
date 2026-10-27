@@ -59,7 +59,11 @@ Test Palpage sommet			====> test copie colle pour inverser systweme coordonne : 
 
 Re ecrire G7 Gene popur cycle avec chariot voir one note 
 
-OK - FAIT - Pos parking z = lim -, check torche deg full  < lim- +5
+OK - FAIT - Pos parking z = lim -, OK check torche deg full  < lim- +5
+
+
+Utiliser lim soft via tsm sur axes laser, si tout est ok voir pour suppr la partie vitesse basse si proche butee, car gerer par tsm,
+si c est le cas voir pour mutualiser FB axes V3 avec axe A V1. 
 
 ]]></ST>
     </Implementation>

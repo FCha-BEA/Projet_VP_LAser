@@ -28,22 +28,24 @@ END_VAR]]></Declaration>
  
  (*Secu Pince*)
   Pince_dans_Machine:=NOT ref_ok_X OR (Ref_Ok_X AND Pos_Reel_X > X_Cell_Mesure_Barre);
-  Pos_Z_Pince_en_Bas:= Ref_Ok_Z_Chariot AND ( Pos_Reel_Z_Chariot< Pnc_Axe_Z_Chariot.Pos_Degag_1+ 5 );
+  Pos_Z_Pince_en_Bas:= Ref_Ok_Z_Chariot AND ( Pos_Reel_Z_Chariot<= Pnc_Axe_Z_Chariot.Limite_Moins+ 5 );
   Stop_JOG_Plus_X_Pince_pas_en_Bas:=Pince_dans_Machine AND NOT Pos_Z_Pince_en_Bas;
  
- (*Posi Axe Z*)
-  IF RE_Bit_Abaissement_pince.Q THEN
-  	Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Pos_Degag_1;
-  END_IF
-  IF RE_Bit_Relevage_pince.Q THEN
-  	Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Pos_Degag_2;
-  END_IF
- 
-  IF NOT Mem_Arus AND Ref_Ok_Z_Chariot
-  	AND (RE_Bit_Abaissement_pince.Q OR RE_Bit_Relevage_pince.Q  )  THEN
-  	Top_Z_Chariot:=TRUE;
-  	Memo_Bit_Relevage_pince:=FALSE;
-  END_IF
+ (*Posi Axe Z*)	//Investiguer - recul X avant de monter
+ IF NOT ZChariot_Interdit THEN
+  	IF RE_Bit_Abaissement_pince.Q THEN
+  		Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Limite_Moins+1;
+  	END_IF
+  	IF RE_Bit_Relevage_pince.Q THEN
+  		Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Limite_Plus-1;
+  	END_IF
+  	
+  	IF NOT Mem_Arus AND Ref_Ok_Z_Chariot
+  		AND (RE_Bit_Abaissement_pince.Q OR RE_Bit_Relevage_pince.Q  )  THEN
+  		Top_Z_Chariot:=TRUE;
+  		Memo_Bit_Relevage_pince:=FALSE;
+  	END_IF
+ END_IF
   
   IF Mem_Arus THEN Top_Z_Chariot:=FALSE; END_IF
   
@@ -71,8 +73,7 @@ END_VAR]]></Declaration>
   	THEN
   		Ev_Serrage_Pince:=FALSE;
   	END_IF
-  ELSE
-  	Ev_Desserrage_Pince:=FALSE;
+	
   END_IF
   Ev_Desserrage_Pince:=NOT Ev_Serrage_Pince AND Machine_en_Service;
   

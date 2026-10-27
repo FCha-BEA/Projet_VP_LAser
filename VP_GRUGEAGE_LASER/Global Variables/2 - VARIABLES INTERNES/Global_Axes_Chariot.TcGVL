@@ -70,6 +70,8 @@ VAR_GLOBAL
 	Vitesse_Reelle_Z_Chariot		:LREAL;
 	
 	Bit_Z_en_zone_PV_Chariot		:BOOL;
+	ZChariot_Interdit	:BOOL;
+
 
 END_VAR
 ]]></Declaration>

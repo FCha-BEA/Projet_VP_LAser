@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"693"</v>
+          <v n="UniqueIdGenerator">"696"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -9527,7 +9527,7 @@ Selection_ZChariot:=true;"</v>
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"Pos X : %0.1f"</v>
+                      <v n="Value">"Pos Z : %0.1f"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -9539,7 +9539,7 @@ Selection_ZChariot:=true;"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"1023"</v>
+                      <v n="Value">"2836"</v>
                     </o>
                   </l>
                 </o>

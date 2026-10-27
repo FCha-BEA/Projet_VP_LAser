@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Axe_02_ZChariot" Id="{86a6316a-8779-449b-a257-59b3a721b002}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Axe_02_ZChariot (*Chariot*)
-VAR	RE_Cellule: R_TRIG;	ZChariot: FB_Axe_Ethercat_V2;		B_Fc_Origine_X_Chariot: BOOL;
-		Defaut_Var_Chariot_AX5000: BOOL;
-		Diag_Nbrs_Var_Chariot_AX5000 :UDINT;
-		Diag_Mess_Var_Chariot_AX5000: STRING;
+VAR	
+	RE_Cellule: R_TRIG;	ZChariot: FB_Axe_Ethercat_V3;		
+	B_Fc_Origine_X_Chariot: BOOL;
+	Defaut_Var_Chariot_AX5000: BOOL;
+	Diag_Nbrs_Var_Chariot_AX5000 :UDINT;
+	Diag_Mess_Var_Chariot_AX5000: STRING;
 
 
 END_VAR]]></Declaration>
@@ -357,10 +359,10 @@ END_VAR]]></Declaration>
                   <v n="OutCommented">false</v>
                   <l2 n="NetworkItems" cet="BoxTreeBox">
                     <o>
-                      <v n="BoxType">"FB_Axe_Ethercat_V2"</v>
+                      <v n="BoxType">"FB_Axe_Ethercat_V3"</v>
                       <o n="Instance" t="Operand">
                         <v n="Operand">"ZChariot"</v>
-                        <v n="Type">"FB_Axe_Ethercat_V2"</v>
+                        <v n="Type">"FB_Axe_Ethercat_V3"</v>
                         <v n="Comment">""</v>
                         <v n="SymbolComment">""</v>
                         <v n="Address">""</v>
@@ -372,7 +374,7 @@ END_VAR]]></Declaration>
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">405L</v>
+                        <v n="Id">427L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -888,7 +890,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o>
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Divers_axe.ZChariot_Interdit"</v>
+                            <v n="Operand">"ZChariot_Interdit"</v>
                             <v n="Type">"BOOL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -1021,8 +1023,8 @@ END_VAR]]></Declaration>
                         </o>
                         <o>
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pnc_Axe_Z_Chariot.Zone_Acc_Decel"</v>
-                            <v n="Type">"LREAL"</v>
+                            <v n="Operand">"10"</v>
+                            <v n="Type">"INT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>
@@ -1387,7 +1389,7 @@ END_VAR]]></Declaration>
                           <v>LREAL</v>
                           <v>LREAL</v>
                           <v>LREAL</v>
-                          <v>REAL</v>
+                          <v>LREAL</v>
                           <v>BOOL</v>
                           <v>UINT</v>
                           <v>LREAL</v>
@@ -1448,7 +1450,7 @@ END_VAR]]></Declaration>
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">406L</v>
+                      <v n="Id">428L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />

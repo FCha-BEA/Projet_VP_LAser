@@ -2560,7 +2560,7 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pnc_axe_Chariot.Limite_Plus"</v>
+                            <v n="Operand">"Limite_Plus_X"</v>
                             <v n="Type">"LREAL"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
@@ -2598,8 +2598,8 @@ END_VAR]]></Declaration>
                         </o>
                         <o t="BoxTreeOperand">
                           <o n="Operand" t="Operand">
-                            <v n="Operand">"Pnc_axe_Chariot.Zone_Acc_Decel"</v>
-                            <v n="Type">"LREAL"</v>
+                            <v n="Operand">"10"</v>
+                            <v n="Type">"INT"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>

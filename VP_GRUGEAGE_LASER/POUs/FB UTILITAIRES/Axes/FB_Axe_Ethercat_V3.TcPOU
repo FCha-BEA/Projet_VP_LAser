@@ -62,12 +62,8 @@ VAR
 	
 	//Ecriture / Lecture Limites soft dans TSM - Penser à activer ou non l'option soft positin limit monitoring
 	Memo_LimM,	Memo_LimP	:LREAL;	//Dernière valeurs de limites enregistrées, détecte un changement et lance l'écriture dans le tsm
-	Start_Write_PosLim		:BOOL;	//Pour lancer l'écriture des limites softs.
-	FB_ReadAxisData	:MC_ReadParameter;
-	FB_WriteAxisData	:MC_WriteParameter;
-	test_RW_SWLm		:BOOL;	//Pour test, est à 0, permet de voir pour écrire
-	
-	
+	FB_ReadLimPos,FB_ReadLimNeg	:MC_ReadParameter;
+	FB_WriteLimNeg,FB_WriteLimPos	:MC_WriteParameter;	
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*Détection des fronts*)
@@ -177,31 +173,30 @@ RE_Arus(clk:=Arus);
 	END_IF
 	
 	//Lecture - Ecriture des limites softs
-IF test_RW_SWLm THEN
-	 FB_ReadAxisData(Enable:=clignotant_t_lent,
+	 FB_ReadLimPos(Enable:=clignotant_t_lent,
 	 		axis:= Axis,
 	 		ParameterNumber:=MC_AxisParameter.SwLimitPos,
 	 		ReadMode:=1);
-	 Memo_LimP:= FB_ReadAxisData.Value;
-	 FB_ReadAxisData(Enable:=NOT clignotant_t_lent,
+	 Memo_LimP:= FB_ReadLimPos.Value;
+	 FB_ReadLimNeg(Enable:=clignotant_t_lent,
 	 		axis:= Axis,
 	 		ParameterNumber:=MC_AxisParameter.SWLimitNeg,
 	 		ReadMode:=1);
-	 Memo_LimM:= FB_ReadAxisData.Value;
+	 Memo_LimM:= FB_ReadLimNeg.Value;
 	 IF Memo_LimM <> Butee_soft_moins THEN
-	 	FB_WriteAxisData(axis:=Axis,
+	 	FB_WriteLimNeg(axis:=Axis,
 	 		Execute:=TRUE,
 	 		ParameterNumber:=MC_AxisParameter.SWLimitNeg,
 	 		value:=Butee_soft_moins);
 	 ELSIF Memo_LimP <> Butee_soft_plus THEN 
-	 	FB_WriteAxisData(axis:=Axis,
+	 	FB_WriteLimPos(axis:=Axis,
 	 		Execute:=TRUE,
 	 		ParameterNumber:=MC_AxisParameter.SWLimitPos,
 	 		value:=Butee_soft_Plus);
 	 ELSE
-	 	FB_WriteAxisData(axis:=Axis,Execute:=FALSE);
+	 	FB_WriteLimNeg(axis:=Axis,Execute:=FALSE);
+	 	FB_WriteLimPos(axis:=Axis,Execute:=FALSE);
 	 END_IF
-END_IF
 	//
 	
 	IF Reset
@@ -371,6 +366,7 @@ END_IF
 		OR NOT Dem_gv AND Manu	AND (Jog_plus OR Jog_moins);
 
 	IF NOT Reset AND NOT Dem_V_nulle AND Override<>0 THEN
+		Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 		IF Bit_petite_vitesse  THEN
 				IF ((Ref_ok
 				AND ((Pos_axe<Butee_soft_moins+Zone_PV_devant_limites) AND Jog_moins)
@@ -378,11 +374,9 @@ END_IF
 						Csg_Vit := 20;
 				ELSE
 						Csg_Vit := Vitesse_man/2;
-						Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 				END_IF
 		ELSIF Manu AND Dem_gv THEN
 			Csg_Vit := Vitesse_man;
-			Axis.PlcToNc.Override:=LREAL_TO_UDINT(Override)*10000;
 		END_IF
 	ELSE
 		Axis.PlcToNc.Override:=0;(*Vitesse Nulle*)
