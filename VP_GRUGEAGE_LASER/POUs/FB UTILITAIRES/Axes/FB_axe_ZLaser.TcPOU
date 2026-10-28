@@ -30,7 +30,6 @@ VAR_IN_OUT
 	Reset: BOOL;
 	PTP_Start: BOOL;
 	Axe_Z_Laser: AXIS_REF;
-	Forcage_Flag_Ref	:BOOL;
 END_VAR
 VAR_OUTPUT
 	Validation_Variateur: BOOL;
@@ -394,19 +393,6 @@ RE_Arus(clk:=Arus);
 	END_IF
 	MC_MoveAbsolute_2(Axis:=Axe_Z_Laser);
 
-	
-//////////////////////////////////////////////////
-//					Flags ref + Pom				//
-//////////////////////////////////////////////////
-
-	(*----------Forcage Origine Axes----------*)
-	MC_Home_forcage(
-		Execute:= Forcage_Flag_Ref,
-		HomingMode:= MC_ForceCalibration,
-		Axis:= Axe_Z_Laser);
-	IF Forcage_flag_ref AND Ref_ok THEN
-		Forcage_flag_ref:=FALSE;
-	END_IF
 	
 (********************************************************* FB_Asservissement *********************************************************************
 l'asservissement fonctionne tant que la transforme cinematique n'est pas active. si la transfo est acive le couplage ne se fait pas.

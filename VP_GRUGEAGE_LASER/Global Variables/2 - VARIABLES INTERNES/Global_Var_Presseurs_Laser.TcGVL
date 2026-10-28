@@ -12,7 +12,7 @@ VAR_GLOBAL
 	Dem_Desserrage_Presseur_Aval_Laser_Auto			:BOOL;                                          	
 	                                            		
 	Distance_Annulation_Presseur_Laser				:LREAL;//Pnc_Presseurs
-	Offset_Position_Desserree_Presseurs_Laser		:LREAL:=310;//Distance du tas où on considère le presseur assez relevé, correspond à la capcité max VP-300- + sécu arbitraire
+	Offset_Position_Desserree_Presseurs_Laser		:LREAL:=40;//Distance du tas où on considère le presseur assez relevé, correspond à la capcité max VP-300- + sécu arbitraire
 	Def_Calib_Presseurs								:BOOL;	//Si problème pendant le calibrage, par exemple le preseur bloqué et ne descend pas tout en bas ou encore si descente sur profil
 END_VAR
 ]]></Declaration>

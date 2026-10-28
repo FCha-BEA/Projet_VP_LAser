@@ -17,7 +17,6 @@ END_VAR
 VAR_IN_OUT	
 	PTP_Start,	Demande_ref:BOOL;	
 	Axis,Axis_Maitre:AXIS_REF;
-	Forcage_flag_ref,	Forcage_pos:BOOL;	
 END_VAR
 
 VAR_OUTPUT	
@@ -464,28 +463,7 @@ END_IF
 	MC_GearIn_1.ErrorID;
 	
 	MC_GearInMultiMaster_1.Error;
-	MC_GearInMultiMaster_1.ErrorID;
-	
-//////////////////////////////////////////////////
-//					Flags ref + Pom				//
-//////////////////////////////////////////////////
-	(*----------Forcage position axe----------*)
-	MC_SetPosition_1(
-		Execute:= Forcage_Pos,
-		Position:= Pos_Externe_Forcage,
-		Axis:= Axis);
-	IF Forcage_pos AND ABS(Pos_externe_forcage-Pos_axe)<0.1 THEN
-		Forcage_pos:=FALSE;
-	END_IF
-	
-	(*----------Forcage Origine Axes----------*)
-	MC_Home_forcage(
-		Execute:= Forcage_Flag_Ref,
-		HomingMode:= MC_ForceCalibration,
-		Axis:= Axis);
-	IF Forcage_flag_ref AND Ref_ok THEN
-		Forcage_flag_ref:=FALSE;
-	END_IF]]></ST>
+	MC_GearInMultiMaster_1.ErrorID;]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

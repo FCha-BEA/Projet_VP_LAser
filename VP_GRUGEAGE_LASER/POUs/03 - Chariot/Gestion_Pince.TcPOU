@@ -36,12 +36,12 @@ END_VAR]]></Declaration>
   	IF RE_Bit_Abaissement_pince.Q THEN
   		Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Limite_Moins+1;
   	END_IF
-  	IF RE_Bit_Relevage_pince.Q THEN
+  	IF RE_Bit_Relevage_pince.Q OR Divers_cycles.RE_Start_Origines.Q THEN
   		Pos_cible_Z_Chariot:=Pnc_Axe_Z_Chariot.Limite_Plus-1;
   	END_IF
   	
   	IF NOT Mem_Arus AND Ref_Ok_Z_Chariot
-  		AND (RE_Bit_Abaissement_pince.Q OR RE_Bit_Relevage_pince.Q  )  THEN
+  		AND (RE_Bit_Abaissement_pince.Q OR RE_Bit_Relevage_pince.Q OR Divers_cycles.RE_Start_Origines.Q  )  THEN
   		Top_Z_Chariot:=TRUE;
   		Memo_Bit_Relevage_pince:=FALSE;
   	END_IF
@@ -49,9 +49,6 @@ END_VAR]]></Declaration>
   
   IF Mem_Arus THEN Top_Z_Chariot:=FALSE; END_IF
   
-  fdc_pince_haute := Ref_Ok_Z_Chariot AND (Pos_Reel_Z_Chariot > Pnc_Axe_Z_Chariot.Pos_Degag_2 - 5); 
-  fdc_pince_Basse := Ref_Ok_Z_Chariot AND (Pos_Reel_Z_Chariot < Pnc_Axe_Z_Chariot.Pos_Degag_1 + 5);
-
 (*Gestion pince*)
 //Embrayage
  IF Machine_en_Service THEN

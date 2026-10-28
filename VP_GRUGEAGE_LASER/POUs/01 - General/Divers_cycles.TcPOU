@@ -3,7 +3,7 @@
   <POU Name="Divers_cycles" Id="{64112257-0ca1-42ce-b6b5-bcdcf6fbc109}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Divers_cycles
 VAR	FW_GetSystemTime1:FW_GetSystemTime;
-	RE_Machine_en_Service,	RE_Bp_en_Service,	RE_DCY, Re_Mesure_Barre_Ok,		Re_Mode_Auto	 : R_TRIG;
+	RE_Machine_en_Service,	RE_Bp_en_Service,	RE_DCY, Re_Mesure_Barre_Ok,		Re_Mode_Auto,	RE_Pom	 : R_TRIG;
 	FE_ARUS,	FE_Machine_en_Service : F_TRIG;
 	Img_Mem_arus,	Memo_Defaut_Prise_en_Pince_Barre: BOOL;		Phase_MB: INT; (*pour sequence mesure barre*)	TON_Mem_Arus:TON;
 	fbSystemTime : GETSYSTEMTIME;
@@ -35,6 +35,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	FE_Machine_en_Service(CLK:=Machine_en_Service);
 	RE_Bp_en_Service(CLK:=Bp_En_Service);
 	RE_Bp_Annul_Defauts(CLK:=Bp_Annul_Defauts);
+	RE_Pom(clk:=Pnc_Start[10]=1);
 	FE_Arus(CLK:=Bp_Arret_Usinage );
 	RE_DCY(CLK:=Bp_Depart_Cycle);
 	TON_Auto(in:=Auto,pt:=T#100MS);
@@ -45,12 +46,13 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	FE_Dec_Manu(clk:=Cmd_Manu_Laser);
 	RE_Start_Origines(CLK:=Start_Origines);
 	Re_Origines(CLK:=Origines_Axes_ok);
-	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#10S);
-	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#10S);
-	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_L12_Ref)<5,pt:=T#10S);
-	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_L12_Opp_Ref)<5,pt:=T#10S);
+	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#3S);
+	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#3S);
+	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_L12_Ref)<5,pt:=T#3S);
+	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_L12_Opp_Ref)<5,pt:=T#3S);
 	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
 	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#100MS);
+	RE_Top_Palp(clk:=G7_General.Top_Cycles_Palp_Laser);
 	
 	
 (*---------------------------Bit_Machine_ON---------------------------------------------------------*)
@@ -282,15 +284,17 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 (*-------------------- POM    ---------------------------*)     
  Origines_Axes_ok:=	Ref_Ok_X AND Ref_Ok_Z_Chariot 
  					AND Ref_Ok_A_Laser AND Ref_Ok_X_Laser 
- 					and Ref_Ok_Y_Laser AND 	Ref_Ok_Z_Laser
+ 					AND Ref_Ok_Y_Laser AND 	Ref_Ok_Z_Laser
+					AND Pom_Codeur_Secu_ok
+					AND DI05_Homing_finished
  					AND Presseur_Amont_K11.Val_Ref_SerreVide <> 0 AND Presseur_Amont_K11.Val_Opp_Ref_SerreVide <> 0	//Calibrage ok 
  					AND Presseur_Aval_L12.Val_Ref_SerreVide <> 0 AND Presseur_Aval_L12.Val_Opp_Ref_SerreVide<>0;
  					
  (*Initialisation Origines*)
-  IF Pnc_Start[10]=1 AND NOT Mem_Arus THEN
+  IF Re_Pom.Q AND NOT Mem_Arus AND NOT Defaut_General THEN
   	Start_Origines:=TRUE;
 	Step_Calib_Presseurs_Laser:=1;
-	 Step_Pom_CodeurSecu:=1;
+	Step_Pom_CodeurSecu:=1;
 	Prog_Demande_POM_Focal:=TRUE;
   END_IF
   
@@ -305,6 +309,8 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
   IF Mem_Arus OR Re_Origines.q THEN
 	 Start_Origines:=FALSE;
 	 Step_Calib_Presseurs_Laser:=0;
+	 Step_Pom_CodeurSecu:=0;
+	 Pnc_Start[10]:=0;
   END_IF
   
   IF Mem_Arus THEN
@@ -312,10 +318,12 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
   END_IF
   
  //Calibrage presseur : on serre à vide et on enregistre la valeur
- Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
- Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
- Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
- Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ IF Clignotant_lent THEN
+ 	Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
+ 	Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
+ 	Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
+ 	Old_Val_mesure_Presseur_L12_Opp_Ref:=Presseur_Aval_L12.Val_Mesure_Opp_Ref;
+ END_IF
   CASE Step_Calib_Presseurs_Laser OF 
  	 1: 
  	 Def_Calib_Presseurs:=

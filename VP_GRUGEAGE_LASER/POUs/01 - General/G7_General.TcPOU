@@ -2,16 +2,15 @@
 <TcPlcObject Version="1.1.0.1">
   <POU Name="G7_General" Id="{5f9f3406-b176-444b-8d98-626ce3907be7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM G7_General
-VAR_INPUT	SFCInit:BOOL;	END_VAR
+VAR_INPUT	
+	SFCInit:BOOL;	
+END_VAR
 VAR
 	Top_Cycles_Palp_Laser	:BOOL; //Lance le G7 des palpages buse et sommet du laser
 	Fb_decode_real_Fct_M_: Fb_decode_real;
 	Num_operation_Cycle: INT;
-	
 	FE_Prepa_ISO_3D, FE_ISO_en_cours: F_trig;
 	TON_ISO_en_cours, TON_Fin_Decoupe	:Ton;
-	
-
 	j: INT;
 END_VAR
 ]]></Declaration>
@@ -899,7 +898,7 @@ Si X Diff
                                     <o>
                                       <v n="AttributeId">{a6b08bd8-b696-47e3-9cbf-7408b61c9ff8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"Step20_entry"</v>
+                                        <v n="Value">"StepPalp_entry"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">1213L</v>
@@ -1009,8 +1008,8 @@ Si X Diff
                                       <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
                                       <o n="Value" t="StringValue">
                                         <v n="Value">"Go X Cha + A Laser
--&gt;Go XY Laser + Press
-+Prépa ISO"</v>
++ Press
++ Prepa ISO"</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">121L</v>
@@ -1104,7 +1103,7 @@ Si X Diff
                                   <v n="IdParent">446L</v>
                                 </o>
                                 <o t="SFCTransition">
-                                  <v n="VariableName">"Step200__to__Step210"</v>
+                                  <v n="VariableName">"Step200__to__Step205"</v>
                                   <n n="EmbeddedTransition" />
                                   <l2 n="EmbeddedTransitionProperties" />
                                   <l2 n="Attributes" cet="SFCAttribute">
@@ -1168,6 +1167,189 @@ Si X Diff
                                     </o>
                                   </l2>
                                   <v n="Id">128L</v>
+                                  <v n="IdParent">446L</v>
+                                </o>
+                                <o t="SFCStep">
+                                  <n n="EmbeddedMainAction" />
+                                  <n n="EmbeddedEntryAction" />
+                                  <n n="EmbeddedExitAction" />
+                                  <l2 n="EmbeddedMainActionProperties" />
+                                  <l2 n="EmbeddedEntryActionProperties" />
+                                  <l2 n="EmbeddedExitActionProperties" />
+                                  <o n="ElementList" t="SFCElementList">
+                                    <l2 n="InnerList" />
+                                  </o>
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step205"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1225L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"-&gt;Go XY Laser + Press"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1226L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">1227L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">1228L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{6844a48e-46c2-4cc8-a185-a478f3b99cc0}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">1229L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">1230L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{cacf1a68-236e-47c2-b7b1-1cf9199718cb}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1231L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{b693554c-1b01-4a8d-afde-9e3a46f7465d}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1232L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1233L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a6b08bd8-b696-47e3-9cbf-7408b61c9ff8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Step205_entry"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1234L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{a2621e18-7de3-4ea6-ae6d-89e9e0b7befd}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1235L</v>
+                                      <v n="IdParent">1224L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">1224L</v>
+                                  <v n="IdParent">446L</v>
+                                </o>
+                                <o t="SFCTransition">
+                                  <v n="VariableName">"Step205__to__Step210"</v>
+                                  <n n="EmbeddedTransition" />
+                                  <l2 n="EmbeddedTransitionProperties" />
+                                  <l2 n="Attributes" cet="SFCAttribute">
+                                    <o>
+                                      <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">"Trans205"</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1237L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{7d894980-aeea-405c-a0f6-e2b26429c58f}</v>
+                                      <o n="Value" t="StringValue">
+                                        <v n="Value">""</v>
+                                        <v n="DefaultValue">""</v>
+                                      </o>
+                                      <v n="Id">1238L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{01580b27-6378-448b-8ecb-0e4b795b58d6}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">1239L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{bc882c11-1e91-4dd8-a6b8-2075724ed18b}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{79a4fdd5-c859-4de4-aa8d-c03372c880c2}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">1240L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{62e1754b-7629-4e63-9cec-10ae0c536f1f}</v>
+                                      <o n="Value" t="BoolValue">
+                                        <v n="Value">"FALSE"</v>
+                                        <v n="DefaultValue">"FALSE"</v>
+                                      </o>
+                                      <v n="Id">1241L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                    <o>
+                                      <v n="AttributeId">{8294df19-5962-4dee-a874-1051dabb0e3e}</v>
+                                      <o n="Value" t="EnumValue">
+                                        <v n="TemplateGuid">{6ecff51c-9b8f-4338-aab0-67c2b31b07e9}</v>
+                                        <n n="BaseType" />
+                                        <v n="Value">"0"</v>
+                                        <v n="DefaultValue">"0"</v>
+                                      </o>
+                                      <v n="Id">1242L</v>
+                                      <v n="IdParent">1236L</v>
+                                    </o>
+                                  </l2>
+                                  <v n="Id">1236L</v>
                                   <v n="IdParent">446L</v>
                                 </o>
                                 <o t="SFCStep">
@@ -3261,7 +3443,7 @@ Top_Cycles_Palp_Laser:=FALSE;
  			END_IF
  		END_FOR 
 	END_IF
- 	IF Index_Recette_Laser_Auto=0 OR Sequence[Pt_Sequence].P10=0 THEN Def_Abs_Recette :=TRUE; END_IF
+ 	IF Sequence[Pt_Sequence].P10=0 THEN Def_Abs_Recette :=TRUE; END_IF
  END_IF
 
 
@@ -3276,10 +3458,10 @@ Top_Cycles_Palp_Laser:=FALSE;
     <Action Name="Step100_entry" Id="{93586d4c-e79e-4084-9e9e-bc2b656c8645}">
       <Implementation>
         <ST><![CDATA[IF NOT X_Suivant_Idem THEN 
- Presseur_Amont_K11.Dem_Desserrage:=
- Presseur_Aval_L12.Dem_Desserrage:=TRUE;
- Presseur_Amont_K11.Dem_Serrage:=
- Presseur_Aval_L12.Dem_Serrage:=FALSE;
+	Dem_Desserrage_Presseur_Aval_Laser_Auto:=
+	Dem_Desserrage_Presseur_Amont_Laser_Auto:=TRUE;
+	Dem_Serrage_Presseur_Aval_Laser_Auto:=
+	Dem_Serrage_Presseur_Amont_Laser_Auto:=FALSE;
 END_IF
 
 Memo_X_Precedent:= Sequence[Pt_Sequence].X;
@@ -3296,44 +3478,16 @@ Memo_X_Precedent:= Sequence[Pt_Sequence].X;
 ]]></ST>
       </Implementation>
     </Action>
-    <Action Name="Step20_entry" Id="{9dbf7d81-53b6-4ac1-8a2a-dd36ba0e5023}">
-      <Implementation>
-        <ST><![CDATA[IF (NOT Prog_Capacitance_Calibration_OK 
-OR Ecretage_Laser )
-OR NOT Palpage_OK_Face_1
-OR NOT Palpage_OK_Face_2 THEN
-	Top_Cycles_Palp_Laser:=TRUE;
-END_IF]]></ST>
-      </Implementation>
-    </Action>
     <Action Name="Step200_Action" Id="{a514a9cd-791b-4703-b1a6-01074b7c77f3}">
       <Implementation>
         <ST><![CDATA[IF En_pos_A_Laser AND Face_Cible=Face_En_Cours THEN
-	//Laser
-	 IF Reprise_decoupe THEN
-	 	Pos_cible_X_Laser := Pnc_Start2[8];
-	 	Pos_cible_Y_Laser := Pnc_Start2[9];
-	 ELSE
-		 //Gestion du Y selon la face en cours car impossible de juste changer le sens de comptage du Y 
-		 IF Face_En_Cours=1 THEN // face réf, pas besoin de changer/adapter
-	  		Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2; //A changer des que comm dispo
-		 ELSIF Face_En_Cours=2 THEN // face opp réf, Y + en montant donc inversion du Y. la côté reste la même, par contre attention lors du réglage de l'offset, aussi inversé : si besoin de descendre alors on augmente l'offset !
-			Pos_cible_Y_Laser := -(Sequence[Pt_Sequence].P2); //A changer des que comm dispo
-		 ELSIF Face_En_Cours=3 THEN	//Face écretage, je suppose que le driver envoie une cote = hauteur sommet - ep écrzetage. Pour cette position de face, Y laser compte en montant (s'éloignant de la réf)
-			 Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2 - Offset_Origine_Y_Laser;  
-		 END_IF
-	  	Pos_cible_X_Laser := Sequence[Pt_Sequence].P1; //A changer des que comm dispo
-	 END_IF
-	 En_pos_X_laser:=FALSE;
-	 Top_X_laser	:=TRUE;
-	 En_pos_Y_laser:=FALSE;
-	 Top_Y_laser	:=TRUE;
-	 
-	//Presseurs
-	Presseur_Amont_K11.Dem_Serrage:=
-	Presseur_Aval_L12.Dem_Serrage:=TRUE;
-	Presseur_Amont_K11.Dem_Desserrage:=
-	Presseur_Aval_L12.Dem_Desserrage:=FALSE;
+ 	IF En_Pos_X AND NOT Top_X THEN 
+		//Presseurs
+		Dem_Desserrage_Presseur_Aval_Laser_Auto:=
+		Dem_Desserrage_Presseur_Amont_Laser_Auto:=FALSE;
+		Dem_Serrage_Presseur_Aval_Laser_Auto:=
+		Dem_Serrage_Presseur_Amont_Laser_Auto:=TRUE;
+	END_IF
 END_IF]]></ST>
       </Implementation>
     </Action>
@@ -3362,6 +3516,30 @@ END_IF
 Fichier_iso:=CONCAT(Repertoire_NC_Laser,Var_temp_rep_NC);
 Start_ISO3D:=FALSE;
 ]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="Step205_entry" Id="{c271e3c9-50f5-4dcc-bf93-2fcb943dc8ee}">
+      <Implementation>
+        <ST><![CDATA[IF Reprise_decoupe THEN
+	Pos_cible_X_Laser := Pnc_Start2[8];
+	Pos_cible_Y_Laser := Pnc_Start2[9];
+(*ELSE
+ //Gestion du Y selon la face en cours car impossible de juste changer le sens de comptage du Y 
+ IF Face_En_Cours=1 THEN // face réf, pas besoin de changer/adapter
+ ELSIF Face_En_Cours=2 THEN // face opp réf, Y + en montant donc inversion du Y. la côté reste la même, par contre attention lors du réglage de l'offset, aussi inversé : si besoin de descendre alors on augmente l'offset !
+	Pos_cible_Y_Laser := -(Sequence[Pt_Sequence].P2); //A changer des que comm dispo
+ ELSIF Face_En_Cours=3 THEN	//Face écretage, je suppose que le driver envoie une cote = hauteur sommet - ep écrzetage. Pour cette position de face, Y laser compte en montant (s'éloignant de la réf)
+	 Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2 - Offset_Origine_Y_Laser;  
+ END_IF*)
+ELSE
+	Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2; //A changer des que comm dispo
+	Pos_cible_X_Laser := Sequence[Pt_Sequence].P1; //A changer des que comm dispo
+END_IF
+
+En_pos_X_laser:=FALSE;
+Top_X_laser	:=TRUE;
+En_pos_Y_laser:=FALSE;
+Top_Y_laser	:=TRUE;]]></ST>
       </Implementation>
     </Action>
     <Action Name="Step210_active" Id="{4e8ea5b6-c17b-45b6-9942-9206653e17ac}">
@@ -3406,7 +3584,7 @@ Prepa_ISO3D := TRUE;
     <Action Name="Step220_active" Id="{9d98ecdf-fcb4-420c-b88f-8132c706f74f}">
       <Implementation>
         <ST><![CDATA[TON_Ecart_Pression_Gaz
-(IN:=(ABS (LREAL_TO_INT(Consigne_Pression_Gaz) - Data14_Cutting_Gas_Pressure) > Ecart_Pression_Gaz) AND Tir_en_Cours AND Type_gaz = 0 ,
+(IN:=(ABS (LREAL_TO_INT(Consigne_Pression_Gaz) - INT_TO_LREAL(Data14_Cutting_Gas_Pressure)/100) > Ecart_Pression_Gaz) AND Tir_en_Cours AND Type_gaz = 0 ,
 PT:=Tmps_Ecart_Pression);
 
 
@@ -3556,6 +3734,16 @@ Sequence_Status[Pt_Sequence].OK:=100;]]></ST>
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="StepPalp_entry" Id="{9dbf7d81-53b6-4ac1-8a2a-dd36ba0e5023}">
+      <Implementation>
+        <ST><![CDATA[IF (NOT Prog_Capacitance_Calibration_OK 
+OR Ecretage_Laser )
+OR NOT Palpage_OK_Face_1
+OR NOT Palpage_OK_Face_2 THEN
+	Top_Cycles_Palp_Laser:=TRUE;
+END_IF]]></ST>
+      </Implementation>
+    </Action>
     <Transition Name="Trans0a" Id="{dda23c8e-c927-4285-896f-d7a2ad0d4a2d}">
       <Implementation>
         <ST><![CDATA[TON_Auto.Q
@@ -3620,26 +3808,28 @@ OR Sequence[Pt_Sequence].M =2]]></ST>
     <Transition Name="Trans20" Id="{fab8237b-cf37-4cd7-87be-419e62b023dc}">
       <Implementation>
         <ST><![CDATA[G7_Master_Palpages.stepSync.x
-AND Prog_Capacitance_Calibration_OK
-AND (Palpage_OK_Face_1 AND Palpage_OK_Face_2)]]></ST>
+OR( NOT Ecretage_Laser AND Prog_Capacitance_Calibration_OK
+AND Palpage_OK_Face_1 AND Palpage_OK_Face_2)]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans200" Id="{22e3c04d-1447-47b5-b07f-58062277d9a2}">
       <Implementation>
         <ST><![CDATA[//Axes en pos
 En_pos_X AND NOT Top_X
-AND En_pos_X_Laser AND NOT Top_X_Laser
-AND	En_pos_Y_Laser AND NOT Top_Y_Laser
-AND En_pos_Z_Laser AND NOT Top_Z_Laser
-AND En_pos_A_Laser AND NOT Top_A_Laser
+AND (En_pos_Z_Laser AND NOT Top_Z_Laser)
+AND (En_pos_A_Laser AND NOT Top_A_Laser)
+//AND Sequence[Pt_sequence].P26=Pnc_Laser[20]
+AND step200.t>T#50MS]]></ST>
+      </Implementation>
+    </Transition>
+    <Transition Name="Trans205" Id="{5a09e5fd-32e2-466d-9d4d-f43465d61d11}">
+      <Implementation>
+        <ST><![CDATA[(En_pos_X_Laser AND NOT Top_X_Laser)
+AND (En_pos_Y_Laser AND NOT Top_Y_Laser)
+
 //Presseurs en place
 AND Presseur_Amont_K11.Presseur_EnPlace
-AND Presseur_Aval_L12.Presseur_EnPlace
-
-AND 
-	Sequence[Pt_sequence].P26=Pnc_Laser[20]
-	
-AND step200.t>T#20MS ]]></ST>
+AND Presseur_Aval_L12.Presseur_EnPlace]]></ST>
       </Implementation>
     </Transition>
     <Transition Name="Trans210a" Id="{bc5b8177-fb42-4a83-ab52-0d64ff904a7c}">
@@ -3669,8 +3859,8 @@ AND Tab_St_Recette_Laser[Index_Recette_Laser_Auto].Tb_Perc[1].Puissance_Laser <>
 
 (*Découpe laser*)
 
-	(	Sequence[Pt_sequence].P1=0
-	AND
+	(	//Sequence[Pt_sequence].P1=0
+	//AND
 	(*Torche 1*)
 		((Laser_ok_pour_decoupe AND G7_Cycle_Percages_Laser.Step31.x)				(*Machine à 1:		Cas normal:					arc 1 transféré et Pierce Delay écoulé*)
 		OR Simul_decoupe AND G7_Cycle_Percages_Laser.Init.x							(*Machine à 1:		Simulation de découpe:		on n'a pas allumé la torche 1 alors faut bien passer*)

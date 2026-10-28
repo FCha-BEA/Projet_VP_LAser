@@ -3553,6 +3553,11 @@ IF F1P1.Y <> 0 AND F1P2.Y <>0
 
 END_IF
 
+Dem_Desserrage_Presseur_Aval_Laser_Auto:=
+Dem_Desserrage_Presseur_Amont_Laser_Auto:=TRUE;
+Dem_Serrage_Presseur_Aval_Laser_Auto:=
+Dem_Serrage_Presseur_Amont_Laser_Auto:=FALSE;
+
 ]]></ST>
       </Implementation>
     </Action>

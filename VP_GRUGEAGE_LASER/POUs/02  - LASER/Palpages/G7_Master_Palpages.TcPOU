@@ -4,7 +4,6 @@
     <Declaration><![CDATA[PROGRAM G7_Master_Palpages
 VAR_INPUT	SFCInit:BOOL;	END_VAR
 VAR
-	RE_Top_Palp				:R_TRIG;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -103,7 +102,7 @@ END_VAR
                         <o>
                           <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"Init_active"</v>
+                            <v n="Value">""</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">15L</v>
@@ -665,7 +664,7 @@ Capacitance
                                     <o>
                                       <v n="AttributeId">{700a583f-b4d4-43e4-8c14-629c7cd3bec8}</v>
                                       <o n="Value" t="StringValue">
-                                        <v n="Value">"StepCapa_active"</v>
+                                        <v n="Value">""</v>
                                         <v n="DefaultValue">""</v>
                                       </o>
                                       <v n="Id">472L</v>
@@ -2283,11 +2282,6 @@ Sommet
         </XmlArchive>
       </SFC>
     </Implementation>
-    <Action Name="Init_active" Id="{9940c74c-16fb-4dca-96f2-b20baaa27420}">
-      <Implementation>
-        <ST><![CDATA[RE_Top_Palp(clk:=G7_General.Top_Cycles_Palp_Laser);]]></ST>
-      </Implementation>
-    </Action>
     <Action Name="Step30_entry" Id="{05b496a1-9845-41ce-8801-5c198b199d52}">
       <Implementation>
         <ST><![CDATA[ Pos_cible_X := Presseur_Aval_L12.Position_X + Distance_Annulation_Presseur_Laser - Longueur_Barre_en_Pince;	//Après le presseur en aval, 
@@ -2300,17 +2294,18 @@ Sommet
     <Action Name="Step32_entry" Id="{4e13aff4-2e0f-4b89-8782-f97c6f4c4e1e}">
       <Implementation>
         <ST><![CDATA[//Serrage presseurs
- Presseur_Amont_K11.Dem_Desserrage:=
- Presseur_Aval_L12.Dem_Desserrage:=FALSE;
- Presseur_Amont_K11.Dem_Serrage:=
- Presseur_Aval_L12.Dem_Serrage:=TRUE;
+Dem_Desserrage_Presseur_Aval_Laser_Auto:=
+Dem_Desserrage_Presseur_Amont_Laser_Auto:=FALSE;
+Dem_Serrage_Presseur_Aval_Laser_Auto:=
+Dem_Serrage_Presseur_Amont_Laser_Auto:=TRUE;
+
 
 //Position X et Y Laser
-Pos_Cible_X_laser := 190; //Milieu de la course X ?
+Pos_Cible_X_laser := Limite_Plus_X_Laser - 190; //190 = Milieu de la course X  et limite + calculee pour prevoir si ecretage
 En_pos_X_Laser:=FALSE;
 Top_X_laser:=TRUE;
 
-Pos_Cible_Y_laser := hauteur_aile /2; //Milieu de la cornière
+Pos_Cible_Y_laser := Sequence[Pt_Sequence].P2; //La ou je suis sense usiner
 En_pos_Y_Laser:=FALSE;
 Top_Y_laser:=TRUE;
 
@@ -2338,11 +2333,10 @@ END_IF
     <Action Name="Step50_entry" Id="{9ba0f542-ddac-4afb-9d52-85f02e7244f8}">
       <Implementation>
         <ST><![CDATA[IF NOT (Palpage_OK_Face_1 AND Palpage_OK_Face_2) THEN
-	Presseur_Amont_K11.Dem_Desserrage:=
-	Presseur_Aval_L12.Dem_Desserrage:=FALSE;
-	
-	Presseur_Amont_K11.Dem_Serrage:=
-	Presseur_Aval_L12.Dem_Serrage:=TRUE;
+	Dem_Desserrage_Presseur_Aval_Laser_Auto:=
+	Dem_Desserrage_Presseur_Amont_Laser_Auto:=FALSE;
+	Dem_Serrage_Presseur_Aval_Laser_Auto:=
+	Dem_Serrage_Presseur_Amont_Laser_Auto:=TRUE;
 END_IF]]></ST>
       </Implementation>
     </Action>
@@ -2350,10 +2344,6 @@ END_IF]]></ST>
       <Implementation>
         <ST><![CDATA[IF Palpage_OK_Face_1 AND Palpage_OK_Face_2 THEN
 	Top_Palpage_Sommet:=FALSE;
-	Presseur_Amont_K11.Dem_Serrage:=
-	Presseur_Aval_L12.Dem_Serrage:=FALSE;	
-	Presseur_Amont_K11.Dem_Desserrage:=
-	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
 END_IF
 
 ]]></ST>
@@ -2362,16 +2352,6 @@ END_IF
     <Action Name="Step60_entry" Id="{afb8e265-b6eb-41a4-9c99-2e759c226308}">
       <Implementation>
         <ST><![CDATA[Top_Palpage_Sommet:=true;]]></ST>
-      </Implementation>
-    </Action>
-    <Action Name="StepCapa_active" Id="{6e7c6251-5e04-4099-8fc0-ad08efb71979}">
-      <Implementation>
-        <ST><![CDATA[IF Prog_Capacitance_Calibration_OK THEN
-	Presseur_Amont_K11.Dem_Serrage:=
-	Presseur_Aval_L12.Dem_Serrage:=FALSE;	
-	Presseur_Amont_K11.Dem_Desserrage:=
-	Presseur_Aval_L12.Dem_Desserrage:=TRUE;
-END_IF]]></ST>
       </Implementation>
     </Action>
     <Transition Name="Trans20a" Id="{01fa4212-2f4b-40ba-878d-8f4dcbb8d001}">
@@ -2389,7 +2369,7 @@ AND (NOT Prog_Capacitance_Calibration_OK OR Ecretage_Laser)
     </Transition>
     <Transition Name="Trans23" Id="{3ad6e847-c947-4f64-9ec2-c43f305c8259}">
       <Implementation>
-        <ST><![CDATA[G7_Palpage_Capacitance.StepSync.x
+        <ST><![CDATA[G7_Palpage_Capacitance.init.x
 AND Prog_Capacitance_Calibration_OK
 AND Presseur_Amont_K11.Presseur_Haut
 AND Presseur_Aval_L12.Presseur_Haut
@@ -2400,7 +2380,7 @@ OR NOT Palpage_OK_Face_2)
     </Transition>
     <Transition Name="Trans23b" Id="{1f0260af-26ec-4043-b180-a7a05cc0e99b}">
       <Implementation>
-        <ST><![CDATA[G7_Palpage_Capacitance.StepSync.x
+        <ST><![CDATA[G7_Palpage_Capacitance.init.x
 AND Prog_Capacitance_Calibration_OK
 AND Presseur_Amont_K11.Presseur_Haut
 AND Presseur_Aval_L12.Presseur_Haut
@@ -2410,10 +2390,9 @@ AND Palpage_OK_Face_2)]]></ST>
     </Transition>
     <Transition Name="Trans30" Id="{99b8f2e9-e720-4916-a7c2-7d834371177b}">
       <Implementation>
-        <ST><![CDATA[Step30.t > T#20MS
+        <ST><![CDATA[G7_Master_Palpages.Step30.t > T#20MS
 AND En_Pos_X 
 AND NOT Top_X
-
 ]]></ST>
       </Implementation>
     </Transition>

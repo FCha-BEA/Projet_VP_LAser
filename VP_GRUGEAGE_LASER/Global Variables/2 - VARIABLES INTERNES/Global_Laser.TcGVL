@@ -69,6 +69,8 @@ VAR_GLOBAL
 	Ep_secu										:LREAL:=3;
 	Couple_de_Palpage 							:LREAL:=20;	//A affiner
 	Memo_X_Laser_Decal							:LREAL;
+	RE_Top_Palp				:R_TRIG;
+
 	
 //Cycles et divers - Voir bits inutiles à suppr
  Allumage_tete_laser			:BOOL:=FALSE;

@@ -48,6 +48,7 @@ VAR_GLOBAL
 	 Top_Forcage_Ref_OK_X_Laser						: BOOL:=FALSE;
 	 Vitesse_Reelle_X_Laser							: LREAL;
 	 Vitesse_Manu_X_Laser							:LREAL;
+	 Limite_Plus_X_Laser							:LREAL;
 (* Axe Y *)
 	 Offset_Y_Laser_REF								: LREAL := 616;
 	 	Pos_Y_RelaFaceRef							:LREAL;

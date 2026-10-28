@@ -4,25 +4,25 @@
     <Declaration><![CDATA[PROGRAM MAIN
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Voyants();
-Ech_Com_Pupitre();
-Pupitre();
-_0_LASER_ST();
-_1_LASER();
-Defauts_Alarmes();
-Parametres_PNC();
+      <ST><![CDATA[Parametres_PNC();
 Status_machine();
 Status_Ethercat();
+Divers_axe();
+Defauts_Alarmes();
  OK_Rep_Chariot_BE();
  OK_Rep_Pupitre();
  OK_Repartiteurs_Laser();
  Rep_BE();
  Rep_Bs();
+Voyants();
+Ech_Com_Pupitre();
+Pupitre();
+_0_LASER_ST();
+_1_LASER();
 Regulation_Centrale_Hydro();
 En_service();
 Divers_cycles();
 G7_General();
-
 _Divers_lifter_VB();
 Divers_Decoupe();
 G7_Cycle_Percages_Laser();
@@ -32,7 +32,6 @@ G7_Palpage_Capacitance();
 G7_Palpage_Sommet_L();
 Presseurs_Laser();
 Gestion_Pince();
-Divers_axe();
 Axe_01_X();
 Axe_02_ZChariot();
 Axe_40_X_Laser();

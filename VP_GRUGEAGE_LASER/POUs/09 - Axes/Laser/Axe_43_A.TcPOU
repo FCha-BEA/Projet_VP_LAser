@@ -367,7 +367,7 @@ END_VAR
                         <v n="LValue">false</v>
                         <v n="Boolean">false</v>
                         <v n="IsInstance">true</v>
-                        <v n="Id">246L</v>
+                        <v n="Id">250L</v>
                       </o>
                       <o n="OutputItems" t="OutputItemList">
                         <l2 n="OutputItems" cet="Operand">
@@ -1305,44 +1305,6 @@ END_VAR
                           </o>
                           <v n="Id">135L</v>
                         </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"Top_Forcage_Ref_OK_A_Laser"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">true</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">141L</v>
-                          </o>
-                          <v n="Id">140L</v>
-                        </o>
-                        <o t="BoxTreeOperand">
-                          <o n="Operand" t="Operand">
-                            <v n="Operand">"Top_Forcage_Position_A_Laser"</v>
-                            <v n="Type">"BOOL"</v>
-                            <v n="Comment">""</v>
-                            <v n="SymbolComment">""</v>
-                            <v n="Address">""</v>
-                            <o n="Flags" t="Flags">
-                              <v n="Flags">0</v>
-                              <v n="Fixed">false</v>
-                              <v n="Extensible">false</v>
-                            </o>
-                            <v n="LValue">false</v>
-                            <v n="Boolean">true</v>
-                            <v n="IsInstance">false</v>
-                            <v n="Id">143L</v>
-                          </o>
-                          <v n="Id">142L</v>
-                        </o>
                       </l2>
                       <o n="InputParam" t="ParamList">
                         <l2 n="Names" cet="String">
@@ -1380,8 +1342,6 @@ END_VAR
                           <v>Demande_ref</v>
                           <v>Axis</v>
                           <v>Axis_Maitre</v>
-                          <v>Forcage_flag_ref</v>
-                          <v>Forcage_pos</v>
                         </l2>
                         <l2 n="Types" cet="String">
                           <v>BOOL</v>
@@ -1418,8 +1378,6 @@ END_VAR
                           <v>BOOL[REF]</v>
                           <v>AXIS_REF[REF]</v>
                           <v>AXIS_REF[REF]</v>
-                          <v>BOOL[REF]</v>
-                          <v>BOOL[REF]</v>
                         </l2>
                       </o>
                       <o n="OutputParam" t="ParamList">
@@ -1472,7 +1430,7 @@ END_VAR
                       <n n="STSnippet" />
                       <v n="ContainsExtensibleInputs">false</v>
                       <v n="ProvidesSTSnippet">false</v>
-                      <v n="Id">247L</v>
+                      <v n="Id">251L</v>
                     </o>
                   </l2>
                   <l2 n="Connectors" />
