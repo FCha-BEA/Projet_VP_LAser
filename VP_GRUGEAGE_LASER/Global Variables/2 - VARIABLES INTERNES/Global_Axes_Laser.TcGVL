@@ -50,7 +50,7 @@ VAR_GLOBAL
 	 Vitesse_Manu_X_Laser							:LREAL;
 	 Limite_Plus_X_Laser							:LREAL;
 (* Axe Y *)
-	 Offset_Y_Laser_REF								: LREAL := 616;
+	 Offset_Y_Laser_REF								: LREAL := 616.5;
 	 	Pos_Y_RelaFaceRef							:LREAL;
 	 Offset_Y_Laser_OPP_REF							: LREAL := 149;
 	 	 Pos_Y_RelaFaceOppRef						:LREAL;

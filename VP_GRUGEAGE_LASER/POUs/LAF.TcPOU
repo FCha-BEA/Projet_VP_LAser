@@ -69,7 +69,8 @@ Plus tqrd ... ne pas perdre secu si abs de tir et rotation face par ex
 
 
 Regler offset machine et test gene et exe cycle avec driver !
-]]></ST>
+Off X Y Face ref ok
+Voir Face opp ref, attention au Y ]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -108,7 +108,7 @@ END_VAR]]></Declaration>
  Acier_E36	:=	Pnc_Piece[2]=1;
  Ep_Ame		:=	Pnc_Piece[3];
  Poids_barre	:=	Pnc_Piece[4];
- Global_Divers.EP_Aile		:=	Pnc_Piece[5];
+ EP_Aile		:=	Pnc_Piece[5];
  Hauteur_Aile	:=	Pnc_Piece[6];
  Largeur_Ame	:=	Pnc_Piece[7];
  Position_Ame	:=	Pnc_Piece[8];

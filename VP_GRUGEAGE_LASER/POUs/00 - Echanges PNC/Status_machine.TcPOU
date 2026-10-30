@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.15">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Status_machine" Id="{92181ffd-b65d-4a3b-887f-ba615af34ec2}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Status_machine
 VAR
@@ -14,7 +14,7 @@ Pnc_Status[1]:=DWORD_TO_REAL(Mot_Status_1);
 		Mot_Status_1.1:=Auto;
 		Mot_Status_1.2:=Mem_Arus;
 		Mot_Status_1.3:=Defaut_General;
-		Mot_Status_1.4:=Alarme_Generale;
+		Mot_Status_1.4:=Global_Divers.Alarme_Generale;
 		Mot_Status_1.5:=Origines_Axes_ok AND NOT Start_Origines;
 
 
@@ -237,24 +237,5 @@ Pnc_Status[247]:=Memo_Pos_X_Laser_Arus;
 Pnc_Status[248]:=Memo_Pos_Y_Laser_Arus;
 ]]></ST>
     </Implementation>
-    <LineIds Name="Status_machine">
-      <LineId Id="8" Count="9" />
-      <LineId Id="30" Count="67" />
-      <LineId Id="133" Count="4" />
-      <LineId Id="141" Count="16" />
-      <LineId Id="283" Count="3" />
-      <LineId Id="295" Count="1" />
-      <LineId Id="294" Count="0" />
-      <LineId Id="158" Count="60" />
-      <LineId Id="221" Count="9" />
-      <LineId Id="235" Count="0" />
-      <LineId Id="287" Count="2" />
-      <LineId Id="238" Count="40" />
-      <LineId Id="5" Count="0" />
-      <LineId Id="302" Count="0" />
-      <LineId Id="301" Count="0" />
-      <LineId Id="305" Count="1" />
-      <LineId Id="304" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

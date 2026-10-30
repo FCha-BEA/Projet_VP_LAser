@@ -3532,8 +3532,11 @@ Start_ISO3D:=FALSE;
 	 Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2 - Offset_Origine_Y_Laser;  
  END_IF*)
 ELSE
-	Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2; //A changer des que comm dispo
-	Pos_cible_X_Laser := Sequence[Pt_Sequence].P1; //A changer des que comm dispo
+	CASE Face_Cible_Cycle OF 
+		1:	Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2 -Ep_Ame + CorrectionY_Ref; 
+		2:	Pos_cible_Y_Laser := Sequence[Pt_Sequence].P2 +Ep_Aile + CorrectionY_OppRef; 
+	END_CASE
+	Pos_cible_X_Laser := Sequence[Pt_Sequence].P1; 
 END_IF
 
 En_pos_X_laser:=FALSE;
@@ -3817,7 +3820,7 @@ AND Palpage_OK_Face_1 AND Palpage_OK_Face_2)]]></ST>
         <ST><![CDATA[//Axes en pos
 En_pos_X AND NOT Top_X
 AND (En_pos_Z_Laser AND NOT Top_Z_Laser)
-AND (En_pos_A_Laser AND NOT Top_A_Laser)
+AND (Face_En_Pos)
 //AND Sequence[Pt_sequence].P26=Pnc_Laser[20]
 AND step200.t>T#50MS]]></ST>
       </Implementation>

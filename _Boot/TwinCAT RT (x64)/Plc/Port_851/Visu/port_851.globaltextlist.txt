@@ -157,6 +157,7 @@ Id;Default
 1257;Bot_1_Cover_Glass
 976;Bot_1_Cover_Glass_Ambient_Temp
 977;Bot_1_Cover_Glass_Temp
+1377;Bus de terrain
 2131;Calibration presseur OK
 988;Capacitance_Calibration_OK
 811;Cavity_Pressure

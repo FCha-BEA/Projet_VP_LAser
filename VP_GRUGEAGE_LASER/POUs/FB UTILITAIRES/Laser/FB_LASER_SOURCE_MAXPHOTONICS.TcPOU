@@ -185,7 +185,7 @@ VAR
 	Status_Optical_Module_Condensation_Alarm							: BOOL;
 	Status_Electrical_Module_Condensation_Alarm						: BOOL;
 	Status_Free_Status_4_17											: BOOL;
-	Status_Free_Status_4_18											: BOOL;
+	Alarme_Generale_Source											: BOOL;
 	Status_Free_Status_4_19											: BOOL;
 	Status_Free_Status_4_20											: BOOL;
 	Status_Free_Status_4_21											: BOOL;
@@ -457,11 +457,11 @@ END_VAR]]></Declaration>
 	Status_Abnormal_Power_Supply_Alarm								:= STATUS_4.11;
 	Status_Abnormal_Control_Signal									:= STATUS_4.12;
 	Status_Optical_Module_Alarm										:= STATUS_4.13;
-	Status_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm			:= STATUS_4.14;
-	Status_Optical_Module_Condensation_Alarm							:= STATUS_4.15;
+	Status_Abnormal_Humidity_Slope_Of_Electrical_Module_Alarm		:= STATUS_4.14;
+	Status_Optical_Module_Condensation_Alarm						:= STATUS_4.15;
 	Status_Electrical_Module_Condensation_Alarm						:= STATUS_4.16;
 	Status_Free_Status_4_17											:= STATUS_4.17;
-	Status_Free_Status_4_18											:= STATUS_4.18;
+	Alarme_Generale_Source											:= STATUS_4.18;
 	Status_Free_Status_4_19											:= STATUS_4.19;
 	Status_Free_Status_4_20											:= STATUS_4.20;
 	Status_Free_Status_4_21											:= STATUS_4.21;
@@ -551,14 +551,18 @@ END_VAR]]></Declaration>
 		NOT Status_Interlock_1_Connected OR
 		NOT Status_Interlock_2_Connected THEN
 			Defaut_Status_2 := TRUE;
+		ELSIF  Status_Interlock_1_Connected AND Status_Interlock_2_Connected THEN
+			Defaut_Status_2 := FALSE;
 	END_IF;
 
 	IF STATUS_3 <> 0 THEN
 		Defaut_Status_3 := TRUE;
 	END_IF;
 
-	IF STATUS_4 <> 0 THEN
+	IF STATUS_4 <> 0 AND Status_Interlock_1_Connected AND Status_Interlock_2_Connected THEN
 		Defaut_Status_4 := TRUE;
+	ELSIF STATUS_4 = 0 THEN
+		Defaut_Status_4 := FALSE;
 	END_IF;
 
 	IF Status_Interlock_1_Connected AND ((Prog_Power_Watt_Target < 0) OR (Prog_Power_Watt_Target > Prog_Power_Watt_Max) OR (Prog_Power_Watt_Max = 0))THEN

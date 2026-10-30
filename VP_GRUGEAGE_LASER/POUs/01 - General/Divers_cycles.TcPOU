@@ -14,6 +14,7 @@ VAR	FW_GetSystemTime1:FW_GetSystemTime;
 	 RE_Start_Origines,Re_Origines	:R_TRIG;
 	 Old_Val_mesure_Presseur_K11_Ref, Old_Val_mesure_Presseur_K11_Opp_Ref,
 	 Old_Val_mesure_Presseur_L12_Ref, Old_Val_mesure_Presseur_L12_Opp_Ref		:LREAL;	 
+	 TON_SerragePresseurs,	 TON_DesserragePresseurs, 
 	 TON_NoMvt_Val_K11_Ref,	 TON_NoMvt_Val_K11_Opp_Ref,	
 	 TON_NoMvt_Val_L12_Ref,	 TON_NoMvt_Val_L12_Opp_Ref	:TON; //La valeur de la mesure ne bouge plus pendant un certains temps : on a serré à vide jusqu'au bout.
 	 TP_Desserrage_Manu	:TP;
@@ -46,10 +47,12 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	FE_Dec_Manu(clk:=Cmd_Manu_Laser);
 	RE_Start_Origines(CLK:=Start_Origines);
 	Re_Origines(CLK:=Origines_Axes_ok);
-	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#3S);
-	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#3S);
-	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_L12_Ref)<5,pt:=T#3S);
-	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_L12_Opp_Ref)<5,pt:=T#3S);
+	TON_SerragePresseurs(IN:=(Presseur_Amont_K11.EV_Serrage AND Presseur_Aval_L12.EV_Serrage),Pt:=T#1S);
+	TON_DesserragePresseurs(IN:=(Presseur_Amont_K11.EV_Desserrage AND Presseur_Aval_L12.EV_Desserrage),Pt:=T#1S);
+	TON_NoMvt_Val_K11_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Ref-Old_Val_mesure_Presseur_K11_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_K11_Opp_Ref(in:=ABS(Presseur_Amont_K11.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_K11_Opp_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_L12_Ref	 (in:=ABS(Presseur_Aval_L12.Val_Mesure_Ref-Old_Val_mesure_Presseur_L12_Ref)<5,pt:=T#1S);
+	TON_NoMvt_Val_L12_Opp_Ref(in:=ABS(Presseur_Aval_L12.Val_Mesure_Opp_Ref-Old_Val_mesure_Presseur_L12_Opp_Ref)<5,pt:=T#1S);
 	TP_Desserrage_Manu(in:=Manu AND FE_Arus.Q ,pt:=T#3S);
 	TP_Start_PomCodSecu(in:=Step_Pom_CodeurSecu=4,PT:=T#100MS);
 	RE_Top_Palp(clk:=G7_General.Top_Cycles_Palp_Laser);
@@ -143,6 +146,11 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 	END_IF
 	Manu:=NOT Auto;
 	
+	IF auto AND Pt_Sequence<>1 AND Sequence[Pt_Sequence].M=0 THEN
+		(*Mise à jour Status sequence effectuée*)
+		Sequence_Status[Pt_Sequence].OK:=100;
+		auto:=FALSE;
+	END_IF
 	
 	(*Si Passage en ARUS*)
 	IF RE_MEM_ARUS.Q THEN
@@ -287,8 +295,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  					AND Ref_Ok_Y_Laser AND 	Ref_Ok_Z_Laser
 					AND Pom_Codeur_Secu_ok
 					AND DI05_Homing_finished
- 					AND Presseur_Amont_K11.Val_Ref_SerreVide <> 0 AND Presseur_Amont_K11.Val_Opp_Ref_SerreVide <> 0	//Calibrage ok 
- 					AND Presseur_Aval_L12.Val_Ref_SerreVide <> 0 AND Presseur_Aval_L12.Val_Opp_Ref_SerreVide<>0;
+ 					AND Calib_Presseurs_OK;
  					
  (*Initialisation Origines*)
   IF Re_Pom.Q AND NOT Mem_Arus AND NOT Defaut_General THEN
@@ -318,7 +325,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
   END_IF
   
  //Calibrage presseur : on serre à vide et on enregistre la valeur
- IF Clignotant_lent THEN
+ IF Clignotant_rapide THEN
  	Old_Val_mesure_Presseur_K11_Ref:=Presseur_Amont_K11.Val_Mesure_Ref;
  	Old_Val_mesure_Presseur_K11_Opp_Ref:=Presseur_Amont_K11.Val_Mesure_Opp_Ref;
  	Old_Val_mesure_Presseur_L12_Ref:=Presseur_Aval_L12.Val_Mesure_Ref;
@@ -328,12 +335,15 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  	 1: 
  	 Def_Calib_Presseurs:=
  	 Calib_Presseurs_OK:=FALSE;
+	 Presseur_Amont_K11.Val_Ref_SerreVide := 0;	
+ 	 Presseur_Amont_K11.Val_Opp_Ref_SerreVide := 0;
+ 	 Presseur_Aval_L12.Val_Ref_SerreVide := 0;
+ 	 Presseur_Aval_L12.Val_Opp_Ref_SerreVide := 0;	//Init des valeurs
 	 Dem_Desserrage_Presseur_Amont_Laser_Auto:=
 	 Dem_Desserrage_Presseur_Aval_Laser_Auto:=FALSE;
 	 Dem_Serrage_Presseur_Amont_Laser_Auto:=
 	 Dem_Serrage_Presseur_Aval_Laser_Auto:=TRUE;			//On serre tous les presseurs ...
-	 IF NOT TON_NoMvt_Val_K11_Ref.Q AND NOT TON_NoMvt_Val_K11_Opp_Ref.Q			 
- 	 AND NOT TON_NoMvt_Val_L12_Ref.Q AND NOT TON_NoMvt_Val_L12_Opp_Ref.Q THEN
+	 IF TON_SerragePresseurs.q THEN
 	 	Step_Calib_Presseurs_Laser:=2;
 	 END_IF
  	 
@@ -352,8 +362,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
  	 3: 
 	 Dem_Desserrage_Presseur_Amont_Laser_Auto:=
 	 Dem_Desserrage_Presseur_Aval_Laser_Auto:=TRUE;	//... et on desserre
-	 IF NOT TON_NoMvt_Val_K11_Ref.Q AND NOT TON_NoMvt_Val_K11_Opp_Ref.Q			 
- 	 AND NOT TON_NoMvt_Val_L12_Ref.Q AND NOT TON_NoMvt_Val_L12_Opp_Ref.Q THEN
+	 IF TON_DesserragePresseurs.Q THEN
 	 	Step_Calib_Presseurs_Laser:=4;
 	 END_IF
 	 

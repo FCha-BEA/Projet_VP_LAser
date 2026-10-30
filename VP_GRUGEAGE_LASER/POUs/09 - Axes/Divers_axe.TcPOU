@@ -83,8 +83,8 @@ Pos_Parking_ZChariot:= Pnc_axe_Z_Chariot.Limite_Plus-20 ;
 
 //Gestion vitesses Manu Axes 
 	IF Selection_DecManu_Laser THEN //Investiguer - vitesse selon recette de decoupe en manu
-		Vitesse_Manu_X_Laser := 50;
-		Vitesse_Manu_Y_Laser := 50;
+		Vitesse_Manu_X_Laser := 70;
+		Vitesse_Manu_Y_Laser := 70;
 	ELSE
 		Vitesse_Manu_X_Laser := Pnc_axe_X_Robot.Vitesse_MAN;
 		Vitesse_Manu_Y_Laser := Pnc_axe_Y_Robot.Vitesse_MAN;

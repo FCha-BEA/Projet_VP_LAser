@@ -183,11 +183,13 @@ RE_Arus(clk:=Arus);
 	 		ReadMode:=1);
 	 Memo_LimM:= FB_ReadLimNeg.Value;
 	 IF Memo_LimM <> Butee_soft_moins THEN
+		FB_WriteLimNeg(axis:=Axis,Execute:=FALSE);
 	 	FB_WriteLimNeg(axis:=Axis,
 	 		Execute:=TRUE,
 	 		ParameterNumber:=MC_AxisParameter.SWLimitNeg,
 	 		value:=Butee_soft_moins);
 	 ELSIF Memo_LimP <> Butee_soft_plus THEN 
+		FB_WriteLimPos(axis:=Axis,Execute:=FALSE);
 	 	FB_WriteLimPos(axis:=Axis,
 	 		Execute:=TRUE,
 	 		ParameterNumber:=MC_AxisParameter.SWLimitPos,
