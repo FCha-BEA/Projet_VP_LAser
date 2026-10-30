@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="ad60cf16-7070-45f7-aba4-b64adca49cbc">Global_Axes_Laser</Type>
+      <From>Offset_X_Laser</From>
+      <To>X_Unite_Laser</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>

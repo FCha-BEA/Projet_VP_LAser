@@ -65,20 +65,20 @@ END_VAR]]></Declaration>
 	Pnc_Laser[7];
 	Pnc_Laser[8];
 	Pnc_Laser[9];
-	Pnc_Laser[10];
-	Pnc_Laser[11];
-	Pnc_Laser[12];
-	Pnc_Laser[13];
+	Pnc_Laser[10];*)
+	Offset_Y_Laser_REF:=Pnc_Laser[11];
+	Offset_Z_Laser_REF:=Pnc_Laser[12];
+	(*Pnc_Laser[13];
 	Pnc_Laser[14];
-	Pnc_Laser[15];
-	Pnc_Laser[16];
-	Pnc_Laser[17];
-	Pnc_Laser[18];
+	Pnc_Laser[15];*)
+	Offset_Y_Laser_OPP_REF:=Pnc_Laser[16];
+	Offset_Z_Laser_OPP_REF:=Pnc_Laser[17];
+	(*Pnc_Laser[18];
 	Pnc_Laser[19];
-	Pnc_Laser[20];
-	Pnc_Laser[21];
-	Pnc_Laser[22];
-	Pnc_Laser[23];
+	Pnc_Laser[20];*)
+	Offset_Y_Laser_ECRETAGE:=[21];
+	Offset_Z_Laser_ECRETAGE:=Pnc_Laser[22];
+	(*Pnc_Laser[23];
 	Pnc_Laser[24];
 	Pnc_Laser[25];
 	Pnc_Laser[26];
@@ -87,7 +87,7 @@ END_VAR]]></Declaration>
 	Pnc_Laser[29];
 	Pnc_Laser[30];
 	Pnc_Laser[31];*)
-
+	X_Unite_Laser:=Pnc_Laser[38];
 
 
  

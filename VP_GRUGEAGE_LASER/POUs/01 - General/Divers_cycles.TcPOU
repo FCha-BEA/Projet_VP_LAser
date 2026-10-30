@@ -456,7 +456,7 @@ timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 (*-----------------------  X Laser trop proche de la pince ---------------------------------------*) 
 IF Manu THEN Zone_X_Interdit_decoupe := 50; ELSE Zone_X_Interdit_decoupe := 10; END_IF
 
- IF  Offset_X_Laser + Pos_Reel_X_Laser <= Pos_Reel_X+Zone_X_Interdit_decoupe THEN
+ IF  X_Unite_Laser + Pos_Reel_X_Laser <= Pos_Reel_X+Zone_X_Interdit_decoupe THEN
 	 	Pince_interdit_decoupe :=TRUE;
  END_IF
  

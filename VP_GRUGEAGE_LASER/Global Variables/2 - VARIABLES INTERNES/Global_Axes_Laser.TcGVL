@@ -4,7 +4,6 @@
     <Declaration><![CDATA[{attribute 'Tc2GvlVarNames'}
 VAR_GLOBAL
 (*Axe A Rotation Angulaire*)
-	 Offset_A_Laser									: LREAL;
 	 Pos_cible_A_Laser								: LREAL:=0;
 	 Pos_Reel_A_Laser								: LREAL:=0;
 	 Num_Defaut_A_Laser								: UDINT:=0;
@@ -27,7 +26,6 @@ VAR_GLOBAL
 	 Vitesse_Reelle_A_Laser							: LREAL;
 	 
 (* Axe X *)
-	 Offset_X_Laser									: LREAL;
 	 Pos_cible_X_Laser								: LREAL:=0;
 	 Pos_Reel_X_Laser								: LREAL:=0;
 	 Num_Defaut_X_Laser								: UDINT:=0;
@@ -50,12 +48,6 @@ VAR_GLOBAL
 	 Vitesse_Manu_X_Laser							:LREAL;
 	 Limite_Plus_X_Laser							:LREAL;
 (* Axe Y *)
-	 Offset_Y_Laser_REF								: LREAL := 616.5;
-	 	Pos_Y_RelaFaceRef							:LREAL;
-	 Offset_Y_Laser_OPP_REF							: LREAL := 149;
-	 	 Pos_Y_RelaFaceOppRef						:LREAL;
-	 Offset_Y_Laser_ECRETAGE						: LREAL := 52;
-	 	 Pos_Y_RelaFaceEcret						:LREAL;
 	 Pos_cible_Y_Laser								: LREAL:=0;
 	 Pos_Reel_Y_Laser								: LREAL:=0;
 	 Num_Defaut_Y_Laser								: UDINT:=0;
@@ -78,9 +70,6 @@ VAR_GLOBAL
 
 	 
 (* Axe Z *)
-	 Offset_Z_Laser_REF								: LREAL := 229;	//a regler
-	 Offset_Z_Laser_OPP_REF							: LREAL := 229; //a regler
-	 Offset_Z_Laser_ECRETAGE						: LREAL := 100; //a regler
 	 Pos_cible_Z_Laser								: LREAL:=0;
 	 Pos_Reel_Z_Laser								: LREAL:=0;
 	 Num_Defaut_Z_Laser								: UDINT:=0;     

@@ -17,6 +17,17 @@ VAR_GLOBAL
  	Def_Gde_Variation_Capa		:BOOL;			//Pendant l'asserv, grande variation de capcitance detectee = soit on passe dans un trou, soit on sors de la corniere. Ne devrait pas monter si exec iso avec M10
  B_RazRecettes				:BOOL;			//Depuis IHM pour RAZ les recettes si on veut nettoyer ou tester l'envoi des recettes par driver
  
+ X_Unite_Laser				:LREAL;			//X chariot =0 ; X laser au début du plan ; Distance entre fd de pince et buse laser
+ Offset_Y_Laser_REF								:LREAL := 616.5;
+ 	Pos_Y_RelaFaceRef							:LREAL;	//utile pour visu
+ Offset_Y_Laser_OPP_REF							: LREAL := 149;
+ 	 Pos_Y_RelaFaceOppRef						:LREAL; //utile pour visu
+ Offset_Y_Laser_ECRETAGE						: LREAL := 52;
+ 	 Pos_Y_RelaFaceEcret						:LREAL; //utile pour visu
+Offset_Z_Laser_REF								: LREAL := 229;	//a regler
+Offset_Z_Laser_OPP_REF							: LREAL := 229; //a regler
+Offset_Z_Laser_ECRETAGE						: LREAL := 100; //a regler
+
 //Palpage pour calcul position sommet
 	Face_Cible_Cycle							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)
 	Face_Cible_Palpage							: INT := 0; (* 0 = Pas de Choix Fait ; 1 = REF ; 2 = OPP REF ; 3 = ECRETAGE *)

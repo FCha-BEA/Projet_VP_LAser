@@ -2666,7 +2666,7 @@ resolution 3/2exp20
 		</Motion>
 		<Plc>
 			<Project GUID="{B492F197-D3E9-4017-ADF8-5DD2D02DFB9D}" Name="VP_GRUGEAGE_LASER" PrjFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.plcproj" TmcFilePath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0384D261-C1F7-6F73-576A-9E2F92B3619B}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{A20FCA4E-00BA-A6D4-E14C-9F1AF994D954}" TmcPath="VP_GRUGEAGE_LASER\VP_GRUGEAGE_LASER.tmc">
 					<Name>VP_GRUGEAGE_LASER Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2740,10 +2740,6 @@ resolution 3/2exp20
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.Focus_Position_Target_Value</Name>
-							<Type>DINT</Type>
-						</Var>
-						<Var>
 							<Name>.DO01_TTA_Capacitance_Preamplifier_Select</Name>
 							<Comment><![CDATA[Sorties TOR]]></Comment>
 							<Type>BOOL</Type>
@@ -2751,6 +2747,10 @@ resolution 3/2exp20
 						<Var>
 							<Name>.DO02_Home_Start</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>.Focus_Position_Target_Value</Name>
+							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DO03_Status_Output</Name>
@@ -3145,16 +3145,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
-						</Var>
-						<Var>
 							<Name>.Lenze_Net_Wordin1_Motec_Pompe</Name>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_CIA_Ctrl_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
+						</Var>
+						<Var>
+							<Name>.Lenze_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Target_Speed_Motec_Pompe</Name>
@@ -3318,16 +3318,16 @@ Sécurité/Réarmement]]></Comment>
 							<Type>UINT</Type>
 						</Var>
 						<Var>
+							<Name>.Focus_Position_Actual_Value</Name>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
 							<Name>.DI02_Up_Limit</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>.DI03_Down_Limit</Name>
 							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>.Focus_Position_Actual_Value</Name>
-							<Type>DINT</Type>
 						</Var>
 						<Var>
 							<Name>.DI04_Bottom_1_Cover_Glass_Ready</Name>
@@ -3350,11 +3350,6 @@ Sécurité/Réarmement]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
-							<Comment><![CDATA[ 0.01 °C ]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
 							<Name>.Data01_Capacitance_Actual_Value</Name>
 							<Comment><![CDATA[Datas input]]></Comment>
 							<Type>UDINT</Type>
@@ -3362,6 +3357,11 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Data02_Capacitance_HeartBeat_Accumulated_Value</Name>
 							<Type>UDINT</Type>
+						</Var>
+						<Var>
+							<Name>.Data03_Focus_Lens_Ambient_Temperature</Name>
+							<Comment><![CDATA[ 0.01 °C ]]></Comment>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>.Data04_Focus_Lens_Temperature</Name>
@@ -3939,6 +3939,10 @@ Sécurité/Réarmement]]></Comment>
 							<Type>USINT</Type>
 						</Var>
 						<Var>
+							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
+							<Type>SINT</Type>
+						</Var>
+						<Var>
 							<Name>.Pompe_Centrale_BM.Status_Word</Name>
 							<Comment><![CDATA[INPUT	]]></Comment>
 							<Type>UINT</Type>
@@ -3970,10 +3974,6 @@ Sécurité/Réarmement]]></Comment>
 						<Var>
 							<Name>.Lenze_Status_Word_Motec_Pompe</Name>
 							<Type>UINT</Type>
-						</Var>
-						<Var>
-							<Name>.Lenze_Active_Operation_Mode_Motec_Pompe</Name>
-							<Type>SINT</Type>
 						</Var>
 						<Var>
 							<Name>.Lenze_Actual_Speed_Motec_Pompe</Name>

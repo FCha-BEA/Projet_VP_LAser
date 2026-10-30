@@ -107,12 +107,12 @@ Pnc_Status[35]:=0;
 Pnc_Status[39]:=DWORD_TO_REAL(Mot_Status_39);
 	Mot_Status_39.1:= FALSE;
 	Mot_Status_39.4:=FALSE;
-	Mot_Status_39.21 :=Ref_ok_X_Laser;
-	Mot_Status_39.22 :=Ref_ok_Y_Laser; 
-	Mot_Status_39.23 :=Ref_ok_Z_Laser;
-	Mot_Status_39.24 :=Ref_ok_A_Laser;
-	Mot_Status_39.25 :=Divers_cycles.Calib_Presseurs_OK;
-	Mot_Status_39.26 :=DI05_Homing_finished;	//Pom Lentille interne laser
+	Mot_Status_39.17 :=Ref_ok_X_Laser;
+	Mot_Status_39.18 :=Ref_ok_Y_Laser; 
+	Mot_Status_39.19 :=Ref_ok_Z_Laser;
+	Mot_Status_39.20 :=Ref_ok_A_Laser;
+	Mot_Status_39.22 :=Divers_cycles.Calib_Presseurs_OK;
+	Mot_Status_39.2 :=DI05_Homing_finished;	//Pom Lentille interne laser
 	
 
 Pnc_Status[40]:=0;
